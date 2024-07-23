@@ -1,0 +1,27 @@
+.footer {
+  width: 100%;
+  background-color: var(--neutral-light);
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.content {
+  list-style-type: none;
+  display: flex;
+  gap: 2rem;
+
+  a {
+    color: var(--accent-dark);
+  }
+}

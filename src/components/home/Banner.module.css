@@ -1,0 +1,20 @@
+.banner {
+  background-color: var(--neutral-bg);
+  border-radius: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+  padding: 1rem 1.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  height: 12rem;
+}
+
+.banner:hover {
+  background-color: var(--neutral-light);
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
