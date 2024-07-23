@@ -2,7 +2,7 @@ import Layout from "../../components/layout/Layout";
 // import { FormInputText } from "../../components/formElements/formInputText";
 // import { FormCheckbox } from "../../components/formElements/formCheckbox";
 // import { Button } from "../../components/layout/common/Button";
-import styles from "./LoginPage.module.css";
+import styles from "./Login.module.css";
 
 export function LoginPage() {
   return (

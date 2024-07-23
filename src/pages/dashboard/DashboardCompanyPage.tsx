@@ -1,4 +1,5 @@
 import Layout from "../../components/layout/Layout";
+// import styles from "./DashboardCompany.module.css";
 
 export function DashBoardCompanyPage() {
   return (

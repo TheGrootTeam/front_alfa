@@ -1,7 +1,10 @@
+import Layout from "../../components/layout/Layout";
+// import styles from "./NotFound.module.css";
+
 export function NotFoundPage() {
   return (
     <>
-      <h2>Login page</h2>
+      <Layout page="notfound"></Layout>
     </>
   );
 }
