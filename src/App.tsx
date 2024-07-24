@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
+import { LostPassword } from './pages/auth/LostPassword';
 
 import { HomePage } from './pages/home/HomePage';
 
@@ -13,6 +14,10 @@ import { DashBoardCompanyPage } from './pages/dashboard/DashboardCompanyPage';
 import { CompanyProfilePage } from './pages/companies/ProfilePage';
 import { EditCompanyProfilePage } from './pages/companies/EditProfilePage';
 
+import { OfferPage } from './pages/offers/OfferPage';
+import { EditOffer } from './pages/offers/EditOffer';
+import { AddNewOffer } from './pages/offers/AddNewOffer';
+
 import { AboutPage } from './pages/about/AboutPage';
 import { NotFoundPage } from './pages/notfound/NotFoundPage';
 
@@ -23,6 +28,7 @@ function App() {
 
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/lost-password" element={<LostPassword />} />
 
       {/* START Rutas protegidas */}
       <Route path="/user">
@@ -35,6 +41,12 @@ function App() {
         <Route index element={<DashBoardCompanyPage />} />
         <Route path="edit" element={<EditCompanyProfilePage />} />
         <Route path="profile" element={<CompanyProfilePage />} />
+      </Route>
+
+      <Route path="/offers">
+        <Route path=":id" element={<OfferPage />} />
+        <Route path=":id/edit" element={<EditOffer />} />
+        <Route path="new" element={<AddNewOffer />} />
       </Route>
       {/* END Rutas protegidas */}
 
