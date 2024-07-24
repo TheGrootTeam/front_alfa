@@ -1,4 +1,4 @@
-import Layout from "../../components/layout/Layout";
+import Layout from '../../components/layout/Layout';
 // import styles from "./Profile.module.css";
 
 export function UserProfilePage() {

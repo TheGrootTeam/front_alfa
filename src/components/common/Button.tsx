@@ -1,4 +1,4 @@
-import styles from "./Button.module.css";
+import styles from './Button.module.css';
 
 interface ButtonProps {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -7,9 +7,18 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-export function Button({ onClick, disabled, className, children }: ButtonProps) {
+export function Button({
+  onClick,
+  disabled,
+  className,
+  children,
+}: ButtonProps) {
   return (
-    <button className={`${styles.button} ${className || ""}`} onClick={onClick} disabled={disabled}>
+    <button
+      className={`${styles.button} ${className ?? ''}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

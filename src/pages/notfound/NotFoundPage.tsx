@@ -1,4 +1,4 @@
-import Layout from "../../components/layout/Layout";
+import Layout from '../../components/layout/Layout';
 // import styles from "./NotFound.module.css";
 
 export function NotFoundPage() {

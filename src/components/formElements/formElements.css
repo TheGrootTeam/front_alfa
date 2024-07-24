@@ -10,7 +10,7 @@ input::file-selector-button {
   font-style: normal;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   appearance: none;
   cursor: pointer;
   background-color: var(--neutral-bg);
@@ -24,9 +24,9 @@ input[type="checkbox"] {
   }
 }
 
-input[type="text"],
-input[type="password"],
-input[type="number"],
+input[type='text'],
+input[type='password'],
+input[type='number'],
 select,
 textarea {
   font-size: 1.5rem;

@@ -1,4 +1,4 @@
-import "./formElements.css";
+import './formElements.css';
 
 interface FormInputTextProps {
   id: string;
@@ -9,6 +9,22 @@ interface FormInputTextProps {
   required?: boolean;
 }
 
-export function FormInputText({ id, name, value, type, onChange, required }: FormInputTextProps) {
-  return <input id={id} name={name} type={type ? type : "text"} value={value} onChange={onChange} required={required} />;
+export function FormInputText({
+  id,
+  name,
+  value,
+  type,
+  onChange,
+  required,
+}: FormInputTextProps) {
+  return (
+    <input
+      id={id}
+      name={name}
+      type={type ? type : 'text'}
+      value={value}
+      onChange={onChange}
+      required={required}
+    />
+  );
 }

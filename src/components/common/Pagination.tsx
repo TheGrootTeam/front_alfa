@@ -1,9 +1,11 @@
-import styles from "./Pagination.module.css";
+import styles from './Pagination.module.css';
 
 const Pagionation = () => {
   return (
     <>
-      <div className={styles.paginationContainer}>{/* Paginación. Mirar librerías?? */}</div>
+      <div className={styles.paginationContainer}>
+        {/* Paginación. Mirar librerías?? */}
+      </div>
     </>
   );
 };

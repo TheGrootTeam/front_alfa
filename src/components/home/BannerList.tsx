@@ -1,5 +1,5 @@
-import styles from "./BannerList.module.css";
-import Banner from "./Banner";
+import styles from './BannerList.module.css';
+import Banner from './Banner';
 
 const BannersList: React.FC = () => {
   return (

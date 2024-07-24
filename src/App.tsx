@@ -1,20 +1,20 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { LoginPage } from "./pages/auth/LoginPage";
-import { RegisterPage } from "./pages/auth/RegisterPage";
+import { LoginPage } from './pages/auth/LoginPage';
+import { RegisterPage } from './pages/auth/RegisterPage';
 
-import { HomePage } from "./pages/home/HomePage";
+import { HomePage } from './pages/home/HomePage';
 
-import { DashBoardInternPage } from "./pages/dashboard/DashboardInternPage";
-import { UserProfilePage } from "./pages/users/ProfilePage";
-import { EditUserProfilePage } from "./pages/users/EditProfilePage";
+import { DashBoardInternPage } from './pages/dashboard/DashboardInternPage';
+import { UserProfilePage } from './pages/users/ProfilePage';
+import { EditUserProfilePage } from './pages/users/EditProfilePage';
 
-import { DashBoardCompanyPage } from "./pages/dashboard/DashboardCompanyPage";
-import { CompanyProfilePage } from "./pages/companies/ProfilePage";
-import { EditCompanyProfilePage } from "./pages/companies/EditProfilePage";
+import { DashBoardCompanyPage } from './pages/dashboard/DashboardCompanyPage';
+import { CompanyProfilePage } from './pages/companies/ProfilePage';
+import { EditCompanyProfilePage } from './pages/companies/EditProfilePage';
 
-import { AboutPage } from "./pages/about/AboutPage";
-import { NotFoundPage } from "./pages/notfound/NotFoundPage";
+import { AboutPage } from './pages/about/AboutPage';
+import { NotFoundPage } from './pages/notfound/NotFoundPage';
 
 function App() {
   return (

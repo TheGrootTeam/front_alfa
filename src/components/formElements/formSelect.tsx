@@ -1,4 +1,4 @@
-import "./formElements.css";
+import './formElements.css';
 
 interface FormSelectProps {
   name: string;
@@ -7,7 +7,12 @@ interface FormSelectProps {
   options: Record<string, string>;
 }
 
-export function FormSelect({ name, value, onChange, options }: FormSelectProps) {
+export function FormSelect({
+  name,
+  value,
+  onChange,
+  options,
+}: FormSelectProps) {
   return (
     <select name={name} value={value} onChange={onChange}>
       {Object.entries(options).map(([key, optionValue]) => (

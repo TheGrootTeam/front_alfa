@@ -1,4 +1,4 @@
-import styles from "./SearchForm.module.css";
+import styles from './SearchForm.module.css';
 
 const SearchForm = () => {
   return (

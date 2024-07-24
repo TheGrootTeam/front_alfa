@@ -1,4 +1,4 @@
-import "./formElements.css";
+import './formElements.css';
 
 interface FormFieldsetProps {
   className?: string;
@@ -6,7 +6,11 @@ interface FormFieldsetProps {
   children: React.ReactNode;
 }
 
-export function FormFieldset({ className, labelText, children }: FormFieldsetProps) {
+export function FormFieldset({
+  className,
+  labelText,
+  children,
+}: FormFieldsetProps) {
   return (
     <fieldset className={className}>
       <span className="radiogroup__label">{labelText}</span>

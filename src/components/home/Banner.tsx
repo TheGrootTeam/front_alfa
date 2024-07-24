@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styles from "./Banner.module.css";
+import { Link } from 'react-router-dom';
+import styles from './Banner.module.css';
 
 interface BannerProps {
   text: string;

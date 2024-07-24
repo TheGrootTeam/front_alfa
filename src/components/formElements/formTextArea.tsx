@@ -1,4 +1,4 @@
-import "./formElements.css";
+import './formElements.css';
 
 interface FormTextareaProps {
   id: string;
@@ -8,6 +8,20 @@ interface FormTextareaProps {
   required?: boolean;
 }
 
-export function FormTextarea({ id, name, value, onChange, required }: FormTextareaProps) {
-  return <textarea id={id} name={name} value={value} onChange={onChange} required={required} />;
+export function FormTextarea({
+  id,
+  name,
+  value,
+  onChange,
+  required,
+}: FormTextareaProps) {
+  return (
+    <textarea
+      id={id}
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+    />
+  );
 }
