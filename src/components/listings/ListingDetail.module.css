@@ -1,0 +1,14 @@
+.listingDetail {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+
+.listingDetail h2 {
+  margin-top: 0;
+}
+
+.listingDetail p {
+  margin-bottom: 0;
+}
