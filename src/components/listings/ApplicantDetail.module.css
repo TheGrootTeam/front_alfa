@@ -1,0 +1,10 @@
+.applicantDetail {
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.applicantDetail p {
+  margin: 4px 0;
+}

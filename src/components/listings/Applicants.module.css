@@ -1,0 +1,19 @@
+.applicants {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.applicants h2 {
+  margin-top: 0;
+}
+
+.applicants ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.applicant {
+  margin-bottom: 8px;
+}
