@@ -17,6 +17,7 @@ import { EditCompanyProfilePage } from './pages/companies/EditProfilePage';
 import { OfferPage } from './pages/offers/OfferPage';
 import { EditOffer } from './pages/offers/EditOffer';
 import { AddNewOffer } from './pages/offers/AddNewOffer';
+import { OffersList } from './pages/offers/OffersList';
 
 import { AboutPage } from './pages/about/AboutPage';
 import { NotFoundPage } from './pages/notfound/NotFoundPage';
@@ -44,6 +45,7 @@ function App() {
       </Route>
 
       <Route path="/offers">
+        <Route index element={<OffersList />} />
         <Route path=":id" element={<OfferPage />} />
         <Route path=":id/edit" element={<EditOffer />} />
         <Route path="new" element={<AddNewOffer />} />
