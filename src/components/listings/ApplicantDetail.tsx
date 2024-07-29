@@ -8,11 +8,11 @@ interface ApplicantDetailProps {
   // Agregar más detalles específicos del aplicante en el futuro
 }
 
-const ApplicantDetail: React.FC<ApplicantDetailProps> = ({ id, name, email }) => {
+const ApplicantDetail: React.FC<ApplicantDetailProps> = () => {
   return (
     <div className={styles.applicantDetail}>
-      <p>Name: {name}</p>
-      <p>Email: {email}</p>
+      <p>Name: Juan</p>
+      <p>Email: Palomo</p>
       <Button onClick={() => {}}>View Profile</Button>
     </div>
   );
