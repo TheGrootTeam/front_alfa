@@ -7,11 +7,11 @@ interface ListingProps {
   description: string;
 }
 
-const ListingDetail: React.FC<ListingProps> = ({ id, title, description }) => {
+const ListingDetail: React.FC<ListingProps> = () => {
   return (
     <div className={styles.listing}>
-      <h2>{title}</h2>
-      <p>{description}</p>
+      <h2>Titulo</h2>
+      <p>description</p>
       {/* TODO: Incluir el componente Button en funcion del pefil (company o user) y si el user ha aplicado o no */}
       <Button onClick={() => {}}>Apply Now</Button>
     </div>
