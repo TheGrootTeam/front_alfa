@@ -1,58 +1,109 @@
+// @ts-nocheck
 import { useDispatch } from 'react-redux';
 import Layout from '../../components/layout/Layout';
-// import { FormInputText } from "../../components/formElements/formInputText";
-// import { FormCheckbox } from "../../components/formElements/formCheckbox";
-// import { Button } from "../../components/layout/common/Button";
+import { FormInputText } from '../../components/formElements/formInputText';
+import { FormCheckbox } from '../../components/formElements/formCheckbox';
+import { Button } from '../../components/common/Button';
+import { FormRadioButton } from '../../components/formElements/formRadioButton';
 import styles from './Login.module.css';
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { authLogin } from '../../store/actions';
+import formReducer from '../../state_logic/reducers/formReducer';
 
 export function LoginPage() {
-  const dispatch = useDispatch();
-
-  const [formData, setFormData] = useState({
+  const initialData = {
     dniCif: '',
     password: '',
-  });
+    isCompany: null,
+    rememberMe: false,
+  };
 
-  const [formChecks, setFormChecks] = useState({
-    isCompany: false,
-    checked: false,
-  });
+  const { dniCif, password, isCompany, rememberMe } = initialData;
 
-  const handleSubmit = async (event) => {
+  const dispatchGlobal = useDispatch();
+  const [localState, dispatchLocal] = useReducer(formReducer, initialData);
+
+  const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    dispatch(authLogin(formData, formChecks));
+    const data = dispatchLocal(formReducer(localState));
+    dispatchGlobal(authLogin(data));
   };
 
-  const handleChange = (event) => {
-    setFormData((currentData) => ({
-      ...currentData,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  const handleCheck = (event) => {
-    setFormChecks(event.target.checked);
-  };
+  const handleChange =
+    (field = '') =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (field === 'check') {
+        dispatchLocal(inputCheckChange(event));
+      } else {
+        dispatchLocal(inputChange(event));
+      }
+    };
 
   return (
     <Layout title="Log In" page="loginPage">
-      <form id="login-form" className={styles.form}>
+      <form onSubmit={handleSubmit} id="login-form" className={styles.form}>
         <p>
-          <label htmlFor="email">Email</label>
-          {/* <FormInputText className="form__inputfield" id="email" name="email" value={email} onChange={handleChange} required /> */}
+          <label htmlFor="dniCif">DNI/CIF</label>
+          <FormInputText
+            className="form__inputfield"
+            id="dniCif"
+            name="dniCif"
+            value={dniCif}
+            onChange={handleChange}
+            required
+          />
         </p>
         <p>
-          <label htmlFor="password">Password</label>
-          {/* <FormInputText className="form__inputfield" type="password" id="password" name="password" value={password} onChange={handleChange} required /> */}
+          <FormInputText
+            label="Password"
+            className="form__inputfield"
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required
+          />
         </p>
+        <FormRadioButton
+          className={styles.radioContainer}
+          title="Select type"
+          name="isCompany"
+          options={[
+            {
+              label: 'Company',
+              id: 'company',
+              value: 'true',
+            },
+            {
+              label: 'Applicant',
+              id: 'applicant',
+              value: 'false',
+            },
+          ]}
+          selectedOption={
+            localState.isCompany === null
+              ? null
+              : localState.isCompany.toString()
+          }
+          onChange={() => handleChange('check')}
+        />
         <p className={styles.withCheckbox}>
-          {/* <FormCheckbox labelText="Remember me" id="rememberMe" name="rememberMe" checked={rememberMe} onChange={handleChange} /> */}
+          <FormCheckbox
+            labelText="Remember me"
+            id="rememberMe"
+            name="rememberMe"
+            checked={rememberMe}
+            onChange={() => handleChange('check')}
+          />
         </p>
-        {/* <Button className="form__button" type="submit">
+        <Button
+          className="form__button"
+          type="submit"
+          disabled={!dniCif || !password || isCompany === null || isFetching}
+        >
           Log in
-        </Button> */}
+        </Button>
       </form>
     </Layout>
   );

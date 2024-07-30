@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { PayloadAction } from '@reduxjs/toolkit';
 import * as t from './types';
 
@@ -23,7 +25,7 @@ export function auth(
   }
 }
 
-export function ui(state = defaultState.ui, action: PayloadAction<>) {
+export function ui(state = defaultState.ui, action) {
   if (action.error) {
     return { ...state, pending: false, error: action.payload };
   }

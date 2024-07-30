@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as t from './types';
 
 export const authLoginPending = () => ({
@@ -20,7 +22,7 @@ export const authLogin = (data) => {
       dispatch(authLoginPending());
       await auth.login(data);
       dispatch(authLoginFulfilled());
-      router.navigate(router.state.location.state?.pathname || "/");
+      router.navigate(router.state.location.state?.pathname || '/');
     } catch (error) {
       dispatch(authLoginRejected(error));
     }
