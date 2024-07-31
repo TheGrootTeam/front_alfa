@@ -6,9 +6,8 @@ export function FormInputText({
   id,
   name,
   value,
-  type,
+  type = 'text',
   onChange,
-  required,
   ...props
 }: IFormInputTextProps) {
   return (
@@ -17,7 +16,7 @@ export function FormInputText({
       <input
         id={id}
         name={name}
-        type={type ? type : 'text'}
+        type={type}
         value={value}
         onChange={onChange}
         {...props}

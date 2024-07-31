@@ -1,50 +1,32 @@
-// @ts-nocheck
 import { useDispatch } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import { Button } from '../../components/common/Button';
-import { FormRadioButton } from '../../components/formElements/formRadioButton';
 import styles from './Login.module.css';
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 import { authLogin } from '../../store/actions';
-import formReducer from '../../state_logic/reducers/formReducer';
 
 export function LoginPage() {
-  // const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   event.preventDefault();
-  //   const data = dispatchLocal(formReducer(localState));
-  //   dispatchGlobal(authLogin(data));
-  // };
 
-  // const handleChange =
-  //   (field = '') =>
-  //   (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     if (field === 'check') {
-  //       dispatchLocal(inputCheckChange(event));
-  //     } else {
-  //       dispatchLocal(inputChange(event));
-  //     }
-  //   };
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     dniCif: '',
     password: '',
-    isCompany: null,
     rememberMe: false,
   });
 
-  const { dniCif, password, isCompany, rememberMe } = formData;
+  const { dniCif, password, rememberMe } = formData;
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(authLogin(formData));
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value =
-      (event.target.type === 'radio')
-        ? JSON.parse(event.target.value)
+      (event.target.type === 'checkbox')
+        ? event.target.checked
         : event.target.value;
 
     setFormData((currentData) => ({
@@ -78,34 +60,12 @@ export function LoginPage() {
             required
           />
         </p>
-        <FormRadioButton
-          className={styles.radioContainer}
-          title="Select type"
-          arrayOptions={[
-            {
-              labelText: 'Company',
-              name: 'isCompany',
-              id: 'company',
-              value: "true",
-              checked: isCompany === true,
-              onChange: handleChange
-            },
-            {
-              labelText: 'Applicant',
-              name: 'isCompany',
-              id: 'applicant',
-              value: "false",
-              checked: isCompany === false,
-              onChange: handleChange
-            },
-          ]}
-        />
         <p className={styles.withCheckbox}>
           <FormCheckbox
             labelText="Remember me"
             id="rememberMe"
             name="rememberMe"
-            value={rememberMe === true}
+            value={`${rememberMe === true}`}
             checked={rememberMe}
             onChange={handleChange}
           />
@@ -113,7 +73,7 @@ export function LoginPage() {
         <Button
           className="form__button"
           type="submit"
-          disabled={!dniCif || !password || isCompany === null }
+          disabled={!dniCif || !password}
         >
           Log in
         </Button>

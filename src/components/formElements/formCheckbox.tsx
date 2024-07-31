@@ -1,23 +1,17 @@
+import { FormCheckboxProps } from '../../utils/interfaces/IFormElements';
 import './formElements.css';
-
-interface FormCheckboxProps {
-  id: string;
-  labelText: string;
-  name: string;
-  value: string;
-  checked: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 export function FormCheckbox({
   id,
   labelText,
   name,
-  value,
   checked,
+  value,
   onChange,
+  ...props
 }: FormCheckboxProps) {
   return (
+    <>
     <label key={id} htmlFor={id}>
       <input
         type="checkbox"
@@ -26,8 +20,10 @@ export function FormCheckbox({
         value={value}
         checked={checked}
         onChange={onChange}
+        {...props}
       />
       <span>{labelText}</span>
     </label>
+    </>
   );
 }
