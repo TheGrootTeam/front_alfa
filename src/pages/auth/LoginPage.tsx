@@ -6,10 +6,11 @@ import { Button } from '../../components/common/Button';
 import styles from './Login.module.css';
 import { useState } from 'react';
 import { authLogin } from '../../store/actions';
+import { AppDispatch } from '../../store';
 
 export function LoginPage() {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch.withTypes<AppDispatch>();
   const [formData, setFormData] = useState({
     dniCif: '',
     password: '',

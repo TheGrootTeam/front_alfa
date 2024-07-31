@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { PayloadAction } from '@reduxjs/toolkit';
 import * as t from './types';
 

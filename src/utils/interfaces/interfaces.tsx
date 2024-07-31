@@ -1,7 +1,7 @@
 export interface ILoginData {
   dniCif: string;
   password: string;
-  isCompany: boolean;
+  rememberMe: boolean;
 }
 
 export interface IToken {

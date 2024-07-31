@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import * as t from './types';
 
 export const authLoginPending = () => ({
@@ -17,12 +15,12 @@ export const authLoginRejected = (error) => ({
 });
 
 export const authLogin = (data) => {
-  return async function (dispatch, _getState, { services: { auth }, router }) {
+  return async function (dispatch, _getState, { services: { auth } }) {
     try {
       dispatch(authLoginPending());
       await auth.login(data);
       dispatch(authLoginFulfilled());
-      router.navigate(router.state.location.state?.pathname || '/');
+      // router.navigate(router.state.location.state?.pathname || '/');
     } catch (error) {
       dispatch(authLoginRejected(error));
     }
