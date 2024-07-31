@@ -5,5 +5,5 @@ export interface ILoginData {
 }
 
 export interface IToken {
-  accessToken: string;
+  tokenJWT: string;
 }
