@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authLogin } from '../actions/authActions';
+import { authLogin, authLogout } from '../actions/authActions';
 
 const initialState = {
-  auth: false
+  auth: false,
 };
 
 export const authSlice = createSlice({
@@ -10,8 +10,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(authLogin.fulfilled, (state) => {
-      state.auth = true;
-    });
+    builder
+      .addCase(authLogin.fulfilled, (state) => {
+        state.auth = true;
+      })
+      .addCase(authLogout.fulfilled, (state) => {
+        state.auth = false;
+      });
   },
 });
