@@ -1,5 +1,5 @@
 import styles from './ApplicantDetail.module.css';
-import { Button } from '../common/Button';
+// import { Button } from '../common/Button';
 
 interface ApplicantDetailProps {
   id: number;
@@ -13,7 +13,7 @@ const ApplicantDetail: React.FC<ApplicantDetailProps> = () => {
     <div className={styles.applicantDetail}>
       <p>Name: Juan</p>
       <p>Email: Palomo</p>
-      <Button onClick={() => {}}>View Profile</Button>
+      {/* <Button onClick={() => {}}>View Profile</Button> */}
     </div>
   );
 };

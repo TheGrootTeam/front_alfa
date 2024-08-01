@@ -9,11 +9,12 @@ import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogin } from '../../store/actions/authActions';
 import { Button } from '../../components/common/Button';
+import { AppDispatch } from '../../store/store';
 
 export function LoginPage() {
   const {loading, error} = useSelector(getUi);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     dniCif: '',
     password: '',

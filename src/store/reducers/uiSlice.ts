@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {  } from '../../utils/interfaces/IAuth';
+import { IErrorPayload } from '../../utils/interfaces/IStore';
 
 const initialState = {
   loading: true,
-  error: null,
+  error: null as string | null,
 };
 
 export const uiSlice = createSlice({
@@ -31,7 +33,7 @@ export const uiSlice = createSlice({
       )
       .addMatcher(
         (action) => action.error,
-        (state, action) => {
+        (state, action: IErrorPayload) => {
           state.loading = false;
           state.error = action.payload;
         }
