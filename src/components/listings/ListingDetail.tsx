@@ -1,5 +1,5 @@
 import styles from './ListingDetail.module.css';
-import { Button } from '../common/Button';
+// import { Button } from '../common/Button';
 
 interface ListingProps {
   id: number;
@@ -13,7 +13,7 @@ const ListingDetail: React.FC<ListingProps> = () => {
       <h2>Titulo</h2>
       <p>description</p>
       {/* TODO: Incluir el componente Button en funcion del pefil (company o user) y si el user ha aplicado o no */}
-      <Button onClick={() => {}}>Apply Now</Button>
+      {/* <Button onClick={() => {}}>Apply Now</Button> */}
     </div>
   );
 };
