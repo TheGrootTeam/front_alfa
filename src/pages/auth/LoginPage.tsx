@@ -2,12 +2,16 @@ import { useDispatch } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormCheckbox } from '../../components/formElements/formCheckbox';
-import { Button } from '../../components/common/Button';
 import styles from './Login.module.css';
 import { useState } from 'react';
-import { authLogin } from '../../store/actions';
+import { useSelector } from 'react-redux';
+import { getUi } from '../../store/selectors';
+import { uiSlice } from '../../store/reducers/uiSlice';
+import { authLogin } from '../../store/actions/authActions';
+import { Button } from '../../components/common/Button';
 
 export function LoginPage() {
+  const {loading, error} = useSelector(getUi);
 
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -25,7 +29,7 @@ export function LoginPage() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value =
-      (event.target.type === 'checkbox')
+      event.target.type === 'checkbox'
         ? event.target.checked
         : event.target.value;
 
@@ -33,6 +37,10 @@ export function LoginPage() {
       ...currentData,
       [event.target.name]: value,
     }));
+  };
+
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
   };
 
   return (
@@ -73,11 +81,12 @@ export function LoginPage() {
         <Button
           className="form__button"
           type="submit"
-          disabled={!dniCif || !password}
+          disabled={!dniCif || !password || !loading && error !== null }
         >
           Log in
         </Button>
       </form>
+      <div onClick={resetError}>{error ? error : null}</div>
     </Layout>
   );
 }
