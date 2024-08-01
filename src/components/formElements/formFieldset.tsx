@@ -1,4 +1,4 @@
-import './formElements.css';
+import './formElements.module.css';
 
 interface FormFieldsetProps {
   className?: string;
