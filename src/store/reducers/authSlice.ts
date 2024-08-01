@@ -2,11 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { authLogin } from '../actions/authActions';
 
 const initialState = {
-  auth: false,
-  ui: {
-    loading: true,
-    error: null,
-  },
+  auth: false
 };
 
 export const authSlice = createSlice({

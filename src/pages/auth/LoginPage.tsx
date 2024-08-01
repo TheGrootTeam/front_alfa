@@ -1,18 +1,14 @@
 import { useDispatch } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormCheckbox } from '../../components/formElements/formCheckbox';
-import { Button } from '../../components/common/Button';
-import { FormInputText } from '../../components/formElements/formInputText';
-import { FormCheckbox } from '../../components/formElements/formCheckbox';
-import { Button } from '../../components/common/Button';
 import styles from './Login.module.css';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogin } from '../../store/actions/authActions';
+import { Button } from '../../components/common/Button';
 
 export function LoginPage() {
   const {loading, error} = useSelector(getUi);
@@ -85,7 +81,7 @@ export function LoginPage() {
         <Button
           className="form__button"
           type="submit"
-          disabled={!dniCif || !password}
+          disabled={!dniCif || !password || !loading && error !== null }
         >
           Log in
         </Button>

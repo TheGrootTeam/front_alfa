@@ -10,8 +10,9 @@ export const uiSlice = createSlice({
   initialState,
   reducers: {
     resetError: (state) => {
-        state.error = null
-    }
+      state.error = null;
+      state.loading = false;
+    },
   },
   extraReducers: (builder) => {
     builder
