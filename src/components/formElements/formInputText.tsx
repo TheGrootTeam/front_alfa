@@ -1,5 +1,5 @@
 import { IFormInputTextProps } from '../../utils/interfaces/IFormElements';
-import './formElements.css';
+import './formElements.module.css';
 
 export function FormInputText({
   labelText,
