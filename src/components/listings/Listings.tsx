@@ -12,7 +12,7 @@ export function Listings() {
     async function fetchOffers() {
       try {
         const offersList = await getOffers();
-        setOffers(offersList);
+        if (offersList) setOffers(offersList);
       } catch (error) {}
     }
     fetchOffers();
