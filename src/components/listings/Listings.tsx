@@ -1,22 +1,37 @@
 import styles from './Listings.module.css';
-import ListingDetail from './ListingDetail';
-
-/*Ejemplo*/
-const listingsData = [
-  { id: 1, title: 'Offer 1', description: 'Description for offer 1' },
-  { id: 2, title: 'Offer 2', description: 'Description for offer 2' }
-];
+import { ListingDetail } from './ListingDetail';
+import { useEffect, useState } from 'react';
+import { getOffers } from '../../utils/serviceOffers';
+import { IOffer } from '../../utils/interfaces/IOffer';
 
 export function Listings() {
+  const [offers, setOffers] = useState<IOffer[]>([]);
+  // const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchOffers() {
+      try {
+        const offersList = await getOffers();
+        setOffers(offersList);
+      } catch (error) {}
+    }
+    fetchOffers();
+  }, []);
+
   return (
     <div className={styles.listings}>
-      {listingsData.map(listing => (
-        <ListingDetail
-          key={listing.id}
-          id={listing.id}
-          title={listing.title}
-          description={listing.description}
-        />
+      {offers.map((offer) => (
+        <div key={offer._id}>
+          <ListingDetail
+            id={offer._id}
+            companyOwner={offer.companyOwner}
+            description={offer.description}
+            numberApplicants={offer.numberApplicants}
+            numberVacancies={offer.numberVacancies}
+            position={offer.position}
+            status={offer.status}
+          />
+        </div>
       ))}
     </div>
   );
