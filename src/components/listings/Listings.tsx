@@ -8,6 +8,7 @@ import {
   IOffer,
 } from '../../utils/interfaces/IOffer';
 import { isIErrListings } from '../../utils/utilsOffers';
+import { ErrorsDisplay } from '../common/ErrorDisplay';
 
 export function Listings() {
   const [offers, setOffers] = useState<IOffer[]>([]);
@@ -40,21 +41,29 @@ export function Listings() {
     fetchOffers();
   }, []);
 
-  return (
-    <div className={styles.listings}>
-      {offers.map((offer) => (
-        <div key={offer._id}>
-          <ListingDetail
-            id={offer._id}
-            companyOwner={offer.companyOwner.name}
-            description={offer.description}
-            numberApplicants={offer.numberApplicants}
-            numberVacancies={offer.numberVacancies}
-            position={offer.position}
-            status={offer.status}
-          />
-        </div>
-      ))}
-    </div>
-  );
+  function showError() {
+    return <ErrorsDisplay content={error} />;
+  }
+
+  function showOffers() {
+    return (
+      <div className={styles.listings}>
+        {offers.map((offer) => (
+          <div key={offer._id}>
+            <ListingDetail
+              id={offer._id}
+              companyOwner={offer.companyOwner.name}
+              description={offer.description}
+              numberApplicants={offer.numberApplicants}
+              numberVacancies={offer.numberVacancies}
+              position={offer.position}
+              status={offer.status}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return <>{error ? showError() : showOffers()}</>;
 }
