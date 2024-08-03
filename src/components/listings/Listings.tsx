@@ -2,18 +2,40 @@ import styles from './Listings.module.css';
 import { ListingDetail } from './ListingDetail';
 import { useEffect, useState } from 'react';
 import { getOffers } from '../../utils/serviceOffers';
-import { IOffer } from '../../utils/interfaces/IOffer';
+import {
+  ICustomErrorListings,
+  IErrListings,
+  IOffer,
+} from '../../utils/interfaces/IOffer';
+import { isIErrListings } from '../../utils/utilsOffers';
 
 export function Listings() {
   const [offers, setOffers] = useState<IOffer[]>([]);
-  // const [error, setError] = useState(null);
+  const [error, setError] = useState<ICustomErrorListings | string | null>(
+    null
+  );
 
   useEffect(() => {
     async function fetchOffers() {
       try {
         const offersList = await getOffers();
         if (offersList) setOffers(offersList);
-      } catch (error) {}
+      } catch (err) {
+        if (isIErrListings(err)) {
+          // handling error from API
+          const error = err as IErrListings;
+
+          const errorObject: ICustomErrorListings = {
+            message: error.error,
+            status: error.status,
+            statusText: error.statusText,
+          };
+          setError(errorObject);
+        } else {
+          // handling unknow error
+          setError('Ups, se ha producido un error desconocido.');
+        }
+      }
     }
     fetchOffers();
   }, []);
