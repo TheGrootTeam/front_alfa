@@ -12,13 +12,15 @@ export function ListingDetail({
   position,
 }: IOfferListingDetail) {
   return (
-    <div className={styles.listing}>
+    <div className={styles.listingDetail}>
       <Link to={`/offers/${id}`}>
-        <h2>{position}</h2>
-        <p>{description}</p>
-        <p>{companyOwner}</p>
-        <p>{numberApplicants}</p>
-        <p>{numberVacancies}</p>
+        <h2>Título: {position}</h2>
+        <p>Descripción: {description}</p>
+        <p>Empresa: {companyOwner}</p>
+        <p>
+          Número vacantes: {numberVacancies} | Número solicitantes:{' '}
+          {numberApplicants}
+        </p>
         {/* TODO: Incluir el componente Button en funcion del pefil (company o user) y si el user ha aplicado o no */}
         {/* <Button onClick={() => {}}>Apply Now</Button> */}
       </Link>
