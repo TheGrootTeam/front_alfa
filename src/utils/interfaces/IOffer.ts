@@ -2,8 +2,13 @@ export interface IOffers {
   offers: IOffer[];
 }
 
+interface companyOwner {
+  _id: string;
+  name: string;
+}
+
 export interface IOffer {
-  companyOwner: string;
+  companyOwner: companyOwner;
   description: string;
   numberApplicants: number;
   numberVacancies: number;
