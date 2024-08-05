@@ -5,13 +5,13 @@ import { getOffers } from '../../utils/serviceOffers';
 import {
   ICustomErrorListings,
   IErrListings,
-  IOffer,
+  IOfferMapped,
 } from '../../utils/interfaces/IOffer';
-import { isIErrListings } from '../../utils/utilsOffers';
+import { isIErrListings, offersMapped } from '../../utils/utilsOffers';
 import { ErrorsDisplay } from '../common/ErrorDisplay';
 
 export function Listings() {
-  const [offers, setOffers] = useState<IOffer[]>([]);
+  const [offers, setOffers] = useState<IOfferMapped[]>([]);
   const [error, setError] = useState<ICustomErrorListings | string | null>(
     null
   );
@@ -20,7 +20,11 @@ export function Listings() {
     async function fetchOffers() {
       try {
         const offersList = await getOffers();
-        if (offersList) setOffers(offersList);
+
+        if (offersList) {
+          const mappedOffers = offersMapped(offersList);
+          setOffers(mappedOffers);
+        }
       } catch (err) {
         if (isIErrListings(err)) {
           // handling error from API
@@ -49,9 +53,9 @@ export function Listings() {
     return (
       <div className={styles.listings}>
         {offers.map((offer) => (
-          <div key={offer._id}>
+          <div key={offer.id}>
             <ListingDetail
-              id={offer._id}
+              id={offer.id}
               companyOwner={offer.companyOwner.name}
               description={offer.description}
               numberApplicants={offer.numberApplicants}
