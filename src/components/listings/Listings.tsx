@@ -1,49 +1,21 @@
 import styles from './Listings.module.css';
 import { ListingDetail } from './ListingDetail';
-import { useEffect, useState } from 'react';
-import { getOffers } from '../../utils/serviceOffers';
-import {
-  ICustomErrorListings,
-  IErrListings,
-  IOfferMapped,
-} from '../../utils/interfaces/IOffer';
-import { isIErrListings, offersMapped } from '../../utils/utilsOffers';
+import { useEffect } from 'react';
 import { ErrorsDisplay } from '../common/ErrorDisplay';
+import { getOffersState, getUi } from '../../store/selectors';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { getOffersAction } from '../../store/actions/offersActions';
 
 export function Listings() {
-  const [offers, setOffers] = useState<IOfferMapped[]>([]);
-  const [error, setError] = useState<ICustomErrorListings | string | null>(
-    null
-  );
+  const offers = useSelector(getOffersState);
+  const { loading, error } = useSelector(getUi);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    async function fetchOffers() {
-      try {
-        const offersList = await getOffers();
-
-        if (offersList) {
-          const mappedOffers = offersMapped(offersList);
-          setOffers(mappedOffers);
-        }
-      } catch (err) {
-        if (isIErrListings(err)) {
-          // handling error from API
-          const error = err as IErrListings;
-
-          const errorObject: ICustomErrorListings = {
-            message: error.error,
-            status: error.status,
-            statusText: error.statusText,
-          };
-          setError(errorObject);
-        } else {
-          // handling unknow error
-          setError('Ups, se ha producido un error desconocido.');
-        }
-      }
-    }
-    fetchOffers();
-  }, []);
+    dispatch(getOffersAction());
+  }, [dispatch]);
 
   function showError() {
     return <ErrorsDisplay content={error} />;
