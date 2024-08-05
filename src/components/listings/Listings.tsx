@@ -21,6 +21,10 @@ export function Listings() {
     return <ErrorsDisplay content={error} />;
   }
 
+  function showLoading() {
+    return;
+  }
+
   function showOffers() {
     return (
       <div className={styles.listings}>

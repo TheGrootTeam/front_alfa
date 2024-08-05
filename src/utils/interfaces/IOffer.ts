@@ -46,23 +46,3 @@ export interface IOfferListingDetail {
   position: string;
   status: boolean;
 }
-
-export interface IErrListings {
-  config: any;
-  data: dataErr;
-  error: string;
-  headers: any;
-  request: any;
-  status: number;
-  statusText: string;
-}
-
-interface dataErr {
-  error: string;
-}
-
-export interface ICustomErrorListings {
-  message: string;
-  status: number;
-  statusText: string;
-}
