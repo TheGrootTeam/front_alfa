@@ -2,6 +2,10 @@ export interface IOffers {
   offers: IOffer[];
 }
 
+export interface IOffersMapped {
+  offers: IOfferMapped[];
+}
+
 interface companyOwner {
   _id: string;
   name: string;

@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authSlice } from './reducers/authSlice';
 import { uiSlice } from './reducers/uiSlice';
+import { offersSlice } from './reducers/offersSlice';
 // import * as auth from '../pages/auth/service';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     ui: uiSlice.reducer,
+    offers: offersSlice.reducer,
   },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware(
