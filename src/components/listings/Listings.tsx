@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { getOffersAction } from '../../store/actions/offersActions';
+import { Loader } from '../common/Loader';
 
 export function Listings() {
   const offers = useSelector(getOffersState);
@@ -19,10 +20,6 @@ export function Listings() {
 
   function showError() {
     return <ErrorsDisplay content={error} />;
-  }
-
-  function showLoading() {
-    return;
   }
 
   function showOffers() {
@@ -45,5 +42,10 @@ export function Listings() {
     );
   }
 
-  return <>{error ? showError() : showOffers()}</>;
+  return (
+    <>
+      {loading && <Loader />}
+      {error ? showError() : showOffers()}
+    </>
+  );
 }
