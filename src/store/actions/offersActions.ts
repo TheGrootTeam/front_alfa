@@ -17,7 +17,7 @@ export const getOffersAction = createAsyncThunk<
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message as string);
     } else {
-      return rejectWithValue(error.error as string);
+      return rejectWithValue(error.error || (error.message as string));
     }
   }
 });
