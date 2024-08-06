@@ -1,4 +1,4 @@
-.form {
+.searchForm {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,26 +6,29 @@
   margin: 4rem auto;
 }
 
-.input {
+.searchForm .input {
   flex-grow: 1;
+  border: 1px solid var(--neutral-bg);
   border-radius: 1rem 0 0 1rem;
+  background-color: var(--neutral-bg);
   font-size: 2rem;
+
   line-height: 4rem;
-  color: var(--neutral);
+  color: var(--neutral-dark);
   padding: 0 2rem;
   outline: none;
-  border: 1px solid var(--neutral);
 
   &:placeholder {
     color: var(--neutral-light);
   }
 
   &:focus {
-    border: 1px solid var(--accent);
+    height: calc(4rem - 2px);
+    border: 1px solid var(--neutral);
   }
 }
 
-.button {
+.searchForm .button {
   line-height: 4rem;
   padding: 0 1rem;
   border-radius: 0 1rem 1rem 0;

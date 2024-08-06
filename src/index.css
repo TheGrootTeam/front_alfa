@@ -8,6 +8,8 @@
   --accent-light: #9775e6ff;
   --accent: #8357ebff;
   --accent-dark: #5e24e5ff;
+  --error-bg: #f08080ff;
+  --error-text: #ff6347ff;
 
   font-family: system-ui, Helvetica, Arial, sans-serif;
 

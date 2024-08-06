@@ -1,5 +1,5 @@
 import { FormCheckboxProps } from '../../utils/interfaces/IFormElements';
-import './formElements.css';
+import './formElements.module.css';
 
 export function FormCheckbox({
   id,
@@ -12,18 +12,18 @@ export function FormCheckbox({
 }: FormCheckboxProps) {
   return (
     <>
-    <label key={id} htmlFor={id}>
-      <input
-        type="checkbox"
-        id={id}
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={onChange}
-        {...props}
-      />
-      <span>{labelText}</span>
-    </label>
+      <label key={id} htmlFor={id}>
+        <input
+          type="checkbox"
+          id={id}
+          name={name}
+          value={value}
+          checked={checked}
+          onChange={onChange}
+          {...props}
+        />
+        <span>{labelText}</span>
+      </label>
     </>
   );
 }
