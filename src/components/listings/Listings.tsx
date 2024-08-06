@@ -1,45 +1,22 @@
 import styles from './Listings.module.css';
 import { ListingDetail } from './ListingDetail';
-import { useEffect, useState } from 'react';
-import { getOffers } from '../../utils/serviceOffers';
-import {
-  ICustomErrorListings,
-  IErrListings,
-  IOffer,
-} from '../../utils/interfaces/IOffer';
-import { isIErrListings } from '../../utils/utilsOffers';
+import { useEffect } from 'react';
 import { ErrorsDisplay } from '../common/ErrorDisplay';
+import { getOffersState, getUi } from '../../store/selectors';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { getOffersAction } from '../../store/actions/offersActions';
+import { Loader } from '../common/Loader';
 
 export function Listings() {
-  const [offers, setOffers] = useState<IOffer[]>([]);
-  const [error, setError] = useState<ICustomErrorListings | string | null>(
-    null
-  );
+  const offers = useSelector(getOffersState);
+  const { loading, error } = useSelector(getUi);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    async function fetchOffers() {
-      try {
-        const offersList = await getOffers();
-        if (offersList) setOffers(offersList);
-      } catch (err) {
-        if (isIErrListings(err)) {
-          // handling error from API
-          const error = err as IErrListings;
-
-          const errorObject: ICustomErrorListings = {
-            message: error.error,
-            status: error.status,
-            statusText: error.statusText,
-          };
-          setError(errorObject);
-        } else {
-          // handling unknow error
-          setError('Ups, se ha producido un error desconocido.');
-        }
-      }
-    }
-    fetchOffers();
-  }, []);
+    dispatch(getOffersAction());
+  }, [dispatch]);
 
   function showError() {
     return <ErrorsDisplay content={error} />;
@@ -49,9 +26,9 @@ export function Listings() {
     return (
       <div className={styles.listings}>
         {offers.map((offer) => (
-          <div key={offer._id}>
+          <div key={offer.id}>
             <ListingDetail
-              id={offer._id}
+              id={offer.id}
               companyOwner={offer.companyOwner.name}
               description={offer.description}
               numberApplicants={offer.numberApplicants}
@@ -65,5 +42,10 @@ export function Listings() {
     );
   }
 
-  return <>{error ? showError() : showOffers()}</>;
+  return (
+    <>
+      {loading && <Loader />}
+      {error ? showError() : showOffers()}
+    </>
+  );
 }
