@@ -1,13 +1,17 @@
 .button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
+  font-family: system-ui, Helvetica, Arial, sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.6rem;
+  outline: none;
 
-.button:hover {
-  background-color: #0056b3;
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }

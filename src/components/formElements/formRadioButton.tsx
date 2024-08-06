@@ -1,5 +1,5 @@
 import { IFormRadioButtonProps } from '../../utils/interfaces/IFormElements';
-import './formElements.css';
+import './formElements.module.css';
 
 export function FormRadioButton({
   className,
