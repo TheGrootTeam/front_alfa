@@ -7,7 +7,9 @@
 }
 
 .temp {
-  color: white !important;
+  color: yellow !important;
+  size: 3rem !important;
+  font-weight: 700;
 }
 
 .inner {

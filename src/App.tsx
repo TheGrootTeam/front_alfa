@@ -1,4 +1,5 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import RequireAuth from './components/auth/RequireAuth';
 
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
@@ -32,25 +33,40 @@ function App() {
       <Route path="/lost-password" element={<LostPassword />} />
 
       {/* START Rutas protegidas */}
-      <Route path="/user">
+      <Route
+        path="/user"
+        element={
+          <RequireAuth>
+            <Outlet />
+          </RequireAuth>
+        }
+      >
         <Route index element={<DashBoardInternPage />} />
         <Route path="edit" element={<EditUserProfilePage />} />
         <Route path="profile" element={<UserProfilePage />} />
       </Route>
 
-      <Route path="/company">
+      <Route
+        path="/company"
+        element={
+          <RequireAuth>
+            <Outlet />
+          </RequireAuth>
+        }
+      >
         <Route index element={<DashBoardCompanyPage />} />
         <Route path="edit" element={<EditCompanyProfilePage />} />
         <Route path="profile" element={<CompanyProfilePage />} />
       </Route>
+      {/* END Rutas protegidas */}
 
+      {/* Al final no protegemos las rutas de Offers, ya que tienen que estar públicas según requerimientos */}
       <Route path="/offers">
         <Route index element={<OffersList />} />
         <Route path=":id" element={<OfferPage />} />
         <Route path=":id/edit" element={<EditOffer />} />
         <Route path="new" element={<AddNewOffer />} />
       </Route>
-      {/* END Rutas protegidas */}
 
       <Route path="/about" element={<AboutPage />} />
       <Route path="/404" element={<NotFoundPage />} />
