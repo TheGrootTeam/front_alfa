@@ -25,7 +25,7 @@ export const getOffersAction = createAsyncThunk<
   }
 });
 
-//DAL
+
 export const createOffersAction = createAsyncThunk<
   IOffer,
   IOffer,

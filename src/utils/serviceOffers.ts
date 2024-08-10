@@ -7,9 +7,12 @@ export async function getOffers() {
   return offers.offers;
 }
 
-//DAL
+
 export async function createOffer(newOffer: IOffer) {
   try {
+    //BALIZA:
+    console.log('newOffer -->', newOffer)
+
     const response = await client.post(`/offers/new`, newOffer);
     return response.data;
   } catch (error: any) {

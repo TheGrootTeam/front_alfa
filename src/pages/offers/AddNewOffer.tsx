@@ -1,51 +1,31 @@
-//import Layout from '../../components/layout/Layout';
-// import styles from "./AddNewOffer.module.css";
-
-// export function AddNewOffer() {
-//   return (
-//     <>
-//       <Layout title="Add New Offer" page="addnewoffer"></Layout>
-//     </>
-//   );
-// }
-
-
 import { useDispatch } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
-//DAL
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
-//
-//import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import styles from "./AddNewOffer.module.css";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
-
-//
-//import { authLogin } from '../../store/actions/authActions';
-
 import { createOffersAction } from '../../store/actions/offersActions';
-
-
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 
-//
-//export function LoginPage() {
+
 export function AddNewOffer() {
   const {loading, error} = useSelector(getUi);
 
   const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     position: '',
-    publicationDate: '',
+    //Inicialization with the actual date
+    publicationDate: new Date().toISOString(),
     description: '',
-    companyOwner: { _id: '', name: '' },
+    //DAL - Hasta que esté corregido el problema del login
+    //companyOwner: { _id: '', name: '' },
+    companyOwner: { _id: '66b52992d440e902e52c1ecd', name: 'Apple' },
     status: true,
     numberVacancies: 0,
-    //listApplicants: string;
     listApplicants: [],
     numberApplicants: 0
   });
@@ -53,9 +33,7 @@ export function AddNewOffer() {
   
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
 
-  const { 
-    position, publicationDate, description, companyOwner, status, numberVacancies, listApplicants, numberApplicants 
-  } = formData;
+  const { position, description, numberVacancies, numberApplicants } = formData;
 
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -103,16 +81,6 @@ export function AddNewOffer() {
         </p>
         <p>
           <FormInputText
-            labelText="PublicationDate"
-            className="form__inputfield"
-            id="publicationDate"
-            name="publicationDate"
-            value={publicationDate}
-            onChange={handleChange}
-          />
-        </p>
-        <p>
-          <FormInputText
             labelText="Description"
             className="form__inputfield"
             id="description"
@@ -121,8 +89,8 @@ export function AddNewOffer() {
             onChange={handleChange}
           />
         </p>
-        {/*  companyOwner  */}
-        {/*  Status  */}
+        {/*  companyOwner  <- automatic asignation*/}
+        {/*  Status  <- is it tru */}
         <p>
           <FormInputNumber
             labelText="NumberVacancies"
@@ -145,23 +113,10 @@ export function AddNewOffer() {
           />
         </p>
       
-        
-
-        
-        {/* <p className={styles.withCheckbox}>
-          <FormCheckbox
-            labelText="Remember me"
-            id="rememberMe"
-            name="rememberMe"
-            value={`${rememberMe === true}`}
-            checked={rememberMe}
-            onChange={handleChange}
-          />
-        </p> */}
         <Button
           className="form__button"
           type="submit"
-          disabled={!position || !publicationDate || !description  && error !== null }
+          disabled={!position || !description  && error !== null }
         >
           Save Offer
         </Button>
