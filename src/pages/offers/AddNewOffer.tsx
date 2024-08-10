@@ -25,7 +25,7 @@ export function AddNewOffer() {
     //companyOwner: { _id: '', name: '' },
     companyOwner: { _id: '66b52992d440e902e52c1ecd', name: 'Apple' },
     status: true,
-    numberVacancies: 0,
+    numberVacancies: 1,
     listApplicants: [],
     numberApplicants: 0
   });
@@ -98,6 +98,7 @@ export function AddNewOffer() {
             id="numberVacancies"
             name="numberVacancies"
             value={numberVacancies}
+            min={1}
             onChange={handleChange}
           />
         </p>
@@ -109,6 +110,7 @@ export function AddNewOffer() {
             id="numberApplicants"
             name="numberApplicants"
             value={numberApplicants}
+            min={0}
             onChange={handleChange}
           />
         </p>
@@ -120,9 +122,7 @@ export function AddNewOffer() {
         >
           Save Offer
         </Button>
-        <p>
-          {showMessageDatesSaved && <div>Datos guardados</div>}
-        </p>
+        {showMessageDatesSaved && <div>Datos guardados</div>}
       </form>
       <div onClick={resetError}>{error ? error : null}</div>
     </Layout>

@@ -20,8 +20,7 @@ export interface IFormInputNumberProps {
   type?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Change the value directly a number
   required?: boolean;
-  min?: number; // Para establecer un valor mínimo
-  max?: number; // Para establecer un valor máximo
+  min?: number; // minimun value
 }
 
 export interface IFormRadioButtonProps {
