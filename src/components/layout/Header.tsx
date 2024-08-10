@@ -46,6 +46,17 @@ const Header = () => {
                   </li>
                 </>
               )}
+              
+              {/* DAL */}
+              {/* !auth para darle visibilidad de manera temporal: no me funciona el login*/}
+              {!auth && ( 
+                <>
+                  <li>
+                  <Link to="/offers/new">New Offer</Link>
+                  </li>
+                </>
+              )}
+              
               <li>
                 <Link to="/about">About</Link>
               </li>
