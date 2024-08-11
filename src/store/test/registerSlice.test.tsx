@@ -1,4 +1,11 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { configureStore } from '@reduxjs/toolkit';
+import axios from 'axios';
 import registerReducer, { registerUser } from '../reducers/registerSlice';
+
+// Mock de axios para interceptar peticiones HTTP
+vi.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('registerSlice', () => {
   const initialState = {
@@ -6,6 +13,10 @@ describe('registerSlice', () => {
     loading: false,
     error: null,
   };
+
+  beforeEach(() => {
+    mockedAxios.post.mockClear();
+  });
 
   it('should handle initial state', () => {
     expect(registerReducer(undefined, { type: 'unknown' })).toEqual(initialState);
@@ -17,19 +28,33 @@ describe('registerSlice', () => {
     expect(state.loading).toBe(true);
   });
 
-  it('should handle registerUser.fulfilled', () => {
+  it('should handle registerUser.fulfilled', async () => {
     const user = { id: 1, email: 'test@example.com' };
-    const action = { type: registerUser.fulfilled.type, payload: user };
-    const state = registerReducer(initialState, action);
+    mockedAxios.post.mockResolvedValueOnce({ data: user });
+
+    const store = configureStore({
+      reducer: registerReducer,
+    });
+
+    await store.dispatch(registerUser({ dniCif: '12345678A', email: 'test@example.com', password: 'password123', isCompany: false }));
+
+    const state = store.getState();
     expect(state.loading).toBe(false);
     expect(state.userInfo).toEqual(user);
     expect(state.error).toBeNull();
   });
 
-  it('should handle registerUser.rejected', () => {
+  it('should handle registerUser.rejected', async () => {
     const error = { message: 'User already exists' };
-    const action = { type: registerUser.rejected.type, payload: error };
-    const state = registerReducer(initialState, action);
+    mockedAxios.post.mockRejectedValueOnce({ response: { data: error } });
+
+    const store = configureStore({
+      reducer: registerReducer,
+    });
+
+    await store.dispatch(registerUser({ dniCif: '12345678A', email: 'existing@example.com', password: 'password123', isCompany: false }));
+
+    const state = store.getState();
     expect(state.loading).toBe(false);
     expect(state.error).toEqual(error);
   });
