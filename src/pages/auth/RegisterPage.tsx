@@ -1,4 +1,4 @@
-
+// src/pages/register/RegisterPage.tsx
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { useState } from 'react';
@@ -8,10 +8,12 @@ import styles from './Register.module.css';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
 import { Button } from '../../components/common/Button';
+import Notification from '../../components/common/Notification';
 
 export function RegisterPage() {
   const dispatch = useDispatch();
   const { loading, error }: { loading: boolean, error: { message: string } | null } = useSelector((state: RootState) => state.register) as { loading: boolean, error: { message: string } | null };
+  
   const [formData, setFormData] = useState({
     dniCif: '',
     email: '',
@@ -19,6 +21,7 @@ export function RegisterPage() {
     confirmPassword: '',
     isCompany: null,
   });
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const { dniCif, email, password, confirmPassword, isCompany } = formData;
 
@@ -28,7 +31,31 @@ export function RegisterPage() {
       alert('Passwords do not match!');
       return;
     }
-    dispatch(registerUser({ dniCif, email, password, isCompany: isCompany === 'true' }) as any);
+
+    try {
+      const resultAction = await dispatch(registerUser({ dniCif, email, password, isCompany: isCompany === 'true' }) as any);
+      
+      if (registerUser.fulfilled.match(resultAction)) {
+        // Show the successful message
+        setSuccessMessage('User registered successfully');
+        
+        // Clean the form fields
+        setFormData({
+          dniCif: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          isCompany: null,
+        });
+        
+        // Hide the successful message after 2 seconds
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error registering user:', error);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +86,8 @@ export function RegisterPage() {
           Register
         </Button>
         {loading && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
+        {error && <p className={styles.error}>Error: {error.message}</p>}
+        {successMessage && <Notification message={successMessage} type="success" />}
       </form>
     </Layout>
   );
