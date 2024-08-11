@@ -1,26 +1,22 @@
-import { IFormInputTextProps } from '../../utils/interfaces/IFormElements';
+import { IFormTextareaProps } from '../../utils/interfaces/IFormElements';
 import './formElements.module.css';
 
-export function FormInputText({
+export function FormTextareaProps({
   labelText,
   id,
   name,
   value,
-  type = 'text',
   onChange,
-  readOnly = false,
   ...props
-}: IFormInputTextProps) {
+}: IFormTextareaProps) {
   return (
     <>
       <label htmlFor={id}>{labelText}</label>
-      <input
+      <textarea
         id={id}
         name={name}
-        type={type}
         value={value}
         onChange={onChange}
-        readOnly={readOnly}
         {...props}
       />
     </>
