@@ -6,6 +6,12 @@
   justify-content: center;
 }
 
+.temp {
+  color: yellow !important;
+  size: 3rem !important;
+  font-weight: 700;
+}
+
 .inner {
   display: flex;
   align-items: center;
@@ -55,11 +61,32 @@ h1 a {
       border-radius: 1rem;
       display: inline-block;
       font-size: 1.6rem;
-      line-height: 3, 5rem;
+      line-height: 3.5rem;
       transition: scale 0.25s ease-in;
 
       &:hover {
         text-decoration: none;
+        color: var(--accent-light);
+        border: 2px solid var(--accent-light);
+        transform: scale(1.05);
+      }
+    }
+
+    button {
+      font-weight: 600;
+      background-color: var(--dark);
+      color: var(--neutral-light);
+      border: 2px solid var(--neutral-light);
+      padding: 0 1.5rem;
+      border-radius: 1rem;
+      display: inline-block;
+      font-size: 1.6rem;
+      line-height: 3.5rem;
+      transition: scale 0.25s ease-in;
+
+      &:hover {
+        text-decoration: none;
+        background-color: var(--dark);
         color: var(--accent-light);
         border: 2px solid var(--accent-light);
         transform: scale(1.05);

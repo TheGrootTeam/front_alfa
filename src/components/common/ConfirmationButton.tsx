@@ -1,35 +1,43 @@
 import React, { useState } from 'react';
+import { Button } from './Button';
 import Dialog from './Dialog';
+
 import styles from './ConfirmationButton.module.css';
 
 interface ConfirmationButtonProps {
-  onConfirm: () => void;
-  label: string;
-  confirmationMessage: string;
+  buttonLabel: string;
+  dialogText: string;
+  confirmLabel: string;
+  cancelLabel: string;
+  confirmAction: () => void;
 }
 
 const ConfirmationButton: React.FC<ConfirmationButtonProps> = ({
-  onConfirm,
-  label,
-  confirmationMessage
+  buttonLabel,
+  dialogText,
+  confirmLabel,
+  cancelLabel,
+  confirmAction,
 }) => {
   const [showDialog, setShowDialog] = useState(false);
 
   const handleConfirm = () => {
-    onConfirm();
+    confirmAction();
     setShowDialog(false);
   };
 
   return (
     <>
-      <button className={styles.button} onClick={() => setShowDialog(true)}>
-        {label}
-      </button>
+      <Button className={styles.button} onClick={() => setShowDialog(true)}>
+        {buttonLabel}
+      </Button>
       {showDialog && (
         <Dialog
-          message={confirmationMessage}
+          dialogText={dialogText}
           onConfirm={handleConfirm}
+          confirmLabel={confirmLabel}
           onCancel={() => setShowDialog(false)}
+          cancelLabel={cancelLabel}
         />
       )}
     </>

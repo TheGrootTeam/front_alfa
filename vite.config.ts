@@ -17,11 +17,16 @@ export default defineConfig(() => {
           rewrite: (path) => path.replace(/^\/api/, '/api'),
         },
       },
+    build: {
+      rollupOptions: {
+        // Exclude testing folders and files when build
+        external: [/\.test\.(ts|tsx)$/, /__tests__/],
+      },
     },
     test: {
       globals: true,
       environment: 'jsdom',
       setupFiles: ['src/__tests__/setup.ts'],
     },
-  };
-});
+  }
+}});
