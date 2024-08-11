@@ -66,6 +66,8 @@ export interface IOfferListingDetail {
   description: string;
   numberApplicants: number;
   numberVacancies: number;
+  //DAL
+  publicationDate: Date
   position: string;
   status: boolean;
 }

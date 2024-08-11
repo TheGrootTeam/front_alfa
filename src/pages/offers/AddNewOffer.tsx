@@ -11,15 +11,17 @@ import { uiSlice } from '../../store/reducers/uiSlice';
 import { createOffersAction } from '../../store/actions/offersActions';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
 
 export function AddNewOffer() {
+  const navigate = useNavigate();
   const {loading, error} = useSelector(getUi);
 
   const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     position: '',
-    //Inicialization with the actual date
+    //Inicialization with the actual date AAA-MM-DD
     publicationDate: new Date().toISOString().split('T')[0],
     description: '',
     //DAL - Hasta que esté corregido el problema del login
@@ -44,27 +46,37 @@ export function AddNewOffer() {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const value =
-      // event.target.type === 'checkbox'
-      //   ? event.target.checked
-      //   : event.target.value;
-
+    const target = event.target as HTMLInputElement;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+  
     setFormData((currentData) => ({
       ...currentData,
       [event.target.name]: value,
     }));
   };
+  
 
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
   };
 
+  // DAL
+  // useEffect(() => {
+  //   if (!loading && !error) {
+  //     setDatesSaved(true);
+  //     setTimeout(() => setDatesSaved(false), 5000); // Hide the messages in 5 sg
+  //   }
+  // }, [loading, error]);
+
   useEffect(() => {
     if (!loading && !error) {
       setDatesSaved(true);
-      setTimeout(() => setDatesSaved(false), 5000); // Hide the messages in 5 sg
+      setTimeout(() => {
+        setDatesSaved(false);
+        navigate('/');
+      }, 5000); // Hide the messages in 5 sg
     }
-  }, [loading, error]);
+  }, [loading, error, navigate]);
 
 
   return (
@@ -80,7 +92,6 @@ export function AddNewOffer() {
             onChange={handleChange}
           />
         </p>
-        {/* DAL */}
         <p>
           <FormInputText
             labelText="Publication Date"
@@ -92,17 +103,6 @@ export function AddNewOffer() {
             readOnly = {true}
           />
         </p>
-        {/* DAL
-         <p>
-          <FormInputText
-            labelText="Description"
-            className="form__inputfield"
-            id="description"
-            name="description"
-            value={description}
-            onChange={handleChange}
-          />
-        </p> */}
         <p>
           <FormTextareaProps
             labelText="Description"
