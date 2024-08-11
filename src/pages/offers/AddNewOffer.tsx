@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
+import { FormTextareaProps } from '../../components/formElements/formTextareaProps';
 import styles from "./AddNewOffer.module.css";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -19,7 +20,7 @@ export function AddNewOffer() {
   const [formData, setFormData] = useState({
     position: '',
     //Inicialization with the actual date
-    publicationDate: new Date().toISOString(),
+    publicationDate: new Date().toISOString().split('T')[0],
     description: '',
     //DAL - Hasta que esté corregido el problema del login
     //companyOwner: { _id: '', name: '' },
@@ -33,7 +34,7 @@ export function AddNewOffer() {
   
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
 
-  const { position, description, numberVacancies, numberApplicants } = formData;
+  const { position, publicationDate, description, numberVacancies, numberApplicants } = formData;
 
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -42,11 +43,11 @@ export function AddNewOffer() {
 
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value =
-      event.target.type === 'checkbox'
-        ? event.target.checked
-        : event.target.value;
+      // event.target.type === 'checkbox'
+      //   ? event.target.checked
+      //   : event.target.value;
 
     setFormData((currentData) => ({
       ...currentData,
@@ -79,7 +80,20 @@ export function AddNewOffer() {
             onChange={handleChange}
           />
         </p>
+        {/* DAL */}
         <p>
+          <FormInputText
+            labelText="Publication Date"
+            className="form__inputfield"
+            id="publicationDate"
+            name="publicationDate"
+            value={publicationDate}
+            onChange={handleChange}
+            readOnly = {true}
+          />
+        </p>
+        {/* DAL
+         <p>
           <FormInputText
             labelText="Description"
             className="form__inputfield"
@@ -87,6 +101,18 @@ export function AddNewOffer() {
             name="description"
             value={description}
             onChange={handleChange}
+          />
+        </p> */}
+        <p>
+          <FormTextareaProps
+            labelText="Description"
+            className="form__inputfield"
+            id="description"
+            name="description"
+            value={description}
+            onChange={handleChange}
+            rows={5}
+            cols={20}
           />
         </p>
         {/*  companyOwner  <- automatic asignation*/}

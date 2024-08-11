@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getOffers } from '../../utils/serviceOffers';
 import { offersMapped } from '../../utils/utilsOffers';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
-
 import { IOffer } from '../../utils/interfaces/IOffer';
 import { createOffer } from '../../utils/serviceOffers';
 
