@@ -6,6 +6,12 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig(() => {
   return {
     plugins: [svgr(), react()],
+    build: {
+      rollupOptions: {
+        // Exclude testing folders and files when build
+        external: [/\.test\.(ts|tsx)$/, /__tests__/],
+      },
+    },
     test: {
       globals: true,
       environment: 'jsdom',
