@@ -1,6 +1,6 @@
 export interface IFormInputTextProps {
   labelText: string;
-  className?:string;
+  className?: string;
   id: string;
   name: string;
   value: string;
@@ -8,6 +8,33 @@ export interface IFormInputTextProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   checked?: boolean;
+  readOnly?: boolean;
+}
+
+//DAL
+export interface IFormTextareaProps {
+  labelText: string;
+  className?: string;
+  id: string;
+  name: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  required?: boolean;
+  rows?: number;
+  cols?: number;
+}
+
+//DAL
+export interface IFormInputNumberProps {
+  labelText: string;
+  className?: string;
+  id: string;
+  name: string;
+  value: number;
+  type?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Change the value directly a number
+  required?: boolean;
+  min?: number; // minimun value
 }
 
 export interface IFormRadioButtonProps {

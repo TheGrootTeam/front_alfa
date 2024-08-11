@@ -9,6 +9,7 @@ export function ListingDetail({
   description,
   numberApplicants,
   numberVacancies,
+  publicationDate,
   position,
 }: IOfferListingDetail) {
   return (
@@ -17,6 +18,9 @@ export function ListingDetail({
         <h2>Título: {position}</h2>
         <p>Descripción: {description}</p>
         <p>Empresa: {companyOwner}</p>
+        {/* DAL */}
+        {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
+        <p>Publicado el: {publicationDate.toISOString().split('T')[0]}</p>
         <p>
           Número vacantes: {numberVacancies} | Número solicitantes:{' '}
           {numberApplicants}
