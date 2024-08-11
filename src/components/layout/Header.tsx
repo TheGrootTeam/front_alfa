@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogout } from '../../store/actions/authActions';
-// import { getIsLogged } from '../../store/selectors';
+import { getIsLogged } from '../../store/selectors';
 import { AppDispatch } from '../../store/store';
 
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ import ConfirmationButton from '../common/ConfirmationButton';
 
 const Header = () => {
   const { error } = useSelector(getUi);
-  // const isLogged = useSelector(getIsLogged);
+  const { auth } = useSelector(getIsLogged);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogout = () => {
@@ -36,24 +36,41 @@ const Header = () => {
           </h1>
           <nav className={styles.nav}>
             <ul>
-              <li>
-                <Link to="/login">Log in</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
+              {!auth && (
+                <>
+                  <li>
+                    <Link to="/login">Log in</Link>
+                  </li>
+                  <li>
+                    <Link to="/register">Register</Link>
+                  </li>
+                </>
+              )}
+              
+              {/* DAL */}
+              {/* !auth para darle visibilidad de manera temporal: no me funciona el login*/}
+              {!auth && ( 
+                <>
+                  <li>
+                  <Link to="/offers/new">New Offer</Link>
+                  </li>
+                </>
+              )}
+              
               <li>
                 <Link to="/about">About</Link>
               </li>
-              <li>
-                <ConfirmationButton
-                  buttonLabel="Log Out"
-                  dialogText="Are you sure you want to log out?"
-                  confirmLabel="Yes"
-                  cancelLabel="No"
-                  confirmAction={handleLogout}
-                />
-              </li>
+              {auth && (
+                <li>
+                  <ConfirmationButton
+                    buttonLabel="Log Out"
+                    dialogText="Are you sure you want to log out?"
+                    confirmLabel="Yes"
+                    cancelLabel="No"
+                    confirmAction={handleLogout}
+                  />
+                </li>
+              )}
             </ul>
           </nav>
         </div>

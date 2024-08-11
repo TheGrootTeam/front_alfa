@@ -1,26 +1,25 @@
-import { IFormInputTextProps } from '../../utils/interfaces/IFormElements';
+import { IFormInputNumberProps } from '../../utils/interfaces/IFormElements';
 import './formElements.module.css';
 
-export function FormInputText({
+export function FormInputNumber({
   labelText,
   id,
   name,
   value,
-  type = 'text',
+  type = 'number',
   onChange,
-  readOnly = false,
   ...props
-}: IFormInputTextProps) {
+}: IFormInputNumberProps) {
   return (
     <>
       <label htmlFor={id}>{labelText}</label>
       <input
         id={id}
         name={name}
-        type={type}
+        step="1"
         value={value}
+        type={type}
         onChange={onChange}
-        readOnly={readOnly}
         {...props}
       />
     </>

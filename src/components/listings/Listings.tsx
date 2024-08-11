@@ -29,10 +29,15 @@ export function Listings() {
           <div key={offer.id}>
             <ListingDetail
               id={offer.id}
-              companyOwner={offer.companyOwner.name}
+              //companyOwner={offer.companyOwner.name}
+              //DAL
+              companyOwner={"PRUEBA"}
               description={offer.description}
               numberApplicants={offer.numberApplicants}
               numberVacancies={offer.numberVacancies}
+              //DAL
+              //publicationDate={new Date(offer.publicationDate)} // Convertir de vuelta a Date si es necesario
+              publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
               position={offer.position}
               status={offer.status}
             />
