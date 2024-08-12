@@ -36,7 +36,7 @@ export function AddNewOffer() {
   
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
 
-  const { position, publicationDate, description, numberVacancies, numberApplicants } = formData;
+  const { position, publicationDate, description, numberVacancies } = formData;
 
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -129,7 +129,7 @@ export function AddNewOffer() {
           />
         </p>
         {/* listApplicants: [], */}
-        <p>
+        {/* <p>
           <FormInputNumber
             labelText="NumberApplicants"
             className="form__inputfield"
@@ -139,8 +139,7 @@ export function AddNewOffer() {
             min={0}
             onChange={handleChange}
           />
-        </p>
-      
+        </p> */}
         <Button
           className="form__button"
           type="submit"
