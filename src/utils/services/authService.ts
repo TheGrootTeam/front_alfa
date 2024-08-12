@@ -3,8 +3,8 @@ import {
   setAuthorizationHeader,
   removeAuthorizationHeader,
 } from '../../api/client';
-import { ILoginData, IToken } from '../../utils/interfaces/IAuth';
-import storage from '../../utils/storage';
+import { ILoginData, IToken } from '../interfaces/IAuth';
+import storage from '../storage';
 
 export const login = (data: ILoginData): Promise<void> => {
   const { dniCif, password, rememberMe } = data;

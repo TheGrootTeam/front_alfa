@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { login } from '../../pages/auth/service';
-import { logout } from '../../pages/auth/service';
+import { login, logout } from '../../utils/services/authService';
 import { ILoginData } from '../../utils/interfaces/IAuth';
 
 export const authLogin = createAsyncThunk<
@@ -21,7 +20,7 @@ export const authLogin = createAsyncThunk<
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message as string);
     } else {
-      return rejectWithValue(error.message as string);
+      return rejectWithValue(error.error || (error.message as string));
     }
   }
 });
@@ -35,7 +34,7 @@ export const authLogout = createAsyncThunk<void, void, { rejectValue: string }>(
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message as string);
       } else {
-        return rejectWithValue(error.message as string);
+        return rejectWithValue(error.error || (error.message as string));
       }
     }
   }

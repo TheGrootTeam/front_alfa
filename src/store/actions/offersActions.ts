@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getOffers } from '../../utils/serviceOffers';
+import { getOffers } from '../../utils/services/serviceOffers';
 import { offersMapped } from '../../utils/utilsOffers';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { IOffer } from '../../utils/interfaces/IOffer';
-import { createOffer } from '../../utils/serviceOffers';
+import { createOffer } from '../../utils/services/serviceOffers';
 
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
@@ -23,7 +23,6 @@ export const getOffersAction = createAsyncThunk<
     }
   }
 });
-
 
 export const createOffersAction = createAsyncThunk<
   IOffer,
