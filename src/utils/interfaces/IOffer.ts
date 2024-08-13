@@ -2,8 +2,9 @@ export interface IOffers {
   offers: IOffer[];
 }
 
-export interface IOffersMapped {
+export interface IOffersReduxState {
   offers: IOfferMapped[];
+  loadedOffers: boolean;
 }
 
 interface companyOwner {
@@ -41,8 +42,6 @@ export interface IOffer {
   listApplicants: applicantOwner[];
   numberApplicants: number;
   __v?: number;
-
-
 }
 
 export interface IOfferMapped {
@@ -67,7 +66,7 @@ export interface IOfferListingDetail {
   numberApplicants: number;
   numberVacancies: number;
   //DAL
-  publicationDate: Date
+  publicationDate: Date;
   position: string;
   status: boolean;
 }

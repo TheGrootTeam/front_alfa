@@ -31,7 +31,7 @@ export function Listings() {
               id={offer.id}
               //companyOwner={offer.companyOwner.name}
               //DAL
-              companyOwner={"PRUEBA"}
+              companyOwner={'PRUEBA'}
               description={offer.description}
               numberApplicants={offer.numberApplicants}
               numberVacancies={offer.numberVacancies}
