@@ -3,6 +3,7 @@ import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextareaProps } from '../../components/formElements/formTextareaProps';
+//import { FormSelectProps } from '../../components/formElements/FormSelectProps';
 import styles from "./AddNewOffer.module.css";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -30,13 +31,16 @@ export function AddNewOffer() {
     status: true,
     numberVacancies: 1,
     listApplicants: [],
-    numberApplicants: 0
+    numberApplicants: 0,
+    location: '',
+    typeJob: '',
+    internJob: ''
   });
 
   
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
 
-  const { position, publicationDate, description, numberVacancies } = formData;
+  const { position, publicationDate, description, numberVacancies, location, typeJob, internJob } = formData;
 
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -117,6 +121,42 @@ export function AddNewOffer() {
         </p>
         {/*  companyOwner  <- automatic asignation*/}
         {/*  Status  <- is it tru */}
+        
+        {/* DAL */}
+        <p>
+          <FormInputText
+            labelText="Location"
+            className="form__inputfield"
+            id="location"
+            name="location"
+            value={location}
+            onChange={handleChange}
+          />
+        </p>
+        <p>Nota: hay que desplegar con un select</p>
+        <p>
+          <FormInputText
+            labelText="Type of Job"
+            className="form__inputfield"
+            id="typeJob"
+            name="typeJob"
+            value={typeJob}
+            onChange={handleChange}
+          />
+        </p>
+        <p>Nota: hay que desplegar con un select</p>
+        <p>
+          <FormInputText
+            labelText="Internship Job"
+            className="form__inputfield"
+            id="internJob"
+            name="internJob"
+            value={internJob}
+            onChange={handleChange}
+          />
+        </p>
+
+
         <p>
           <FormInputNumber
             labelText="NumberVacancies"
