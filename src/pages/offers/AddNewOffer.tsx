@@ -156,7 +156,7 @@ export function AddNewOffer() {
             name="typeJob"
             value={typeJob}
             onChange={handleChange}
-            options={ {presencial: 'presencial', teletrabajo: 'teletrajo', hibrido: 'hibrido'} }
+            options={ {valueInicial: "", presencial: 'presencial', teletrabajo: 'teletrajo', hibrido: 'hibrido'} }
           />
         </p>
 
@@ -176,7 +176,7 @@ export function AddNewOffer() {
             name="internJob"
             value={internJob}
             onChange={handleChange}
-            options={ {no_renumerado: 'no renumerado', renumerado: 'renumerado', ong: 'ONG'} }
+            options={ {valueInicial: "", no_renumerado: 'no renumerado', renumerado: 'renumerado', ong: 'ONG'} }
           />
         </p>
 
