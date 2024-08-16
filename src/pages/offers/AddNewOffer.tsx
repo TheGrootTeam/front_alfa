@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux';
+//import Swal from 'sweetalert2';
 import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
-import { FormTextareaProps } from '../../components/formElements/formTextareaProps';
-//import { FormSelectProps } from '../../components/formElements/FormSelectProps';
+import { FormTextarea } from '../../components/formElements/formTextareaProps';
+import { FormSelect } from '../../components/formElements/formSelect';
 import styles from "./AddNewOffer.module.css";
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -13,6 +14,7 @@ import { createOffersAction } from '../../store/actions/offersActions';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
+
 
 
 export function AddNewOffer() {
@@ -46,11 +48,11 @@ export function AddNewOffer() {
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(createOffersAction(formData));
-
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const target = event.target as HTMLInputElement;
+  // handleChange adapted of different kind of elements
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const target = event.target as HTMLInputElement | HTMLSelectElement;
     const value = target.type === 'checkbox' ? target.checked : target.value;
   
     setFormData((currentData) => ({
@@ -64,14 +66,6 @@ export function AddNewOffer() {
     dispatch(uiSlice.actions.resetError());
   };
 
-  // DAL
-  // useEffect(() => {
-  //   if (!loading && !error) {
-  //     setDatesSaved(true);
-  //     setTimeout(() => setDatesSaved(false), 5000); // Hide the messages in 5 sg
-  //   }
-  // }, [loading, error]);
-
   useEffect(() => {
     if (!loading && !error) {
       setDatesSaved(true);
@@ -82,6 +76,19 @@ export function AddNewOffer() {
     }
   }, [loading, error, navigate]);
 
+  // useEffect(() => {
+  //   if (!loading && !error) {
+  //     setDatesSaved(true);
+  //     setTimeout(() => {
+  //       Swal.fire({
+  //         icon: "success",
+  //         title: "Your work has been saved",
+  //         showConfirmButton: false,
+  //         timer: 2000
+  //       });
+  //     }, 500); // Hide the messages in 5 sg
+  //   }
+  // }, [loading, error, navigate]);
 
   return (
     <Layout title="New Offer" page="newOffer">
@@ -108,7 +115,7 @@ export function AddNewOffer() {
           />
         </p>
         <p>
-          <FormTextareaProps
+          <FormTextarea
             labelText="Description"
             className="form__inputfield"
             id="description"
@@ -133,8 +140,7 @@ export function AddNewOffer() {
             onChange={handleChange}
           />
         </p>
-        <p>Nota: hay que desplegar con un select</p>
-        <p>
+        {/* <p>
           <FormInputText
             labelText="Type of Job"
             className="form__inputfield"
@@ -143,9 +149,18 @@ export function AddNewOffer() {
             value={typeJob}
             onChange={handleChange}
           />
-        </p>
-        <p>Nota: hay que desplegar con un select</p>
+        </p> */}
         <p>
+          <FormSelect
+            label="Type of Job"
+            name="typeJob"
+            value={typeJob}
+            onChange={handleChange}
+            options={ {presencial: 'presencial', teletrabajo: 'teletrajo', hibrido: 'hibrido'} }
+          />
+        </p>
+
+        {/* <p>
           <FormInputText
             labelText="Internship Job"
             className="form__inputfield"
@@ -153,6 +168,15 @@ export function AddNewOffer() {
             name="internJob"
             value={internJob}
             onChange={handleChange}
+          />
+        </p> */}
+        <p>
+          <FormSelect
+            label="Type of internship"
+            name="internJob"
+            value={internJob}
+            onChange={handleChange}
+            options={ {no_renumerado: 'no renumerado', renumerado: 'renumerado', ong: 'ONG'} }
           />
         </p>
 
