@@ -18,7 +18,7 @@ export function ListingDetail({
         <h2>Título: {position}</h2>
         <p>Descripción: {description}</p>
         <p>Empresa: {companyOwner}</p>
-        {/* DAL */}
+        {/* DAL - Para adaptarlo el ISO*/}
         {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
         <p>Publicado el: {publicationDate.toISOString().split('T')[0]}</p>
         <p>
