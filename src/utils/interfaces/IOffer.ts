@@ -32,41 +32,50 @@ interface applicantOwner {
 
 //DAL
 export interface IOffer {
-  _id?: string;
-  position: string;
-  publicationDate: string;
-  description: string;
+  __v: number;
+  _id: string;
   companyOwner: companyOwner;
-  status: boolean;
-  numberVacancies: number;
+  description: string;
+  internJob: string;
   listApplicants: applicantOwner[];
+  location: string;
   numberApplicants: number;
-  __v?: number;
+  numberVacancies: number;
+  position: string;
+  publicationDate: Date;
+  status: boolean;
+  typeJob: string;
 }
 
 export interface IOfferMapped {
+  __v: number;
+  id: string;
   companyOwner: companyOwner;
   description: string;
+  internJob: string;
+  //DAL
+  //listApplicants: number;
+  listApplicants: applicantOwner[];
+  location: string;
   numberApplicants: number;
   numberVacancies: number;
   position: string;
   publicationDate: Date;
   status: boolean;
-  __v?: number;
-  id?: string;
-  //listApplicants: number;
-  //DAL
-  listApplicants: applicantOwner[];
+  typeJob: string;
 }
 
 export interface IOfferListingDetail {
-  id?: string;
+  id: string;
   companyOwner: string;
   description: string;
+  internJob: string;
+  location: string;
   numberApplicants: number;
   numberVacancies: number;
   //DAL
   publicationDate: Date;
   position: string;
   status: boolean;
+  typeJob: string;
 }

@@ -7,10 +7,13 @@ export function ListingDetail({
   id,
   companyOwner,
   description,
+  internJob,
+  location,
   numberApplicants,
   numberVacancies,
-  publicationDate,
   position,
+  publicationDate,
+  typeJob,
 }: IOfferListingDetail) {
   return (
     <div className={styles.listingDetail}>
@@ -18,6 +21,11 @@ export function ListingDetail({
         <h2>Título: {position}</h2>
         <p>Descripción: {description}</p>
         <p>Empresa: {companyOwner}</p>
+        <p>Ciudad: {location}</p>
+        <p>
+          Modalidad de prácticas: {typeJob} y {internJob}
+        </p>
+        <p></p>
         {/* DAL - Para adaptarlo el ISO*/}
         {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
         <p>Publicado el: {publicationDate.toISOString().split('T')[0]}</p>
