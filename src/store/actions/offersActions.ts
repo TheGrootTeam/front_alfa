@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getOffers } from '../../utils/services/serviceOffers';
 import { offersMapped } from '../../utils/utilsOffers';
-import { IOfferMapped } from '../../utils/interfaces/IOffer';
-import { IOffer } from '../../utils/interfaces/IOffer';
+import { IOfferForm, IOfferMapped } from '../../utils/interfaces/IOffer';
 import { createOffer } from '../../utils/services/serviceOffers';
 import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
@@ -32,8 +31,8 @@ export const getOffersAction = createAsyncThunk<
 });
 
 export const createOffersAction = createAsyncThunk<
-  IOffer,
-  IOffer,
+  void,
+  IOfferForm,
   { rejectValue: string }
 >('offers/createOffersAction', async (newOffer: any, { rejectWithValue }) => {
   try {

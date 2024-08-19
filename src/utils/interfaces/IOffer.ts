@@ -79,3 +79,17 @@ export interface IOfferListingDetail {
   status: boolean;
   typeJob: string;
 }
+
+export interface IOfferForm {
+  companyOwner: companyOwner;
+  description: string;
+  internJob: string;
+  listApplicants: string[];
+  location: string;
+  numberApplicants: number;
+  numberVacancies: number;
+  position: string;
+  publicationDate: Date | string;
+  status: boolean;
+  typeJob: string;
+}
