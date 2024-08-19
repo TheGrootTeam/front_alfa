@@ -1,15 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getOffers } from '../../utils/services/serviceOffers';
 import { offersMapped } from '../../utils/utilsOffers';
-import { IOfferMapped } from '../../utils/interfaces/IOffer';
-import { IOffer } from '../../utils/interfaces/IOffer';
+import { IOfferForm, IOfferMapped } from '../../utils/interfaces/IOffer';
 import { createOffer } from '../../utils/services/serviceOffers';
+import { RootState } from '../store';
+import { getOffersLoaded, getOffersState } from '../selectors';
 
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
   void,
-  { rejectValue: string }
->('offers/getOffersAction', async (_, { rejectWithValue }) => {
+  { state: RootState; rejectValue: string }
+>('offers/getOffersAction', async (_, { getState, rejectWithValue }) => {
+  const state = getState();
+  const loadedOffers = getOffersLoaded(state);
+  if (loadedOffers) {
+    return getOffersState(state);
+  }
   try {
     const offers = await getOffers();
     const mappedOffers = offersMapped(offers);
@@ -25,8 +31,8 @@ export const getOffersAction = createAsyncThunk<
 });
 
 export const createOffersAction = createAsyncThunk<
-  IOffer,
-  IOffer,
+  void,
+  IOfferForm,
   { rejectValue: string }
 >('offers/createOffersAction', async (newOffer: any, { rejectWithValue }) => {
   try {

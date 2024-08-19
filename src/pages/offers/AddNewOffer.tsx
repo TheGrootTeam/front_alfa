@@ -5,7 +5,7 @@ import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextarea } from '../../components/formElements/formTextareaProps';
 import { FormSelect } from '../../components/formElements/formSelect';
-import styles from "./AddNewOffer.module.css";
+import styles from './AddNewOffer.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
@@ -17,12 +17,10 @@ import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 
-
-
 export function AddNewOffer() {
   const navigate = useNavigate();
-  const {loading, error} = useSelector(getUi);
-  const {offerInfo} = useSelector(getNewOfferState);
+  const { loading, error } = useSelector(getUi);
+  const { offerInfo } = useSelector(getNewOfferState);
   const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     position: '',
@@ -31,17 +29,25 @@ export function AddNewOffer() {
     description: '',
     //DAL - Hasta que esté corregido el problema del login
     //companyOwner: { _id: '', name: '' },
-    companyOwner: { _id: '66b52992d440e902e52c1ecd', name: 'Apple' },
+    companyOwner: { _id: '66c37b843ed5b9561ce5eb5f', name: 'Apple' },
     status: true,
     numberVacancies: 1,
     listApplicants: [],
     numberApplicants: 0,
     location: '',
     typeJob: '',
-    internJob: ''
+    internJob: '',
   });
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
-  const { position, publicationDate, description, numberVacancies, location, typeJob, internJob } = formData;
+  const {
+    position,
+    publicationDate,
+    description,
+    numberVacancies,
+    location,
+    typeJob,
+    internJob,
+  } = formData;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,16 +55,20 @@ export function AddNewOffer() {
   };
 
   // handleChange adapted of different kind of elements
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const target = event.target as HTMLInputElement | HTMLSelectElement;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-  
+
     setFormData((currentData) => ({
       ...currentData,
       [event.target.name]: value,
     }));
   };
-  
+
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
   };
@@ -73,7 +83,7 @@ export function AddNewOffer() {
     }
   }, [loading, error, offerInfo, navigate]);
 
-  //DAL -Prueba con librería de ventanas para mensajes 
+  //DAL -Prueba con librería de ventanas para mensajes
   // useEffect(() => {
   //   if (!loading && !error && offerInfo) {
   //     setDatesSaved(true);
@@ -91,7 +101,11 @@ export function AddNewOffer() {
 
   return (
     <Layout title="New Offer" page="newOffer">
-      {showMessageDatesSaved && <div><b>Datos guardados</b></div>}
+      {showMessageDatesSaved && (
+        <div>
+          <b>Datos guardados</b>
+        </div>
+      )}
       <form onSubmit={handleSubmit} id="newOffer-form" className={styles.form}>
         <p>
           <FormInputText
@@ -111,7 +125,7 @@ export function AddNewOffer() {
             name="publicationDate"
             value={publicationDate}
             onChange={handleChange}
-            readOnly = {true}
+            readOnly={true}
           />
         </p>
         <p>
@@ -128,7 +142,7 @@ export function AddNewOffer() {
         </p>
         {/*  companyOwner  <- automatic asignation*/}
         {/*  Status  <- is it tru */}
-        
+
         {/* DAL */}
         <p>
           <FormInputText
@@ -146,7 +160,12 @@ export function AddNewOffer() {
             name="typeJob"
             value={typeJob}
             onChange={handleChange}
-            options={ {valueInicial: "", presencial: 'presencial', teletrabajo: 'teletrajo', hibrido: 'hibrido'} }
+            options={{
+              valueInicial: '',
+              presencial: 'presencial',
+              teletrabajo: 'teletrajo',
+              hibrido: 'hibrido',
+            }}
           />
         </p>
         <p>
@@ -155,7 +174,12 @@ export function AddNewOffer() {
             name="internJob"
             value={internJob}
             onChange={handleChange}
-            options={ {valueInicial: "", no_renumerado: 'no renumerado', renumerado: 'renumerado', ong: 'ONG'} }
+            options={{
+              valueInicial: '',
+              no_remunerado: 'no remunerado',
+              remunerado: 'remunerado',
+              ong: 'ONG',
+            }}
           />
         </p>
         <p>
@@ -184,11 +208,21 @@ export function AddNewOffer() {
         <Button
           className="form__button"
           type="submit"
-          disabled={ !position || !description || !location || typeJob == "" || internJob == ""  && error !== null }
+          disabled={
+            !position ||
+            !description ||
+            !location ||
+            typeJob == '' ||
+            (internJob == '' && error !== null)
+          }
         >
           Save Offer
         </Button>
-        {showMessageDatesSaved && <div><b>Datos guardados</b></div>}
+        {showMessageDatesSaved && (
+          <div>
+            <b>Datos guardados</b>
+          </div>
+        )}
       </form>
       <div onClick={resetError}>{error ? error : null}</div>
     </Layout>

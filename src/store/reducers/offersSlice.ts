@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { IOfferMapped, IOffersMapped } from '../../utils/interfaces/IOffer';
+import { IOfferMapped, IOffersReduxState } from '../../utils/interfaces/IOffer';
 import { getOffersAction } from '../actions/offersActions';
 
-const initialState: IOffersMapped = {
+const initialState: IOffersReduxState = {
   offers: [],
+  loadedOffers: false,
 };
 
 export const offersSlice = createSlice({
@@ -15,6 +16,7 @@ export const offersSlice = createSlice({
       getOffersAction.fulfilled,
       (state, action: PayloadAction<IOfferMapped[]>) => {
         state.offers = action.payload;
+        state.loadedOffers = true;
       }
     );
   },
