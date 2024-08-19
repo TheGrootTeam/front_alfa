@@ -35,7 +35,7 @@ export const createOffersAction = createAsyncThunk<
   IOffer,
   IOffer,
   { rejectValue: string }
->('offers/createOffersAction', async (newOffer, { rejectWithValue }) => {
+>('offers/createOffersAction', async (newOffer: any, { rejectWithValue }) => {
   try {
     const offer = await createOffer(newOffer);
     return offer;

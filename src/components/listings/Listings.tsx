@@ -30,7 +30,7 @@ export function Listings() {
             <ListingDetail
               id={offer.id}
               //companyOwner={offer.companyOwner.name}
-              //DAL
+              //DAL - hasta tener acceso a los usuarios
               companyOwner={'PRUEBA'}
               description={offer.description}
               numberApplicants={offer.numberApplicants}
