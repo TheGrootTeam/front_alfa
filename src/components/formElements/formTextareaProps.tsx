@@ -1,7 +1,7 @@
 import { IFormTextareaProps } from '../../utils/interfaces/IFormElements';
 import './formElements.module.css';
 
-export function FormTextareaProps({
+export function FormTextarea({
   labelText,
   id,
   name,

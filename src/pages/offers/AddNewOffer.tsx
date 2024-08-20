@@ -1,24 +1,26 @@
 import { useDispatch } from 'react-redux';
+//import Swal from 'sweetalert2';
 import Layout from '../../components/layout/Layout';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
-import { FormTextareaProps } from '../../components/formElements/formTextareaProps';
-//import { FormSelectProps } from '../../components/formElements/FormSelectProps';
-import styles from "./AddNewOffer.module.css";
+import { FormTextarea } from '../../components/formElements/formTextareaProps';
+import { FormSelect } from '../../components/formElements/formSelect';
+import styles from './AddNewOffer.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
+import { getNewOfferState } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { createOffersAction } from '../../store/actions/offersActions';
+//import { newOfferSlice } from '../../store/reducers/newOfferSlice';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 
-
 export function AddNewOffer() {
   const navigate = useNavigate();
-  const {loading, error} = useSelector(getUi);
-
+  const { loading, error } = useSelector(getUi);
+  const { offerInfo } = useSelector(getNewOfferState);
   const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     position: '',
@@ -27,64 +29,83 @@ export function AddNewOffer() {
     description: '',
     //DAL - Hasta que esté corregido el problema del login
     //companyOwner: { _id: '', name: '' },
-    companyOwner: { _id: '66b52992d440e902e52c1ecd', name: 'Apple' },
+    companyOwner: { _id: '66c37b843ed5b9561ce5eb5f', name: 'Apple' },
     status: true,
     numberVacancies: 1,
     listApplicants: [],
     numberApplicants: 0,
     location: '',
     typeJob: '',
-    internJob: ''
+    internJob: '',
   });
-
-  
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
+  const {
+    position,
+    publicationDate,
+    description,
+    numberVacancies,
+    location,
+    typeJob,
+    internJob,
+  } = formData;
 
-  const { position, publicationDate, description, numberVacancies, location, typeJob, internJob } = formData;
-
-
-  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(createOffersAction(formData));
-
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const target = event.target as HTMLInputElement;
+  // handleChange adapted of different kind of elements
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const target = event.target as HTMLInputElement | HTMLSelectElement;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-  
+
     setFormData((currentData) => ({
       ...currentData,
       [event.target.name]: value,
     }));
   };
-  
 
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
   };
 
-  // DAL
-  // useEffect(() => {
-  //   if (!loading && !error) {
-  //     setDatesSaved(true);
-  //     setTimeout(() => setDatesSaved(false), 5000); // Hide the messages in 5 sg
-  //   }
-  // }, [loading, error]);
-
   useEffect(() => {
-    if (!loading && !error) {
+    if (!loading && !error && offerInfo) {
       setDatesSaved(true);
       setTimeout(() => {
         setDatesSaved(false);
         navigate('/');
       }, 5000); // Hide the messages in 5 sg
     }
-  }, [loading, error, navigate]);
+  }, [loading, error, offerInfo, navigate]);
 
+  //DAL -Prueba con librería de ventanas para mensajes
+  // useEffect(() => {
+  //   if (!loading && !error && offerInfo) {
+  //     setDatesSaved(true);
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Your work has been saved",
+  //       showConfirmButton: true,
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         navigate('/');
+  //       }
+  //     });
+  //   }
+  // }, [loading, error, offerInfo, navigate]);
 
   return (
     <Layout title="New Offer" page="newOffer">
+      {showMessageDatesSaved && (
+        <div>
+          <b>Datos guardados</b>
+        </div>
+      )}
       <form onSubmit={handleSubmit} id="newOffer-form" className={styles.form}>
         <p>
           <FormInputText
@@ -104,11 +125,11 @@ export function AddNewOffer() {
             name="publicationDate"
             value={publicationDate}
             onChange={handleChange}
-            readOnly = {true}
+            readOnly={true}
           />
         </p>
         <p>
-          <FormTextareaProps
+          <FormTextarea
             labelText="Description"
             className="form__inputfield"
             id="description"
@@ -121,7 +142,7 @@ export function AddNewOffer() {
         </p>
         {/*  companyOwner  <- automatic asignation*/}
         {/*  Status  <- is it tru */}
-        
+
         {/* DAL */}
         <p>
           <FormInputText
@@ -133,30 +154,34 @@ export function AddNewOffer() {
             onChange={handleChange}
           />
         </p>
-        <p>Nota: hay que desplegar con un select</p>
         <p>
-          <FormInputText
-            labelText="Type of Job"
-            className="form__inputfield"
-            id="typeJob"
+          <FormSelect
+            label="Type of Job"
             name="typeJob"
             value={typeJob}
             onChange={handleChange}
+            options={{
+              valueInicial: '',
+              presencial: 'presencial',
+              teletrabajo: 'teletrajo',
+              hibrido: 'hibrido',
+            }}
           />
         </p>
-        <p>Nota: hay que desplegar con un select</p>
         <p>
-          <FormInputText
-            labelText="Internship Job"
-            className="form__inputfield"
-            id="internJob"
+          <FormSelect
+            label="Type of internship"
             name="internJob"
             value={internJob}
             onChange={handleChange}
+            options={{
+              valueInicial: '',
+              no_remunerado: 'no remunerado',
+              remunerado: 'remunerado',
+              ong: 'ONG',
+            }}
           />
         </p>
-
-
         <p>
           <FormInputNumber
             labelText="NumberVacancies"
@@ -183,11 +208,21 @@ export function AddNewOffer() {
         <Button
           className="form__button"
           type="submit"
-          disabled={!position || !description  && error !== null }
+          disabled={
+            !position ||
+            !description ||
+            !location ||
+            typeJob == '' ||
+            (internJob == '' && error !== null)
+          }
         >
           Save Offer
         </Button>
-        {showMessageDatesSaved && <div>Datos guardados</div>}
+        {showMessageDatesSaved && (
+          <div>
+            <b>Datos guardados</b>
+          </div>
+        )}
       </form>
       <div onClick={resetError}>{error ? error : null}</div>
     </Layout>
