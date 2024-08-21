@@ -26,7 +26,7 @@ export function EditOffer() {
   //const [formData, setFormData] = useState(offerInfo);
   // type PartialIOffer = Partial<IOffer>;
   const [formData, setFormData] = useState({
-    _id: '66c5b8b69892910d72c9fd22',
+    _id: '66c62eca07e6ac1889cb352c',
     position: 'Casos de update',
     //publicationDate: '2024-08-19',
     description:
