@@ -4,10 +4,13 @@ import { useSelector } from 'react-redux';
 import { getOffer } from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
 // import styles from "./Offermodule.css";
 
 export function OfferPage() {
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
 
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
@@ -21,6 +24,11 @@ export function OfferPage() {
   const editOffer = () => {
     //EDIT AD
   };
+
+  useEffect(() => {
+    //dispatch(getOfferAction(id));
+  }, [id, dispatch]);
+
 
   return (
     <>
