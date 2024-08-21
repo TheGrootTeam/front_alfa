@@ -1,19 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { useState, useEffect } from 'react';
-import { registerUser } from '../../store/reducers/registerSlice';
+import { registerUser, resetRegisterState } from '../../store/reducers/registerSlice';
 import { RootState } from '../../store/store';
 import styles from './Register.module.css';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
 import { Button } from '../../components/common/Button';
 import Notification from '../../components/common/Notification';
+import { useNavigate, Link } from 'react-router-dom';
 
 export function RegisterPage() {
   const dispatch = useDispatch();
-  const { loading, error }: { loading: boolean, error: { message: string } | null } = useSelector(
+  const navigate = useNavigate();
+  const { loading, error }: { loading: boolean, error: string | null | { message: string } } = useSelector(
     (state: RootState) => state.register
-  ) as { loading: boolean, error: { message: string } | null };
+  );
 
   const [formData, setFormData] = useState({ dniCif: '', email: '', password: '', confirmPassword: '', isCompany: null });
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +26,12 @@ export function RegisterPage() {
 
   const { dniCif, email, password, confirmPassword, isCompany } = formData;
 
-  // Verify passwords every time they change
+  useEffect(() => {
+    return () => {
+      dispatch(resetRegisterState());
+    };
+  }, [dispatch]);
+
   useEffect(() => {
     if (!password || !confirmPassword) setPasswordError('Los campos de contraseña no pueden estar vacíos');
     else if (password !== confirmPassword) setPasswordError('Las contraseñas no coinciden');
@@ -32,13 +39,11 @@ export function RegisterPage() {
     else setPasswordError(null);
   }, [password, confirmPassword]);
 
-  // Verify email every time you change
   useEffect(() => {
     if (email && !isValidEmail(email)) setEmailError('El correo electrónico no es válido');
     else setEmailError(null);
   }, [email]);
 
-  // Verify the ID/CIF every time it changes
   useEffect(() => {
     if (dniCif) {
       if (isCompany === 'true' && !isValidCIF(dniCif)) setDniCifError('El CIF debe empezar con A, B, C, D, E, F, G, H y seguido de 8 dígitos');
@@ -65,7 +70,15 @@ export function RegisterPage() {
         setEmailError(null);
         setDniCifError(null);
         setTimeout(() => setSuccessMessage(null), 2000);
-      }
+      
+        // Redirect the user according to the type after a successful record
+        const password = formData.password;
+        if (isCompany === 'true') {
+          navigate('/company/edit', { state: { email, dniCif, password } });
+        } else {
+          navigate('/user/edit', { state: { email, dniCif, password } });
+        }
+      } 
     } catch (error) {
       console.error('Error registrando usuario:', error);
     }
@@ -107,7 +120,12 @@ export function RegisterPage() {
           Register
         </Button>
         {loading && <p>Loading...</p>}
-        {error && <p className={styles.error}>Error: {error.message}</p>}
+        {error && (
+          <div className={styles.error}>
+            <p>Error: {typeof error === 'string' ? error : error.message}</p>
+            <Link to="/login">¿Ya tienes cuenta? Inicia sesión</Link>
+          </div>
+        )}
         {successMessage && <Notification message={successMessage} type="success" />}
       </form>
     </Layout>
