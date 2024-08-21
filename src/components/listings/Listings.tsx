@@ -8,6 +8,7 @@ import { AppDispatch } from '../../store/store';
 import { getOffersAction } from '../../store/actions/offersActions';
 import { Loader } from '../common/Loader';
 import Notification from '../common/Notification';
+import { uiSlice } from '../../store/reducers/uiSlice';
 
 export function Listings() {
   const offers = useSelector(getOffersState);
@@ -18,8 +19,12 @@ export function Listings() {
     dispatch(getOffersAction());
   }, [dispatch]);
 
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
+  };
+
   function showError() {
-    return <Notification type='error' message={error} />;
+    return <Notification type="error" message={error} onClick={resetError} />;
   }
 
   function showOffers() {

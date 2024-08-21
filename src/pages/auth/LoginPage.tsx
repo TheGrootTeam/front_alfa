@@ -53,7 +53,7 @@ export function LoginPage() {
         <Notification
           type="error"
           message={error}
-          onClickFunction={resetError}
+          onClick={resetError}
         />
       )}
       <form onSubmit={handleSubmit} id="login-form" className={styles.form}>
