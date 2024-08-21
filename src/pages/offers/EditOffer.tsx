@@ -24,11 +24,11 @@ export function EditOffer() {
   //const [formData, setFormData] = useState(offerInfo);
   type PartialIOffer = Partial<IOffer>;
   const [formData, setFormData] = useState<PartialIOffer>({
-    _id: '66c3939e8e4b69f20d92cf5e',
+    _id: '66c5b8b69892910d72c9fd22',
     position: 'Casos de update',
     //publicationDate: '2024-08-19',
     description:
-      'Pruebas update mediante plantilla en EditOffer.tsx; hasta ser accesible desde companies',
+      'Pruebas update hardcodeada; hasta ser accesible desde companies',
     //companyOwner: { _id: '66c37b843ed5b9561ce5eb60' },
     status: true,
     numberVacancies: 1,
