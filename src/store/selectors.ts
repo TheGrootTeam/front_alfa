@@ -11,3 +11,5 @@ export const getNewOfferState = (state: RootState) => state.newOffer;
 export const getToUpdateOfferState = (state: RootState) => state.editOffer;
 
 
+
+export const getOffersLoaded = (state: RootState) => state.offers.loadedOffers;

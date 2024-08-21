@@ -2,8 +2,9 @@ export interface IOffers {
   offers: IOffer[];
 }
 
-export interface IOffersMapped {
+export interface IOffersReduxState {
   offers: IOfferMapped[];
+  loadedOffers: boolean;
 }
 
 interface companyOwner {
@@ -31,43 +32,64 @@ interface applicantOwner {
 
 //DAL
 export interface IOffer {
-  _id?: string;
-  position: string;
-  publicationDate: string;
-  description: string;
+  __v: number;
+  _id: string;
   companyOwner: companyOwner;
-  status: boolean;
-  numberVacancies: number;
+  description: string;
+  internJob: string;
   listApplicants: applicantOwner[];
-  numberApplicants: number;
-  __v?: number;
-
-
-}
-
-export interface IOfferMapped {
-  companyOwner: companyOwner;
-  description: string;
+  location: string;
   numberApplicants: number;
   numberVacancies: number;
   position: string;
   publicationDate: Date;
   status: boolean;
-  __v?: number;
-  id?: string;
-  //listApplicants: number;
+  typeJob: string;
+}
+
+export interface IOfferMapped {
+  __v: number;
+  id: string;
+  companyOwner: companyOwner;
+  description: string;
+  internJob: string;
   //DAL
+  //listApplicants: number;
   listApplicants: applicantOwner[];
+  location: string;
+  numberApplicants: number;
+  numberVacancies: number;
+  position: string;
+  publicationDate: Date;
+  status: boolean;
+  typeJob: string;
 }
 
 export interface IOfferListingDetail {
-  id?: string;
+  id: string;
   companyOwner: string;
   description: string;
+  internJob: string;
+  location: string;
   numberApplicants: number;
   numberVacancies: number;
   //DAL
-  publicationDate: Date
+  publicationDate: Date;
   position: string;
   status: boolean;
+  typeJob: string;
+}
+
+export interface IOfferForm {
+  companyOwner: companyOwner;
+  description: string;
+  internJob: string;
+  listApplicants: string[];
+  location: string;
+  numberApplicants: number;
+  numberVacancies: number;
+  position: string;
+  publicationDate: Date | string;
+  status: boolean;
+  typeJob: string;
 }

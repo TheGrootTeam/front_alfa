@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ErrorResponse } from 'react-router-dom';
 
-const baseURL = `${import.meta.env.VITE_BASE_URL}/api/${import.meta.env.VITE_API_VERSION}`;
+const baseURL = `${import.meta.env.VITE_API_URL}/api/${import.meta.env.VITE_API_VERSION}`;
 
 export const client = axios.create({
   baseURL,
