@@ -8,12 +8,12 @@ import { LostPassword } from './pages/auth/LostPassword';
 import { HomePage } from './pages/home/HomePage';
 
 import { DashBoardInternPage } from './pages/dashboard/DashboardInternPage';
-import { UserProfilePage } from './pages/users/ProfilePage';
-import { EditUserProfilePage } from './pages/users/EditProfilePage';
+import { UserProfilePage } from './pages/applicants/ProfileApplicant';
+import { EditUserProfilePage } from './pages/applicants/EditProfileApplicant';
 
 import { DashBoardCompanyPage } from './pages/dashboard/DashboardCompanyPage';
-import { CompanyProfilePage } from './pages/companies/ProfilePage';
-import { EditCompanyProfilePage } from './pages/companies/EditProfilePage';
+import { CompanyProfilePage } from './pages/companies/ProfileCompany';
+import { EditCompanyProfilePage } from './pages/companies/EditProfileCompany';
 
 import { OfferPage } from './pages/offers/OfferPage';
 import { EditOffer } from './pages/offers/EditOffer';
