@@ -10,7 +10,7 @@ import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogin } from '../../store/actions/authActions';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
-import { ErrorsDisplay } from '../../components/common/ErrorDisplay';
+import Notification from '../../components/common/Notification';
 // import { Loader } from '../../components/common/Loader';
 
 export function LoginPage() {
@@ -49,7 +49,13 @@ export function LoginPage() {
   return (
     <Layout title="Log In" page="loginPage">
       {/* {loading && <Loader />} */}
-      {error && <ErrorsDisplay content={error} onClickFunction={resetError} />}
+      {error && (
+        <Notification
+          type="error"
+          message={error}
+          onClickFunction={resetError}
+        />
+      )}
       <form onSubmit={handleSubmit} id="login-form" className={styles.form}>
         <p>
           <FormInputText

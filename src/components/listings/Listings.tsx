@@ -1,13 +1,13 @@
 import styles from './Listings.module.css';
 import { ListingDetail } from './ListingDetail';
 import { useEffect } from 'react';
-import { ErrorsDisplay } from '../common/ErrorDisplay';
 import { getOffersState, getUi } from '../../store/selectors';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { getOffersAction } from '../../store/actions/offersActions';
 import { Loader } from '../common/Loader';
+import Notification from '../common/Notification';
 
 export function Listings() {
   const offers = useSelector(getOffersState);
@@ -19,7 +19,7 @@ export function Listings() {
   }, [dispatch]);
 
   function showError() {
-    return <ErrorsDisplay content={error} />;
+    return <Notification type='error' message={error} />;
   }
 
   function showOffers() {
