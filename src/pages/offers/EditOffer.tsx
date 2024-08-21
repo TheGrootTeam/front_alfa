@@ -2,10 +2,10 @@ import { getUi } from '../../store/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 // import { useState, useEffect } from 'react';
 import { useState } from 'react';
-import { getToUpdateOfferState } from '../../store/selectors';
+//import { getToUpdateOfferState } from '../../store/selectors';
 
 import Layout from '../../components/layout/Layout';
-//import { AppDispatch } from '../../store/store';
+import { AppDispatch } from '../../store/store';
 import { Button } from '../../components/common/Button';
 import styles from './EditOffer.module.css';
 import { FormInputText } from '../../components/formElements/formInputText';
@@ -13,17 +13,19 @@ import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextarea } from '../../components/formElements/formTextareaProps';
 import { FormSelect } from '../../components/formElements/formSelect';
 import { editOffersAction } from '../../store/actions/offersActions';
+//import { IOffer } from '../../utils/interfaces/IOffer';
 
 export function EditOffer() {
-  const { loading, error } = useSelector(getUi);
+  // const { loading, error } = useSelector(getUi);
+  const { error } = useSelector(getUi);
   const dispatch = useDispatch<AppDispatch>();
-  const { offerInfo } = useSelector(getToUpdateOfferState);
+  //const { offerInfo } = useSelector(getToUpdateOfferState);
 
   //BALIZA
   //Se usa el siguiente formData para tener datos para probar el update
   //const [formData, setFormData] = useState(offerInfo);
-  type PartialIOffer = Partial<IOffer>;
-  const [formData, setFormData] = useState<PartialIOffer>({
+  // type PartialIOffer = Partial<IOffer>;
+  const [formData, setFormData] = useState({
     _id: '66c5b8b69892910d72c9fd22',
     position: 'Casos de update',
     //publicationDate: '2024-08-19',
@@ -39,12 +41,13 @@ export function EditOffer() {
     internJob: 'no_remunerado',
   });
 
-  const [showMessageDatesSaved, setDatesSaved] = useState(false);
-  const filterIdOffer = formData._id;
+  //const [showMessageDatesSaved, setDatesSaved] = useState(false);
+  const [showMessageDatesSaved] = useState(false);
+  //const filterIdOffer = formData._id;
   const {
     position,
     description,
-    status,
+    //  status,
     numberVacancies,
     location,
     typeJob,
@@ -74,6 +77,7 @@ export function EditOffer() {
   return (
     <>
       <Layout title="Edit Offer" page="editoffer">
+        <p>EDIT OFFER CABUENDIOS</p>
         <form
           onSubmit={handleSubmit}
           id="newOffer-form"

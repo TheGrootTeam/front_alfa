@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 //import { createOffersAction } from '../actions/offersActions';
 import { editOffersAction } from '../actions/offersActions';
-import { IOffer } from '../../utils/interfaces/IOffer';
+
+// import { IOffer } from '../../utils/interfaces/IOffer';
+import { IOfferForm } from '../../utils/interfaces/IOffer';
 
 export const editOfferSlice = createSlice({
   name: 'editOffer',
   initialState: {
-    offerInfo: {} as IOffer,
+    offerInfo: {} as IOfferForm,
   },
   reducers: {
     resetEditOfferState: (state) => {
-      state.offerInfo = {} as IOffer;
+      state.offerInfo = {} as IOfferForm;
 
     },
   },

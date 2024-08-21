@@ -50,8 +50,8 @@ export const createOffersAction = createAsyncThunk<
 });
 
 export const editOffersAction = createAsyncThunk<
-  IOffer,
-  IOffer,
+  IOfferForm,
+  IOfferForm,
   { rejectValue: string }
 >('offers/editOffersAction', async (updatedOffer: any, { rejectWithValue }) => {
   try {

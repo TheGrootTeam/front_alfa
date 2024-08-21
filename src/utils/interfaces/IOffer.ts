@@ -81,15 +81,18 @@ export interface IOfferListingDetail {
 }
 
 export interface IOfferForm {
-  companyOwner: companyOwner;
+  __v?: number;
+  _id?: string;
+  companyOwner?: companyOwner;
   description: string;
   internJob: string;
-  listApplicants: string[];
+  //listApplicants: string[];
+  listApplicants?: applicantOwner[];
   location: string;
-  numberApplicants: number;
+  numberApplicants?: number;
   numberVacancies: number;
   position: string;
-  publicationDate: Date | string;
+  publicationDate?: Date | string;
   status: boolean;
   typeJob: string;
 }

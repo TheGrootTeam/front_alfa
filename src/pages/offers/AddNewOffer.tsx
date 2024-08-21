@@ -29,7 +29,7 @@ export function AddNewOffer() {
     description: '',
     //DAL - Hasta que esté corregido el problema del login
     //companyOwner: { _id: '', name: '' },
-    companyOwner: { _id: '66c37b843ed5b9561ce5eb5f', name: 'Apple' },
+    companyOwner: { _id: '66c5b5d748e2b3cb579501f8', name: 'Apple' },
     status: true,
     numberVacancies: 1,
     listApplicants: [],
