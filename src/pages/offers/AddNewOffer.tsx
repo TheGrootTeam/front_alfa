@@ -16,8 +16,10 @@ import { createOffersAction } from '../../store/actions/offersActions';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export function AddNewOffer() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { loading, error } = useSelector(getUi);
   const { offerInfo } = useSelector(getNewOfferState);
@@ -100,16 +102,16 @@ export function AddNewOffer() {
   // }, [loading, error, offerInfo, navigate]);
 
   return (
-    <Layout title="New Offer" page="newOffer">
+    <Layout title={t('titles.add_offer')} page="newOffer">
       {showMessageDatesSaved && (
         <div>
-          <b>Datos guardados</b>
+          <b>{t('notifications.data_saved')}</b>
         </div>
       )}
       <form onSubmit={handleSubmit} id="newOffer-form" className={styles.form}>
         <p>
           <FormInputText
-            labelText="Position"
+            labelText={t('forms.position')}
             className="form__inputfield"
             id="position"
             name="position"
@@ -119,7 +121,7 @@ export function AddNewOffer() {
         </p>
         <p>
           <FormInputText
-            labelText="Publication Date"
+            labelText={t('forms.publication_date')}
             className="form__inputfield"
             id="publicationDate"
             name="publicationDate"
@@ -130,7 +132,7 @@ export function AddNewOffer() {
         </p>
         <p>
           <FormTextarea
-            labelText="Description"
+            labelText={t('forms.description')}
             className="form__inputfield"
             id="description"
             name="description"
@@ -146,7 +148,7 @@ export function AddNewOffer() {
         {/* DAL */}
         <p>
           <FormInputText
-            labelText="Location"
+            labelText={t('forms.location')}
             className="form__inputfield"
             id="location"
             name="location"
@@ -156,7 +158,7 @@ export function AddNewOffer() {
         </p>
         <p>
           <FormSelect
-            label="Type of Job"
+            label={t('forms.job_type')}
             name="typeJob"
             value={typeJob}
             onChange={handleChange}
@@ -170,7 +172,7 @@ export function AddNewOffer() {
         </p>
         <p>
           <FormSelect
-            label="Type of internship"
+            label={t('forms.internship_type')}
             name="internJob"
             value={internJob}
             onChange={handleChange}
@@ -184,7 +186,7 @@ export function AddNewOffer() {
         </p>
         <p>
           <FormInputNumber
-            labelText="NumberVacancies"
+            labelText={t('forms.number_vacancies')}
             className="form__inputfield"
             id="numberVacancies"
             name="numberVacancies"
@@ -196,7 +198,7 @@ export function AddNewOffer() {
         {/* listApplicants: [], */}
         {/* <p>
           <FormInputNumber
-            labelText="NumberApplicants"
+            labelText={t('forms.number_applicants')}
             className="form__inputfield"
             id="numberApplicants"
             name="numberApplicants"
@@ -216,11 +218,11 @@ export function AddNewOffer() {
             (internJob == '' && error !== null)
           }
         >
-          Save Offer
+          {t('forms.save_offer_button')}
         </Button>
         {showMessageDatesSaved && (
           <div>
-            <b>Datos guardados</b>
+            <b>{t('forms.data_saved')}</b>
           </div>
         )}
       </form>

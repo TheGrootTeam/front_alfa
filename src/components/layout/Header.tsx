@@ -11,10 +11,18 @@ import Logo from '../../assets/logo.svg?react';
 import styles from './Header.module.css';
 import ConfirmationButton from '../common/ConfirmationButton';
 
+import { useTranslation } from 'react-i18next';
+
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
   const { auth } = useSelector(getIsLogged);
   const dispatch = useDispatch<AppDispatch>();
+
+  const langs: { [key: string]: { nativeName: string } } = {
+    es: { nativeName: 'Español' },
+    en: { nativeName: 'English' },
+  };
 
   const handleLogout = () => {
     dispatch(authLogout());
@@ -31,7 +39,7 @@ const Header = () => {
         <div className={styles.inner}>
           <h1 className={styles.h1}>
             <Link to={`/`}>
-              <Logo className={styles.icon} /> <span>The Alpha Project</span>
+              <Logo className={styles.icon} /> <span>InternIT</span>
             </Link>
           </h1>
           <nav className={styles.nav}>
@@ -39,40 +47,54 @@ const Header = () => {
               {!auth && (
                 <>
                   <li>
-                    <Link to="/login">Log in</Link>
+                    <Link to="/login">{t('nav.log_in')}</Link>
                   </li>
                   <li>
-                    <Link to="/register">Register</Link>
+                    <Link to="/register">{t('nav.register')}</Link>
                   </li>
                 </>
               )}
-              
+
               {/* DAL */}
               {/* !auth para darle visibilidad de manera temporal: no me funciona el login*/}
-              {!auth && ( 
+              {!auth && (
                 <>
                   <li>
-                  <Link to="/offers/new">New Offer</Link>
+                    <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
                   </li>
                 </>
               )}
-              
+
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/about">{t('nav.about')}</Link>
               </li>
               {auth && (
                 <li>
                   <ConfirmationButton
-                    buttonLabel="Log Out"
-                    dialogText="Are you sure you want to log out?"
-                    confirmLabel="Yes"
-                    cancelLabel="No"
+                    buttonLabel={t('nav.logout')}
+                    dialogText={t('dialogs.logout_message')}
+                    confirmLabel={t('gen.yes')}
+                    cancelLabel={t('gen.no')}
                     confirmAction={handleLogout}
                   />
                 </li>
               )}
             </ul>
           </nav>
+          <ul className={styles.languageSwitcher}>
+            {/* Added key prop to each list item for React's unique identification */}
+            {Object.keys(langs).map((lang) => (
+              <li key={lang}> {/* Added key={lang} to each <li> to resolve React's unique key warning */}
+                <button
+                  type="submit"
+                  onClick={() => i18n.changeLanguage(lang)}
+                  disabled={i18n.resolvedLanguage === lang}
+                >
+                  {lang.toUpperCase()}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </header>
     </>

@@ -1,5 +1,6 @@
 import Layout from '../../components/layout/Layout';
-import styles from './EditProfileApplicant.module.css';
+import styles from './EditProfileApplicant.module.css'; // Asegúrate de que el archivo CSS correcto está siendo importado
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,8 +10,9 @@ import { RootState } from '../../store/store';
 export function EditUserProfilePage() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const { t } = useTranslation(); // Para traducción
   const { email, dniCif, password } = location.state || {};
-
+  
   // Use local state as a fallback if formData is not loaded
   const formData = useSelector((state: RootState) => state.profile.profileData);
   const loading = useSelector((state: RootState) => state.profile.loading);
@@ -50,7 +52,6 @@ export function EditUserProfilePage() {
       [name]: type === 'checkbox' ? checked : value,
     };
     setLocalFormData(updatedData);
-    dispatch(updateUserProfile(updatedData));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,16 +59,16 @@ export function EditUserProfilePage() {
     const file = files ? files[0] : null;
     const updatedData = { ...localFormData, [name]: file };
     setLocalFormData(updatedData);
-    dispatch(updateUserProfile(updatedData));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Lógica para manejar la actualización del perfil
+    // Dispatches the action to update the profile
+    dispatch(updateUserProfile(localFormData));
   };
 
   return (
-    <Layout title="Edit Profile" page="edituserprofile">
+    <Layout title={t('titles.userprofile_edit')} page="edituserprofile">
       <form onSubmit={handleSubmit} className={styles.form}>
         <label>DNI / CIF</label>
         <input type="text" name="dniCif" value={localFormData.dniCif || dniCif} readOnly />
@@ -78,47 +79,47 @@ export function EditUserProfilePage() {
         <label>Password</label>
         <input type="password" name="password" value={localFormData.password || password} readOnly />
         
-        <label>Name</label>
+        <label>{t('fields.name')}</label>
         <input type="text" name="name" value={localFormData.name || ''} onChange={handleChange} />
         
-        <label>Last Name</label>
+        <label>{t('fields.lastName')}</label>
         <input type="text" name="lastName" value={localFormData.lastName || ''} onChange={handleChange} />
         
-        <label>Phone Number</label>
+        <label>{t('fields.phone')}</label>
         <input type="text" name="phone" value={localFormData.phone || ''} onChange={handleChange} />
         
-        <label>Location</label>
+        <label>{t('fields.location')}</label>
         <input type="text" name="ubication" value={localFormData.ubication || ''} onChange={handleChange} />
         
-        <label>Photo</label>
+        <label>{t('fields.photo')}</label>
         <input type="file" name="photo" onChange={handleFileChange} />
         
-        <label>CV / Resume</label>
+        <label>{t('fields.cv')}</label>
         <input type="file" name="cv" onChange={handleFileChange} />
         
-        <label>Preferred Work Location</label>
+        <label>{t('fields.preferredWorkLocation')}</label>
         <input type="text" name="typeJob" value={localFormData.typeJob || ''} onChange={handleChange} />
         
-        <label>Wanted Role(s)</label>
+        <label>{t('fields.wantedRole')}</label>
         <input type="text" name="wantedRol" value={localFormData.wantedRol || ''} onChange={handleChange} />
         
-        <label>Main Skills</label>
+        <label>{t('fields.mainSkills')}</label>
         <input type="text" name="mainSkills" value={localFormData.mainSkills || ''} onChange={handleChange} />
         
         <label>
-          Willing to Relocate:
+          {t('fields.willingToRelocate')}
           <input type="checkbox" name="geographically_mobile" checked={!!localFormData.geographically_mobile} onChange={handleChange} />
         </label>
         
         <label>
-          Available to Start Immediately:
+          {t('fields.availableImmediately')}
           <input type="checkbox" name="disponibility" checked={!!localFormData.disponibility} onChange={handleChange} />
         </label>
 
         {/* Show the error message if it exists */}
         {error && <p className={styles.error}>Error: {error}</p>}
         
-        <button type="submit" disabled={loading || !!error}>Save & Finish</button>
+        <button type="submit" disabled={loading || !!error}>{t('buttons.saveAndFinish')}</button>
       </form>
     </Layout>
   );

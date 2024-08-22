@@ -6,6 +6,7 @@ import './reset.css';
 import './index.css';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import './i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 const router = createBrowserRouter([{ path: '*', element: <App /> }]);

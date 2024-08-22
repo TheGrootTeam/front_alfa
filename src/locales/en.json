@@ -1,0 +1,89 @@
+{
+  "gen": {
+    "yes": "yes",
+    "no": "no"
+  },
+  "nav": {
+    "log_in": "Log in",
+    "register": "Register",
+    "add_new_offer": "Add New Offer",
+    "about": "About",
+    "logout": "Log out"
+  },
+  "titles": {
+    "log_in": "Log in",
+    "lost_password": "Recover password",
+    "register": "Register",
+    "about": "About",
+    "companyprofile_edit": "Edit Company Profile",
+    "companyprofile": "Company Profile",
+    "userprofile_edit": "Edit User Profile",
+    "userprofile": "User Profile",
+    "dashboard": "Dashboard",
+    "add_offer": "Add New Offer",
+    "edit_offer": "Edit Offer"
+  },
+  "forms": {
+    "search": "search...",
+    "login_button": "Log in",
+    "cif_nif": "ID/VAT number",
+    "password": "Password",
+    "password_confirm": "Confirm password",
+    "password_show": "Show passwords",
+    "remember_me": "Remember me",
+    "register_button": "Register",
+    "select_usertype": "User type",
+    "company": "Company",
+    "applicant": "Applicant",
+    "cif": "VAT Number",
+    "nif": "ID Number",
+    "email": "Email",
+    "save_offer_button": "Save Offer",
+    "position": "Position",
+    "publication_date": "Publication date",
+    "description": "Description",
+    "location": "Location",
+    "job_type": "Job Type",
+    "internship_type": "Internship Type",
+    "number_vacancies": "Number of vacancies",
+    "number_applicants": "Number of applicants"
+  },
+  "fields": {
+    "cif": "VAT Number",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "industry": "Industry",
+    "location": "Location",
+    "description": "Description",
+    "logo": "Logo",
+    "photo": "Photo",
+    "cv": "Resume",
+    "preferredWorkLocation": "Preferred Work Location",
+    "wantedRole": "Wanted Role",
+    "mainSkills": "Main Skills",
+    "willingToRelocate": "Willing to Relocate",
+    "availableImmediately": "Available Immediately"
+  },
+  "buttons": {
+    "saveAndFinish": "Save & Finish"
+  },
+  "errors": {
+    "password_empty": "Password fields cannot be empty",
+    "password_different": "Passwords don't match",
+    "password_rules": "Password needs to have at least 8 characters and include a number, an uppercase letter and a special character",
+    "email_invalid": "Email address isn't valid",
+    "dnicif_format": "VAT number must start with a letter from A to H followed by 8 digits",
+    "dnicif_invalid": "Personal ID number not valid",
+    "register_error": "Error registering user: "
+  },
+  "notifications": {
+    "register_success": "User registered successfully",
+    "data_saved": "Data saved successfully"
+  },
+  "dialogs": {
+    "logout_message": "Are you sure you want to log out?"
+  }
+}

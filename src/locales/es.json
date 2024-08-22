@@ -1,0 +1,90 @@
+{
+  "gen": {
+    "yes": "sí",
+    "no": "no"
+  },
+  "nav": {
+    "log_in": "Entrar",
+    "register": "Registrarse",
+    "add_new_offer": "Publicar Nueva Oferta",
+    "about": "Acerca de",
+    "logout": "Salir"
+  },
+  "titles": {
+    "log_in": "Entrar",
+    "lost_password": "Recuperar contraseña",
+    "register": "Registrarse",
+    "about": "Acerca de",
+    "companyprofile_edit": "Editar perfil de empresa",
+    "companyprofile": "Perfil de empresa",
+    "userprofile_edit": "Editar perfil de usuario",
+    "userprofile": "Perfil de usuario",
+    "dashboard": "Panel de Control",
+    "add_offer": "Publicar Nueva Oferta",
+    "edit_offer": "Editar Oferta"
+  },
+  "forms": {
+    "search": "buscar...",
+    "login_button": "Entrar",
+    "dni_cif": "DNI/CIF",
+    "password": "Contraseña",
+    "password_confirm": "Confirmar contraseña",
+    "password_show": "Mostrar contraseñas",
+    "remember_me": "Recuérdame",
+    "register_button": "Registrarse",
+    "select_usertype": "Tipo de usuario",
+    "company": "Empresa",
+    "applicant": "Aplicante",
+    "cif": "CIF",
+    "nif": "NIF/NIE",
+    "cif_nif": "CIF o NIF/NIE",
+    "email": "Correo Electrónico",
+    "save_offer_button": "Publicar Oferta",
+    "position": "Puesto",
+    "publication_date": "Fecha de publicación",
+    "description": "Descripción",
+    "location": "Ubicación",
+    "job_type": "Modalidad de trabajo",
+    "internship_type": "Tipo de prácticas",
+    "number_vacancies": "Número de vacantes",
+    "number_applicants": "Número de aplicantes"
+  },
+  "fields": {
+    "cif": "CIF",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "lastName": "Apellido",
+    "phone": "Teléfono",
+    "industry": "Industria",
+    "location": "Ubicación",
+    "description": "Descripción",
+    "logo": "Logo",
+    "photo": "Foto",
+    "cv": "Currículum",
+    "preferredWorkLocation": "Ubicación preferida de trabajo",
+    "wantedRole": "Puesto deseado",
+    "mainSkills": "Habilidades principales",
+    "willingToRelocate": "Dispuesto a reubicarse",
+    "availableImmediately": "Disponible inmediatamente"
+  },
+  "buttons": {
+    "saveAndFinish": "Guardar y Terminar"
+  },
+  "errors": {
+    "password_empty": "Los campos de contraseña no pueden estar vacíos",
+    "password_different": "Las contraseñas no coinciden",
+    "password_rules": "La contraseña debe tener al menos 8 caracteres, incluir un número, una letra mayúscula y un carácter especial",
+    "email_invalid": "El correo electrónico no es válido",
+    "dnicif_format": "El CIF debe empezar con A, B, C, D, E, F, G, H y seguido de 8 dígitos",
+    "dnicif_invalid": "El NIF/NIE no es válido",
+    "register_error": "Error registrando usuario: "
+  },
+  "notifications": {
+    "register_success": "Usuario registrado exitosamente",
+    "data_saved": "Los datos se han guardado correctamente"
+  },
+  "dialogs": {
+    "logout_message": "¿Seguro que quieres salir?"
+  }
+}
