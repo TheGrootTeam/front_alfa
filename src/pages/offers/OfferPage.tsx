@@ -3,12 +3,32 @@ import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
 import { getOffer } from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
+import { Button } from '../../components/common/Button';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
 // import styles from "./Offermodule.css";
 
 export function OfferPage() {
+  const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams();
 
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
+
+  const [showConfirm, setShowCofirm] = useState(false);
+
+  const deleteOffer = () => {
+    //DELETE AD
+  };
+
+  const editOffer = () => {
+    //EDIT AD
+  };
+
+  useEffect(() => {
+    //dispatch(getOfferAction(id));
+  }, [id, dispatch]);
+
 
   return (
     <>
@@ -22,9 +42,6 @@ export function OfferPage() {
             <p>
               Modalidad de prácticas: {offer.typeJob} y {offer.internJob}
             </p>
-            <p></p>
-            {/* DAL - Para adaptarlo el ISO*/}
-            {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
             <p>
               Publicado el: {offer.publicationDate.toISOString().split('T')[0]}
             </p>
@@ -32,12 +49,21 @@ export function OfferPage() {
               Número vacantes: {offer.numberVacancies} | Número solicitantes:{' '}
               {offer.numberApplicants}
             </p>
-            {/* TODO: Incluir el componente Button en funcion del pefil (company o user) y si el user ha aplicado o no */}
-            {/* <Button onClick={() => {}}>Apply Now</Button> */}
+            <Button onClick={editOffer}>Edit Offer</Button>
+            {showConfirm && (
+              <div>
+                <p>Are you sure you want to delete the offer?</p>
+                <Button onClick={deleteOffer}>YES! Delete the Offer</Button>
+                <Button onClick={() => setShowCofirm(false)}>NO! Cancel</Button>
+              </div>
+            )}
+            {!showConfirm && (
+              <Button onClick={() => setShowCofirm(true)}>Delete Offer</Button>
+            )}
           </>
-        )
-      : `Not Found`
-      }
+        ) : (
+          `Not Found`
+        )}
       </Layout>
     </>
   );
