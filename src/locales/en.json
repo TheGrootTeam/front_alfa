@@ -25,14 +25,12 @@
   },
   "forms": {
     "search": "search...",
-
     "login_button": "Log in",
     "cif_nif": "ID/VAT number",
     "password": "Password",
     "password_confirm": "Confirm password",
     "password_show": "Show passwords",
     "remember_me": "Remember me",
-
     "register_button": "Register",
     "select_usertype": "User type",
     "company": "Company",
@@ -40,7 +38,6 @@
     "cif": "VAT Number",
     "nif": "ID Number",
     "email": "Email",
-
     "save_offer_button": "Save Offer",
     "position": "Position",
     "publication_date": "Publication date",
@@ -50,6 +47,28 @@
     "internship_type": "Internship Type",
     "number_vacancies": "Number of vacancies",
     "number_applicants": "Number of applicants"
+  },
+  "fields": {
+    "cif": "VAT Number",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "industry": "Industry",
+    "location": "Location",
+    "description": "Description",
+    "logo": "Logo",
+    "photo": "Photo",
+    "cv": "Resume",
+    "preferredWorkLocation": "Preferred Work Location",
+    "wantedRole": "Wanted Role",
+    "mainSkills": "Main Skills",
+    "willingToRelocate": "Willing to Relocate",
+    "availableImmediately": "Available Immediately"
+  },
+  "buttons": {
+    "saveAndFinish": "Save & Finish"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
@@ -61,7 +80,7 @@
     "register_error": "Error registering user: "
   },
   "notifications": {
-    "register_success": "Usuario registered successfully",
+    "register_success": "User registered successfully",
     "data_saved": "Data saved successfully"
   },
   "dialogs": {

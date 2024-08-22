@@ -82,15 +82,14 @@ const Header = () => {
             </ul>
           </nav>
           <ul className={styles.languageSwitcher}>
+            {/* Added key prop to each list item for React's unique identification */}
             {Object.keys(langs).map((lang) => (
-              <li>
+              <li key={lang}> {/* Added key={lang} to each <li> to resolve React's unique key warning */}
                 <button
                   type="submit"
-                  key={lang}
                   onClick={() => i18n.changeLanguage(lang)}
                   disabled={i18n.resolvedLanguage === lang}
                 >
-                  {/* {langs[lang].nativeName} */}
                   {lang.toUpperCase()}
                 </button>
               </li>
