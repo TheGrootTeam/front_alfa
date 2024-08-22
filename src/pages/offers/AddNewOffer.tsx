@@ -29,7 +29,7 @@ export function AddNewOffer() {
     description: '',
     //DAL - Hasta que esté corregido el problema del login
     //companyOwner: { _id: '', name: '' },
-    companyOwner: { _id: '66c37b843ed5b9561ce5eb5f', name: 'Apple' },
+    companyOwner: { _id: '66c6fc21a5c2d7c86aa0aa11', name: 'Apple' }, // ID correcta cambiada el 22/08 por Ivette es 66c6fc21a5c2d7c86aa0aa11 DEJAD ESTA SI HAY CONFLICTO
     status: true,
     numberVacancies: 1,
     listApplicants: [],
