@@ -11,9 +11,11 @@ import { authLogin } from '../../store/actions/authActions';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { ErrorsDisplay } from '../../components/common/ErrorDisplay';
-// import { Loader } from '../../components/common/Loader';
+import { Loader } from '../../components/common/Loader';
+import { useTranslation } from 'react-i18next';
 
 export function LoginPage() {
+  const { t } = useTranslation();
   const { loading, error } = useSelector(getUi);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -47,13 +49,13 @@ export function LoginPage() {
   };
 
   return (
-    <Layout title="Log In" page="loginPage">
-      {/* {loading && <Loader />} */}
+    <Layout title={t('titles.log_in')} page="loginPage">
+      {loading && <Loader />}
       {error && <ErrorsDisplay content={error} onClickFunction={resetError} />}
       <form onSubmit={handleSubmit} id="login-form" className={styles.form}>
         <p>
           <FormInputText
-            labelText="DNI/CIF"
+            labelText={t('forms.cif_nif')}
             className="form__inputfield"
             id="dniCif"
             name="dniCif"
@@ -63,7 +65,7 @@ export function LoginPage() {
         </p>
         <p>
           <FormInputText
-            labelText="Password"
+            labelText={t('forms.password')}
             className="form__inputfield"
             type="password"
             id="password"
@@ -75,7 +77,7 @@ export function LoginPage() {
         </p>
         <p className={styles.withCheckbox}>
           <FormCheckbox
-            labelText="Remember me"
+            labelText={t('forms.remember_me')}
             id="rememberMe"
             name="rememberMe"
             value={`${rememberMe === true}`}
@@ -88,7 +90,7 @@ export function LoginPage() {
           type="submit"
           disabled={!dniCif || !password || (!loading && error !== null)}
         >
-          Log in
+          {t('forms.login_button')}
         </Button>
       </form>
     </Layout>
