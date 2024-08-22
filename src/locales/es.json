@@ -25,14 +25,12 @@
   },
   "forms": {
     "search": "buscar...",
-
     "login_button": "Entrar",
     "dni_cif": "DNI/CIF",
     "password": "Contraseña",
     "password_confirm": "Confirmar contraseña",
     "password_show": "Mostrar contraseñas",
     "remember_me": "Recuérdame",
-
     "register_button": "Registrarse",
     "select_usertype": "Tipo de usuario",
     "company": "Empresa",
@@ -40,8 +38,7 @@
     "cif": "CIF",
     "nif": "NIF/NIE",
     "cif_nif": "CIF o NIF/NIE",
-    "email": "Email",
-
+    "email": "Correo Electrónico",
     "save_offer_button": "Publicar Oferta",
     "position": "Puesto",
     "publication_date": "Fecha de publicación",
@@ -49,8 +46,30 @@
     "location": "Ubicación",
     "job_type": "Modalidad de trabajo",
     "internship_type": "Tipo de prácticas",
-    "number_vacancies": "Número de vacanyes",
+    "number_vacancies": "Número de vacantes",
     "number_applicants": "Número de aplicantes"
+  },
+  "fields": {
+    "cif": "CIF",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "lastName": "Apellido",
+    "phone": "Teléfono",
+    "industry": "Industria",
+    "location": "Ubicación",
+    "description": "Descripción",
+    "logo": "Logo",
+    "photo": "Foto",
+    "cv": "Currículum",
+    "preferredWorkLocation": "Ubicación preferida de trabajo",
+    "wantedRole": "Puesto deseado",
+    "mainSkills": "Habilidades principales",
+    "willingToRelocate": "Dispuesto a reubicarse",
+    "availableImmediately": "Disponible inmediatamente"
+  },
+  "buttons": {
+    "saveAndFinish": "Guardar y Terminar"
   },
   "errors": {
     "password_empty": "Los campos de contraseña no pueden estar vacíos",
@@ -66,6 +85,6 @@
     "data_saved": "Los datos se han guardado correctamente"
   },
   "dialogs": {
-    "logout_message": "Seguro que quieres salir?"
+    "logout_message": "¿Seguro que quieres salir?"
   }
 }
