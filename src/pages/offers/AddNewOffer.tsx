@@ -16,6 +16,7 @@ import { createOffersAction } from '../../store/actions/offersActions';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
+import Notification from '../../components/common/Notification';
 
 export function AddNewOffer() {
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ export function AddNewOffer() {
     description: '',
     //DAL - Hasta que esté corregido el problema del login
     //companyOwner: { _id: '', name: '' },
-    companyOwner: { _id: '66c5b5d748e2b3cb579501f8', name: 'Apple' },
+    companyOwner: { _id: '66c6fc21a5c2d7c86aa0aa11', name: 'Apple' },
+    //companyOwner: { _id: '66c39ce931e8368e0b95487d', name: 'Apple' },
     status: true,
     numberVacancies: 1,
     listApplicants: [],
@@ -103,7 +105,7 @@ export function AddNewOffer() {
     <Layout title="New Offer" page="newOffer">
       {showMessageDatesSaved && (
         <div>
-          <b>Datos guardados</b>
+          <Notification message="New offer created successful" type="success" />
         </div>
       )}
       <form onSubmit={handleSubmit} id="newOffer-form" className={styles.form}>
@@ -140,10 +142,6 @@ export function AddNewOffer() {
             cols={20}
           />
         </p>
-        {/*  companyOwner  <- automatic asignation*/}
-        {/*  Status  <- is it tru */}
-
-        {/* DAL */}
         <p>
           <FormInputText
             labelText="Location"
@@ -212,15 +210,18 @@ export function AddNewOffer() {
             !position ||
             !description ||
             !location ||
-            typeJob == '' ||
-            (internJob == '' && error !== null)
+            typeJob === '' ||
+            (internJob === '' && error !== null)
           }
         >
           Save Offer
         </Button>
         {showMessageDatesSaved && (
           <div>
-            <b>Datos guardados</b>
+            <Notification
+              message="New offer created successful"
+              type="success"
+            />
           </div>
         )}
       </form>
