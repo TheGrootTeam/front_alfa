@@ -17,6 +17,12 @@ interface applicantOwner {
   mail: string;
 }
 
+export interface NewOfferState {
+  offerInfo: IOfferForm | null; // Cambia el tipo a IOfferForm | null
+  offerStatus: boolean;
+
+}
+
 // export interface IOffer {
 //   companyOwner: companyOwner;
 //   description: string;

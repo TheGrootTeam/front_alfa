@@ -31,23 +31,43 @@ export const getOffersAction = createAsyncThunk<
   }
 });
 
+// export const createOffersAction = createAsyncThunk<
+//   IOfferForm,
+//   IOfferForm,
+//   { rejectValue: string }
+// //>('offers/createOffersAction', async (newOffer: any, { rejectWithValue }) => {
+// >('offers/createOffersAction', async (newOffer: any, { rejectWithValue }) => {
+//   try {
+//     const offer = await createOffer(newOffer);
+//     //BALIZA
+//     console.log(offer);
+
+//     return offer;
+//   } catch (error: any) {
+//     // return custom error message from API if any
+//     if (error.response && error.response.data.message) {
+//       return rejectWithValue(error.response.data.message as string);
+//     } else {
+//       return rejectWithValue(error.error || (error.message as string));
+//     }
+//   }
+// });
+
 export const createOffersAction = createAsyncThunk<
-  void,
+  IOfferForm,
   IOfferForm,
   { rejectValue: string }
->('offers/createOffersAction', async (newOffer: any, { rejectWithValue }) => {
+>('offers/createOffersAction', async (newOffer: IOfferForm, { rejectWithValue }) => {
   try {
     const offer = await createOffer(newOffer);
-    return offer;
+    //BALIZA
+    console.log('OFFER CREATED::', offer); // Verifica que la oferta creada se recibe correctamente
+    return offer; // return the offer, for to be saved in the store
   } catch (error: any) {
-    // return custom error message from API if any
-    if (error.response && error.response.data.message) {
-      return rejectWithValue(error.response.data.message as string);
-    } else {
-      return rejectWithValue(error.error || (error.message as string));
-    }
+    return rejectWithValue(error.response?.data?.message || error.message);
   }
 });
+
 
 export const editOffersAction = createAsyncThunk<
   IOfferForm,

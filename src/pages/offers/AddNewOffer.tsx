@@ -12,7 +12,6 @@ import { getUi } from '../../store/selectors';
 import { getNewOfferState } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { createOffersAction } from '../../store/actions/offersActions';
-//import { newOfferSlice } from '../../store/reducers/newOfferSlice';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +20,7 @@ import Notification from '../../components/common/Notification';
 export function AddNewOffer() {
   const navigate = useNavigate();
   const { loading, error } = useSelector(getUi);
-  const { offerInfo } = useSelector(getNewOfferState);
+  const { offerStatus } = useSelector(getNewOfferState);
   const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
     position: '',
@@ -76,18 +75,18 @@ export function AddNewOffer() {
   };
 
   useEffect(() => {
-    if (!loading && !error && offerInfo) {
+    if (!loading && !error && offerStatus) {
       setDatesSaved(true);
       setTimeout(() => {
         setDatesSaved(false);
         navigate('/');
       }, 5000); // Hide the messages in 5 sg
     }
-  }, [loading, error, offerInfo, navigate]);
+  }, [loading, error, offerStatus, navigate]);
 
   //DAL -Prueba con librería de ventanas para mensajes
   // useEffect(() => {
-  //   if (!loading && !error && offerInfo) {
+  //   if (!loading && !error && offerStatus {
   //     setDatesSaved(true);
   //     Swal.fire({
   //       icon: "success",
@@ -99,7 +98,7 @@ export function AddNewOffer() {
   //       }
   //     });
   //   }
-  // }, [loading, error, offerInfo, navigate]);
+  // }, [loading, error, offerStatus, navigate]);
 
   return (
     <Layout title="New Offer" page="newOffer">
