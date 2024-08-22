@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { login, logout } from '../../utils/services/authService';
-import { ILoginData } from '../../utils/interfaces/IAuth';
+import { ILoginData, IToken } from '../../utils/interfaces/IAuth';
 
 export const authLogin = createAsyncThunk<
-  void,
+  IToken,
   ILoginData,
   { rejectValue: string }
 >('auth/login', async (data: ILoginData, { rejectWithValue }) => {
@@ -14,7 +14,7 @@ export const authLogin = createAsyncThunk<
     //     'Content-Type': 'application/json',
     //   },
     // }
-    await login(data);
+    return await login(data) as IToken;
   } catch (error: any) {
     // return custom error message from API if any
     if (error.response && error.response.data.message) {

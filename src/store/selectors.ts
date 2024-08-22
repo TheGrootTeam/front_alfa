@@ -9,3 +9,6 @@ export const getOffersState = (state: RootState) => state.offers.offers;
 export const getNewOfferState = (state: RootState) => state.newOffer;
 
 export const getOffersLoaded = (state: RootState) => state.offers.loadedOffers;
+
+export const getOffer = (offerId: string | undefined) => (state: RootState) =>
+  state.offers.offers.find((offer) => offer.id === offerId);
