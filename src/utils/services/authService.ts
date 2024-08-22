@@ -6,7 +6,7 @@ import {
 import { ILoginData, IToken } from '../interfaces/IAuth';
 import storage from '../storage';
 
-export const login = (data: ILoginData): Promise<void> => {
+export const login = (data: ILoginData): Promise<IToken> => {
   const { dniCif, password, rememberMe } = data;
   return client
     .post<IToken, IToken>('login', { dniCif, password })
@@ -15,7 +15,8 @@ export const login = (data: ILoginData): Promise<void> => {
       if (rememberMe) {
         storage.set('key', data.tokenJWT);
       }
-    });
+      return data
+    })
 };
 
 export const logout = () => {

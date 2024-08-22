@@ -6,4 +6,5 @@ export interface ILoginData {
 
 export interface IToken {
   tokenJWT: string;
+  isCompany: boolean;
 }
