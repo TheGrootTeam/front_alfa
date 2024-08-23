@@ -55,9 +55,8 @@ export function AddNewOffer() {
   } = formData;
 
   useEffect(() => {
-    // Solo resetea si se ha creado una oferta y estás navegando fuera de la página
+    // Only resets if an offer has been created and the page is navigated away
     if (offerStatus) {
-      console.log('Se creó una oferta, reseteando estado al salir.');
       return () => {
         dispatch(newOfferSlice.actions.resetNewOfferState());
       };
