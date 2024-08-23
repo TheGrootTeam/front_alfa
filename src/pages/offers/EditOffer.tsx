@@ -84,7 +84,7 @@ export function EditOffer() {
       setTimeout(() => {
         setDatesSaved(false);
         navigate('/');
-      }, 5000); // Hide the messages in 3 sg
+      }, 3000); // Hide the messages in 3 sg
     }
   }, [loading, error, navigate]);
 
