@@ -18,8 +18,9 @@ interface applicantOwner {
 }
 
 export interface NewOfferState {
-  offerInfo: IOfferForm | null; // Cambia el tipo a IOfferForm | null
+  offerInfo: IOfferForm | null;
   offerStatus: boolean;
+  error: string | null | undefined;
 
 }
 

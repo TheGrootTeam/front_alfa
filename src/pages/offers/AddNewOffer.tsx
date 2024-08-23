@@ -15,13 +15,16 @@ import { createOffersAction } from '../../store/actions/offersActions';
 import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
-import Notification from '../../components/common/Notification';
+import { Notification } from '../../components/common/Notification';
+import { newOfferSlice } from '../../store/reducers/newOfferSlice';
 
 export function AddNewOffer() {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { loading, error } = useSelector(getUi);
   const { offerStatus } = useSelector(getNewOfferState);
-  const dispatch = useDispatch<AppDispatch>();
+  //BALIZA
+  console.log('INICIO: ', offerStatus);
   const [formData, setFormData] = useState({
     position: '',
     //Inicialization with the actual date AAA-MM-DD
@@ -39,6 +42,7 @@ export function AddNewOffer() {
     typeJob: '',
     internJob: '',
   });
+
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
   const {
     position,
@@ -49,6 +53,28 @@ export function AddNewOffer() {
     typeJob,
     internJob,
   } = formData;
+
+  useEffect(() => {
+    // Solo resetea si se ha creado una oferta y estás navegando fuera de la página
+    if (offerStatus) {
+      console.log('Se creó una oferta, reseteando estado al salir.');
+      return () => {
+        dispatch(newOfferSlice.actions.resetNewOfferState());
+      };
+    }
+  }, [offerStatus, dispatch]);
+
+  useEffect(() => {
+    //BALIZA
+    if (!loading && !error && offerStatus) {
+      console.log('EN EL IF: ', offerStatus);
+      setDatesSaved(true);
+      setTimeout(() => {
+        setDatesSaved(false);
+        navigate('/');
+      }, 3000); // Hide the messages in 3 sg
+    }
+  }, [loading, error, offerStatus]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,16 +99,6 @@ export function AddNewOffer() {
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
   };
-
-  useEffect(() => {
-    if (!loading && !error && offerStatus) {
-      setDatesSaved(true);
-      setTimeout(() => {
-        setDatesSaved(false);
-        navigate('/');
-      }, 5000); // Hide the messages in 5 sg
-    }
-  }, [loading, error, offerStatus, navigate]);
 
   //DAL -Prueba con librería de ventanas para mensajes
   // useEffect(() => {
