@@ -26,8 +26,6 @@ export function AddNewOffer() {
   const navigate = useNavigate();
   const { loading, error } = useSelector(getUi);
   const { offerStatus } = useSelector(getNewOfferState);
-  //BALIZA
-  console.log('INICIO: ', offerStatus);
   const [formData, setFormData] = useState({
     position: '',
     //Inicialization with the actual date AAA-MM-DD
@@ -67,9 +65,7 @@ export function AddNewOffer() {
   }, [offerStatus, dispatch]);
 
   useEffect(() => {
-    //BALIZA
     if (!loading && !error && offerStatus) {
-      console.log('EN EL IF: ', offerStatus);
       setDatesSaved(true);
       setTimeout(() => {
         setDatesSaved(false);

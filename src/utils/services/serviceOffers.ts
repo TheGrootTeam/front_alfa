@@ -8,17 +8,6 @@ export async function getOffers() {
 }
 
 
-// BALIZA
-// export async function createOffer(newOffer: IOffer) {
-//   try {
-//     const response = await client.post(`/offers/new`, newOffer);
-//     console.log("RESPONSE", response)
-//     console.log("RESPONSE.DATA: ", response.data)
-//     return response.data;
-//   } catch (error: any) {
-//     throw new Error(error.response?.data?.message || error.message);
-//   }
-// }
 export async function createOffer(newOffer: IOfferForm): Promise<IOfferForm> {
   try {
     const response: IOfferForm = await client.post(`/offers/new`, newOffer);
