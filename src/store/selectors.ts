@@ -8,6 +8,8 @@ export const getOffersState = (state: RootState) => state.offers.offers;
 
 export const getNewOfferState = (state: RootState) => state.newOffer;
 
+export const getToUpdateOfferState = (state: RootState) => state.editOffer;
+
 export const getOffersLoaded = (state: RootState) => state.offers.loadedOffers;
 
 export const getOffer = (offerId: string | undefined) => (state: RootState) =>

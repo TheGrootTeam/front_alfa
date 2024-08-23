@@ -34,9 +34,9 @@ export function Listings() {
           <div key={offer.id}>
             <ListingDetail
               id={offer.id}
-              companyOwner={offer.companyOwner.name}
+              //companyOwner={offer.companyOwner.name}
               //DAL - hasta tener acceso a los usuarios
-              // companyOwner={'PRUEBA'}
+              companyOwner={'PRUEBA'}
               description={offer.description}
               internJob={offer.internJob}
               location={offer.location}

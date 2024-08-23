@@ -5,6 +5,7 @@ import { IOfferForm, IOfferMapped } from '../../utils/interfaces/IOffer';
 import { createOffer } from '../../utils/services/serviceOffers';
 import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
+import { updateOffer } from '../../utils/services/serviceOffers';
 
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
@@ -30,13 +31,28 @@ export const getOffersAction = createAsyncThunk<
   }
 });
 
+
 export const createOffersAction = createAsyncThunk<
-  void,
+  IOfferForm,
   IOfferForm,
   { rejectValue: string }
->('offers/createOffersAction', async (newOffer: any, { rejectWithValue }) => {
+>('offers/createOffersAction', async (newOffer: IOfferForm, { rejectWithValue }) => {
   try {
     const offer = await createOffer(newOffer);
+    return offer; // return the offer, for to be saved in the store
+  } catch (error: any) {
+    return rejectWithValue(error.response?.data?.message || error.message);
+  }
+});
+
+
+export const editOffersAction = createAsyncThunk<
+  IOfferForm,
+  IOfferForm,
+  { rejectValue: string }
+>('offers/editOffersAction', async (updatedOffer: any, { rejectWithValue }) => {
+  try {
+    const offer = await updateOffer(updatedOffer);
     return offer;
   } catch (error: any) {
     // return custom error message from API if any
