@@ -13,12 +13,13 @@ import Notification from '../../components/common/Notification';
 import { Loader } from '../../components/common/Loader';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { setAuthorizationHeader } from '../../api/client';
 
 export function RegisterPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error }: { loading: boolean; error: any } = useSelector(
+  const { loading }: { loading: boolean } = useSelector(
     (state: RootState) => state.register
   );
 
@@ -34,7 +35,7 @@ export function RegisterPage() {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [dniCifError, setDniCifError] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<React.ReactNode | null>(null);
 
   const { dniCif, email, password, confirmPassword, isCompany } = formData;
 
@@ -95,20 +96,31 @@ export function RegisterPage() {
       );
 
       if (registerUser.fulfilled.match(resultAction)) {
+        const { token, isCompany: isCompanyFromResponse } = resultAction.payload;
+    
+        // Guardar el token en localStorage y configurar la autorización para futuras solicitudes
+        localStorage.setItem('token', token);
+        localStorage.setItem('isCompany', isCompanyFromResponse.toString());
+        setAuthorizationHeader(token);
+    
         setSuccessMessage(t('forms.register_success'));
         setFormData({
-          dniCif: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          isCompany: null,
+            dniCif: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            isCompany: null,
         });
         setTimeout(() => setSuccessMessage(null), 2000);
-
-        if (isCompany === 'true') {
-          navigate('/company/edit', { state: { email, dniCif, password } });
+    
+        // Asegurarse de que el valor de isCompany es el esperado
+        console.log("Valor de isCompany:", isCompanyFromResponse);
+    
+        // Corregir la lógica de redirección
+        if (isCompanyFromResponse) {
+            navigate('/edit/company');
         } else {
-          navigate('/user/edit', { state: { email, dniCif, password } });
+            navigate('/edit/user');
         }
       } else if (registerUser.rejected.match(resultAction)) {
         const errorPayload = resultAction.payload;

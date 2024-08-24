@@ -1,5 +1,7 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
+import { useSelector } from 'react-redux';
+import { getIsLogged } from './store/selectors';
 
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
@@ -23,49 +25,69 @@ import { OffersList } from './pages/offers/OffersList';
 import { AboutPage } from './pages/about/AboutPage';
 import { NotFoundPage } from './pages/notfound/NotFoundPage';
 
+import { EditProfileSwitch } from './components/routingProfile/EditProfileSwitch';
+
 function App() {
+  const isLogged = useSelector(getIsLogged);
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
 
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/lost-password" element={<LostPassword />} />
+      {!isLogged && (
+        <>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/lost-password" element={<LostPassword />} />
+        </>
+      )}
 
-      {/* START Rutas protegidas */}
-      <Route
-        path="/user"
-        element={
-          <RequireAuth>
-            <Outlet />
-          </RequireAuth>
-        }
-      >
-        <Route index element={<DashBoardInternPage />} />
-        <Route path="edit" element={<EditUserProfilePage />} />
-        <Route path="profile" element={<UserProfilePage />} />
-      </Route>
+      {isLogged && (
+        <>
+          {/* Rutas protegidas */}
+          <Route
+            path="/user"
+            element={
+              <RequireAuth>
+                <Outlet />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<DashBoardInternPage />} />
+            <Route path="edit" element={<EditUserProfilePage />} />
+            <Route path="profile" element={<UserProfilePage />} />
+          </Route>
 
-      <Route
-        path="/company"
-        element={
-          <RequireAuth>
-            <Outlet />
-          </RequireAuth>
-        }
-      >
-        <Route index element={<DashBoardCompanyPage />} />
-        <Route path="edit" element={<EditCompanyProfilePage />} />
-        <Route path="profile" element={<CompanyProfilePage />} />
-      </Route>
-      {/* END Rutas protegidas */}
+          <Route
+            path="/company"
+            element={
+              <RequireAuth>
+                <Outlet />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<DashBoardCompanyPage />} />
+            <Route path="edit" element={<EditCompanyProfilePage />} />
+            <Route path="profile" element={<CompanyProfilePage />} />
+          </Route>
 
-      {/* Al final no protegemos las rutas de Offers, ya que tienen que estar públicas según requerimientos */}
+          {/* Ruta para edición basada en parámetros */}
+          <Route
+            path="/edit/:userType"
+            element={
+              <RequireAuth>
+                <EditProfileSwitch />
+              </RequireAuth>
+            }
+          />
+        </>
+      )}
+
+      {/* Rutas públicas siempre accesibles */}
       <Route path="/offers">
         <Route index element={<OffersList />} />
         <Route path=":id" element={<OfferPage />} />
-        {/* <Route path=":id/edit" element={<EditOffer />} /> */}
-        <Route path="edit" element={<EditOffer />} />
+        <Route path=":id/edit" element={<EditOffer />} />
         <Route path="new" element={<AddNewOffer />} />
       </Route>
 

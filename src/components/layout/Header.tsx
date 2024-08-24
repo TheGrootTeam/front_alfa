@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogout } from '../../store/actions/authActions';
-import { getIsLogged } from '../../store/selectors';
+import { getIsLogged, getIsCompany } from '../../store/selectors'; // Añadir getIsCompany
 import { AppDispatch } from '../../store/store';
 
 import { Link } from 'react-router-dom';
@@ -16,7 +16,8 @@ import { useTranslation } from 'react-i18next';
 const Header = () => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
-  const { auth } = useSelector(getIsLogged);
+  const auth = useSelector(getIsLogged); // Para verificar si el usuario está logado
+  const isCompany = useSelector(getIsCompany); // Para verificar si es una empresa
   const dispatch = useDispatch<AppDispatch>();
 
   const langs: { [key: string]: { nativeName: string } } = {
@@ -44,7 +45,29 @@ const Header = () => {
           </h1>
           <nav className={styles.nav}>
             <ul>
-              {!auth && (
+              {auth ? (
+                // Cuando el usuario está autenticado
+                <>
+                  <li>
+                    <Link to="/about">{t('nav.about')}</Link>
+                  </li>
+                  {isCompany && (
+                    <li>
+                      <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
+                    </li>
+                  )}
+                  <li>
+                    <ConfirmationButton
+                      buttonLabel={t('nav.logout')}
+                      dialogText={t('dialogs.logout_message')}
+                      confirmLabel={t('gen.yes')}
+                      cancelLabel={t('gen.no')}
+                      confirmAction={handleLogout}
+                    />
+                  </li>
+                </>
+              ) : (
+                // Cuando el usuario no está autenticado
                 <>
                   <li>
                     <Link to="/login">{t('nav.log_in')}</Link>
@@ -52,39 +75,16 @@ const Header = () => {
                   <li>
                     <Link to="/register">{t('nav.register')}</Link>
                   </li>
-                </>
-              )}
-
-              {/* DAL */}
-              {/* !auth para darle visibilidad de manera temporal: no me funciona el login*/}
-              {!auth && (
-                <>
                   <li>
-                    <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
+                    <Link to="/about">{t('nav.about')}</Link>
                   </li>
                 </>
-              )}
-
-              <li>
-                <Link to="/about">{t('nav.about')}</Link>
-              </li>
-              {auth && (
-                <li>
-                  <ConfirmationButton
-                    buttonLabel={t('nav.logout')}
-                    dialogText={t('dialogs.logout_message')}
-                    confirmLabel={t('gen.yes')}
-                    cancelLabel={t('gen.no')}
-                    confirmAction={handleLogout}
-                  />
-                </li>
               )}
             </ul>
           </nav>
           <ul className={styles.languageSwitcher}>
-            {/* Added key prop to each list item for React's unique identification */}
             {Object.keys(langs).map((lang) => (
-              <li key={lang}> {/* Added key={lang} to each <li> to resolve React's unique key warning */}
+              <li key={lang}>
                 <button
                   type="submit"
                   onClick={() => i18n.changeLanguage(lang)}
