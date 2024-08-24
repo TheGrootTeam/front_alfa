@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface ILoginData {
   dniCif: string;
   password: string;
@@ -7,4 +9,8 @@ export interface ILoginData {
 export interface IToken {
   tokenJWT: string;
   isCompany: boolean;
+}
+
+export interface RequireAuthProps {
+  children: ReactNode;
 }

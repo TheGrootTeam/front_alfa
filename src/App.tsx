@@ -22,6 +22,8 @@ import { OffersList } from './pages/offers/OffersList';
 
 import { AboutPage } from './pages/about/AboutPage';
 import { NotFoundPage } from './pages/notfound/NotFoundPage';
+import RequireIsCompany from './components/auth/RequireIsCompany';
+import RequireIsApplicant from './components/auth/RequireIsApplicant';
 
 function App() {
   return (
@@ -37,7 +39,9 @@ function App() {
         path="/user"
         element={
           <RequireAuth>
-            <Outlet />
+            <RequireIsApplicant>
+              <Outlet />
+            </RequireIsApplicant>
           </RequireAuth>
         }
       >
@@ -50,7 +54,9 @@ function App() {
         path="/company"
         element={
           <RequireAuth>
-            <Outlet />
+            <RequireIsCompany>
+              <Outlet />
+            </RequireIsCompany>
           </RequireAuth>
         }
       >
