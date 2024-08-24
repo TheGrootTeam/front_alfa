@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogout } from '../../store/actions/authActions';
-import { getIsLogged, getIsCompany } from '../../store/selectors'; // Añadir getIsCompany
+import { getIsLogged, getIsCompany } from '../../store/selectors'; 
 import { AppDispatch } from '../../store/store';
 
 import { Link } from 'react-router-dom';
@@ -16,8 +16,8 @@ import { useTranslation } from 'react-i18next';
 const Header = () => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
-  const auth = useSelector(getIsLogged); // Para verificar si el usuario está logado
-  const isCompany = useSelector(getIsCompany); // Para verificar si es una empresa
+  const auth = useSelector(getIsLogged); // To verify if the user is logged
+  const isCompany = useSelector(getIsCompany); //To verify if it is a company
   const dispatch = useDispatch<AppDispatch>();
 
   const langs: { [key: string]: { nativeName: string } } = {
@@ -46,7 +46,7 @@ const Header = () => {
           <nav className={styles.nav}>
             <ul>
               {auth ? (
-                // Cuando el usuario está autenticado
+                // When the user is authenticated
                 <>
                   <li>
                     <Link to="/about">{t('nav.about')}</Link>
@@ -67,7 +67,7 @@ const Header = () => {
                   </li>
                 </>
               ) : (
-                // Cuando el usuario no está autenticado
+                // When the user is not authenticated
                 <>
                   <li>
                     <Link to="/login">{t('nav.log_in')}</Link>

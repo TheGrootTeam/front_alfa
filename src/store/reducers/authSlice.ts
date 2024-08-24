@@ -17,17 +17,14 @@ export const authSlice = createSlice({
       .addCase(authLogin.fulfilled, (state, action) => {
         state.auth = true;
         state.isCompany = action.payload.isCompany;
-        console.log('Auth State after login:', state); // Esto debería mostrar el estado correcto
       })
       .addCase(authLogout.fulfilled, (state) => {
         state.auth = false;
         state.isCompany = false;
-        console.log('Auth State after logout:', state); // Esto debería mostrar el estado correcto
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.auth = true;
         state.isCompany = action.payload.isCompany;
-        console.log('Auth State after register:', state); // Esto debería mostrar el estado correcto
       });
   },
 });
