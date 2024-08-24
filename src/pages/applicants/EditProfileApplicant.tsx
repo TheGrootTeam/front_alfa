@@ -1,19 +1,21 @@
 import Layout from '../../components/layout/Layout';
-import styles from './EditProfileApplicant.module.css'; // Asegúrate de que el archivo CSS correcto está siendo importado
+import styles from './EditProfileApplicant.module.css';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserProfile, updateUserProfile } from '../../store/actions/profileActions';
 import { RootState } from '../../store/store';
+import { FormInputText } from '../../components/formElements/formInputText';
+import { FormCheckbox } from '../../components/formElements/formCheckbox';
+import { Button } from '../../components/common/Button';
 
 export function EditUserProfilePage() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { t } = useTranslation(); // Para traducción
+  const { t } = useTranslation();
   const { email, dniCif, password } = location.state || {};
-  
-  // Use local state as a fallback if formData is not loaded
+
   const formData = useSelector((state: RootState) => state.profile.profileData);
   const loading = useSelector((state: RootState) => state.profile.loading);
   const error = useSelector((state: RootState) => state.profile.error);
@@ -63,33 +65,72 @@ export function EditUserProfilePage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Dispatches the action to update the profile
     dispatch(updateUserProfile(localFormData));
   };
 
   return (
     <Layout title={t('titles.userprofile_edit')} page="edituserprofile">
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label>DNI / CIF</label>
-        <input type="text" name="dniCif" value={localFormData.dniCif || dniCif} readOnly />
+        <FormInputText
+          labelText="DNI / CIF"
+          id="dniCif"
+          name="dniCif"
+          value={localFormData.dniCif || dniCif}
+          readOnly
+          onChange={handleChange}
+        />
         
-        <label>Email</label>
-        <input type="email" name="email" value={localFormData.email || email} readOnly />
+        <FormInputText
+          labelText="Email"
+          id="email"
+          name="email"
+          type="email"
+          value={localFormData.email || email}
+          readOnly
+          onChange={handleChange}
+        />
         
-        <label>Password</label>
-        <input type="password" name="password" value={localFormData.password || password} readOnly />
+        <FormInputText
+          labelText="Password"
+          id="password"
+          name="password"
+          type="password"
+          value={localFormData.password || password}
+          readOnly
+          onChange={handleChange}
+        />
+
+        <FormInputText
+          labelText={t('fields.name')}
+          id="name"
+          name="name"
+          value={localFormData.name || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.name')}</label>
-        <input type="text" name="name" value={localFormData.name || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.lastName')}
+          id="lastName"
+          name="lastName"
+          value={localFormData.lastName || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.lastName')}</label>
-        <input type="text" name="lastName" value={localFormData.lastName || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.phone')}
+          id="phone"
+          name="phone"
+          value={localFormData.phone || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.phone')}</label>
-        <input type="text" name="phone" value={localFormData.phone || ''} onChange={handleChange} />
-        
-        <label>{t('fields.location')}</label>
-        <input type="text" name="ubication" value={localFormData.ubication || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.location')}
+          id="ubication"
+          name="ubication"
+          value={localFormData.ubication || ''}
+          onChange={handleChange}
+        />
         
         <label>{t('fields.photo')}</label>
         <input type="file" name="photo" onChange={handleFileChange} />
@@ -97,29 +138,51 @@ export function EditUserProfilePage() {
         <label>{t('fields.cv')}</label>
         <input type="file" name="cv" onChange={handleFileChange} />
         
-        <label>{t('fields.preferredWorkLocation')}</label>
-        <input type="text" name="typeJob" value={localFormData.typeJob || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.preferredWorkLocation')}
+          id="typeJob"
+          name="typeJob"
+          value={localFormData.typeJob || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.wantedRole')}</label>
-        <input type="text" name="wantedRol" value={localFormData.wantedRol || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.wantedRole')}
+          id="wantedRol"
+          name="wantedRol"
+          value={localFormData.wantedRol || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.mainSkills')}</label>
-        <input type="text" name="mainSkills" value={localFormData.mainSkills || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.mainSkills')}
+          id="mainSkills"
+          name="mainSkills"
+          value={localFormData.mainSkills || ''}
+          onChange={handleChange}
+        />
         
-        <label>
-          {t('fields.willingToRelocate')}
-          <input type="checkbox" name="geographically_mobile" checked={!!localFormData.geographically_mobile} onChange={handleChange} />
-        </label>
+        <FormCheckbox
+          id="geographically_mobile"
+          name="geographically_mobile"
+          labelText={t('fields.willingToRelocate')}
+          checked={!!localFormData.geographically_mobile}
+          onChange={handleChange}
+        />
         
-        <label>
-          {t('fields.availableImmediately')}
-          <input type="checkbox" name="disponibility" checked={!!localFormData.disponibility} onChange={handleChange} />
-        </label>
+        <FormCheckbox
+          id="disponibility"
+          name="disponibility"
+          labelText={t('fields.availableImmediately')}
+          checked={!!localFormData.disponibility}
+          onChange={handleChange}
+        />
 
-        {/* Show the error message if it exists */}
         {error && <p className={styles.error}>Error: {error}</p>}
         
-        <button type="submit" disabled={loading || !!error}>{t('buttons.saveAndFinish')}</button>
+        <Button type="submit" disabled={loading || !!error}>
+          {t('buttons.saveAndFinish')}
+        </Button>
       </form>
     </Layout>
   );

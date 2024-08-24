@@ -64,7 +64,8 @@ function App() {
       <Route path="/offers">
         <Route index element={<OffersList />} />
         <Route path=":id" element={<OfferPage />} />
-        <Route path=":id/edit" element={<EditOffer />} />
+        {/* <Route path=":id/edit" element={<EditOffer />} /> */}
+        <Route path="edit" element={<EditOffer />} />
         <Route path="new" element={<AddNewOffer />} />
       </Route>
 

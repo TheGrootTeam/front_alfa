@@ -1,13 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { useState, useEffect } from 'react';
-import { registerUser, resetRegisterState } from '../../store/reducers/registerSlice';
+import { registerUser } from '../../store/actions/registerActions';
+import { resetRegisterState } from '../../store/reducers/registerSlice';
 import { RootState } from '../../store/store';
 import styles from './Register.module.css';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
+import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import { Button } from '../../components/common/Button';
 import Notification from '../../components/common/Notification';
+import { Loader } from '../../components/common/Loader';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +18,7 @@ export function RegisterPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error }: { loading: boolean, error: string | null | { message: string } } = useSelector(
+  const { loading, error }: { loading: boolean; error: any } = useSelector(
     (state: RootState) => state.register
   );
 
@@ -31,6 +34,7 @@ export function RegisterPage() {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [dniCifError, setDniCifError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const { dniCif, email, password, confirmPassword, isCompany } = formData;
 
@@ -89,6 +93,7 @@ export function RegisterPage() {
           isCompany: isCompany === 'true',
         }) as any
       );
+
       if (registerUser.fulfilled.match(resultAction)) {
         setSuccessMessage(t('forms.register_success'));
         setFormData({
@@ -100,15 +105,27 @@ export function RegisterPage() {
         });
         setTimeout(() => setSuccessMessage(null), 2000);
 
-        // Redirigir al usuario según el tipo después de un registro exitoso
         if (isCompany === 'true') {
           navigate('/company/edit', { state: { email, dniCif, password } });
         } else {
           navigate('/user/edit', { state: { email, dniCif, password } });
         }
+      } else if (registerUser.rejected.match(resultAction)) {
+        const errorPayload = resultAction.payload;
+        if (errorPayload?.message === 'User already exists') {
+          setErrorMessage(
+            <>
+              {t('errors.user_exists')}.{' '}
+              <Link to="/login">{t('forms.login_link')}</Link>
+            </>
+          );
+        } else {
+          setErrorMessage(t('errors.register_error'));
+        }
       }
     } catch (error) {
       console.error(t('errors.register_error'), error);
+      setErrorMessage(t('errors.register_error'));
     }
   };
 
@@ -192,14 +209,13 @@ export function RegisterPage() {
           id="confirmPassword-input"
         />
         {passwordError && <p className={styles.error}>{passwordError}</p>}
-        <label>
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword((prev) => !prev)}
-          />
-          {t('forms.password_show')}
-        </label>
+        <FormCheckbox
+          id="showPassword-checkbox"
+          name="showPassword"
+          labelText={t('forms.password_show')}
+          checked={showPassword}
+          onChange={() => setShowPassword((prev) => !prev)}
+        />
         <Button
           type="submit"
           disabled={
@@ -215,11 +231,10 @@ export function RegisterPage() {
         >
           {t('forms.register_button')}
         </Button>
-        {loading && <p>Loading...</p>}
-        {error && (
+        {loading && <Loader />}
+        {errorMessage && (
           <div className={styles.error}>
-            <p>{typeof error === 'string' ? error : error.message}</p>
-            <Link to="/login">{t('forms.login_link')}</Link>
+            {errorMessage}
           </div>
         )}
         {successMessage && (

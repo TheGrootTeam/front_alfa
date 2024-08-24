@@ -1,15 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { client } from '../../api/client';  
-
-interface RegisterPayload {
-  dniCif: string;
-  email: string;
-  password: string;
-  isCompany: boolean;
-}
+import { RegisterPayload } from '../../utils/interfaces/IAuth';
 
 export const registerUser: any = createAsyncThunk(
-  'auth/register',
+  'register/user',
   async (data: RegisterPayload, { rejectWithValue }) => {
     try {
       const response = await client.post('/register', data); 

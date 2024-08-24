@@ -1,18 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-export const registerUser: any = createAsyncThunk(
-  'register/user',
-  async (userData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post('/api/v1/register', userData);
-      return response.data;
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Error desconocido';
-      return rejectWithValue({ message: errorMessage });
-    }
-  }
-);
+import { createSlice } from '@reduxjs/toolkit';
+import { registerUser } from '../actions/registerActions';
+registerUser
 
 export const registerSlice = createSlice({
   name: 'register',

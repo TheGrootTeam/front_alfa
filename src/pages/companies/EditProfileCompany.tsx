@@ -6,12 +6,15 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserProfile, updateUserProfile } from '../../store/actions/profileActions';
 import { RootState } from '../../store/store';
+import { FormInputText } from '../../components/formElements/formInputText';
+import { FormTextarea } from '../../components/formElements/formTextArea';
+import { Button } from '../../components/common/Button';
 
 export function EditCompanyProfilePage() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { email, dniCif, password } = location.state || {}; 
+  const { email, dniCif, password } = location.state || {};
 
   const formData = useSelector((state: RootState) => state.profile.profileData);
   const loading = useSelector((state: RootState) => state.profile.loading);
@@ -49,7 +52,7 @@ export function EditCompanyProfilePage() {
     }
   }, [formData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
     setLocalFormData(updatedData);
@@ -66,43 +69,89 @@ export function EditCompanyProfilePage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Lógica para manejar la actualización del perfil
   };
 
   return (
     <Layout title={t('titles.companyprofile_edit')} page="editcompanyprofile">
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label>{t('fields.cif')}</label>
-        <input type="text" name="dniCif" value={localFormData.dniCif || dniCif} readOnly />
+        <FormInputText
+          labelText="CIF"
+          id="dniCif"
+          name="dniCif"
+          value={localFormData.dniCif || dniCif}
+          readOnly
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.email')}</label>
-        <input type="email" name="email" value={localFormData.email || email} readOnly />
+        <FormInputText
+          labelText="Email"
+          id="email"
+          name="email"
+          type="email"
+          value={localFormData.email || email}
+          readOnly
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.password')}</label>
-        <input type="password" name="password" value={localFormData.password || password} readOnly />
-      
-        <label>{t('fields.name')}</label>
-        <input type="text" name="name" value={localFormData.name || ''} onChange={handleChange} />
+        <FormInputText
+          labelText="Password"
+          id="password"
+          name="password"
+          type="password"
+          value={localFormData.password || password}
+          readOnly
+          onChange={handleChange}
+        />
+
+        <FormInputText
+          labelText={t('fields.name')}
+          id="name"
+          name="name"
+          value={localFormData.name || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.phone')}</label>
-        <input type="text" name="phone" value={localFormData.phone || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.phone')}
+          id="phone"
+          name="phone"
+          value={localFormData.phone || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.industry')}</label>
-        <input type="text" name="sector" value={localFormData.sector || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.industry')}
+          id="sector"
+          name="sector"
+          value={localFormData.sector || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.location')}</label>
-        <input type="text" name="ubication" value={localFormData.ubication || ''} onChange={handleChange} />
+        <FormInputText
+          labelText={t('fields.location')}
+          id="ubication"
+          name="ubication"
+          value={localFormData.ubication || ''}
+          onChange={handleChange}
+        />
         
-        <label>{t('fields.description')}</label>
-        <input type="text" name="description" value={localFormData.description || ''} onChange={handleChange} />
+        <FormTextarea
+          labelText={t('fields.description')} 
+          placeholder="Description"
+          id="description"
+          name="description"
+          value={localFormData.description || ''}
+          onChange={handleChange}
+        />
         
         <label>{t('fields.logo')}</label>
         <input type="file" name="logo" onChange={handleFileChange} />
 
-        {/* Show the error message if it exists */}
         {error && <p className={styles.error}>Error: {error}</p>}
         
-        <button type="submit" disabled={loading || !!error}>{t('buttons.saveAndFinish')}</button>
+        <Button type="submit" disabled={loading || !!error}>
+          {t('buttons.saveAndFinish')}
+        </Button>
       </form>
     </Layout>
   );
