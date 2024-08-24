@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { login, logout } from '../../utils/services/authService';
 import { ILoginData, IToken } from '../../utils/interfaces/IAuth';
+import { router } from '../../router';
 
 export const authLogin = createAsyncThunk<
   IToken,
   ILoginData,
-  { rejectValue: string }
->('auth/login', async (data: ILoginData, { rejectWithValue }) => {
+  { rejectValue: string; extra: { router: typeof router } }
+>('auth/login', async (data: ILoginData, { rejectWithValue, extra }) => {
   try {
     // configure header's Content-Type as JSON
     // const config = {
@@ -14,7 +15,13 @@ export const authLogin = createAsyncThunk<
     //     'Content-Type': 'application/json',
     //   },
     // }
-    return await login(data) as IToken;
+    const { router } = extra;
+    const dataObject = (await login(data)) as IToken;
+    // redirect to the user or company dashboard
+    dataObject.isCompany
+      ? router.navigate('/company')
+      : router.navigate('/user');
+    return dataObject;
   } catch (error: any) {
     // return custom error message from API if any
     if (error.response && error.response.data.message) {

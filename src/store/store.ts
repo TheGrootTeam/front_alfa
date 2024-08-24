@@ -6,7 +6,7 @@ import { offersSlice } from './reducers/offersSlice';
 import { newOfferSlice } from './reducers/newOfferSlice';
 import profileReducer from './reducers/profileSlice';
 import { editOfferSlice } from './reducers/editOfferSlice';
-
+import { router } from '../router';
 // import * as auth from '../pages/auth/service';
 
 export const store = configureStore({
@@ -19,16 +19,16 @@ export const store = configureStore({
     profile: profileReducer,
     editOffer: editOfferSlice.reducer
   },
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware(
-  //     {
-  //       // thunk: {
-  //       //   extraArgument: { services: { auth } },
-  //       // },
-  //       // serializableCheck: false,
-  //     }
-  //     //devTools: process.env.NODE_ENV !== 'production',
-  //   ),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware(
+      {
+        thunk: {
+          extraArgument: { router },
+        },
+        serializableCheck: false,
+      }
+      //     //devTools: process.env.NODE_ENV !== 'production',
+    ),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
