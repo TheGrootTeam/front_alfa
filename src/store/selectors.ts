@@ -1,6 +1,6 @@
 import type { RootState } from './store';
 
-export const getIsLogged = (state: RootState) => state.auth;
+export const getIsLogged = (state: RootState) => state.auth.auth;
 
 export const getIsCompany = (state: RootState) => state.auth.isCompany;
 
