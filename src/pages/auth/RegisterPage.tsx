@@ -1,24 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { useState, useEffect } from 'react';
-import { registerUser } from '../../store/reducers/registerSlice';
+import { registerUser } from '../../store/actions/registerActions';
+import { resetRegisterState } from '../../store/reducers/registerSlice';
 import { RootState } from '../../store/store';
 import styles from './Register.module.css';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
+import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import { Button } from '../../components/common/Button';
 import Notification from '../../components/common/Notification';
+import { Loader } from '../../components/common/Loader';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { setAuthorizationHeader } from '../../api/client';
 
 export function RegisterPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const {
-    loading,
-    error,
-  }: { loading: boolean; error: { message: string } | null } = useSelector(
+  const navigate = useNavigate();
+  const { loading }: { loading: boolean } = useSelector(
     (state: RootState) => state.register
-  ) as { loading: boolean; error: { message: string } | null };
+  );
 
   const [formData, setFormData] = useState({
     dniCif: '',
@@ -32,10 +35,16 @@ export function RegisterPage() {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [dniCifError, setDniCifError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<React.ReactNode | null>(null);
 
   const { dniCif, email, password, confirmPassword, isCompany } = formData;
 
-  // Verify passwords every time they change
+  useEffect(() => {
+    return () => {
+      dispatch(resetRegisterState());
+    };
+  }, [dispatch]);
+
   useEffect(() => {
     if (!password || !confirmPassword)
       setPasswordError(t('errors.password_empty'));
@@ -44,15 +53,13 @@ export function RegisterPage() {
     else if (!isPasswordStrong(password))
       setPasswordError(t('errors.password_rules'));
     else setPasswordError(null);
-  }, [password, confirmPassword]);
+  }, [password, confirmPassword, t]);
 
-  // Verify email every time you change
   useEffect(() => {
     if (email && !isValidEmail(email)) setEmailError(t('errors.email_invalid'));
     else setEmailError(null);
-  }, [email]);
+  }, [email, t]);
 
-  // Verify the ID/CIF every time it changes
   useEffect(() => {
     if (dniCif) {
       if (isCompany === 'true' && !isValidCIF(dniCif))
@@ -61,7 +68,7 @@ export function RegisterPage() {
         setDniCifError(t('errors.dnicif_invalid'));
       else setDniCifError(null);
     }
-  }, [dniCif, isCompany]);
+  }, [dniCif, isCompany, t]);
 
   const isPasswordStrong = (password: string) =>
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
@@ -87,22 +94,50 @@ export function RegisterPage() {
           isCompany: isCompany === 'true',
         }) as any
       );
+
       if (registerUser.fulfilled.match(resultAction)) {
+        const { token, isCompany: isCompanyFromResponse } = resultAction.payload;
+    
+        // Guardar el token en localStorage y configurar la autorización para futuras solicitudes
+        localStorage.setItem('token', token);
+        localStorage.setItem('isCompany', isCompanyFromResponse.toString());
+        setAuthorizationHeader(token);
+    
         setSuccessMessage(t('forms.register_success'));
         setFormData({
-          dniCif: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          isCompany: null,
+            dniCif: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            isCompany: null,
         });
-        setPasswordError(null);
-        setEmailError(null);
-        setDniCifError(null);
         setTimeout(() => setSuccessMessage(null), 2000);
+    
+        // Asegurarse de que el valor de isCompany es el esperado
+        console.log("Valor de isCompany:", isCompanyFromResponse);
+    
+        // Corregir la lógica de redirección
+        if (isCompanyFromResponse) {
+            navigate('/edit/company');
+        } else {
+            navigate('/edit/user');
+        }
+      } else if (registerUser.rejected.match(resultAction)) {
+        const errorPayload = resultAction.payload;
+        if (errorPayload?.message === 'User already exists') {
+          setErrorMessage(
+            <>
+              {t('errors.user_exists')}.{' '}
+              <Link to="/login">{t('forms.login_link')}</Link>
+            </>
+          );
+        } else {
+          setErrorMessage(t('errors.register_error'));
+        }
       }
     } catch (error) {
       console.error(t('errors.register_error'), error);
+      setErrorMessage(t('errors.register_error'));
     }
   };
 
@@ -147,8 +182,8 @@ export function RegisterPage() {
             isCompany === 'true'
               ? t('forms.cif')
               : isCompany === 'false'
-                ? t('forms.nif')
-                : t('forms.cif_nif')
+              ? t('forms.nif')
+              : t('forms.cif_nif')
           }
           name="dniCif"
           value={dniCif}
@@ -186,14 +221,13 @@ export function RegisterPage() {
           id="confirmPassword-input"
         />
         {passwordError && <p className={styles.error}>{passwordError}</p>}
-        <label>
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword((prev) => !prev)}
-          />
-          {t('forms.password_show')}
-        </label>
+        <FormCheckbox
+          id="showPassword-checkbox"
+          name="showPassword"
+          labelText={t('forms.password_show')}
+          checked={showPassword}
+          onChange={() => setShowPassword((prev) => !prev)}
+        />
         <Button
           type="submit"
           disabled={
@@ -209,8 +243,12 @@ export function RegisterPage() {
         >
           {t('forms.register_button')}
         </Button>
-        {loading && <p>Loading...</p>}
-        {error && <p className={styles.error}>Error: {error.message}</p>}
+        {loading && <Loader />}
+        {errorMessage && (
+          <div className={styles.error}>
+            {errorMessage}
+          </div>
+        )}
         {successMessage && (
           <Notification message={successMessage} type="success" />
         )}

@@ -2,6 +2,10 @@ import type { RootState } from './store';
 
 export const getIsLogged = (state: RootState) => state.auth.auth;
 
+/*This modification assumes that auth.auth is a Boolean that indicates
+If the user is authenticated.If the auth state has a different structure,
+Adjust the selector in consequence.*/
+
 export const getIsCompany = (state: RootState) => state.auth.isCompany;
 
 export const getUi = (state: RootState) => state.ui;
