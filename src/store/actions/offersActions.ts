@@ -31,20 +31,21 @@ export const getOffersAction = createAsyncThunk<
   }
 });
 
-
 export const createOffersAction = createAsyncThunk<
   IOfferForm,
   IOfferForm,
   { rejectValue: string }
->('offers/createOffersAction', async (newOffer: IOfferForm, { rejectWithValue }) => {
-  try {
-    const offer = await createOffer(newOffer);
-    return offer; // return the offer, for to be saved in the store
-  } catch (error: any) {
-    return rejectWithValue(error.response?.data?.message || error.message);
+>(
+  'offers/createOffersAction',
+  async (newOffer: IOfferForm, { rejectWithValue }) => {
+    try {
+      const offer = await createOffer(newOffer);
+      return offer; // return the offer, for to be saved in the store
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
   }
-});
-
+);
 
 export const editOffersAction = createAsyncThunk<
   IOfferForm,
