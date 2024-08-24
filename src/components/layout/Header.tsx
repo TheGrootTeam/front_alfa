@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 const Header = () => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
-  const { auth } = useSelector(getIsLogged);
+  const auth = useSelector(getIsLogged);
   const dispatch = useDispatch<AppDispatch>();
 
   const langs: { [key: string]: { nativeName: string } } = {
@@ -84,7 +84,9 @@ const Header = () => {
           <ul className={styles.languageSwitcher}>
             {/* Added key prop to each list item for React's unique identification */}
             {Object.keys(langs).map((lang) => (
-              <li key={lang}> {/* Added key={lang} to each <li> to resolve React's unique key warning */}
+              <li key={lang}>
+                {' '}
+                {/* Added key={lang} to each <li> to resolve React's unique key warning */}
                 <button
                   type="submit"
                   onClick={() => i18n.changeLanguage(lang)}

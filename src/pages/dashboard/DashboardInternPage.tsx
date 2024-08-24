@@ -6,7 +6,10 @@ export function DashBoardInternPage() {
   const { t } = useTranslation();
   return (
     <>
-      <Layout title={t('titles.dashboard')} page="dashboard-intern"></Layout>
+      <Layout
+        title={t('titles.dashboardIntern')}
+        page="dashboard-intern"
+      ></Layout>
     </>
   );
 }
