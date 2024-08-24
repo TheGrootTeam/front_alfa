@@ -11,7 +11,6 @@ export interface IFormInputTextProps {
   readOnly?: boolean;
 }
 
-//DAL
 export interface IFormTextareaProps {
   labelText: string;
   className?: string;
@@ -24,7 +23,6 @@ export interface IFormTextareaProps {
   cols?: number;
 }
 
-//DAL
 export interface IFormInputNumberProps {
   labelText: string;
   className?: string;

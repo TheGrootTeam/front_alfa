@@ -81,7 +81,9 @@
   },
   "notifications": {
     "register_success": "User registered successfully",
-    "data_saved": "Data saved successfully"
+    "data_saved": "Data saved successfully",
+    "offer_created": "New offer created successful",
+    "offer_updated": "Offer update successfully"
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?"
