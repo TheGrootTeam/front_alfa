@@ -1,5 +1,5 @@
 import { client } from '../../api/client';
-import { IOfferForm, IOffers, IOffer, IOfferMapped } from '../interfaces/IOffer';
+import { IOfferForm, IOffers, IOfferMapped } from '../interfaces/IOffer';
 
 
 export async function getOffers() {
@@ -25,12 +25,13 @@ export async function createOffer(newOffer: IOfferForm): Promise<IOfferMapped> {
 }
 
 
-export async function updateOffer(updatedOffer: IOffer) {
+export async function updateOffer(updatedOffer: IOfferForm) {
   try {
     //const response = await client.patch(`/offers/${updatedOffer._id}`, updatedOffer);
-    // DAL BALIZA: Paso los datos en el body. La práctica habitual es hacerlo indicando el id en la URL. Mirar el respecto.
-    const response = await client.patch('/offers/edit', updatedOffer);
-    return response.data;
+    // DAL BALIZA: Paso los datos en el body. Válido aunque sea habitual hacerlo indicando el id en la URL.
+    const response = await client.patch<IOfferMapped>('/offers/edit', updatedOffer);
+    const mappedOffer = response as unknown as IOfferMapped;
+    return mappedOffer;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || error.message);
   }

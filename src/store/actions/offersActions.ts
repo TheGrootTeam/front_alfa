@@ -49,13 +49,18 @@ export const createOffersAction = createAsyncThunk<
 );
 
 export const editOffersAction = createAsyncThunk<
-  IOfferForm,
+  IOfferMapped,
   IOfferForm,
   { rejectValue: string }
->('offers/editOffersAction', async (updatedOffer: any, { rejectWithValue }) => {
+>('offers/editOffersAction', async (updatedOffer: IOfferForm, { rejectWithValue }) => {
   try {
     const offer = await updateOffer(updatedOffer);
-    return offer;
+    const mappedOffer: IOfferMapped = {
+      ...offer,
+      id: (offer as any)._id,  // Maps _id to id using an explicit conversion
+      publicationDate: new Date(offer.publicationDate)  // Make sure publicationDate is a Date
+    };
+    return mappedOffer;
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.message || error.message);
   }

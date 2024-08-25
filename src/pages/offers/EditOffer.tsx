@@ -13,8 +13,8 @@ import { FormSelect } from '../../components/formElements/formSelect';
 import { editOffersAction } from '../../store/actions/offersActions';
 import Notification from '../../components/common/Notification';
 import { useNavigate } from 'react-router-dom';
-import { editOfferSlice } from '../../store/reducers/editOfferSlice';
 import { getToUpdateOfferState } from '../../store/selectors';
+import { editOfferSlice } from '../../store/reducers/editOfferSlice';
 
 export function EditOffer() {
   const { t } = useTranslation();
@@ -51,6 +51,15 @@ export function EditOffer() {
     typeJob,
     internJob,
   } = formData;
+
+  useEffect(() => {
+    // Only resets if an offer has been edited and the page is navigated away
+    if (offerStatus) {
+      return () => {
+        dispatch(editOfferSlice.actions.resetEditOfferState());
+      };
+    }
+  }, [offerStatus, dispatch]);
 
   useEffect(() => {
     if (!loading && !error && offerStatus) {
