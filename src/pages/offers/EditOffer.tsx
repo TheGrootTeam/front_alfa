@@ -13,11 +13,14 @@ import { FormSelect } from '../../components/formElements/formSelect';
 import { editOffersAction } from '../../store/actions/offersActions';
 import Notification from '../../components/common/Notification';
 import { useNavigate } from 'react-router-dom';
+import { editOfferSlice } from '../../store/reducers/editOfferSlice';
+import { getToUpdateOfferState } from '../../store/selectors';
 
 export function EditOffer() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { loading, error } = useSelector(getUi);
+  const { offerStatus } = useSelector(getToUpdateOfferState);
   const dispatch = useDispatch<AppDispatch>();
 
   //BALIZA
@@ -49,6 +52,16 @@ export function EditOffer() {
     internJob,
   } = formData;
 
+  useEffect(() => {
+    if (!loading && !error && offerStatus) {
+      setDatesSaved(true);
+      setTimeout(() => {
+        setDatesSaved(false);
+        navigate('/');
+      }, 3000); // Hide the messages in 3 sg
+    }
+  }, [loading, error, offerStatus, navigate]);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(editOffersAction(formData));
@@ -68,16 +81,6 @@ export function EditOffer() {
       [event.target.name]: value,
     }));
   };
-
-  useEffect(() => {
-    if (!loading && !error) {
-      setDatesSaved(true);
-      setTimeout(() => {
-        setDatesSaved(false);
-        navigate('/');
-      }, 3000); // Hide the messages in 3 sg
-    }
-  }, [loading, error, navigate]);
 
   return (
     <>
