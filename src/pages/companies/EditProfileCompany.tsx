@@ -20,21 +20,10 @@ export function EditCompanyProfilePage() {
   const loading = useSelector((state: RootState) => state.profile.loading);
   const error = useSelector((state: RootState) => state.profile.error);
   
-  interface FormData {
-    dniCif: string;
-    email: string;
-    password: string;
-    name: string;
-    phone: string;
-    sector: string;
-    ubication: string;
-    description: string;
-  }
-  
-  const [localFormData, setLocalFormData] = useState<FormData>({
-    dniCif: '',
-    email: '',
-    password: '',
+  const [localFormData, setLocalFormData] = useState({
+    dniCif: dniCif || '',
+    email: email || '',
+    password: password || '',
     name: '',
     phone: '',
     sector: '',
@@ -48,7 +37,10 @@ export function EditCompanyProfilePage() {
 
   useEffect(() => {
     if (formData) {
-      setLocalFormData(formData);
+      setLocalFormData((prevData) => ({
+        ...prevData,
+        ...formData,
+      }));
     }
   }, [formData]);
 
@@ -56,7 +48,6 @@ export function EditCompanyProfilePage() {
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
     setLocalFormData(updatedData);
-    dispatch(updateUserProfile(updatedData));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,11 +55,11 @@ export function EditCompanyProfilePage() {
     const file = files ? files[0] : null;
     const updatedData = { ...localFormData, [name]: file };
     setLocalFormData(updatedData);
-    dispatch(updateUserProfile(updatedData));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(updateUserProfile(localFormData));
   };
 
   return (
@@ -136,8 +127,8 @@ export function EditCompanyProfilePage() {
         />
         
         <FormTextarea
-          labelText={t('fields.description')} 
-          placeholder="Description"
+          labelText={t('forms.description')}
+          placeholder="Describe your company's activity"
           id="description"
           name="description"
           value={localFormData.description || ''}

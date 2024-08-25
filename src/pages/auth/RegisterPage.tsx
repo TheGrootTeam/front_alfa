@@ -118,9 +118,9 @@ export function RegisterPage() {
     
         // Corregir la lógica de redirección
         if (isCompanyFromResponse) {
-            navigate('/edit/company');
+            navigate('/edit/company', { state: { dniCif, email, password, isCompany: isCompanyFromResponse } });
         } else {
-            navigate('/edit/user');
+            navigate('/edit/user', { state: { dniCif, email, password, isCompany: isCompanyFromResponse } });
         }
       } else if (registerUser.rejected.match(resultAction)) {
         const errorPayload = resultAction.payload;

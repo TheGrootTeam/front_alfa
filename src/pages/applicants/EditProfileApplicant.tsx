@@ -14,28 +14,26 @@ export function EditUserProfilePage() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { email, dniCif, password } = location.state || {};
+  const { email, dniCif, password, isCompany } = location.state || {};
 
   const formData = useSelector((state: RootState) => state.profile.profileData);
   const loading = useSelector((state: RootState) => state.profile.loading);
   const error = useSelector((state: RootState) => state.profile.error);
 
-  interface LocalFormData {
-    dniCif?: string;
-    email?: string;
-    password?: string;
-    name?: string;
-    lastName?: string;
-    phone?: string;
-    ubication?: string;
-    typeJob?: string;
-    wantedRol?: string;
-    mainSkills?: string;
-    geographically_mobile?: boolean;
-    disponibility?: boolean;
-  }
-
-  const [localFormData, setLocalFormData] = useState<LocalFormData>({});
+  const [localFormData, setLocalFormData] = useState({
+    dniCif: dniCif || '',
+    email: email || '',
+    password: password || '',
+    name: '',
+    lastName: '',
+    phone: '',
+    ubication: '',
+    typeJob: '',
+    wantedRol: '',
+    mainSkills: '',
+    geographically_mobile: false,
+    disponibility: false,
+  });
 
   useEffect(() => {
     dispatch(loadUserProfile());
@@ -43,7 +41,10 @@ export function EditUserProfilePage() {
 
   useEffect(() => {
     if (formData) {
-      setLocalFormData(formData);
+      setLocalFormData((prevData) => ({
+        ...prevData,
+        ...formData,
+      }));
     }
   }, [formData]);
 
@@ -72,10 +73,10 @@ export function EditUserProfilePage() {
     <Layout title={t('titles.userprofile_edit')} page="edituserprofile">
       <form onSubmit={handleSubmit} className={styles.form}>
         <FormInputText
-          labelText="DNI / CIF"
+          labelText={isCompany ? t('forms.cif') : t('forms.nif')}
           id="dniCif"
           name="dniCif"
-          value={localFormData.dniCif || dniCif}
+          value={localFormData.dniCif}
           readOnly
           onChange={handleChange}
         />
@@ -85,7 +86,7 @@ export function EditUserProfilePage() {
           id="email"
           name="email"
           type="email"
-          value={localFormData.email || email}
+          value={localFormData.email}
           readOnly
           onChange={handleChange}
         />
@@ -95,7 +96,7 @@ export function EditUserProfilePage() {
           id="password"
           name="password"
           type="password"
-          value={localFormData.password || password}
+          value={localFormData.password}
           readOnly
           onChange={handleChange}
         />
