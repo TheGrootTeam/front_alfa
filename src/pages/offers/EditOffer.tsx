@@ -1,9 +1,6 @@
 import { getUi } from '../../store/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-//import { useState } from 'react';
-//import { getToUpdateOfferState } from '../../store/selectors';
-
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
 import { AppDispatch } from '../../store/store';
@@ -14,17 +11,17 @@ import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextarea } from '../../components/formElements/formTextareaProps';
 import { FormSelect } from '../../components/formElements/formSelect';
 import { editOffersAction } from '../../store/actions/offersActions';
-//import { IOffer } from '../../utils/interfaces/IOffer';
 import Notification from '../../components/common/Notification';
 import { useNavigate } from 'react-router-dom';
+import { getToUpdateOfferState } from '../../store/selectors';
+import { editOfferSlice } from '../../store/reducers/editOfferSlice';
 
 export function EditOffer() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { loading, error } = useSelector(getUi);
-  //const { error } = useSelector(getUi);
+  const { offerStatus } = useSelector(getToUpdateOfferState);
   const dispatch = useDispatch<AppDispatch>();
-  //const { offerInfo } = useSelector(getToUpdateOfferState);
 
   //BALIZA
   //Se usa el siguiente formData para tener datos para probar el update
@@ -39,15 +36,12 @@ export function EditOffer() {
     //companyOwner: { _id: '66c37b843ed5b9561ce5eb60' },
     status: true,
     numberVacancies: 2,
-    //listApplicants: [],
-    //numberApplicants: 1,
     location: 'Donostia',
     typeJob: 'hibrido',
     internJob: 'no_remunerado',
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
-  //const filterIdOffer = formData._id;
   const {
     position,
     description,
@@ -57,6 +51,25 @@ export function EditOffer() {
     typeJob,
     internJob,
   } = formData;
+
+  useEffect(() => {
+    // Only resets if an offer has been edited and the page is navigated away
+    if (offerStatus) {
+      return () => {
+        dispatch(editOfferSlice.actions.resetEditOfferState());
+      };
+    }
+  }, [offerStatus, dispatch]);
+
+  useEffect(() => {
+    if (!loading && !error && offerStatus) {
+      setDatesSaved(true);
+      setTimeout(() => {
+        setDatesSaved(false);
+        navigate('/');
+      }, 3000); // Hide the messages in 3 sg
+    }
+  }, [loading, error, offerStatus, navigate]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,22 +91,15 @@ export function EditOffer() {
     }));
   };
 
-  useEffect(() => {
-    if (!loading && !error) {
-      setDatesSaved(true);
-      setTimeout(() => {
-        setDatesSaved(false);
-        navigate('/');
-      }, 3000); // Hide the messages in 3 sg
-    }
-  }, [loading, error, navigate]);
-
   return (
     <>
       <Layout title={t('titles.edit_offer')} page="editoffer">
         {showMessageDatesSaved && (
           <div>
-            <Notification message="Offer update successful!" type="success" />
+            <Notification
+              message={t('notifications.offer_updated')}
+              type="success"
+            />
           </div>
         )}
         <form
@@ -103,7 +109,7 @@ export function EditOffer() {
         >
           <p>
             <FormInputText
-              labelText="Position"
+              labelText={t('forms.position')}
               className="form__inputfield"
               id="position"
               name="position"
@@ -113,7 +119,7 @@ export function EditOffer() {
           </p>
           <p>
             <FormTextarea
-              labelText="Description"
+              labelText={t('forms.description')}
               className="form__inputfield"
               id="description"
               name="description"
@@ -125,7 +131,7 @@ export function EditOffer() {
           </p>
           <p>
             <FormInputText
-              labelText="Location"
+              labelText={t('forms.location')}
               className="form__inputfield"
               id="location"
               name="location"
@@ -135,7 +141,7 @@ export function EditOffer() {
           </p>
           <p>
             <FormSelect
-              label="Type of Job"
+              label={t('forms.job_type')}
               name="typeJob"
               value={typeJob}
               onChange={handleChange}
@@ -149,7 +155,7 @@ export function EditOffer() {
           </p>
           <p>
             <FormSelect
-              label="Type of internship"
+              label={t('forms.internship_type')}
               name="internJob"
               value={internJob}
               onChange={handleChange}
@@ -163,7 +169,7 @@ export function EditOffer() {
           </p>
           <p>
             <FormInputNumber
-              labelText="NumberVacancies"
+              labelText={t('forms.number_vacancies')}
               className="form__inputfield"
               id="numberVacancies"
               name="numberVacancies"
@@ -183,18 +189,17 @@ export function EditOffer() {
               (internJob === '' && error !== null)
             }
           >
-            Save Offer
+            {t('forms.save_offer_button')}
           </Button>
-          {showMessageDatesSaved && (
-            <div>
-              <Notification message="Offer update successful!" type="success" />
-              {/* <Notification
-                message="Error: The update wen wrong."
-                type="error"
-              /> */}
-            </div>
-          )}
         </form>
+        {showMessageDatesSaved && (
+          <div>
+            <Notification
+              message={t('notifications.offer_updated')}
+              type="success"
+            />
+          </div>
+        )}
       </Layout>
     </>
   );

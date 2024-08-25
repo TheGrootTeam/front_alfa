@@ -87,7 +87,9 @@ function App() {
       <Route path="/offers">
         <Route index element={<OffersList />} />
         <Route path=":id" element={<OfferPage />} />
-        <Route path=":id/edit" element={<EditOffer />} />
+        {/* <Route path=":id/edit" element={<EditOffer />} /> */}
+        {/* La oferta a editar va en el body */}
+        <Route path="edit" element={<EditOffer />} />
         <Route path="new" element={<AddNewOffer />} />
       </Route>
 

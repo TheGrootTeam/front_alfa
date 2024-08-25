@@ -6,7 +6,8 @@
   "nav": {
     "log_in": "Entrar",
     "register": "Registrarse",
-    "add_new_offer": "Publicar Nueva Oferta",
+    "add_new_offer": "Nueva Oferta",
+    "edit_offer_link": "Editar Oferta",
     "about": "Acerca de",
     "logout": "Salir"
   },
@@ -40,7 +41,7 @@
     "nif": "NIF/NIE",
     "cif_nif": "CIF o NIF/NIE",
     "email": "Correo Electrónico",
-    "save_offer_button": "Publicar Oferta",
+    "save_offer_button": "Guardar Oferta",
     "position": "Puesto",
     "publication_date": "Fecha de publicación",
     "description": "Descripción",
@@ -83,7 +84,9 @@
   },
   "notifications": {
     "register_success": "Usuario registrado exitosamente",
-    "data_saved": "Los datos se han guardado correctamente"
+    "data_saved": "Los datos se han guardado correctamente",
+    "offer_created": "La nueva oferta ha sido creada con éxito",
+    "offer_updated": "La oferta se actualizó con éxito"
   },
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?"

@@ -118,8 +118,10 @@ export function AddNewOffer() {
     <Layout title={t('titles.add_offer')} page="newOffer">
       {showMessageDatesSaved && (
         <div>
-          <b>{t('notifications.data_saved')}</b>
-          <Notification message="New offer created successful" type="success" />
+          <Notification
+            message={t('notifications.data_saved')}
+            type="success"
+          />
         </div>
       )}
       <form onSubmit={handleSubmit} id="newOffer-form" className={styles.form}>
@@ -205,18 +207,6 @@ export function AddNewOffer() {
             onChange={handleChange}
           />
         </p>
-        {/* listApplicants: [], */}
-        {/* <p>
-          <FormInputNumber
-            labelText={t('forms.number_applicants')}
-            className="form__inputfield"
-            id="numberApplicants"
-            name="numberApplicants"
-            value={numberApplicants}
-            min={0}
-            onChange={handleChange}
-          />
-        </p> */}
         <Button
           className="form__button"
           type="submit"
@@ -230,17 +220,16 @@ export function AddNewOffer() {
         >
           {t('forms.save_offer_button')}
         </Button>
-        {showMessageDatesSaved && (
-          <div>
-            <b>{t('forms.data_saved')}</b>
-            <Notification
-              message="New offer created successful"
-              type="success"
-            />
-          </div>
-        )}
       </form>
       <div onClick={resetError}>{error ? error : null}</div>
+      {showMessageDatesSaved && (
+        <div>
+          <Notification
+            message={t('notifications.data_saved')}
+            type="success"
+          />
+        </div>
+      )}
     </Layout>
   );
 }
