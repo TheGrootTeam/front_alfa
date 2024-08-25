@@ -7,6 +7,7 @@ import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
 import { updateOffer } from '../../utils/services/serviceOffers';
 
+
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
   void,
@@ -32,7 +33,7 @@ export const getOffersAction = createAsyncThunk<
 });
 
 export const createOffersAction = createAsyncThunk<
-  IOfferForm,
+  IOfferMapped,
   IOfferForm,
   { rejectValue: string }
 >(
@@ -56,11 +57,6 @@ export const editOffersAction = createAsyncThunk<
     const offer = await updateOffer(updatedOffer);
     return offer;
   } catch (error: any) {
-    // return custom error message from API if any
-    if (error.response && error.response.data.message) {
-      return rejectWithValue(error.response.data.message as string);
-    } else {
-      return rejectWithValue(error.error || (error.message as string));
-    }
+    return rejectWithValue(error.response?.data?.message || error.message);
   }
 });
