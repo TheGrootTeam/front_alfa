@@ -6,7 +6,8 @@
   "nav": {
     "log_in": "Entrar",
     "register": "Registrarse",
-    "add_new_offer": "Publicar Nueva Oferta",
+    "add_new_offer": "Nueva Oferta",
+    "edit_offer_link": "Editar Oferta",
     "about": "Acerca de",
     "logout": "Salir"
   },

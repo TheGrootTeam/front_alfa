@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogout } from '../../store/actions/authActions';
-import { getIsLogged, getIsCompany } from '../../store/selectors'; 
+import { getIsLogged, getIsCompany } from '../../store/selectors';
 import { AppDispatch } from '../../store/store';
 
 import { Link } from 'react-router-dom';
@@ -52,9 +52,16 @@ const Header = () => {
                     <Link to="/about">{t('nav.about')}</Link>
                   </li>
                   {isCompany && (
-                    <li>
-                      <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
-                    </li>
+                    <>
+                      <li>
+                        <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
+                      </li>
+                      <li>
+                        <Link to="/offers/edit">
+                          {t('nav.edit_offer_link')}
+                        </Link>
+                      </li>
+                    </>
                   )}
                   <li>
                     <ConfirmationButton

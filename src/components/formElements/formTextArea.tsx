@@ -1,6 +1,8 @@
 import './formElements.module.css';
 
 interface FormTextareaProps {
+  labelText?: string;
+  placeholder?: string;
   id: string;
   name: string;
   value: string;
@@ -9,6 +11,8 @@ interface FormTextareaProps {
 }
 
 export function FormTextarea({
+  labelText,
+  placeholder,
   id,
   name,
   value,
@@ -16,12 +20,24 @@ export function FormTextarea({
   required,
 }: FormTextareaProps) {
   return (
-    <textarea
-      id={id}
-      name={name}
-      value={value}
-      onChange={onChange}
-      required={required}
-    />
+    <div>
+      {labelText && <label htmlFor={id}>{labelText}</label>}
+      <textarea
+        id={id}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
+    </div>
+
+    // <textarea
+    //   id={id}
+    //   name={name}
+    //   value={value}
+    //   onChange={onChange}
+    //   required={required}
+    // />
   );
 }
