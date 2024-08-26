@@ -1,22 +1,19 @@
-import { useEffect, useState } from 'react';
-import { getInfoApplicant } from '../../utils/services/infoApplicantService';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getInfoApplicantAction } from '../../store/actions/infoApplicantActions';
+import { AppDispatch } from '../../store/store';
 
 export default function ApplicantInfo() {
-  const [applicant, setApplicant] = useState({});
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const a = async () => {
-      const c = await getInfoApplicant();
-      setApplicant(c);
-    };
-    a();
-    debugger;
-  }, []);
+    dispatch(getInfoApplicantAction());
+  }, [dispatch]);
 
   return (
     <>
-      <p>{applicant.lastName}</p>
-      <p>{applicant.phone}</p>
+      <p></p>
+      <p></p>
     </>
   );
 }

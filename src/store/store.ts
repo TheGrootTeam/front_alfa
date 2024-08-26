@@ -6,6 +6,7 @@ import { offersSlice } from './reducers/offersSlice';
 import { newOfferSlice } from './reducers/newOfferSlice';
 import { editOfferSlice } from './reducers/editOfferSlice';
 import { router } from '../router';
+import { applicantInfoSlice } from './reducers/infoApplicantSlice';
 // import * as auth from '../pages/auth/service';
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
     offers: offersSlice.reducer,
     newOffer: newOfferSlice.reducer,
     editOffer: editOfferSlice.reducer,
+    applicantInfo: applicantInfoSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(
