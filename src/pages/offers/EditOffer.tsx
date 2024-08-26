@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import { getUi } from '../../store/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -22,26 +23,24 @@ export function EditOffer() {
   const { loading, error } = useSelector(getUi);
   const { offerStatus } = useSelector(getToUpdateOfferState);
   const dispatch = useDispatch<AppDispatch>();
+  const theLocation = useLocation();
+  const { offer } = theLocation.state || {};
 
-  //BALIZA
-  //Se usa el siguiente formData para tener datos para probar el update
-  //const [formData, setFormData] = useState(offerInfo);
-  // type PartialIOffer = Partial<IOffer>;
   const [formData, setFormData] = useState({
-    _id: '66c6fc21a5c2d7c86aa0aa1b',
-    //_id: '66c6eefcd968c1558e5d30aa',
-    position: 'Puesto de vespa',
-    //publicationDate: '2024-08-19',
-    description: 'ves-pa aquí, ves-pa allá!!',
-    //companyOwner: { _id: '66c37b843ed5b9561ce5eb60' },
-    status: true,
-    numberVacancies: 2,
-    location: 'Donostia',
-    typeJob: 'hibrido',
-    internJob: 'no_remunerado',
+    id: offer.id || '',
+    position: offer.position || '',
+    description: offer.description || '',
+    status: offer.status || true,
+    numberVacancies: offer.numberVacancies || 1,
+    location: offer.location || '',
+    typeJob: offer.typeJob || '',
+    internJob: offer.internJob || '',
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
+  //BALIZA
+  console.log('OFFER: ', offer);
+  console.log('FORMDATA: ', formData);
   const {
     position,
     description,
@@ -73,7 +72,9 @@ export function EditOffer() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(editOffersAction(formData));
+    //BALIZA
+    //dispatch(editOffersAction(formData.offer));
+    dispatch(editOffersAction({ ...offer, ...formData }));
   };
 
   // handleChange adapted of different kind of elements
@@ -182,6 +183,7 @@ export function EditOffer() {
             className="form__button"
             type="submit"
             disabled={
+              showMessageDatesSaved ||
               !position ||
               !description ||
               !location ||

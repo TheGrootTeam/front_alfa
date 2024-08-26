@@ -9,7 +9,9 @@ export interface IOffersReduxState {
 
 interface companyOwner {
   _id: string;
-  name: string;
+  //BALIZA
+  //name: string;
+  name?: string;
 }
 
 interface applicantOwner {
@@ -76,7 +78,7 @@ export interface IOfferListingDetail {
 export interface IOfferForm {
   __v?: number;
   _id?: string;
-  companyOwner?: companyOwner;
+  companyOwner?: companyOwner | string;
   description: string;
   internJob: string;
   //listApplicants: string[];

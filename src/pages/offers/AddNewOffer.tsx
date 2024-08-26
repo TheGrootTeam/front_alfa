@@ -45,6 +45,8 @@ export function AddNewOffer() {
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
+  //BALIZA
+  console.log('FORMDATA: ', formData);
   const {
     position,
     publicationDate,
@@ -211,6 +213,7 @@ export function AddNewOffer() {
           className="form__button"
           type="submit"
           disabled={
+            showMessageDatesSaved ||
             !position ||
             !description ||
             !location ||
