@@ -49,7 +49,8 @@
     "job_type": "Modalidad de trabajo",
     "internship_type": "Tipo de prácticas",
     "number_vacancies": "Número de vacantes",
-    "number_applicants": "Número de aplicantes"
+    "number_applicants": "Número de aplicantes",
+    "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)"
   },
   "fields": {
     "cif": "CIF",

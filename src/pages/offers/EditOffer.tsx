@@ -11,6 +11,7 @@ import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextarea } from '../../components/formElements/formTextareaProps';
 import { FormSelect } from '../../components/formElements/formSelect';
+import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import { editOffersAction } from '../../store/actions/offersActions';
 import Notification from '../../components/common/Notification';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +32,7 @@ export function EditOffer() {
     companyOwner: offer.companyOwner || null,
     position: offer.position || '',
     description: offer.description || '',
-    status: offer.status || true,
+    status: offer.status,
     numberVacancies: offer.numberVacancies || 1,
     location: offer.location || '',
     typeJob: offer.typeJob || '',
@@ -42,12 +43,15 @@ export function EditOffer() {
   const {
     position,
     description,
-    //  status,
+    status,
     numberVacancies,
     location,
     typeJob,
     internJob,
   } = formData;
+
+  //BALIZA
+  console.log('FORMDATA: ', formData);
 
   useEffect(() => {
     // Only resets if an offer has been edited and the page is navigated away
@@ -79,8 +83,11 @@ export function EditOffer() {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
+    //BALIZA
+    // const target = event.target as HTMLInputElement | HTMLSelectElement;
+    // const value = target.type === 'checkbox' ? target.checked : target.value;
     const target = event.target as HTMLInputElement | HTMLSelectElement;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? !target.checked : target.value;
 
     setFormData((currentData: any) => ({
       ...currentData,
@@ -104,6 +111,16 @@ export function EditOffer() {
           id="newOffer-form"
           className={styles.form}
         >
+          <p>
+            <FormCheckbox
+              id="status"
+              labelText={t('forms.status_closed')}
+              name="status"
+              checked={!status}
+              value=""
+              onChange={handleChange}
+            />
+          </p>
           <p>
             <FormInputText
               labelText={t('forms.position')}
