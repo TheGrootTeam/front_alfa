@@ -28,6 +28,7 @@ export function EditOffer() {
 
   const [formData, setFormData] = useState({
     id: offer.id || '',
+    companyOwner: offer.companyOwner || null,
     position: offer.position || '',
     description: offer.description || '',
     status: offer.status || true,
@@ -38,9 +39,6 @@ export function EditOffer() {
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
-  //BALIZA
-  console.log('OFFER: ', offer);
-  console.log('FORMDATA: ', formData);
   const {
     position,
     description,
@@ -72,8 +70,6 @@ export function EditOffer() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    //BALIZA
-    //dispatch(editOffersAction(formData.offer));
     dispatch(editOffersAction({ ...offer, ...formData }));
   };
 

@@ -30,6 +30,7 @@ export const offersSlice = createSlice({
       .addCase(
         editOffersAction.fulfilled,
         (state, action: PayloadAction<IOfferMapped>) => {
+          console.log('En SLICE:', action.payload)
           const index = state.offers.findIndex(offer => offer.id === action.payload.id);
           if (index !== -1) {
             state.offers[index] = { ...state.offers[index], ...action.payload };

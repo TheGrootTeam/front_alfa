@@ -31,6 +31,7 @@ export async function updateOffer(updatedOffer: IOfferForm) {
     // DAL BALIZA: Paso los datos en el body. Válido aunque sea habitual hacerlo indicando el id en la URL.
     const response = await client.patch<IOfferMapped>('/offers/edit', updatedOffer);
     const mappedOffer = response as unknown as IOfferMapped;
+    console.log('SERVICE OFFERS mapperOffer: ', mappedOffer);
     return mappedOffer;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || error.message);

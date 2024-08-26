@@ -20,7 +20,7 @@ export function ListingDetail({
       <Link to={`/offers/${id}`}>
         <h2>Título: {position}</h2>
         <p>Descripción: {description}</p>
-        <p>Empresa: {companyOwner}</p>
+        <p>Empresa: {companyOwner.name}</p>
         <p>Ciudad: {location}</p>
         <p>
           Modalidad de prácticas: {typeJob} y {internJob}
