@@ -44,6 +44,8 @@ export interface IOffer {
 export interface IOfferMapped {
   __v: number;
   id: string;
+  //DAL - For type compatibility, both are kept
+  _id?: string;
   companyOwner: companyOwner;
   description: string;
   internJob: string;

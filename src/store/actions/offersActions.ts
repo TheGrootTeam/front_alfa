@@ -41,7 +41,23 @@ export const createOffersAction = createAsyncThunk<
   async (newOffer: IOfferForm, { rejectWithValue }) => {
     try {
       const offer = await createOffer(newOffer);
-      return offer; // return the offer, for to be saved in the store
+
+      //BALIZA
+      const mappedOffer: IOfferMapped = {
+        ...offer,
+        //id: offer._id,
+        id: offer._id!,  //  _id never is undefined
+      };
+
+      //BALIZA
+      console.group('CREATEOFFERSACTION: ', offer);
+      console.group('CREATEOFFERSACTION mapeada: ', mappedOffer);
+
+      //BALIZA
+      //return offer; // return the offer, for to be saved in the store
+
+      return mappedOffer;
+
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }

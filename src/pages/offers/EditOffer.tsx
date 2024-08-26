@@ -50,9 +50,6 @@ export function EditOffer() {
     internJob,
   } = formData;
 
-  //BALIZA
-  console.log('FORMDATA: ', formData);
-
   useEffect(() => {
     // Only resets if an offer has been edited and the page is navigated away
     if (offerStatus) {

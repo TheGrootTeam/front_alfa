@@ -25,12 +25,13 @@ export const offersSlice = createSlice({
         createOffersAction.fulfilled,
         (state, action: PayloadAction<IOfferMapped>) => {
           state.offers.unshift(action.payload);
+          //BALIZA
+          console.log('En SLICE:', action.payload)
         }
       )
       .addCase(
         editOffersAction.fulfilled,
         (state, action: PayloadAction<IOfferMapped>) => {
-          console.log('En SLICE:', action.payload)
           const index = state.offers.findIndex(offer => offer.id === action.payload.id);
           if (index !== -1) {
             state.offers[index] = { ...state.offers[index], ...action.payload };
