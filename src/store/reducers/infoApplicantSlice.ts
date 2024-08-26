@@ -32,7 +32,12 @@ const initialState: IApplicantInfoReduxState = {
 export const applicantInfoSlice = createSlice({
   name: 'applicantInfo',
   initialState,
-  reducers: {},
+  reducers: {
+    resetApplicantInfoStore: (state) => {
+      state.infoApplicant = initialState.infoApplicant;
+      state.loadedApplicant = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       getInfoApplicantAction.fulfilled,
