@@ -20,13 +20,13 @@ export function ListingDetail({
       <Link to={`/offers/${id}`}>
         <h2>Título: {position}</h2>
         <p>Descripción: {description}</p>
-        <p>Empresa: {companyOwner}</p>
+        <p>Empresa: {companyOwner.name}</p>
         <p>Ciudad: {location}</p>
         <p>
           Modalidad de prácticas: {typeJob} y {internJob}
         </p>
         <p></p>
-        {/* DAL - Para adaptarlo el ISO*/}
+        {/* DAL - Para adaptarlo el ISO?*/}
         {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
         <p>Publicado el: {publicationDate.toISOString().split('T')[0]}</p>
         <p>

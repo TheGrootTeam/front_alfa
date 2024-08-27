@@ -52,16 +52,9 @@ const Header = () => {
                     <Link to="/about">{t('nav.about')}</Link>
                   </li>
                   {isCompany && (
-                    <>
-                      <li>
-                        <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
-                      </li>
-                      <li>
-                        <Link to="/offers/edit">
-                          {t('nav.edit_offer_link')}
-                        </Link>
-                      </li>
-                    </>
+                    <li>
+                      <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
+                    </li>
                   )}
                   <li>
                     <ConfirmationButton
