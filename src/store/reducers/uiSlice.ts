@@ -3,7 +3,7 @@ import {} from '../../utils/interfaces/IAuth';
 import { IErrorPayload } from '../../utils/interfaces/IStore';
 
 const initialState = {
-  loading: true,
+  loading: false,
   error: null as string | null,
 };
 

@@ -13,6 +13,10 @@ import ConfirmationButton from '../common/ConfirmationButton';
 
 import { useTranslation } from 'react-i18next';
 
+// interface HeaderProps {
+//   userId: string;
+// }
+
 const Header = () => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
