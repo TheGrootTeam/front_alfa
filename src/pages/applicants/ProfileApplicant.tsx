@@ -1,11 +1,8 @@
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
 import styles from './ProfileApplicant.module.css';
-interface UserProfilePageProps {
-  userId: string;
-}
 
-export function UserProfilePage({ userId }: UserProfilePageProps) {
+export function UserProfilePage() {
   const { t } = useTranslation();
   return (
     <Layout title={t('titles.userprofile')} page="userprofile">

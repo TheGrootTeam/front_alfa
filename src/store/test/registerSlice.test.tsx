@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
-import registerReducer, { registerUser } from '../reducers/registerSlice';
+import registerReducer from '../reducers/registerSlice';
+import { registerUser } from '../actions/registerActions';
 
 // Mock de axios para interceptar peticiones HTTP
 vi.mock('axios');
@@ -19,7 +20,9 @@ describe('registerSlice', () => {
   });
 
   it('should handle initial state', () => {
-    expect(registerReducer(undefined, { type: 'unknown' })).toEqual(initialState);
+    expect(registerReducer(undefined, { type: 'unknown' })).toEqual(
+      initialState
+    );
   });
 
   it('should handle registerUser.pending', () => {
@@ -36,7 +39,14 @@ describe('registerSlice', () => {
       reducer: registerReducer,
     });
 
-    await store.dispatch(registerUser({ dniCif: '12345678A', email: 'test@example.com', password: 'password123', isCompany: false }));
+    await store.dispatch(
+      registerUser({
+        dniCif: '12345678A',
+        email: 'test@example.com',
+        password: 'password123',
+        isCompany: false,
+      })
+    );
 
     const state = store.getState();
     expect(state.loading).toBe(false);
@@ -52,7 +62,14 @@ describe('registerSlice', () => {
       reducer: registerReducer,
     });
 
-    await store.dispatch(registerUser({ dniCif: '12345678A', email: 'existing@example.com', password: 'password123', isCompany: false }));
+    await store.dispatch(
+      registerUser({
+        dniCif: '12345678A',
+        email: 'existing@example.com',
+        password: 'password123',
+        isCompany: false,
+      })
+    );
 
     const state = store.getState();
     expect(state.loading).toBe(false);

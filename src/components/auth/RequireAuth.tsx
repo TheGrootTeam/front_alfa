@@ -1,13 +1,7 @@
-import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getIsLogged } from '../../store/selectors';
-
-interface RequireAuthProps {
-  children: ReactNode;
-
-  //children: ReactElement - es más específico y se asegura de que RequireAuth siempre reciba un elemento React válido.
-}
+import { RequireAuthProps } from '../../utils/interfaces/IAuth';
 
 function RequireAuth({ children }: RequireAuthProps) {
   const location = useLocation();
