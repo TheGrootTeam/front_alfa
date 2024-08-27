@@ -7,7 +7,7 @@
   --dark: #211f23ff;
   --accent-light: #9775e6ff;
   --accent: #8357ebff;
-  --accent-dark: #5e24e5ff;
+  --accent-dark: #5b32bbff;
   --error-bg: #f08080ff;
   --error-text: #ff6347ff;
 
@@ -23,7 +23,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
+.root {
   width: 100%;
   margin: 0 auto;
   text-align: center;

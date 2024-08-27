@@ -7,6 +7,7 @@ import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
 import { updateOffer } from '../../utils/services/serviceOffers';
 
+
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
   void,
@@ -32,7 +33,7 @@ export const getOffersAction = createAsyncThunk<
 });
 
 export const createOffersAction = createAsyncThunk<
-  IOfferForm,
+  IOfferMapped,
   IOfferForm,
   { rejectValue: string }
 >(
@@ -40,7 +41,11 @@ export const createOffersAction = createAsyncThunk<
   async (newOffer: IOfferForm, { rejectWithValue }) => {
     try {
       const offer = await createOffer(newOffer);
-      return offer; // return the offer, for to be saved in the store
+      const mappedOffer: IOfferMapped = {
+        ...offer,
+        id: offer._id!,  //  _id never is undefined
+      };
+      return mappedOffer;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -48,19 +53,19 @@ export const createOffersAction = createAsyncThunk<
 );
 
 export const editOffersAction = createAsyncThunk<
-  IOfferForm,
+  IOfferMapped,
   IOfferForm,
   { rejectValue: string }
->('offers/editOffersAction', async (updatedOffer: any, { rejectWithValue }) => {
+>('offers/editOffersAction', async (updatedOffer: IOfferForm, { rejectWithValue }) => {
   try {
     const offer = await updateOffer(updatedOffer);
-    return offer;
+    const mappedOffer: IOfferMapped = {
+      ...offer,
+      id: (offer as any)._id,  // Maps _id to id using an explicit conversion
+      publicationDate: new Date(offer.publicationDate)  // Make sure publicationDate is a Date
+    };
+    return mappedOffer;
   } catch (error: any) {
-    // return custom error message from API if any
-    if (error.response && error.response.data.message) {
-      return rejectWithValue(error.response.data.message as string);
-    } else {
-      return rejectWithValue(error.error || (error.message as string));
-    }
+    return rejectWithValue(error.response?.data?.message || error.message);
   }
 });

@@ -7,6 +7,7 @@
     "log_in": "Log in",
     "register": "Register",
     "add_new_offer": "Add New Offer",
+    "edit_offer_link": "Edit Offer",
     "about": "About",
     "logout": "Log out"
   },
@@ -46,7 +47,8 @@
     "job_type": "Job Type",
     "internship_type": "Internship Type",
     "number_vacancies": "Number of vacancies",
-    "number_applicants": "Number of applicants"
+    "number_applicants": "Number of applicants",
+    "status_closed": "Close offer  (will not accept more applicants)"
   },
   "fields": {
     "cif": "VAT Number",
@@ -81,7 +83,9 @@
   },
   "notifications": {
     "register_success": "User registered successfully",
-    "data_saved": "Data saved successfully"
+    "data_saved": "Data saved successfully",
+    "offer_created": "New offer created successful",
+    "offer_updated": "Offer update successfully"
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?"

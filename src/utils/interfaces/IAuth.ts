@@ -14,3 +14,10 @@ export interface IToken {
 export interface RequireAuthProps {
   children: ReactNode;
 }
+
+export interface RegisterPayload {
+  dniCif: string;
+  email: string;
+  password: string;
+  isCompany: boolean;
+}

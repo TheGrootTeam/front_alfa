@@ -6,6 +6,7 @@ import { RequireAuthProps } from '../../utils/interfaces/IAuth';
 function RequireAuth({ children }: RequireAuthProps) {
   const location = useLocation();
   const isLogged = useSelector(getIsLogged);
+  //console.log:TODO: quitar
   console.log('is logged?', isLogged);
 
   return isLogged ? (

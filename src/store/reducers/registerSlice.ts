@@ -1,25 +1,13 @@
-
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-export const registerUser: any = createAsyncThunk(
-  'register/user',
-  async (userData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post('/api/v1/register', userData);
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
+import { createSlice } from '@reduxjs/toolkit';
+import { registerUser } from '../actions/registerActions';
+registerUser
 
 export const registerSlice = createSlice({
   name: 'register',
   initialState: {
     userInfo: null,
     loading: false,
-    error: null,
+    error: null as string | null | { message: string } | null,
   },
   reducers: {
     resetRegisterState: (state) => {
@@ -40,10 +28,13 @@ export const registerSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload as { message: string }; 
       });
   },
 });
 
-// Export the reducer, not the slice itself
+// Export the actions, including resetRegisterState
+export const { resetRegisterState } = registerSlice.actions;
+
+// Export the reducer
 export default registerSlice.reducer;

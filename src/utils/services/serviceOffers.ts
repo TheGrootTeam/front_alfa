@@ -1,6 +1,6 @@
 import { client } from '../../api/client';
-import { IOfferForm, IOffers } from '../interfaces/IOffer';
-import { IOffer } from '../interfaces/IOffer';
+import { IOfferForm, IOffers, IOfferMapped } from '../interfaces/IOffer';
+
 
 export async function getOffers() {
   const offers: IOffers = await client.get(`/offers`);
@@ -8,22 +8,30 @@ export async function getOffers() {
 }
 
 
-export async function createOffer(newOffer: IOfferForm): Promise<IOfferForm> {
+export async function createOffer(newOffer: IOfferForm): Promise<IOfferMapped> {
   try {
-    const response: IOfferForm = await client.post(`/offers/new`, newOffer);
-    console.log('RESPONSE:', response); // here, response is a object of IOfferForm type
-    return response; // return directly the dates in response and not in response.data. On force the IOfferForm type
+    const response = await client.post<IOfferMapped>(`/offers/new`, newOffer);
+    // Force the type of `response` to `IOfferMapped`
+    const mappedOffer = response as unknown as IOfferMapped;
+    // Fixed possible problems with the Date type
+    if (!(mappedOffer.publicationDate instanceof Date)) {
+      mappedOffer.publicationDate = new Date(mappedOffer.publicationDate);
+    }
+    return mappedOffer;
   } catch (error: any) {
-    throw new Error(error.response?.message || error.message);
+    console.error('Error:', error);
+    throw new Error(error.message || 'An error occurred while creating the offer');
   }
 }
 
-export async function updateOffer(updatedOffer: IOffer) {
+
+export async function updateOffer(updatedOffer: IOfferForm) {
   try {
     //const response = await client.patch(`/offers/${updatedOffer._id}`, updatedOffer);
-    // BALIZA: Paso los datos en el body. La práctica habitual es hacerlo indicando el id en la URL. Mirar el respecto.
-    const response = await client.patch('/offers/edit', updatedOffer);
-    return response.data;
+    // DAL BALIZA: Paso los datos en el body. Correto aunque sea habitual hacerlo indicando el id en la URL.
+    const response = await client.patch<IOfferMapped>('/offers/edit', updatedOffer);
+    const mappedOffer = response as unknown as IOfferMapped;
+    return mappedOffer;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || error.message);
   }

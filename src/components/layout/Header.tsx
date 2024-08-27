@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogout } from '../../store/actions/authActions';
-import { getIsLogged } from '../../store/selectors';
+import { getIsLogged, getIsCompany } from '../../store/selectors';
 import { AppDispatch } from '../../store/store';
 
 import { Link } from 'react-router-dom';
@@ -13,10 +13,16 @@ import ConfirmationButton from '../common/ConfirmationButton';
 
 import { useTranslation } from 'react-i18next';
 
-const Header = () => {
+interface HeaderProps {
+  userId: string;
+}
+
+const Header = ({ userId }: HeaderProps) => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
-  const auth = useSelector(getIsLogged);
+  const auth = useSelector(getIsLogged); // To verify if the user is logged
+  const isCompany = useSelector(getIsCompany); //To verify if it is a company
+  const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
   const dispatch = useDispatch<AppDispatch>();
 
   const langs: { [key: string]: { nativeName: string } } = {
@@ -34,7 +40,9 @@ const Header = () => {
 
   return (
     <>
-      <div onClick={resetError}>{error ? error : null}</div>
+      <div className={styles.headerError} onClick={resetError}>
+        {error ? error : null}
+      </div>
       <header className={styles.header}>
         <div className={styles.inner}>
           <h1 className={styles.h1}>
@@ -44,7 +52,29 @@ const Header = () => {
           </h1>
           <nav className={styles.nav}>
             <ul>
-              {!auth && (
+              {auth ? (
+                // When the user is authenticated
+                <>
+                  <li>
+                    <Link to="/about">{t('nav.about')}</Link>
+                  </li>
+                  {isCompany && (
+                    <li>
+                      <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
+                    </li>
+                  )}
+                  <li>
+                    <ConfirmationButton
+                      buttonLabel={t('nav.logout')}
+                      dialogText={t('dialogs.logout_message')}
+                      confirmLabel={t('gen.yes')}
+                      cancelLabel={t('gen.no')}
+                      confirmAction={handleLogout}
+                    />
+                  </li>
+                </>
+              ) : (
+                // When the user is not authenticated
                 <>
                   <li>
                     <Link to="/login">{t('nav.log_in')}</Link>
@@ -52,41 +82,21 @@ const Header = () => {
                   <li>
                     <Link to="/register">{t('nav.register')}</Link>
                   </li>
-                </>
-              )}
-
-              {/* DAL */}
-              {/* !auth para darle visibilidad de manera temporal: no me funciona el login*/}
-              {!auth && (
-                <>
                   <li>
-                    <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
+                    <Link to="/about">{t('nav.about')}</Link>
+                  </li>
+
+                  {/* MARTA - TEMPORAL porque si no no puedo ver la página */}
+                  <li>
+                    <Link to={`/view/user/${loggedInUser}`}>Profile</Link>
                   </li>
                 </>
-              )}
-
-              <li>
-                <Link to="/about">{t('nav.about')}</Link>
-              </li>
-              {auth && (
-                <li>
-                  <ConfirmationButton
-                    buttonLabel={t('nav.logout')}
-                    dialogText={t('dialogs.logout_message')}
-                    confirmLabel={t('gen.yes')}
-                    cancelLabel={t('gen.no')}
-                    confirmAction={handleLogout}
-                  />
-                </li>
               )}
             </ul>
           </nav>
           <ul className={styles.languageSwitcher}>
-            {/* Added key prop to each list item for React's unique identification */}
             {Object.keys(langs).map((lang) => (
               <li key={lang}>
-                {' '}
-                {/* Added key={lang} to each <li> to resolve React's unique key warning */}
                 <button
                   type="submit"
                   onClick={() => i18n.changeLanguage(lang)}

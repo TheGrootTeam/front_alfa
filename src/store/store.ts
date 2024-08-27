@@ -4,6 +4,7 @@ import { uiSlice } from './reducers/uiSlice';
 import { registerSlice } from './reducers/registerSlice';
 import { offersSlice } from './reducers/offersSlice';
 import { newOfferSlice } from './reducers/newOfferSlice';
+import profileReducer from './reducers/profileSlice';
 import { editOfferSlice } from './reducers/editOfferSlice';
 import { router } from '../router';
 import { applicantInfoSlice } from './reducers/infoApplicantSlice';
@@ -16,6 +17,7 @@ export const store = configureStore({
     register: registerSlice.reducer,
     offers: offersSlice.reducer,
     newOffer: newOfferSlice.reducer,
+    profile: profileReducer,
     editOffer: editOfferSlice.reducer,
     applicantInfo: applicantInfoSlice.reducer,
   },
