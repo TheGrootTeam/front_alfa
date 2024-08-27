@@ -52,7 +52,9 @@
     "internship_type": "Tipo de prácticas",
     "number_vacancies": "Número de vacantes",
     "number_applicants": "Número de aplicantes",
-    "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)"
+    "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)",
+    "company_description": "Descripción de la empresa",
+    "offer_description": "Descripción de la oferta"
   },
   "fields": {
     "cif": "CIF",
@@ -74,7 +76,10 @@
     "availableImmediately": "Disponible inmediatamente"
   },
   "buttons": {
-    "saveAndFinish": "Guardar y Terminar"
+    "saveAndFinish": "Guardar y Terminar",
+    "yes_delete": "SI, Eliminar",
+    "no_cancel": "NO, Cancelar",
+    "delete_offer": "Eliminar oferta"
   },
   "errors": {
     "password_empty": "Los campos de contraseña no pueden estar vacíos",
@@ -92,6 +97,7 @@
     "offer_updated": "La oferta se actualizó con éxito"
   },
   "dialogs": {
-    "logout_message": "¿Seguro que quieres salir?"
+    "logout_message": "¿Seguro que quieres salir?",
+    "delete_offer_message": "¿Estás seguro que quieres eliminar la oferta?"
   }
 }
