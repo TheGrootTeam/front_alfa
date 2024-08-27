@@ -4,14 +4,13 @@ import { getInfoApplicantAction } from '../../store/actions/infoApplicantActions
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getApplicantInfo, getUi } from '../../store/selectors';
-import { Loader } from '../common/Loader';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import Notification from '../common/Notification';
 
 export default function ApplicantInfo() {
   const dispatch = useDispatch<AppDispatch>();
   const applicant = useSelector(getApplicantInfo);
-  const { loading, error } = useSelector(getUi);
+  const { error } = useSelector(getUi);
 
   useEffect(() => {
     dispatch(getInfoApplicantAction());

@@ -13,11 +13,11 @@ import ConfirmationButton from '../common/ConfirmationButton';
 
 import { useTranslation } from 'react-i18next';
 
-interface HeaderProps {
-  userId: string;
-}
+// interface HeaderProps {
+//   userId: string;
+// }
 
-const Header = ({ userId }: HeaderProps) => {
+const Header = () => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
   const auth = useSelector(getIsLogged); // To verify if the user is logged
