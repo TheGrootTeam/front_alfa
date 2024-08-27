@@ -13,11 +13,16 @@ import ConfirmationButton from '../common/ConfirmationButton';
 
 import { useTranslation } from 'react-i18next';
 
-const Header = () => {
+interface HeaderProps {
+  userId: string;
+}
+
+const Header = ({ userId }: HeaderProps) => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
   const auth = useSelector(getIsLogged); // To verify if the user is logged
   const isCompany = useSelector(getIsCompany); //To verify if it is a company
+  const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
   const dispatch = useDispatch<AppDispatch>();
 
   const langs: { [key: string]: { nativeName: string } } = {
@@ -35,7 +40,9 @@ const Header = () => {
 
   return (
     <>
-      <div onClick={resetError}>{error ? error : null}</div>
+      <div className={styles.headerError} onClick={resetError}>
+        {error ? error : null}
+      </div>
       <header className={styles.header}>
         <div className={styles.inner}>
           <h1 className={styles.h1}>
@@ -84,6 +91,11 @@ const Header = () => {
                   </li>
                   <li>
                     <Link to="/about">{t('nav.about')}</Link>
+                  </li>
+
+                  {/* MARTA - TEMPORAL porque si no no puedo ver la página */}
+                  <li>
+                    <Link to={`/view/user/${loggedInUser}`}>Profile</Link>
                   </li>
                 </>
               )}

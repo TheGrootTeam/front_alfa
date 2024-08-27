@@ -15,7 +15,7 @@ const initialState: ProfileState = {
 // Función para serializar las fechas
 function serializeDates(data: any): any {
   const serializedData = { ...data };
-  Object.keys(serializedData).forEach(key => {
+  Object.keys(serializedData).forEach((key) => {
     if (serializedData[key] instanceof Date) {
       serializedData[key] = serializedData[key].toISOString();
     }
@@ -24,10 +24,16 @@ function serializeDates(data: any): any {
 }
 
 // Función para deserializar las fechas
-export function deserializeDates(data: any): any {  // Exporta la función
+export function deserializeDates(data: any): any {
+  // Exporta la función
   const deserializedData = { ...data };
-  Object.keys(deserializedData).forEach(key => {
-    if (typeof deserializedData[key] === 'string' && deserializedData[key].match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/)) {
+  Object.keys(deserializedData).forEach((key) => {
+    if (
+      typeof deserializedData[key] === 'string' &&
+      deserializedData[key].match(
+        /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+      )
+    ) {
       deserializedData[key] = new Date(deserializedData[key]);
     }
   });
@@ -54,5 +60,6 @@ const profileSlice = createSlice({
   },
 });
 
-export const { loadUserProfile, updateUserProfile, setProfileError } = profileSlice.actions;
+export const { loadUserProfile, updateUserProfile, setProfileError } =
+  profileSlice.actions;
 export default profileSlice.reducer;
