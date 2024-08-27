@@ -1,12 +1,46 @@
+// import { useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
 import styles from './ProfileApplicant.module.css';
-interface UserProfilePageProps {
-  userId: string;
-}
 
-export function UserProfilePage({ userId }: UserProfilePageProps) {
+export function UserProfilePage() {
   const { t } = useTranslation();
+  // const { id } = useParams();
+
+  const data = {
+    name: 'John',
+    lastName: 'Doe',
+    wantedRol: ['Full Stack Developer', 'UX/UI Designer'],
+    ubication: 'New York',
+    cv: '',
+    mainSkills: [
+      'CSS',
+      'Javascript',
+      'TypeScript',
+      'React',
+      'MongoDB',
+      'Redux',
+      'Figma',
+    ],
+    typeJob: 'Full Remote',
+    internType: 'All / Any',
+    geographically_mobile: 'No',
+    disponibility: 'Yes',
+  }; // DATOS A CAPON - Delete when redux
+
+  const {
+    name,
+    lastName,
+    wantedRol,
+    ubication,
+    cv,
+    mainSkills,
+    typeJob,
+    internType,
+    geographically_mobile,
+    disponibility,
+  } = data; // useSelector(getApplicantData(id));
+
   return (
     <Layout title={t('titles.userprofile')} page="userprofile">
       <header className={styles.header}>
@@ -15,11 +49,13 @@ export function UserProfilePage({ userId }: UserProfilePageProps) {
         </div>
 
         <div className={styles.profile__data}>
-          <h2>John Doe</h2>
-          <h3>Full Stack Developer</h3>
-          <p className={styles.profile__location}>New York</p>
-          <a className={styles.profile__downloadCV} href="">
-            Download CV
+          <h2>
+            {name} {lastName}
+          </h2>
+          <h3>{wantedRol.join(', ')}</h3>
+          <p className={styles.profile__location}>{ubication}</p>
+          <a className={styles.profile__downloadCV} href={cv}>
+            {t('forms.cv_dl_button')}
           </a>
         </div>
 
@@ -28,29 +64,29 @@ export function UserProfilePage({ userId }: UserProfilePageProps) {
 
       <section className={styles.profile__details}>
         <div className={styles.profile__skills}>
-          <h3>Main skills</h3>
+          <h3>{t('titles.main_skills')}</h3>
           <ul>
-            <li>CSS</li>
-            <li>Javascript</li>
-            <li>TypeScript</li>
-            <li>React</li>
-            <li>MongoDB</li>
+            {mainSkills.map((skill, index) => (
+              <li key={index}>{skill}</li>
+            ))}
           </ul>
         </div>
 
         <div className={styles.profile__preferences}>
-          <h3>Preferences</h3>
+          <h3>{t('titles.internship_preferences')}</h3>
           <dl>
-            <dt>Work location</dt> <dd>Full Remote</dd>
-            <dt>Internship Type</dt> <dd>All / Any</dd>
+            <dt>{t('forms.job_type')}</dt> <dd>{typeJob}</dd>
+            <dt>{t('forms.internship_type')}</dt> <dd>{internType}</dd>
           </dl>
         </div>
 
         <div className={styles.profile__availability}>
-          <h3>Availability</h3>
+          <h3>{t('titles.availability')}</h3>
           <dl>
-            <dt>Willing to relocate?</dt> <dd>No</dd>
-            <dt>Available to start immediately?</dt> <dd>Yes</dd>
+            <dt>{t('forms.willing_to_relocate')}</dt>
+            <dd>{geographically_mobile}</dd>
+            <dt>{t('forms.available_immediately')}</dt>
+            <dd>{disponibility}</dd>
           </dl>
         </div>
       </section>
