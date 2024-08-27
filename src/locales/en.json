@@ -21,10 +21,14 @@
     "userprofile_edit": "Edit User Profile",
     "userprofile": "User Profile",
     "dashboard": "Dashboard",
+    "dashboardIntern": "Applicant",
     "add_offer": "Add New Offer",
     "edit_offer": "Edit Offer",
     "company_public_profile": "Company Data",
-    "company_public_offers": "Offers available"
+    "company_public_offers": "Offers available",
+    "main_skills": "Main Skills",
+    "internship_preferences": "Internship Preferences",
+    "availability": "Availability"
   },
   "forms": {
     "search": "search...",
@@ -41,6 +45,10 @@
     "cif": "VAT Number",
     "nif": "ID Number",
     "email": "Email",
+    "willing_to_relocate": "Willing to Relocate",
+    "available_immediately": "Available to Start Immediately",
+    "preferredWorkLocation": "Preferred Work Location",
+    "cv_dl_button": "Download Resume",
     "save_offer_button": "Save Offer",
     "position": "Position",
     "publication_date": "Publication date",
