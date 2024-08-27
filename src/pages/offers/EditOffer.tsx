@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import { getUi } from '../../store/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -10,6 +11,7 @@ import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextarea } from '../../components/formElements/formTextareaProps';
 import { FormSelect } from '../../components/formElements/formSelect';
+import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import { editOffersAction } from '../../store/actions/offersActions';
 import Notification from '../../components/common/Notification';
 import { useNavigate } from 'react-router-dom';
@@ -22,30 +24,26 @@ export function EditOffer() {
   const { loading, error } = useSelector(getUi);
   const { offerStatus } = useSelector(getToUpdateOfferState);
   const dispatch = useDispatch<AppDispatch>();
+  const theLocation = useLocation();
+  const { offer } = theLocation.state || {};
 
-  //BALIZA
-  //Se usa el siguiente formData para tener datos para probar el update
-  //const [formData, setFormData] = useState(offerInfo);
-  // type PartialIOffer = Partial<IOffer>;
   const [formData, setFormData] = useState({
-    _id: '66c6fc21a5c2d7c86aa0aa1b',
-    //_id: '66c6eefcd968c1558e5d30aa',
-    position: 'Puesto de vespa',
-    //publicationDate: '2024-08-19',
-    description: 'ves-pa aquí, ves-pa allá!!',
-    //companyOwner: { _id: '66c37b843ed5b9561ce5eb60' },
-    status: true,
-    numberVacancies: 2,
-    location: 'Donostia',
-    typeJob: 'hibrido',
-    internJob: 'no_remunerado',
+    id: offer.id || '',
+    companyOwner: offer.companyOwner || null,
+    position: offer.position || '',
+    description: offer.description || '',
+    status: offer.status,
+    numberVacancies: offer.numberVacancies || 1,
+    location: offer.location || '',
+    typeJob: offer.typeJob || '',
+    internJob: offer.internJob || '',
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
   const {
     position,
     description,
-    //  status,
+    status,
     numberVacancies,
     location,
     typeJob,
@@ -73,7 +71,7 @@ export function EditOffer() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(editOffersAction(formData));
+    dispatch(editOffersAction({ ...offer, ...formData }));
   };
 
   // handleChange adapted of different kind of elements
@@ -83,7 +81,7 @@ export function EditOffer() {
     >
   ) => {
     const target = event.target as HTMLInputElement | HTMLSelectElement;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? !target.checked : target.value;
 
     setFormData((currentData: any) => ({
       ...currentData,
@@ -107,6 +105,16 @@ export function EditOffer() {
           id="newOffer-form"
           className={styles.form}
         >
+          <p>
+            <FormCheckbox
+              id="status"
+              labelText={t('forms.status_closed')}
+              name="status"
+              checked={!status}
+              value=""
+              onChange={handleChange}
+            />
+          </p>
           <p>
             <FormInputText
               labelText={t('forms.position')}
@@ -182,6 +190,7 @@ export function EditOffer() {
             className="form__button"
             type="submit"
             disabled={
+              showMessageDatesSaved ||
               !position ||
               !description ||
               !location ||

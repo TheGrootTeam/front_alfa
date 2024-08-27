@@ -47,7 +47,8 @@
     "job_type": "Job Type",
     "internship_type": "Internship Type",
     "number_vacancies": "Number of vacancies",
-    "number_applicants": "Number of applicants"
+    "number_applicants": "Number of applicants",
+    "status_closed": "Close offer  (will not accept more applicants)"
   },
   "fields": {
     "cif": "VAT Number",

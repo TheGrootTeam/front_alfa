@@ -9,7 +9,7 @@ export interface IOffersReduxState {
 
 interface companyOwner {
   _id: string;
-  name: string;
+  name?: string;
 }
 
 interface applicantOwner {
@@ -44,6 +44,8 @@ export interface IOffer {
 export interface IOfferMapped {
   __v: number;
   id: string;
+  //DAL - For type compatibility, both are kept
+  _id?: string;
   companyOwner: companyOwner;
   description: string;
   internJob: string;
@@ -61,7 +63,9 @@ export interface IOfferMapped {
 
 export interface IOfferListingDetail {
   id: string;
-  companyOwner: string;
+  //DAL
+  //companyOwner: string;
+  companyOwner: companyOwner;
   description: string;
   internJob: string;
   location: string;
@@ -76,7 +80,7 @@ export interface IOfferListingDetail {
 export interface IOfferForm {
   __v?: number;
   _id?: string;
-  companyOwner?: companyOwner;
+  companyOwner?: companyOwner | string;
   description: string;
   internJob: string;
   //listApplicants: string[];

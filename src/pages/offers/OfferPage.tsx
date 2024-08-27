@@ -1,34 +1,35 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
 import { getOffer } from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
+import { useState } from 'react';
+//import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 // import styles from "./Offermodule.css";
 
 export function OfferPage() {
-  const dispatch = useDispatch<AppDispatch>();
+  const { t } = useTranslation();
+  //const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { id } = useParams();
-
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
-
   const [showConfirm, setShowCofirm] = useState(false);
 
   const deleteOffer = () => {
     //DELETE AD
   };
 
-  const editOffer = () => {
-    //EDIT AD
+  const editOffer = async () => {
+    if (offer) {
+      navigate(`/offers/edit`, { state: { offer } });
+    }
   };
 
-  useEffect(() => {
-    //dispatch(getOfferAction(id));
-  }, [id, dispatch]);
-
+  // useEffect(() => {
+  //   //dispatch(getOfferAction(id));
+  // }, [id, dispatch]);
 
   return (
     <>
@@ -37,7 +38,7 @@ export function OfferPage() {
           <>
             <h2>Título: {offer.position}</h2>
             <p>Descripción: {offer.description}</p>
-            <p>Empresa: {`${offer.companyOwner}`}</p>
+            <p>Empresa: {`${offer.companyOwner.name}`}</p>
             <p>Ciudad: {offer.location}</p>
             <p>
               Modalidad de prácticas: {offer.typeJob} y {offer.internJob}
@@ -49,7 +50,8 @@ export function OfferPage() {
               Número vacantes: {offer.numberVacancies} | Número solicitantes:{' '}
               {offer.numberApplicants}
             </p>
-            <Button onClick={editOffer}>Edit Offer</Button>
+            <Button onClick={editOffer}> {t('nav.edit_offer_link')}</Button>
+            &nbsp;
             {showConfirm && (
               <div>
                 <p>Are you sure you want to delete the offer?</p>
