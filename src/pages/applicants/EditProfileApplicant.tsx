@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadUserProfile, updateUserProfile } from '../../store/actions/profileActions';
+import {
+  loadUserProfile,
+  updateUserProfile,
+} from '../../store/actions/profileActions';
+import { ApplicantProfileData } from '../../utils/interfaces/IProfile';
 import { RootState } from '../../store/store';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormCheckbox } from '../../components/formElements/formCheckbox';
@@ -20,22 +24,7 @@ export function EditUserProfilePage() {
   const loading = useSelector((state: RootState) => state.profile.loading);
   const error = useSelector((state: RootState) => state.profile.error);
 
-  interface LocalFormData {
-    dniCif?: string;
-    email?: string;
-    password?: string;
-    name?: string;
-    lastName?: string;
-    phone?: string;
-    ubication?: string;
-    typeJob?: string;
-    wantedRol?: string;
-    mainSkills?: string;
-    geographically_mobile?: boolean;
-    disponibility?: boolean;
-  }
-
-  const [localFormData, setLocalFormData] = useState<LocalFormData>({});
+  const [localFormData, setLocalFormData] = useState<ApplicantProfileData>({});
 
   useEffect(() => {
     dispatch(loadUserProfile());
@@ -79,7 +68,7 @@ export function EditUserProfilePage() {
           readOnly
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText="Email"
           id="email"
@@ -89,7 +78,7 @@ export function EditUserProfilePage() {
           readOnly
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText="Password"
           id="password"
@@ -107,7 +96,7 @@ export function EditUserProfilePage() {
           value={localFormData.name || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.lastName')}
           id="lastName"
@@ -115,7 +104,7 @@ export function EditUserProfilePage() {
           value={localFormData.lastName || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.phone')}
           id="phone"
@@ -123,7 +112,7 @@ export function EditUserProfilePage() {
           value={localFormData.phone || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.location')}
           id="ubication"
@@ -131,13 +120,13 @@ export function EditUserProfilePage() {
           value={localFormData.ubication || ''}
           onChange={handleChange}
         />
-        
+
         <label>{t('fields.photo')}</label>
         <input type="file" name="photo" onChange={handleFileChange} />
-        
+
         <label>{t('fields.cv')}</label>
         <input type="file" name="cv" onChange={handleFileChange} />
-        
+
         <FormInputText
           labelText={t('fields.preferredWorkLocation')}
           id="typeJob"
@@ -145,7 +134,7 @@ export function EditUserProfilePage() {
           value={localFormData.typeJob || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.wantedRole')}
           id="wantedRol"
@@ -153,7 +142,7 @@ export function EditUserProfilePage() {
           value={localFormData.wantedRol || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.mainSkills')}
           id="mainSkills"
@@ -161,7 +150,7 @@ export function EditUserProfilePage() {
           value={localFormData.mainSkills || ''}
           onChange={handleChange}
         />
-        
+
         <FormCheckbox
           id="geographically_mobile"
           name="geographically_mobile"
@@ -169,7 +158,7 @@ export function EditUserProfilePage() {
           checked={!!localFormData.geographically_mobile}
           onChange={handleChange}
         />
-        
+
         <FormCheckbox
           id="disponibility"
           name="disponibility"
@@ -179,7 +168,7 @@ export function EditUserProfilePage() {
         />
 
         {error && <p className={styles.error}>Error: {error}</p>}
-        
+
         <Button type="submit" disabled={loading || !!error}>
           {t('buttons.saveAndFinish')}
         </Button>

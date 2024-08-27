@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadUserProfile, updateUserProfile } from '../../store/actions/profileActions';
+import {
+  loadUserProfile,
+  updateUserProfile,
+} from '../../store/actions/profileActions';
+import { CompanyProfileData } from '../../utils/interfaces/IProfile';
 import { RootState } from '../../store/store';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormTextarea } from '../../components/formElements/formTextArea';
@@ -19,19 +23,8 @@ export function EditCompanyProfilePage() {
   const formData = useSelector((state: RootState) => state.profile.profileData);
   const loading = useSelector((state: RootState) => state.profile.loading);
   const error = useSelector((state: RootState) => state.profile.error);
-  
-  interface FormData {
-    dniCif: string;
-    email: string;
-    password: string;
-    name: string;
-    phone: string;
-    sector: string;
-    ubication: string;
-    description: string;
-  }
-  
-  const [localFormData, setLocalFormData] = useState<FormData>({
+
+  const [localFormData, setLocalFormData] = useState<CompanyProfileData>({
     dniCif: '',
     email: '',
     password: '',
@@ -52,7 +45,9 @@ export function EditCompanyProfilePage() {
     }
   }, [formData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
     setLocalFormData(updatedData);
@@ -82,7 +77,7 @@ export function EditCompanyProfilePage() {
           readOnly
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText="Email"
           id="email"
@@ -92,7 +87,7 @@ export function EditCompanyProfilePage() {
           readOnly
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText="Password"
           id="password"
@@ -110,7 +105,7 @@ export function EditCompanyProfilePage() {
           value={localFormData.name || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.phone')}
           id="phone"
@@ -118,7 +113,7 @@ export function EditCompanyProfilePage() {
           value={localFormData.phone || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.industry')}
           id="sector"
@@ -126,7 +121,7 @@ export function EditCompanyProfilePage() {
           value={localFormData.sector || ''}
           onChange={handleChange}
         />
-        
+
         <FormInputText
           labelText={t('fields.location')}
           id="ubication"
@@ -134,21 +129,21 @@ export function EditCompanyProfilePage() {
           value={localFormData.ubication || ''}
           onChange={handleChange}
         />
-        
+
         <FormTextarea
-          labelText={t('fields.description')} 
+          labelText={t('fields.description')}
           placeholder="Description"
           id="description"
           name="description"
           value={localFormData.description || ''}
           onChange={handleChange}
         />
-        
+
         <label>{t('fields.logo')}</label>
         <input type="file" name="logo" onChange={handleFileChange} />
 
         {error && <p className={styles.error}>Error: {error}</p>}
-        
+
         <Button type="submit" disabled={loading || !!error}>
           {t('buttons.saveAndFinish')}
         </Button>
