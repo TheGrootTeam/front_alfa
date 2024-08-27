@@ -22,7 +22,9 @@
     "userprofile": "User Profile",
     "dashboard": "Dashboard",
     "add_offer": "Add New Offer",
-    "edit_offer": "Edit Offer"
+    "edit_offer": "Edit Offer",
+    "company_public_profile": "Company Data",
+    "company_public_offers": "Offers available"
   },
   "forms": {
     "search": "search...",
