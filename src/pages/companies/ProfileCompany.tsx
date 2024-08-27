@@ -2,7 +2,11 @@ import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
 // import styles from "./Profile.module.css";
 
-export function CompanyProfilePage() {
+interface UserProfilePageProps {
+  userId: string;
+}
+
+export function CompanyProfilePage({ userId }: UserProfilePageProps) {
   const { t } = useTranslation();
   return (
     <>
