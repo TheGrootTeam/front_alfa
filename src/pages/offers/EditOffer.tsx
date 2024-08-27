@@ -80,9 +80,6 @@ export function EditOffer() {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    //BALIZA
-    // const target = event.target as HTMLInputElement | HTMLSelectElement;
-    // const value = target.type === 'checkbox' ? target.checked : target.value;
     const target = event.target as HTMLInputElement | HTMLSelectElement;
     const value = target.type === 'checkbox' ? !target.checked : target.value;
 

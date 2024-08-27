@@ -12,14 +12,7 @@ export async function createOffer(newOffer: IOfferForm): Promise<IOfferMapped> {
   try {
     const response = await client.post<IOfferMapped>(`/offers/new`, newOffer);
     // Force the type of `response` to `IOfferMapped`
-
-    //BALIZA
-    console.log('RESPONSE: ', response);
-
     const mappedOffer = response as unknown as IOfferMapped;
-    //BALIZA
-    console.log('MAPPED OFFER: ', mappedOffer);
-
     // Fixed possible problems with the Date type
     if (!(mappedOffer.publicationDate instanceof Date)) {
       mappedOffer.publicationDate = new Date(mappedOffer.publicationDate);
@@ -35,7 +28,7 @@ export async function createOffer(newOffer: IOfferForm): Promise<IOfferMapped> {
 export async function updateOffer(updatedOffer: IOfferForm) {
   try {
     //const response = await client.patch(`/offers/${updatedOffer._id}`, updatedOffer);
-    // DAL BALIZA: Paso los datos en el body. Válido aunque sea habitual hacerlo indicando el id en la URL.
+    // DAL BALIZA: Paso los datos en el body. Correto aunque sea habitual hacerlo indicando el id en la URL.
     const response = await client.patch<IOfferMapped>('/offers/edit', updatedOffer);
     const mappedOffer = response as unknown as IOfferMapped;
     return mappedOffer;

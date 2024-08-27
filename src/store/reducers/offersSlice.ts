@@ -25,8 +25,6 @@ export const offersSlice = createSlice({
         createOffersAction.fulfilled,
         (state, action: PayloadAction<IOfferMapped>) => {
           state.offers.unshift(action.payload);
-          //BALIZA
-          console.log('En SLICE:', action.payload)
         }
       )
       .addCase(

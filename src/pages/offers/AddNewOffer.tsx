@@ -16,7 +16,6 @@ import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
 import { Notification } from '../../components/common/Notification';
 import { newOfferSlice } from '../../store/reducers/newOfferSlice';
 
@@ -34,7 +33,6 @@ export function AddNewOffer() {
     //DAL - Hasta que esté corregido el problema del login
     //companyOwner: { _id: '', name: '' },
     companyOwner: { _id: '66c6fc21a5c2d7c86aa0aa11', name: 'Apple' },
-    //companyOwner: { _id: '66c39ce931e8368e0b95487d', name: 'Apple' },
     status: true,
     numberVacancies: 1,
     listApplicants: [],
@@ -45,8 +43,6 @@ export function AddNewOffer() {
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
-  //BALIZA
-  console.log('FORMDATA: ', formData);
   const {
     position,
     publicationDate,

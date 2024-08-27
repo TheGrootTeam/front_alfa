@@ -26,7 +26,7 @@ export function ListingDetail({
           Modalidad de prácticas: {typeJob} y {internJob}
         </p>
         <p></p>
-        {/* DAL - Para adaptarlo el ISO*/}
+        {/* DAL - Para adaptarlo el ISO?*/}
         {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
         <p>Publicado el: {publicationDate.toISOString().split('T')[0]}</p>
         <p>
