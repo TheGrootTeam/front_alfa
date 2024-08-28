@@ -20,3 +20,9 @@ export const getOffersLoaded = (state: RootState) => state.offers.loadedOffers;
 
 export const getOffer = (offerId: string | undefined) => (state: RootState) =>
   state.offers.offers.find((offer) => offer.id === offerId);
+
+export const getApplicantInfoLoaded = (state: RootState) =>
+  state.applicantInfo.loadedApplicant;
+
+export const getApplicantInfo = (state: RootState) =>
+  state.applicantInfo.infoApplicant;
