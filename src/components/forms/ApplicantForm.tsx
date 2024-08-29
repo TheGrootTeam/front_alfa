@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { IApplicantInfoWithPassword } from '../../utils/interfaces/IInfoApplicant';
 import { FormInputText } from '../formElements/formInputText';
 import { FormCheckbox } from '../formElements/formCheckbox';
-import { FormSelect } from '../formElements/formSelect';
+import { FormSelect } from '../formElements/formSelectTemp';
 import { FormMultiSelect } from '../formElements/formMultiselect';
 import { Button } from '../common/Button';
 import {

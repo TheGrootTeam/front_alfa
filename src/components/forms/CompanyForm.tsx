@@ -1,7 +1,7 @@
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
 import { FormInputText } from '../formElements/formInputText';
-import { FormTextarea } from '../formElements/formTextareaProps';
+import { FormTextarea } from '../formElements/formTextareaTemp';
 import { Button } from '../common/Button';
 import { sectors } from '../../utils/utilsInfoCollections';
 
@@ -89,8 +89,9 @@ export function CompanyForm({
           value={formData.phone || ''}
           onChange={onInputChange}
         />
-        MARTA - sin usar componente porque este select funciona distinto de los
-        demas, y solo se usa aqui
+
+        {/* MARTA - sin usar componente porque este select funciona distinto de los
+        demas, y solo se usa aqui */}
         <label htmlFor="sector">Preferred Sector</label>
         <select
           id="sector"
@@ -105,6 +106,7 @@ export function CompanyForm({
             </option>
           ))}
         </select>
+
         <FormInputText
           labelText={t('fields.location')}
           id="ubication"
