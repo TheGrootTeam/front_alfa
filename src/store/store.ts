@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authSlice } from './reducers/authSlice';
 import { uiSlice } from './reducers/uiSlice';
-import { registerSlice } from './reducers/registerSlice';
 import { offersSlice } from './reducers/offersSlice';
 import { newOfferSlice } from './reducers/newOfferSlice';
 import { editOfferSlice } from './reducers/editOfferSlice';
@@ -14,7 +13,6 @@ export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     ui: uiSlice.reducer,
-    register: registerSlice.reducer,
     offers: offersSlice.reducer,
     newOffer: newOfferSlice.reducer,
     editOffer: editOfferSlice.reducer,

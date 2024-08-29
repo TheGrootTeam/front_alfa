@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { useState, useEffect } from 'react';
-import { registerUser } from '../../store/actions/registerActions';
 import styles from './Register.module.css';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
@@ -12,7 +11,6 @@ import { Loader } from '../../components/common/Loader';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getUi } from '../../store/selectors';
-import { registerSlice } from '../../store/reducers/registerSlice';
 
 export function RegisterPage() {
   const { t } = useTranslation();
