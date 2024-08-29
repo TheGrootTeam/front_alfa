@@ -1,28 +1,21 @@
 import Layout from '../../components/layout/Layout';
 import styles from './EditProfileCompany.module.css';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  loadUserProfile,
-  updateUserProfile,
-} from '../../store/actions/profileActions';
 import { CompanyProfileData } from '../../utils/interfaces/IProfile';
-import { RootState } from '../../store/store';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormTextarea } from '../../components/formElements/formTextArea';
 import { Button } from '../../components/common/Button';
+import { getUi } from '../../store/selectors';
+import { useSelector } from 'react-redux';
 
 export function EditCompanyProfilePage() {
   const location = useLocation();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { email, dniCif, password } = location.state || {};
+  const { loading, error } = useSelector(getUi);
 
-  const formData = useSelector((state: RootState) => state.profile.profileData);
-  const loading = useSelector((state: RootState) => state.profile.loading);
-  const error = useSelector((state: RootState) => state.profile.error);
+  const { email, dniCif, password } = location.state || {};
 
   const [localFormData, setLocalFormData] = useState<CompanyProfileData>({
     dniCif: '',
@@ -35,15 +28,6 @@ export function EditCompanyProfilePage() {
     description: '',
   });
 
-  useEffect(() => {
-    dispatch(loadUserProfile());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (formData) {
-      setLocalFormData(formData);
-    }
-  }, [formData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -51,7 +35,6 @@ export function EditCompanyProfilePage() {
     const { name, value } = e.target;
     const updatedData = { ...localFormData, [name]: value };
     setLocalFormData(updatedData);
-    dispatch(updateUserProfile(updatedData));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +42,6 @@ export function EditCompanyProfilePage() {
     const file = files ? files[0] : null;
     const updatedData = { ...localFormData, [name]: file };
     setLocalFormData(updatedData);
-    dispatch(updateUserProfile(updatedData));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

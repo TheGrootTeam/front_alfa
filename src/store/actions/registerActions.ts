@@ -1,22 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { client, setAuthorizationHeader } from '../../api/client';  
-import { IToken, RegisterPayload } from '../../utils/interfaces/IAuth';
+import { RegisterPayload } from '../../utils/interfaces/IAuth';
+import { register } from '../../utils/services/registerService';
 
 export const registerUser: any = createAsyncThunk(
   'register/user',
   async (data: RegisterPayload, { rejectWithValue }) => {
     try {
-      const response:IToken =  await client.post('/register', data); 
-      
-      // Store the token and set the authorization header
-      const { tokenJWT, isCompany } = response;
-      localStorage.setItem('token', tokenJWT);
-      localStorage.setItem('isCompany', `${isCompany}`);
-      setAuthorizationHeader(tokenJWT);
-
-      return response;
+      await register(data)
     } catch (error: any) {
-      return rejectWithValue(error.response.data);
+      // return custom error message from API if any
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message as string);
+      } else {
+        return rejectWithValue(error.error || (error.message as string));
+      }
     }
   }
 );

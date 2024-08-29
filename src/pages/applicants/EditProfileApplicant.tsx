@@ -1,40 +1,24 @@
 import Layout from '../../components/layout/Layout';
 import styles from './EditProfileApplicant.module.css';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  loadUserProfile,
-  updateUserProfile,
-} from '../../store/actions/profileActions';
 import { ApplicantProfileData } from '../../utils/interfaces/IProfile';
-import { RootState } from '../../store/store';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import { Button } from '../../components/common/Button';
+import { getUi } from '../../store/selectors';
+import { useSelector } from 'react-redux';
 
 export function EditUserProfilePage() {
+  const { loading, error } = useSelector(getUi);
   const location = useLocation();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { email, dniCif, password } = location.state || {};
 
-  const formData = useSelector((state: RootState) => state.profile.profileData);
-  const loading = useSelector((state: RootState) => state.profile.loading);
-  const error = useSelector((state: RootState) => state.profile.error);
 
   const [localFormData, setLocalFormData] = useState<ApplicantProfileData>({});
 
-  useEffect(() => {
-    dispatch(loadUserProfile());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (formData) {
-      setLocalFormData(formData);
-    }
-  }, [formData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -54,7 +38,6 @@ export function EditUserProfilePage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateUserProfile(localFormData));
   };
 
   return (
