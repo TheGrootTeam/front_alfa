@@ -48,6 +48,7 @@
     "willing_to_relocate": "Mobilidad geográfica",
     "available_immediately": "Disponible de immediato",
     "preferredWorkLocation": "Tipo de trabajo",
+    "preferredInternshipType": "Tipo de prácticas",
     "cv_dl_button": "Descargar CV",
     "save_offer_button": "Guardar Oferta",
     "position": "Puesto",
@@ -61,6 +62,18 @@
     "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)",
     "company_description": "Descripción de la empresa",
     "offer_description": "Descripción de la oferta"
+  },
+  "formSelect": {
+    "jobType": {
+      "on_site": "Presencial",
+      "hybrid": "Híbrido",
+      "remote": "Remoto"
+    },
+    "internshipType": {
+      "paid": "Remunerado",
+      "unpaid": "No remunerado",
+      "ngo": "ONG/Voluntariado"
+    }
   },
   "fields": {
     "cif": "CIF",

@@ -1,47 +1,94 @@
 import Layout from '../../components/layout/Layout';
-import styles from './EditProfileCompany.module.css';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { CompanyProfileData } from '../../utils/interfaces/IProfile';
-import { FormInputText } from '../../components/formElements/formInputText';
-import { FormTextarea } from '../../components/formElements/formTextArea';
-import { Button } from '../../components/common/Button';
+import { CompanyForm } from '../../components/forms/CompanyForm';
 import { getUi } from '../../store/selectors';
 import { useSelector } from 'react-redux';
+import { sectors } from '../../utils/utilsInfoCollections'; // TODO cogerlas de la API con endpoint
+
+// MARTA - TODO - TEMP mientras David acaba de trabajar con las interfaces de company
+interface ICompanyInfoWithPassword {
+  dniCif: string;
+  name: string;
+  email: string;
+  phone: string;
+  sector: Sector;
+  ubication: string;
+  description: string;
+  logo: string;
+  password: string;
+}
+interface Sector {
+  _id: string;
+  sector: string;
+}
 
 export function EditCompanyProfilePage() {
-  const location = useLocation();
   const { t } = useTranslation();
   const { loading, error } = useSelector(getUi);
 
-  const { email, dniCif, password } = location.state || {};
-
-  const [localFormData, setLocalFormData] = useState<CompanyProfileData>({
+  const [formData, setFormData] = useState<ICompanyInfoWithPassword>({
     dniCif: '',
-    email: '',
-    password: '',
     name: '',
+    email: '',
     phone: '',
-    sector: '',
+    sector: {
+      _id: '',
+      sector: '',
+    },
     ubication: '',
     description: '',
+    logo: '',
+    password: '',
   });
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSectorSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    const updatedData = { ...localFormData, [name]: value };
-    setLocalFormData(updatedData);
+
+    if (name === 'sector') {
+      // Find the selected sector object by ID
+      const selectedSector = sectors.find((sector) => sector._id === value) || {
+        _id: '',
+        sector: '',
+      };
+
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: selectedSector, // Update the sector object
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
     const file = files ? files[0] : null;
-    const updatedData = { ...localFormData, [name]: file };
-    setLocalFormData(updatedData);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: file,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,86 +97,16 @@ export function EditCompanyProfilePage() {
 
   return (
     <Layout title={t('titles.companyprofile_edit')} page="editcompanyprofile">
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <FormInputText
-          labelText="CIF"
-          id="dniCif"
-          name="dniCif"
-          value={localFormData.dniCif || dniCif}
-          readOnly
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText="Email"
-          id="email"
-          name="email"
-          type="email"
-          value={localFormData.email || email}
-          readOnly
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText="Password"
-          id="password"
-          name="password"
-          type="password"
-          value={localFormData.password || password}
-          readOnly
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.name')}
-          id="name"
-          name="name"
-          value={localFormData.name || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.phone')}
-          id="phone"
-          name="phone"
-          value={localFormData.phone || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.industry')}
-          id="sector"
-          name="sector"
-          value={localFormData.sector || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.location')}
-          id="ubication"
-          name="ubication"
-          value={localFormData.ubication || ''}
-          onChange={handleChange}
-        />
-
-        <FormTextarea
-          labelText={t('fields.description')}
-          placeholder="Description"
-          id="description"
-          name="description"
-          value={localFormData.description || ''}
-          onChange={handleChange}
-        />
-
-        <label>{t('fields.logo')}</label>
-        <input type="file" name="logo" onChange={handleFileChange} />
-
-        {error && <p className={styles.error}>Error: {error}</p>}
-
-        <Button type="submit" disabled={loading || !!error}>
-          {t('buttons.saveAndFinish')}
-        </Button>
-      </form>
+      <CompanyForm
+        formData={formData}
+        onInputChange={handleInputChange}
+        onTextareaChange={handleTextChange}
+        onSelectChange={handleSectorSelectChange}
+        onFileChange={handleFileChange}
+        onSubmit={handleSubmit}
+        loading={loading}
+        error={error}
+      />
     </Layout>
   );
 }

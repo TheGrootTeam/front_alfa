@@ -48,6 +48,7 @@
     "willing_to_relocate": "Willing to Relocate",
     "available_immediately": "Available to Start Immediately",
     "preferredWorkLocation": "Preferred Work Location",
+    "preferredInternshipType": "Preferred Internship Type",
     "cv_dl_button": "Download Resume",
     "save_offer_button": "Save Offer",
     "position": "Position",
@@ -61,6 +62,18 @@
     "status_closed": "Close offer  (will not accept more applicants)",
     "company_description": "Company description",
     "offer_description": "Offer description"
+  },
+  "formSelect": {
+    "jobType": {
+      "on_site": "On-site",
+      "hybrid": "Hybrid",
+      "remote": "Remote"
+    },
+    "internshipType": {
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "ngo": "NGO/Volunteer"
+    }
   },
   "fields": {
     "cif": "VAT Number",

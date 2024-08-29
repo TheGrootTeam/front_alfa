@@ -1,39 +1,95 @@
 import Layout from '../../components/layout/Layout';
-import styles from './EditProfileApplicant.module.css';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { ApplicantProfileData } from '../../utils/interfaces/IProfile';
-import { FormInputText } from '../../components/formElements/formInputText';
-import { FormCheckbox } from '../../components/formElements/formCheckbox';
-import { Button } from '../../components/common/Button';
+import { ApplicantForm } from '../../components/forms/ApplicantForm';
+import { IApplicantInfoWithPassword } from '../../utils/interfaces/IInfoApplicant';
 import { getUi } from '../../store/selectors';
 import { useSelector } from 'react-redux';
+import { skills, rols } from '../../utils/utilsInfoCollections'; // TODO cogerlas de la API con endpoint
 
 export function EditUserProfilePage() {
-  const { loading, error } = useSelector(getUi);
-  const location = useLocation();
   const { t } = useTranslation();
-  const { email, dniCif, password } = location.state || {};
+  const { loading, error } = useSelector(getUi);
 
+  const [formData, setFormData] = useState<IApplicantInfoWithPassword>({
+    dniCif: '',
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+    photo: '',
+    cv: '',
+    ubication: '',
+    typeJob: '',
+    internType: '',
+    wantedRol: [],
+    mainSkills: [],
+    geographically_mobile: false,
+    disponibility: false,
+  });
 
-  const [localFormData, setLocalFormData] = useState<ApplicantProfileData>({});
+  const handleTextChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: checked,
+    }));
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    const updatedData = {
-      ...localFormData,
-      [name]: type === 'checkbox' ? checked : value,
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleMultiSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, options } = e.target;
+    const selectedValues = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
+
+    const fieldMappings: { [key: string]: any[] } = {
+      mainSkills: skills,
+      rols: rols,
     };
-    setLocalFormData(updatedData);
+
+    if (fieldMappings[name]) {
+      const selectedObjects = fieldMappings[name].filter((item) =>
+        selectedValues.includes(item._id)
+      );
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: selectedObjects,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: selectedValues,
+      }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
     const file = files ? files[0] : null;
-    const updatedData = { ...localFormData, [name]: file };
-    setLocalFormData(updatedData);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: file,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,120 +98,17 @@ export function EditUserProfilePage() {
 
   return (
     <Layout title={t('titles.userprofile_edit')} page="edituserprofile">
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <FormInputText
-          labelText="DNI / CIF"
-          id="dniCif"
-          name="dniCif"
-          value={localFormData.dniCif || dniCif}
-          readOnly
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText="Email"
-          id="email"
-          name="email"
-          type="email"
-          value={localFormData.email || email}
-          readOnly
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText="Password"
-          id="password"
-          name="password"
-          type="password"
-          value={localFormData.password || password}
-          readOnly
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.name')}
-          id="name"
-          name="name"
-          value={localFormData.name || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.lastName')}
-          id="lastName"
-          name="lastName"
-          value={localFormData.lastName || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.phone')}
-          id="phone"
-          name="phone"
-          value={localFormData.phone || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.location')}
-          id="ubication"
-          name="ubication"
-          value={localFormData.ubication || ''}
-          onChange={handleChange}
-        />
-
-        <label>{t('fields.photo')}</label>
-        <input type="file" name="photo" onChange={handleFileChange} />
-
-        <label>{t('fields.cv')}</label>
-        <input type="file" name="cv" onChange={handleFileChange} />
-
-        <FormInputText
-          labelText={t('fields.preferredWorkLocation')}
-          id="typeJob"
-          name="typeJob"
-          value={localFormData.typeJob || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.wantedRole')}
-          id="wantedRol"
-          name="wantedRol"
-          value={localFormData.wantedRol || ''}
-          onChange={handleChange}
-        />
-
-        <FormInputText
-          labelText={t('fields.mainSkills')}
-          id="mainSkills"
-          name="mainSkills"
-          value={localFormData.mainSkills || ''}
-          onChange={handleChange}
-        />
-
-        <FormCheckbox
-          id="geographically_mobile"
-          name="geographically_mobile"
-          labelText={t('fields.willingToRelocate')}
-          checked={!!localFormData.geographically_mobile}
-          onChange={handleChange}
-        />
-
-        <FormCheckbox
-          id="disponibility"
-          name="disponibility"
-          labelText={t('fields.availableImmediately')}
-          checked={!!localFormData.disponibility}
-          onChange={handleChange}
-        />
-
-        {error && <p className={styles.error}>Error: {error}</p>}
-
-        <Button type="submit" disabled={loading || !!error}>
-          {t('buttons.saveAndFinish')}
-        </Button>
-      </form>
+      <ApplicantForm
+        formData={formData}
+        onTextChange={handleTextChange}
+        onCheckboxChange={handleCheckboxChange}
+        onSelectChange={handleSelectChange}
+        onMultiSelectChange={handleMultiSelectChange}
+        onFileChange={handleFileChange}
+        onSubmit={handleSubmit}
+        loading={loading}
+        error={error}
+      />
     </Layout>
   );
 }

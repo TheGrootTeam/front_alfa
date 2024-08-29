@@ -63,6 +63,13 @@ const Header = () => {
                       <Link to="/offers/new">{t('nav.add_new_offer')}</Link>
                     </li>
                   )}
+                  {!isCompany && (
+                    <li>
+                      <Link to="/user/edit">
+                        {t('titles.userprofile_edit')}
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <ConfirmationButton
                       buttonLabel={t('nav.logout')}
