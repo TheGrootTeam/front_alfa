@@ -58,7 +58,9 @@
     "internship_type": "Internship Type",
     "number_vacancies": "Number of vacancies",
     "number_applicants": "Number of applicants",
-    "status_closed": "Close offer  (will not accept more applicants)"
+    "status_closed": "Close offer  (will not accept more applicants)",
+    "company_description": "Company description",
+    "offer_description": "Offer description"
   },
   "fields": {
     "cif": "VAT Number",
@@ -80,7 +82,10 @@
     "availableImmediately": "Available Immediately"
   },
   "buttons": {
-    "saveAndFinish": "Save & Finish"
+    "saveAndFinish": "Save & Finish",
+    "yes_delete": "YES! Delete it!",
+    "no_cancel": "NO! Cancel",
+    "delete_offer": "Delete offer"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
@@ -98,6 +103,7 @@
     "offer_updated": "Offer update successfully"
   },
   "dialogs": {
-    "logout_message": "Are you sure you want to log out?"
+    "logout_message": "Are you sure you want to log out?",
+    "delete_offer_message": "Are you sure you want to delete the offer?"
   }
 }

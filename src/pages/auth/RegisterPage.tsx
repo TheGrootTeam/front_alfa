@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/layout/Layout';
 import { useState, useEffect } from 'react';
-import { registerUser } from '../../store/actions/registerActions';
-import { resetRegisterState } from '../../store/reducers/registerSlice';
-import { RootState } from '../../store/store';
 import styles from './Register.module.css';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
@@ -13,15 +10,14 @@ import Notification from '../../components/common/Notification';
 import { Loader } from '../../components/common/Loader';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { setAuthorizationHeader } from '../../api/client';
+import { getUi } from '../../store/selectors';
 
 export function RegisterPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading }: { loading: boolean } = useSelector(
-    (state: RootState) => state.register
-  );
+  const { loading } = useSelector(getUi);
+
 
   const [formData, setFormData] = useState({
     dniCif: '',
@@ -41,7 +37,7 @@ export function RegisterPage() {
 
   useEffect(() => {
     return () => {
-      dispatch(resetRegisterState());
+      dispatch(registerSlice.actions.resetRegisterState());
     };
   }, [dispatch]);
 
@@ -96,12 +92,12 @@ export function RegisterPage() {
       );
 
       if (registerUser.fulfilled.match(resultAction)) {
-        const { token, isCompany: isCompanyFromResponse } = resultAction.payload;
+        // const { token, isCompany: isCompanyFromResponse } = resultAction.payload;
     
         // Guardar el token en localStorage y configurar la autorización para futuras solicitudes
-        localStorage.setItem('token', token);
-        localStorage.setItem('isCompany', isCompanyFromResponse.toString());
-        setAuthorizationHeader(token);
+        // localStorage.setItem('token', token);
+        // localStorage.setItem('isCompany', isCompanyFromResponse.toString());
+        // setAuthorizationHeader(token);
     
         setSuccessMessage(t('forms.register_success'));
         setFormData({
@@ -114,10 +110,12 @@ export function RegisterPage() {
         setTimeout(() => setSuccessMessage(null), 2000);
     
         // Asegurarse de que el valor de isCompany es el esperado
-        console.log("Valor de isCompany:", isCompanyFromResponse);
+        // console.log("Valor de isCompany:", isCompanyFromResponse);
     
         // Corregir la lógica de redirección
-        if (isCompanyFromResponse) {
+        
+        const isCompany = true //USESELECTOR PARA SABER SI IS COMPANY
+        if (isCompany) {
             navigate('/edit/company');
         } else {
             navigate('/edit/user');

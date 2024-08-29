@@ -15,6 +15,10 @@ export const uiSlice = createSlice({
       state.error = null;
       state.loading = false;
     },
+    setError: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    }
   },
   extraReducers: (builder) => {
     builder

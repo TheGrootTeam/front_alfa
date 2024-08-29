@@ -26,3 +26,9 @@ export const getApplicantInfoLoaded = (state: RootState) =>
 
 export const getApplicantInfo = (state: RootState) =>
   state.applicantInfo.infoApplicant;
+
+export const getCompanyInfoLoaded = (state: RootState) =>
+  state.companyInfo.loadedCompany;
+
+export const getCompanyInfo = (state: RootState) =>
+  state.companyInfo.infoCompany;
