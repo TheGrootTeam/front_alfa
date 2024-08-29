@@ -1,3 +1,13 @@
+import { IOffer } from "./IOffer";
+
+export interface ICompanyPublicProfile {
+  company: string;
+  phone: string;
+  sector: string;
+  location: string;
+  description: string;
+  offers: Array<IOffer>;
+}
 export interface ICompanyInfo {
   _id: string;
   dniCif: string;

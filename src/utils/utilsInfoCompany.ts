@@ -1,5 +1,4 @@
-import { ICompanyInfo, ICompanyInfoMapped } from "./interfaces/IInfoCompany";
-
+import { ICompanyInfo, ICompanyInfoMapped } from './interfaces/IInfoCompany';
 
 export const infocompanyMapped = (
   company: ICompanyInfo
