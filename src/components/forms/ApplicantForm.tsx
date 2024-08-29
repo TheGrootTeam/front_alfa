@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
 import { IApplicantInfoWithPassword } from '../../utils/interfaces/IInfoApplicant';
@@ -12,60 +13,121 @@ import {
 } from '../../utils/utilsInfoCollections';
 import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
 
-interface MultiSelectOption {
-  _id: string;
-  [key: string]: string;
-}
-
-const formattedSkills: MultiSelectOption[] = rawSkills.map((skill) => ({
+const formattedSkills = rawSkills.map((skill) => ({
   _id: skill._id,
   skill: skill.skill,
 }));
 
-const formattedRoles: MultiSelectOption[] = rawRoles.map((role) => ({
+const formattedRoles = rawRoles.map((role) => ({
   _id: role._id,
   rol: role.rol,
 }));
 
-// TODO - mover fuera cuando veamos que todo funcione
 interface ApplicantFormProps {
-  formData: IApplicantInfoWithPassword;
-  onTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onMultiSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
   error: string | null;
 }
 
-export function ApplicantForm({
-  formData,
-  onTextChange,
-  onCheckboxChange,
-  onSelectChange,
-  onMultiSelectChange,
-  onFileChange,
-  onSubmit,
-  loading,
-  error,
-}: ApplicantFormProps) {
+export function ApplicantForm({ loading, error }: ApplicantFormProps) {
   const { t } = useTranslation();
+
+  const [formData, setFormData] = useState<IApplicantInfoWithPassword>({
+    dniCif: '',
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+    photo: '',
+    cv: '',
+    ubication: '',
+    typeJob: '',
+    internType: '',
+    wantedRol: [],
+    mainSkills: [],
+    geographically_mobile: false,
+    disponibility: false,
+  });
+
+  const handleTextChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: checked,
+    }));
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleMultiSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, options } = e.target;
+    const selectedValues = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
+
+    const fieldMappings: { [key: string]: any[] } = {
+      mainSkills: formattedSkills,
+      rols: formattedRoles,
+    };
+
+    if (fieldMappings[name]) {
+      const selectedObjects = fieldMappings[name].filter((item) =>
+        selectedValues.includes(item._id)
+      );
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: selectedObjects,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: selectedValues,
+      }));
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    const file = files ? files[0] : null;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: file,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // TODO: Submit logic here
+  };
 
   const jobOptions = useFormSelectOptions('job');
   const internOptions = useFormSelectOptions('internship');
 
   return (
     <>
-      <form onSubmit={onSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <FormInputText
           labelText="DNI / CIF"
           id="dniCif"
           name="dniCif"
           value={formData.dniCif || ''}
-          readOnly
-          onChange={onTextChange}
+          onChange={handleTextChange}
         />
 
         <FormInputText
@@ -74,8 +136,7 @@ export function ApplicantForm({
           name="email"
           type="email"
           value={formData.email || ''}
-          readOnly
-          onChange={onTextChange}
+          onChange={handleTextChange}
         />
 
         <FormInputText
@@ -84,8 +145,7 @@ export function ApplicantForm({
           name="password"
           type="password"
           value={formData.password || ''}
-          readOnly
-          onChange={onTextChange}
+          onChange={handleTextChange}
         />
 
         <FormInputText
@@ -93,7 +153,7 @@ export function ApplicantForm({
           id="name"
           name="name"
           value={formData.name || ''}
-          onChange={onTextChange}
+          onChange={handleTextChange}
         />
 
         <FormInputText
@@ -101,7 +161,7 @@ export function ApplicantForm({
           id="lastName"
           name="lastName"
           value={formData.lastName || ''}
-          onChange={onTextChange}
+          onChange={handleTextChange}
         />
 
         <FormInputText
@@ -109,7 +169,7 @@ export function ApplicantForm({
           id="phone"
           name="phone"
           value={formData.phone || ''}
-          onChange={onTextChange}
+          onChange={handleTextChange}
         />
 
         <FormInputText
@@ -117,21 +177,21 @@ export function ApplicantForm({
           id="ubication"
           name="ubication"
           value={formData.ubication || ''}
-          onChange={onTextChange}
+          onChange={handleTextChange}
         />
 
         <label>{t('fields.photo')}</label>
-        <input type="file" name="photo" onChange={onFileChange} />
+        <input type="file" name="photo" onChange={handleFileChange} />
 
         <label>{t('fields.cv')}</label>
-        <input type="file" name="cv" onChange={onFileChange} />
+        <input type="file" name="cv" onChange={handleFileChange} />
 
         <FormSelect
           labelText={t('fields.preferredWorkLocation')}
           id="typeJob"
           name="typeJob"
           value={formData.typeJob || ''}
-          onChange={onSelectChange}
+          onChange={handleSelectChange}
           options={jobOptions}
         />
 
@@ -140,7 +200,7 @@ export function ApplicantForm({
           id="internType"
           name="internType"
           value={formData.internType || ''}
-          onChange={onSelectChange}
+          onChange={handleSelectChange}
           options={internOptions}
         />
 
@@ -149,7 +209,7 @@ export function ApplicantForm({
           id="mainSkills"
           name="mainSkills"
           value={formData.mainSkills.map((skill) => skill._id)}
-          onChange={onMultiSelectChange}
+          onChange={handleMultiSelectChange}
           optionLabel="skill"
           options={formattedSkills}
         />
@@ -159,7 +219,7 @@ export function ApplicantForm({
           id="wantedRols"
           name="wantedRols"
           value={formData.wantedRol.map((rol) => rol._id)}
-          onChange={onMultiSelectChange}
+          onChange={handleMultiSelectChange}
           optionLabel="rol"
           options={formattedRoles}
         />
@@ -169,7 +229,7 @@ export function ApplicantForm({
           name="geographically_mobile"
           labelText={t('fields.willingToRelocate')}
           checked={!!formData.geographically_mobile}
-          onChange={onCheckboxChange}
+          onChange={handleCheckboxChange}
         />
 
         <FormCheckbox
@@ -177,7 +237,7 @@ export function ApplicantForm({
           name="disponibility"
           labelText={t('fields.availableImmediately')}
           checked={!!formData.disponibility}
-          onChange={onCheckboxChange}
+          onChange={handleCheckboxChange}
         />
 
         {error && <p className={styles.error}>Error: {error}</p>}

@@ -61,7 +61,8 @@
     "number_applicants": "Número de aplicantes",
     "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)",
     "company_description": "Descripción de la empresa",
-    "offer_description": "Descripción de la oferta"
+    "offer_description": "Descripción de la oferta",
+    "select_sector": "Seleccione sector"
   },
   "formSelect": {
     "jobType": {
@@ -92,7 +93,8 @@
     "wantedRole": "Puesto deseado",
     "mainSkills": "Habilidades principales",
     "willingToRelocate": "Dispuesto a reubicarse",
-    "availableImmediately": "Disponible inmediatamente"
+    "availableImmediately": "Disponible inmediatamente",
+    "sector": "Sector de actividad"
   },
   "buttons": {
     "saveAndFinish": "Guardar y Terminar",

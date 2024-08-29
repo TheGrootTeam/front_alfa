@@ -1,11 +1,11 @@
+import { useState } from 'react';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
 import { FormInputText } from '../formElements/formInputText';
-import { FormTextarea } from '../formElements/formTextareaTemp';
+import { FormTextarea } from '../formElements/formTextareaProps';
 import { Button } from '../common/Button';
-import { sectors } from '../../utils/utilsInfoCollections';
+import { sectors } from '../../utils/utilsInfoCollections'; // Fetch sectors from the API when available
 
-// MARTA - TODO - TEMP mientras David acaba de trabajar con las interfaces de company
 interface ICompanyInfoWithPassword {
   dniCif: string;
   name: string;
@@ -17,45 +17,97 @@ interface ICompanyInfoWithPassword {
   logo: string;
   password: string;
 }
+
 interface Sector {
   _id: string;
   sector: string;
 }
 
-// TODO - mover fuera cuando veamos que todo funcione
 interface CompanyFormProps {
-  formData: ICompanyInfoWithPassword;
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onTextareaChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
   error: string | null;
 }
 
-export function CompanyForm({
-  formData,
-  onInputChange,
-  onTextareaChange,
-  onSelectChange,
-  onFileChange,
-  onSubmit,
-  loading,
-  error,
-}: CompanyFormProps) {
+export function CompanyForm({ loading, error }: CompanyFormProps) {
   const { t } = useTranslation();
+
+  // State and form data moved here
+  const [formData, setFormData] = useState<ICompanyInfoWithPassword>({
+    dniCif: '',
+    name: '',
+    email: '',
+    phone: '',
+    sector: { _id: '', sector: '' },
+    ubication: '',
+    description: '',
+    logo: '',
+    password: '',
+  });
+
+  // Handlers moved here
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSectorSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+
+    if (name === 'sector') {
+      const selectedSector = sectors.find((sector) => sector._id === value) || {
+        _id: '',
+        sector: '',
+      };
+
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: selectedSector,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    const file = files ? files[0] : null;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: file,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Handle form submission here
+  };
 
   return (
     <>
-      <form onSubmit={onSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <FormInputText
           labelText="CIF"
           id="dniCif"
           name="dniCif"
           value={formData.dniCif || ''}
           readOnly
-          onChange={onInputChange}
+          onChange={handleInputChange}
         />
         <FormInputText
           labelText="Email"
@@ -64,7 +116,7 @@ export function CompanyForm({
           type="email"
           value={formData.email || ''}
           readOnly
-          onChange={onInputChange}
+          onChange={handleInputChange}
         />
         <FormInputText
           labelText="Password"
@@ -73,33 +125,31 @@ export function CompanyForm({
           type="password"
           value={formData.password || ''}
           readOnly
-          onChange={onInputChange}
+          onChange={handleInputChange}
         />
         <FormInputText
           labelText={t('fields.name')}
           id="name"
           name="name"
           value={formData.name || ''}
-          onChange={onInputChange}
+          onChange={handleInputChange}
         />
         <FormInputText
           labelText={t('fields.phone')}
           id="phone"
           name="phone"
           value={formData.phone || ''}
-          onChange={onInputChange}
+          onChange={handleInputChange}
         />
 
-        {/* MARTA - sin usar componente porque este select funciona distinto de los
-        demas, y solo se usa aqui */}
-        <label htmlFor="sector">Preferred Sector</label>
+        <label htmlFor="sector">{t('fields.sector')}</label>
         <select
           id="sector"
           name="sector"
-          value={formData.sector._id} // Use the sector _id for the value
-          onChange={onSelectChange}
+          value={formData.sector._id}
+          onChange={handleSectorSelectChange}
         >
-          <option value="">Select a sector</option>
+          <option value="">{t('forms.select_sector')}</option>
           {sectors.map((sector) => (
             <option key={sector._id} value={sector._id}>
               {sector.sector}
@@ -112,19 +162,22 @@ export function CompanyForm({
           id="ubication"
           name="ubication"
           value={formData.ubication || ''}
-          onChange={onInputChange}
+          onChange={handleInputChange}
         />
+
         <FormTextarea
           labelText={t('fields.description')}
-          placeholder="Description"
           id="description"
           name="description"
           value={formData.description || ''}
-          onChange={onTextareaChange}
+          onChange={handleTextChange}
         />
+
         <label>{t('fields.logo')}</label>
-        <input type="file" name="logo" onChange={onFileChange} />
+        <input type="file" name="logo" onChange={handleFileChange} />
+
         {error && <p className={styles.error}>Error: {error}</p>}
+
         <Button type="submit" disabled={loading || !!error}>
           {t('buttons.saveAndFinish')}
         </Button>

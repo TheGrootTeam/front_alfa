@@ -61,7 +61,8 @@
     "number_applicants": "Number of applicants",
     "status_closed": "Close offer  (will not accept more applicants)",
     "company_description": "Company description",
-    "offer_description": "Offer description"
+    "offer_description": "Offer description",
+    "select_sector": "Select Industry"
   },
   "formSelect": {
     "jobType": {
@@ -92,7 +93,8 @@
     "wantedRole": "Wanted Role",
     "mainSkills": "Main Skills",
     "willingToRelocate": "Willing to Relocate",
-    "availableImmediately": "Available Immediately"
+    "availableImmediately": "Available Immediately",
+    "sector": "Industry"
   },
   "buttons": {
     "saveAndFinish": "Save & Finish",
