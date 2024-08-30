@@ -75,7 +75,8 @@ export function CompanyProfilePage() {
           {description}
         </p>
         <h2>{t('titles.company_public_offers')}</h2>
-        {offers.map((offer) => (
+        {offers && offers.length > 0 ? (
+          offers.map((offer) => (
           <div key={offer._id}>
             <ListingDetail
               id={offer._id}
@@ -91,7 +92,10 @@ export function CompanyProfilePage() {
               typeJob={offer.typeJob}
             />
           </div>
-        ))}
+        ))):(
+          <p>{t('No offers available')}</p>
+        )
+      }
       </Layout>
     </>
   );
