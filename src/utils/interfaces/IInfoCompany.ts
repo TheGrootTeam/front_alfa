@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-export interface ICompanyInfo {
-  _id: string;
-  dniCif: string;
-  email: string;
-=======
 
 //Interfaz para estado.
 export interface ICompanyInfoReduxState {
@@ -28,23 +22,12 @@ export interface ICompanyInfo {
   description: string;
   logo: string;
   pusblishedOffers: PublishedOffers[];
->>>>>>> companyDashboard
   __v: number;
 }
 
 export interface ICompanyInfoMapped {
   id: string;
   dniCif: string;
-<<<<<<< HEAD
-  email: string;
-  __v: number;
-}
-
-export interface ICompanyInfoRedux {
-  infoCompany: ICompanyInfoMapped;
-  loadedCompany: boolean;
-}
-=======
   name: string;
   email: string;
   phone: string;
@@ -66,4 +49,3 @@ export interface Sector {
   _id: string;
   sector: string;
 }
->>>>>>> companyDashboard
