@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
-import { getInfoCompany } from '../../utils/services/infoCompanyService';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { uiSlice } from '../../store/reducers/uiSlice';
@@ -11,6 +10,7 @@ import { Loader } from '../../components/common/Loader';
 import Notification from '../../components/common/Notification';
 import { ListingDetail } from '../../components/listings/ListingDetail';
 import { ICompanyPublicProfile } from '../../utils/interfaces/IInfoCompany';
+import { getPublicInfo } from '../../utils/services/publicProfileService';
 // import styles from "./Profile.module.css";
 
 export function CompanyProfilePage() {
@@ -33,7 +33,7 @@ export function CompanyProfilePage() {
   useEffect(() => {
     async function getData() {
       try {
-        const data: any = await getInfoCompany(id); 
+        const data: any = await getPublicInfo(id, 'company'); 
         setData(data)
       } catch (error: any ) {
         dispatch(uiSlice.actions.setError(error.error));
