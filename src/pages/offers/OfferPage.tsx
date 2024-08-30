@@ -36,31 +36,31 @@ export function OfferPage() {
       <Layout page="offer">
         {offer ? (
           <>
-            <h2>Título: {offer.position}</h2>
-            <p>Descripción: {offer.description}</p>
-            <p>Empresa: {`${offer.companyOwner.name}`}</p>
-            <p>Ciudad: {offer.location}</p>
+            <h2>{t('forms.position')}: {offer.position}</h2>
+            <p>{t('forms.offer_description')}: {offer.description}</p>
+            <p>{t('forms.company')}: {`${offer.companyOwner.name}`}</p>
+            <p>{t('forms.location')}: {offer.location}</p>
             <p>
-              Modalidad de prácticas: {offer.typeJob} y {offer.internJob}
+            {t('forms.job_type')}: {offer.typeJob} y {offer.internJob}
             </p>
             <p>
-              Publicado el: {offer.publicationDate.toISOString().split('T')[0]}
+            {t('forms.publication_date')}: {offer.publicationDate.toISOString().split('T')[0]}
             </p>
             <p>
-              Número vacantes: {offer.numberVacancies} | Número solicitantes:{' '}
+            {t('forms.number_vacancies')}: {offer.numberVacancies} | {t('forms.nnumber_applicants')}:{' '}
               {offer.numberApplicants}
             </p>
             <Button onClick={editOffer}> {t('nav.edit_offer_link')}</Button>
             &nbsp;
             {showConfirm && (
               <div>
-                <p>Are you sure you want to delete the offer?</p>
-                <Button onClick={deleteOffer}>YES! Delete the Offer</Button>
-                <Button onClick={() => setShowCofirm(false)}>NO! Cancel</Button>
+                <p>{t("forms.delete_offer_message")}</p>
+                <Button onClick={deleteOffer}>{t('buttons.yes_delete')}</Button>
+                <Button onClick={() => setShowCofirm(false)}>{t('buttons.no_cancel')}</Button>
               </div>
             )}
             {!showConfirm && (
-              <Button onClick={() => setShowCofirm(true)}>Delete Offer</Button>
+              <Button onClick={() => setShowCofirm(true)}>{t('buttons.delete_offer')}</Button>
             )}
           </>
         ) : (
