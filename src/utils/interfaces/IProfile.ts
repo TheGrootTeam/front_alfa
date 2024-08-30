@@ -33,10 +33,27 @@ export interface ApplicantProfileState {
 import { IOffer } from "./IOffer";
 
 export interface ICompanyPublicProfile {
-  company: string;
+  _id: string;
+  name: string;
+  email: string;
   phone: string;
   sector: string;
-  location: string;
+  ubication: string;
   description: string;
-  offers: Array<IOffer>;
+  logo: string;
+  publishedOffers: Array<IOffer>;
+  __v: number;
+}
+
+export interface ICompanyPublicProfileMapped {
+  id?: string;
+  company: string;
+  email: string;
+  phone: string;
+  sector: string;
+  ubication: string;
+  description: string;
+  logo: string;
+  offers?: Array<IOffer>;
+  __v?: number;
 }
