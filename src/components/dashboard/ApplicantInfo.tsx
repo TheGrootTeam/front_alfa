@@ -34,6 +34,9 @@ export default function ApplicantInfo() {
           <h2>{`${applicant.name} ${applicant.lastName}`}</h2>
           <div className={styles.profile__info}>
             <p>
+              <span>{t('forms.nif')}:</span> {applicant.dniCif}
+            </p>
+            <p>
               <span>{t('fields.email')}:</span> {applicant.email}
             </p>
             <p>
@@ -45,6 +48,29 @@ export default function ApplicantInfo() {
             <p>
               <span>{t('forms.internship_type')}:</span>{' '}
               {`${applicant.typeJob} & ${applicant.internType}`}
+            </p>
+            <p>
+              <span>{t('fields.mainSkills')}:</span>
+              <ul>
+                {applicant.mainSkills.map((skill) => (
+                  <li key={skill._id}>{skill.skill}</li>
+                ))}
+              </ul>
+            </p>
+            <p>
+              <span>{t('fields.wantedRole')}:</span>
+              <ul>
+                {applicant.wantedRol.map((rol) => (
+                  <li key={rol._id}>{rol.rol}</li>
+                ))}
+              </ul>
+            </p>
+            <p>
+              <span>{t('fields.cv')}:</span> {applicant.cv}
+            </p>
+            <p>
+              <span>{t('fields.willingToRelocate')}:</span>{' '}
+              {applicant.geographically_mobile ? t('gen.yes') : t('gen.no')}
             </p>
           </div>
           <div className={styles.button}>

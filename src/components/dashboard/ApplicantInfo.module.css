@@ -33,6 +33,11 @@ span {
   font-weight: bold;
 }
 
+ul {
+  list-style-type: disclosure-closed;
+  padding-left: 2rem;
+}
+
 .button {
   margin: 1rem auto;
 }
