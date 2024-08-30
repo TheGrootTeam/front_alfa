@@ -1,12 +1,19 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ICompanyInfoMapped, ICompanyInfoRedux } from '../../utils/interfaces/IInfoCompany';
+import { ICompanyInfoMapped, ICompanyInfoReduxState } from '../../utils/interfaces/IInfoCompany';
 import { getInfoCompanyAction } from '../actions/infoCompanyActions';
 
-const initialState: ICompanyInfoRedux = {
+const initialState: ICompanyInfoReduxState = {
   infoCompany: {
     id: '',
     dniCif: '',
+    name: '',
     email: '',
+    phone: '',
+    sector: { _id: '', sector: '' },
+    ubication: '',
+    description: '',
+    logo: '',
+    pusblishedOffers: [],
     __v: 0,
   },
   loadedCompany: false,
@@ -27,6 +34,8 @@ export const companyInfoSlice = createSlice({
       (state, action: PayloadAction<ICompanyInfoMapped>) => {
         state.infoCompany = action.payload;
         state.loadedCompany = true;
+        //BALIZA
+        console.log("SLICE: ", action.payload);
       }
     );
   },
