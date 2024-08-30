@@ -1,0 +1,36 @@
+.container {
+  border-radius: 1.5rem;
+  background-color: var(--neutral-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  max-width: 350px;
+}
+
+.profile__photo {
+  max-width: 200px;
+  margin: 0 auto;
+
+  img {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+  }
+}
+
+h3 {
+  margin: 2rem auto;
+}
+
+.profile__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+span {
+  font-weight: bold;
+}
+
+.button {
+  margin: 1rem auto;
+}
