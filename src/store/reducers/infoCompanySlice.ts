@@ -23,7 +23,7 @@ export const companyInfoSlice = createSlice({
   name: 'companyInfo',
   initialState,
   reducers: {
-    resetCompanyInfo: (state) => {
+    resetCompanyInfoStore: (state) => {
       state.infoCompany = initialState.infoCompany;
       state.loadedCompany = false;
     },

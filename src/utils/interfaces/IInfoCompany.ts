@@ -8,7 +8,7 @@ export interface ICompanyInfoReduxState {
 export interface IInfoCompanies {
   //Se usó en "infoApplicantService.ts", aunque la idea es sacar sólo un aplicante
   //companyInfo: ICompanyInfo[];
-  companyInfo: ICompanyInfo;
+  companyInfo: ICompanyInfo[];
 }
 
 export interface ICompanyInfo {

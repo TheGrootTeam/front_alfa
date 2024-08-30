@@ -1,7 +1,7 @@
 import { ICompanyInfo, ICompanyInfoMapped } from "./interfaces/IInfoCompany";
 
 
-export const infocompanyMapped = (company: ICompanyInfo): ICompanyInfoMapped => {
+export const infoCompanyMapped = (company: ICompanyInfo): ICompanyInfoMapped => {
   return {
     id: company._id,
     dniCif: company.dniCif,

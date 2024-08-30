@@ -16,9 +16,11 @@ export default function ApplicantInfo() {
   const company = useSelector(getCompanyInfo);
   const { error } = useSelector(getUi);
 
+  //BALIZA
+  console.log('COMPANY INFO : ', company);
+
   useEffect(() => {
-    //dispatch(getInfoApplicantAction());
-    dispatch(getInfoCompanyAction);
+    dispatch(getInfoCompanyAction());
   }, [dispatch]);
 
   const offers = [
@@ -26,6 +28,10 @@ export default function ApplicantInfo() {
     { id: 2, titulo: 'Product Manager' },
     { id: 3, titulo: 'Data Scientist' },
   ];
+
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
+  };
 
   function showInfo() {
     return (
@@ -45,46 +51,29 @@ export default function ApplicantInfo() {
           <p>Description: {company.description}</p>
           <p>Ubicación: {company.ubication}</p>
           <p>Sector: {company.sector.sector}</p>
-
-          <img src="" alt="logo" />
-          <h3>Nombre: Apple</h3>
-          <p>Email: apple@mail.com</p>
-          <p>Teléfono: 666 666 666</p>
-          <p>Description: Hoy los móviles, mañana el mundo</p>
-          <p>Ciudad: The Hell</p>
-          <p>Sector: Populate de Sector</p>
         </div>
         <div>
-          <h3>Listado de Ofertas Publicadas</h3>
+          <h3>Listado de Ofertas Publicadas y Hardcodeadas</h3>
 
-          {company.pusblishedOffers.map((offer) => (
+          {/* {company.pusblishedOffers.map((offer) => (
             <p key={offer._id}>
               {offer.position} -{' '}
               {offer.status ? 'Oferta Activa' : 'Oferta Cerrada'}
             </p>
-          ))}
+          ))} */}
 
-          {/* {loading  ? (
-            <p>Cargando ofertas...</p>
-          ) : (
-            offers.map((oferta) => <p key={oferta.id}>{oferta.titulo}</p>)
-          )} */}
-          <hr></hr>
-          {offers.map((oferta) => (
-            <p key={oferta.id}>{oferta.titulo}</p>
+          {offers.map((offer) => (
+            <p key={offer.id}>
+              Cod Ofert: {offer.id} - Título: {offer.titulo}
+            </p>
           ))}
         </div>
       </>
     );
   }
 
-  // const resetError = () => {
-  //   dispatch(uiSlice.actions.resetError());
-  // };
-
   function showError() {
-    //return <Notification type="error" message={error} onClick={resetError} />;
-    return <Notification type="error" message={error} />;
+    return <Notification type="error" message={error} onClick={resetError} />;
   }
 
   return <>{error ? showError() : showInfo()}</>;
