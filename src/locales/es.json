@@ -21,7 +21,8 @@
     "userprofile_edit": "Editar perfil de usuario",
     "userprofile": "Perfil de usuario",
     "dashboard": "Panel de Control",
-    "dashboardIntern": "Applicant",
+    "dashboardIntern": "Aspirante",
+    "dashboardCompany": "Compañía",
     "add_offer": "Publicar Nueva Oferta",
     "edit_offer": "Editar Oferta",
     "company_public_profile": "Datos de la empresa",
@@ -39,7 +40,7 @@
     "password_show": "Mostrar contraseñas",
     "remember_me": "Recuérdame",
     "register_button": "Registrarse",
-    "select_usertype": "Tipo de usuario",
+    "select_usertype": "¿Cómo vas a usar InternIT?",
     "company": "Empresa",
     "applicant": "Aplicante",
     "cif": "CIF",
@@ -48,6 +49,7 @@
     "willing_to_relocate": "Mobilidad geográfica",
     "available_immediately": "Disponible de immediato",
     "preferredWorkLocation": "Tipo de trabajo",
+    "preferredInternshipType": "Tipo de prácticas",
     "cv_dl_button": "Descargar CV",
     "save_offer_button": "Guardar Oferta",
     "position": "Puesto",
@@ -60,7 +62,20 @@
     "number_applicants": "Número de aplicantes",
     "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)",
     "company_description": "Descripción de la empresa",
-    "offer_description": "Descripción de la oferta"
+    "offer_description": "Descripción de la oferta",
+    "select_sector": "Seleccione sector"
+  },
+  "formSelect": {
+    "jobType": {
+      "on_site": "Presencial",
+      "hybrid": "Híbrido",
+      "remote": "Remoto"
+    },
+    "internshipType": {
+      "paid": "Remunerado",
+      "unpaid": "No remunerado",
+      "ngo": "ONG/Voluntariado"
+    }
   },
   "fields": {
     "cif": "CIF",
@@ -78,8 +93,9 @@
     "preferredWorkLocation": "Ubicación preferida de trabajo",
     "wantedRole": "Puesto deseado",
     "mainSkills": "Habilidades principales",
-    "willingToRelocate": "Dispuesto a reubicarse",
-    "availableImmediately": "Disponible inmediatamente"
+    "willingToRelocate": "Mobilidad geográfica",
+    "availableImmediately": "Disponible de immediato",
+    "sector": "Sector de actividad"
   },
   "buttons": {
     "saveAndFinish": "Guardar y Terminar",

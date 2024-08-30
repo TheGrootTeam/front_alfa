@@ -22,6 +22,7 @@
     "userprofile": "User Profile",
     "dashboard": "Dashboard",
     "dashboardIntern": "Applicant",
+    "dashboardCompany": "Company",
     "add_offer": "Add New Offer",
     "edit_offer": "Edit Offer",
     "company_public_profile": "Company Data",
@@ -39,7 +40,7 @@
     "password_show": "Show passwords",
     "remember_me": "Remember me",
     "register_button": "Register",
-    "select_usertype": "User type",
+    "select_usertype": "How will you be using InternIT?",
     "company": "Company",
     "applicant": "Applicant",
     "cif": "VAT Number",
@@ -48,6 +49,7 @@
     "willing_to_relocate": "Willing to Relocate",
     "available_immediately": "Available to Start Immediately",
     "preferredWorkLocation": "Preferred Work Location",
+    "preferredInternshipType": "Preferred Internship Type",
     "cv_dl_button": "Download Resume",
     "save_offer_button": "Save Offer",
     "position": "Position",
@@ -60,7 +62,20 @@
     "number_applicants": "Number of applicants",
     "status_closed": "Close offer  (will not accept more applicants)",
     "company_description": "Company description",
-    "offer_description": "Offer description"
+    "offer_description": "Offer description",
+    "select_sector": "Select Industry"
+  },
+  "formSelect": {
+    "jobType": {
+      "on_site": "On-site",
+      "hybrid": "Hybrid",
+      "remote": "Remote"
+    },
+    "internshipType": {
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "ngo": "NGO/Volunteer"
+    }
   },
   "fields": {
     "cif": "VAT Number",
@@ -79,7 +94,8 @@
     "wantedRole": "Wanted Role",
     "mainSkills": "Main Skills",
     "willingToRelocate": "Willing to Relocate",
-    "availableImmediately": "Available Immediately"
+    "availableImmediately": "Available Immediately",
+    "sector": "Industry"
   },
   "buttons": {
     "saveAndFinish": "Save & Finish",

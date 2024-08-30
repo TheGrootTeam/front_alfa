@@ -9,8 +9,8 @@ import { getUi } from '../../store/selectors';
 import { Loader } from '../../components/common/Loader';
 import Notification from '../../components/common/Notification';
 import { ListingDetail } from '../../components/listings/ListingDetail';
-import { ICompanyPublicProfile } from '../../utils/interfaces/IInfoCompany';
 import { getPublicInfo } from '../../utils/services/publicProfileService';
+import { ICompanyPublicProfile } from '../../utils/interfaces/IProfile';
 // import styles from "./Profile.module.css";
 
 export function CompanyProfilePage() {
