@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
 import { getOffer } from '../../store/selectors';
@@ -16,6 +16,8 @@ export function OfferPage() {
   const { id } = useParams();
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
   const [showConfirm, setShowCofirm] = useState(false);
+  //falta sacar la company ID de cada anuncio
+  const companyId = '66c6fc21a5c2d7c86aa0aa11'
 
   const deleteOffer = () => {
     //DELETE AD
@@ -38,7 +40,7 @@ export function OfferPage() {
           <>
             <h2>{t('forms.position')}: {offer.position}</h2>
             <p>{t('forms.offer_description')}: {offer.description}</p>
-            <p>{t('forms.company')}: {`${offer.companyOwner.name}`}</p>
+            <p>{t('forms.company')}: <Link to={`/view/company/${companyId}`}>{`${offer.companyOwner.name}`}</Link></p>
             <p>{t('forms.location')}: {offer.location}</p>
             <p>
             {t('forms.job_type')}: {offer.typeJob} y {offer.internJob}
@@ -47,14 +49,13 @@ export function OfferPage() {
             {t('forms.publication_date')}: {offer.publicationDate.toISOString().split('T')[0]}
             </p>
             <p>
-            {t('forms.number_vacancies')}: {offer.numberVacancies} | {t('forms.nnumber_applicants')}:{' '}
-              {offer.numberApplicants}
+            {t('forms.number_vacancies')}: {offer.numberVacancies} | {t('forms.number_applicants')}: {offer.numberApplicants}
             </p>
             <Button onClick={editOffer}> {t('nav.edit_offer_link')}</Button>
             &nbsp;
             {showConfirm && (
               <div>
-                <p>{t("forms.delete_offer_message")}</p>
+                <p>{t("dialogs.delete_offer_message")}</p>
                 <Button onClick={deleteOffer}>{t('buttons.yes_delete')}</Button>
                 <Button onClick={() => setShowCofirm(false)}>{t('buttons.no_cancel')}</Button>
               </div>
