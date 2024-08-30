@@ -18,7 +18,6 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const { loading } = useSelector(getUi);
 
-
   const [formData, setFormData] = useState({
     dniCif: '',
     email: '',
@@ -31,7 +30,9 @@ export function RegisterPage() {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [dniCifError, setDniCifError] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<React.ReactNode | null>(null);
+  const [errorMessage, setErrorMessage] = useState<React.ReactNode | null>(
+    null
+  );
 
   const { dniCif, email, password, confirmPassword, isCompany } = formData;
 
@@ -93,32 +94,32 @@ export function RegisterPage() {
 
       if (registerUser.fulfilled.match(resultAction)) {
         // const { token, isCompany: isCompanyFromResponse } = resultAction.payload;
-    
+
         // Guardar el token en localStorage y configurar la autorización para futuras solicitudes
         // localStorage.setItem('token', token);
         // localStorage.setItem('isCompany', isCompanyFromResponse.toString());
         // setAuthorizationHeader(token);
-    
+
         setSuccessMessage(t('forms.register_success'));
         setFormData({
-            dniCif: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            isCompany: null,
+          dniCif: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          isCompany: null,
         });
         setTimeout(() => setSuccessMessage(null), 2000);
-    
+
         // Asegurarse de que el valor de isCompany es el esperado
         // console.log("Valor de isCompany:", isCompanyFromResponse);
-    
+
         // Corregir la lógica de redirección
-        
-        const isCompany = true //USESELECTOR PARA SABER SI IS COMPANY
+
+        const isCompany = true; //USESELECTOR PARA SABER SI IS COMPANY
         if (isCompany) {
-            navigate('/edit/company');
+          navigate('/edit/company');
         } else {
-            navigate('/edit/user');
+          navigate('/edit/user');
         }
       } else if (registerUser.rejected.match(resultAction)) {
         const errorPayload = resultAction.payload;
@@ -180,8 +181,8 @@ export function RegisterPage() {
             isCompany === 'true'
               ? t('forms.cif')
               : isCompany === 'false'
-              ? t('forms.nif')
-              : t('forms.cif_nif')
+                ? t('forms.nif')
+                : t('forms.cif_nif')
           }
           name="dniCif"
           value={dniCif}
@@ -242,11 +243,7 @@ export function RegisterPage() {
           {t('forms.register_button')}
         </Button>
         {loading && <Loader />}
-        {errorMessage && (
-          <div className={styles.error}>
-            {errorMessage}
-          </div>
-        )}
+        {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         {successMessage && (
           <Notification message={successMessage} type="success" />
         )}
