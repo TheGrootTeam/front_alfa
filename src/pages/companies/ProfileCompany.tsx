@@ -29,7 +29,7 @@ export function CompanyProfilePage() {
     logo: ''
   });
 
-  const { company, email, phone, sector, ubication, description, logo, offers } = data;
+  const { company, email, phone, sector, ubication, description, logo } = data;
 
   useEffect(() => {
     async function getData() {
