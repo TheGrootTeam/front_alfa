@@ -3,8 +3,9 @@ import { login, logout } from '../../utils/services/authService';
 import { ILoginData, IToken } from '../../utils/interfaces/IAuth';
 import { router } from '../../router';
 import { applicantInfoSlice } from '../reducers/infoApplicantSlice';
-import { getApplicantInfoLoaded } from '../selectors';
+import { getApplicantInfoLoaded, getCompanyInfoLoaded } from '../selectors';
 import { RootState } from '../store';
+import { companyInfoSlice } from '../reducers/infoCompanySlice';
 
 export const authLogin = createAsyncThunk<
   IToken,
@@ -24,6 +25,8 @@ export const authLogin = createAsyncThunk<
     dataObject.isCompany
       ? router.navigate('/company')
       : router.navigate('/user');
+
+    console.log('AUTH SLICE: ', dataObject);
     return dataObject;
   } catch (error: any) {
     // return custom error message from API if any
@@ -43,9 +46,13 @@ export const authLogout = createAsyncThunk<
   const state = getState();
   try {
     await logout();
-    // if an applicant was loged, reset the state
+    // if an applicant or Company was loged, reset the state
     if (getApplicantInfoLoaded(state)) {
       dispatch(applicantInfoSlice.actions.resetApplicantInfoStore());
+    }
+    //BALIZA
+    if (getCompanyInfoLoaded(state)) {
+      dispatch(companyInfoSlice.actions.resetCompanyInfoStore());
     }
   } catch (error: any) {
     if (error.response && error.response.data.message) {
