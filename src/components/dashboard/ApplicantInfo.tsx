@@ -31,7 +31,7 @@ export default function ApplicantInfo() {
               alt={applicant.photo}
             />
           </div>
-          <h3>{`${applicant.name} ${applicant.lastName}`}</h3>
+          <h2>{`${applicant.name} ${applicant.lastName}`}</h2>
           <div className={styles.profile__info}>
             <p>
               <span>{t('fields.email')}:</span> {applicant.email}
