@@ -28,6 +28,15 @@ export interface IApplicantInfo {
   __v: number;
 }
 
+export interface IApplicantInfoWithPassword
+  extends Omit<
+    IApplicantInfo,
+    '_id' | 'preferredOffers' | '__v' | 'suscribedOffers'
+  > {
+  password: string;
+  confirmPassword: string;
+}
+
 export interface IApplicantInfoMapped {
   id: string;
   dniCif: string;
