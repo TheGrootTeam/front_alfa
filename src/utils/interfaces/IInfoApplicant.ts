@@ -34,6 +34,7 @@ export interface IApplicantInfoWithPassword
     '_id' | 'preferredOffers' | '__v' | 'suscribedOffers'
   > {
   password: string;
+  confirmPassword: string;
 }
 
 export interface IApplicantInfoMapped {

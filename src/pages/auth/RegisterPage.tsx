@@ -21,41 +21,47 @@ export function RegisterPage() {
   };
 
   return (
-    <Layout title={t('titles.register')} page="register">
+    <Layout
+      title={t('titles.register')}
+      page="register"
+      mainClassName={styles.register_page}
+    >
       <>
-        <form className={styles.form}>
-          <FormRadioButton
-            className={styles.radioButton}
-            title={t('forms.select_usertype')}
-            arrayOptions={[
-              {
-                id: 'company-radio',
-                labelText: t('forms.company'),
-                name: 'isCompany',
-                value: 'true',
-                checked: isCompany === 'true',
-                onChange: handleChange,
-              },
-              {
-                id: 'applicant-radio',
-                labelText: t('forms.applicant'),
-                name: 'isCompany',
-                value: 'false',
-                checked: isCompany === 'false',
-                onChange: handleChange,
-              },
-            ]}
-          />
-        </form>
+        <div className={styles.choose}>
+          <form>
+            <FormRadioButton
+              className={styles.radioButton}
+              title={t('forms.select_usertype')}
+              arrayOptions={[
+                {
+                  id: 'company-radio',
+                  labelText: t('forms.company'),
+                  name: 'isCompany',
+                  value: 'true',
+                  checked: isCompany === 'true',
+                  onChange: handleChange,
+                },
+                {
+                  id: 'applicant-radio',
+                  labelText: t('forms.applicant'),
+                  name: 'isCompany',
+                  value: 'false',
+                  checked: isCompany === 'false',
+                  onChange: handleChange,
+                },
+              ]}
+            />
+          </form>
+        </div>
 
         {/* Conditionally render the form based on the radio button selection */}
         {isCompany === 'true' && (
-          <div id="companyForm">
+          <div id="companyForm" className={styles.companyForm}>
             <CompanyForm loading={loading} error={error} />
           </div>
         )}
         {isCompany === 'false' && (
-          <div id="applicantForm">
+          <div id="applicantForm" className={styles.applicantForm}>
             <ApplicantForm loading={loading} error={error} />
           </div>
         )}

@@ -39,7 +39,7 @@
     "password_show": "Mostrar contraseñas",
     "remember_me": "Recuérdame",
     "register_button": "Registrarse",
-    "select_usertype": "Tipo de usuario",
+    "select_usertype": "¿Cómo vas a usar InternIT?",
     "company": "Empresa",
     "applicant": "Aplicante",
     "cif": "CIF",
@@ -92,8 +92,8 @@
     "preferredWorkLocation": "Ubicación preferida de trabajo",
     "wantedRole": "Puesto deseado",
     "mainSkills": "Habilidades principales",
-    "willingToRelocate": "Dispuesto a reubicarse",
-    "availableImmediately": "Disponible inmediatamente",
+    "willingToRelocate": "Mobilidad geográfica",
+    "availableImmediately": "Disponible de immediato",
     "sector": "Sector de actividad"
   },
   "buttons": {
