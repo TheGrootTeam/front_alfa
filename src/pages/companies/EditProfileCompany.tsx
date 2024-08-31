@@ -10,7 +10,7 @@ export function EditCompanyProfilePage() {
 
   return (
     <Layout title={t('titles.companyprofile_edit')} page="editcompanyprofile">
-      <CompanyForm loading={loading} error={error} />
+      <CompanyForm loading={loading} error={error} formMode="edit" />
     </Layout>
   );
 }

@@ -110,10 +110,14 @@
     "email_invalid": "El correo electrónico no es válido",
     "dnicif_format": "El CIF debe empezar con A, B, C, D, E, F, G, H y seguido de 8 dígitos",
     "dnicif_invalid": "El NIF/NIE no es válido",
-    "register_error": "Error registrando usuario: "
+    "register_error": "Error registrando usuario: ",
+    "required_field_error": "es un campo obligatorio",
+    "processing_form_error": "Error procesando el formulario: ",
+    "generic_form_error": "Ha ocurrido un error mientras se enviaba el formulario, por favor inténtelo de nuevo."
   },
   "notifications": {
-    "register_success": "Usuario registrado exitosamente",
+    "register_success": "Usuario registrado correctamente",
+    "edit_success": "Datos de usuario editados correctamente",
     "data_saved": "Los datos se han guardado correctamente",
     "offer_created": "La nueva oferta ha sido creada con éxito",
     "offer_updated": "La oferta se actualizó con éxito"

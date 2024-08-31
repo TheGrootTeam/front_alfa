@@ -20,6 +20,9 @@ export function FormSelect({
     <>
       <label>{labelText}</label>
       <select id={id} name={name} value={value} onChange={onChange}>
+        <option key="default" value="">
+          ---
+        </option>
         {Object.entries(options).map(([key, optionValue]) => (
           <option key={key} value={key}>
             {optionValue}

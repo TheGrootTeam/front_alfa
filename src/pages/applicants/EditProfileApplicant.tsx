@@ -10,7 +10,7 @@ export function EditUserProfilePage() {
 
   return (
     <Layout title={t('titles.userprofile_edit')} page="edituserprofile">
-      <ApplicantForm loading={loading} error={error} />
+      <ApplicantForm loading={loading} error={error} formMode="edit" />
     </Layout>
   );
 }

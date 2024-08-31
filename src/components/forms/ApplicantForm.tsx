@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
 import { IApplicantInfoWithPassword } from '../../utils/interfaces/IInfoApplicant';
@@ -13,6 +14,10 @@ import {
   rols as rawRoles,
 } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
 import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
+import {
+  createApplicantUser,
+  updateApplicantUser,
+} from '../../utils/services/registerService';
 
 const formattedSkills = rawSkills.map((skill) => ({
   _id: skill._id,
@@ -27,10 +32,16 @@ const formattedRoles = rawRoles.map((role) => ({
 interface ApplicantFormProps {
   loading: boolean;
   error: string | null;
+  formMode: 'register' | 'edit';
 }
 
-export function ApplicantForm({ loading, error }: ApplicantFormProps) {
+export function ApplicantForm({
+  loading,
+  error,
+  formMode,
+}: ApplicantFormProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [formApplicantData, setFormApplicantData] =
     useState<IApplicantInfoWithPassword>({
@@ -53,7 +64,11 @@ export function ApplicantForm({ loading, error }: ApplicantFormProps) {
     });
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
+  const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
 
   // VALIDACIONES
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -94,8 +109,45 @@ export function ApplicantForm({ loading, error }: ApplicantFormProps) {
     /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/.test(nifNie) ||
     /^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/.test(nifNie);
 
-  const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
-  const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
+  // Validacion formulario completo al enviar (campos requeridos)
+  const validateForm = (
+    formApplicantData: IApplicantInfoWithPassword,
+    t: (key: string) => string
+  ): { isValid: boolean; errorMessage: string } => {
+    setFormError(null);
+
+    const requiredFields = {
+      dniCif: t('forms.nif'),
+      name: t('fields.name'),
+      lastName: t('fields.lastName'),
+      email: t('forms.email'),
+      password: t('forms.password'),
+      confirmPassword: t('forms.password_confirm'),
+      phone: t('fields.phone'),
+      ubication: t('fields.location'),
+      typeJob: t('fields.preferredWorkLocation'),
+      internType: t('forms.preferredInternshipType'),
+      wantedRol: t('fields.wantedRole'),
+      mainSkills: t('fields.mainSkills'),
+    };
+
+    let isValid = true;
+    let errorMessage = '';
+
+    for (const [field, label] of Object.entries(requiredFields)) {
+      if (
+        !formApplicantData[field as keyof IApplicantInfoWithPassword] ||
+        (formApplicantData[field as keyof IApplicantInfoWithPassword] as string)
+          .length === 0
+      ) {
+        isValid = false;
+        errorMessage = `${label} ${t('errors.required_field_error')}`;
+        break;
+      }
+    }
+
+    return { isValid, errorMessage };
+  };
 
   // manejo de los campos tipo TEXTO
   const handleTextChange = (
@@ -133,23 +185,22 @@ export function ApplicantForm({ loading, error }: ApplicantFormProps) {
       .filter((option) => option.selected)
       .map((option) => option.value);
 
-    const fieldMappings: { [key: string]: any[] } = {
-      mainSkills: formattedSkills,
-      rols: formattedRoles,
-    };
-
-    if (fieldMappings[name]) {
-      const selectedObjects = fieldMappings[name].filter((item) =>
-        selectedValues.includes(item._id)
+    // Depending on the field, update the corresponding array of objects
+    if (name === 'mainSkills') {
+      const selectedSkills = formattedSkills.filter((skill) =>
+        selectedValues.includes(skill._id)
       );
       setFormApplicantData((prevData) => ({
         ...prevData,
-        [name]: selectedObjects,
+        mainSkills: selectedSkills, // Update with selected skill objects
       }));
-    } else {
+    } else if (name === 'wantedRol') {
+      const selectedRoles = formattedRoles.filter((role) =>
+        selectedValues.includes(role._id)
+      );
       setFormApplicantData((prevData) => ({
         ...prevData,
-        [name]: selectedValues,
+        wantedRol: selectedRoles, // Update with selected role objects
       }));
     }
   };
@@ -164,22 +215,49 @@ export function ApplicantForm({ loading, error }: ApplicantFormProps) {
     }));
   };
 
+  // Envio de formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // si hay errores de formato o faltan campos requeridos no se envía
     if (passwordError || emailError || dniCifError) return;
+    const { isValid, errorMessage } = validateForm(formApplicantData, t);
+    if (!isValid) {
+      setFormError(errorMessage);
+      return;
+    }
 
-    // CODIGO ORIGINAL HANDLESUBMIT PARA EL REGISTER COMENTADO AL FINAL DE TODO
+    // si todo ok procedemos
+    try {
+      let result;
 
-    // TODO: si el registro sale bien,
-    // - Enviar datos del usuario
-    // - Guardar token y la info necesaria donde haga falta
-    // - Mostrar mensaje de éxito con un timeout de un par de segundos
-    // - Redirigir el usuario a su dashboard /user
+      // Si estamos en REGISTER
+      if (formMode === 'register') {
+        result = await createApplicantUser(formApplicantData);
+        console.log('User registered successfully:', result);
 
-    // TODO: si el registro sale mal,
-    // - Recoger y gestionar el error
-    // - Mostrar el mensaje correspondiente con el componente Notification
+        setSuccessMessage(t('notifications.register_success'));
+        setTimeout(() => {
+          setSuccessMessage(null);
+          navigate('/user');
+        }, 2000);
+
+        // Si estamos en EDIT
+      } else if (formMode === 'edit') {
+        // Handle editing
+        result = await updateApplicantUser(formApplicantData);
+        console.log('User information updated successfully:', result);
+
+        setSuccessMessage(t('notifications.edit_success'));
+        setTimeout(() => {
+          setSuccessMessage(null);
+          navigate('/user/profile');
+        }, 2000);
+      }
+    } catch (error) {
+      console.error(t('errors.processing_form_error'), error);
+      setFormError(t('errors.generic_form_error'));
+    }
   };
 
   return (
@@ -317,8 +395,8 @@ export function ApplicantForm({ loading, error }: ApplicantFormProps) {
           <li>
             <FormMultiSelect
               labelText={t('fields.wantedRole')}
-              id="wantedRols"
-              name="wantedRols"
+              id="wantedRol"
+              name="wantedRol"
               value={formApplicantData.wantedRol.map((rol) => rol._id)}
               onChange={handleMultiSelectChange}
               optionLabel="rol"
@@ -343,76 +421,18 @@ export function ApplicantForm({ loading, error }: ApplicantFormProps) {
               onChange={handleCheckboxChange}
             />
           </li>
+
           <li>
             <Button type="submit" disabled={loading || !!error}>
               {t('buttons.saveAndFinish')}
             </Button>
           </li>
         </ul>
-        {error && <Notification type="error" message={error} />}
+        {formError && <Notification type="error" message={formError} />}
+        {successMessage && (
+          <Notification message={successMessage} type="success" />
+        )}
       </form>
     </>
   );
 }
-
-// const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-//   event.preventDefault();
-//   if (passwordError || emailError || dniCifError) return;
-
-//   try {
-//     const resultAction = await dispatch(
-//       registerUser({
-//         dniCif,
-//         email,
-//         password,
-//         isCompany: isCompany === 'true',
-//       }) as any
-//     );
-
-//     if (registerUser.fulfilled.match(resultAction)) {
-//       // const { token, isCompany: isCompanyFromResponse } = resultAction.payload;
-
-//       // Guardar el token en localStorage y configurar la autorización para futuras solicitudes
-//       // localStorage.setItem('token', token);
-//       // localStorage.setItem('isCompany', isCompanyFromResponse.toString());
-//       // setAuthorizationHeader(token);
-
-//       setSuccessMessage(t('forms.register_success'));
-//       setFormData({
-//           dniCif: '',
-//           email: '',
-//           password: '',
-//           confirmPassword: '',
-//           isCompany: null,
-//       });
-//       setTimeout(() => setSuccessMessage(null), 2000);
-
-//       // Asegurarse de que el valor de isCompany es el esperado
-//       // console.log("Valor de isCompany:", isCompanyFromResponse);
-
-//       // Corregir la lógica de redirección
-
-//       const isCompany = true //USESELECTOR PARA SABER SI IS COMPANY
-//       if (isCompany) {
-//           navigate('/edit/company');
-//       } else {
-//           navigate('/edit/user');
-//       }
-//     } else if (registerUser.rejected.match(resultAction)) {
-//       const errorPayload = resultAction.payload;
-//       if (errorPayload?.message === 'User already exists') {
-//         setErrorMessage(
-//           <>
-//             {t('errors.user_exists')}.{' '}
-//             <Link to="/login">{t('forms.login_link')}</Link>
-//           </>
-//         );
-//       } else {
-//         setErrorMessage(t('errors.register_error'));
-//       }
-//     }
-//   } catch (error) {
-//     console.error(t('errors.register_error'), error);
-//     setErrorMessage(t('errors.register_error'));
-//   }
-// };

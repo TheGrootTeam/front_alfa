@@ -57,12 +57,16 @@ export function RegisterPage() {
         {/* Conditionally render the form based on the radio button selection */}
         {isCompany === 'true' && (
           <div id="companyForm" className={styles.companyForm}>
-            <CompanyForm loading={loading} error={error} />
+            <CompanyForm loading={loading} error={error} formMode="register" />
           </div>
         )}
         {isCompany === 'false' && (
           <div id="applicantForm" className={styles.applicantForm}>
-            <ApplicantForm loading={loading} error={error} />
+            <ApplicantForm
+              loading={loading}
+              error={error}
+              formMode="register"
+            />
           </div>
         )}
       </>

@@ -110,10 +110,14 @@
     "email_invalid": "Email address isn't valid",
     "dnicif_format": "VAT number must start with a letter from A to H followed by 8 digits",
     "dnicif_invalid": "Personal ID number not valid",
-    "register_error": "Error registering user: "
+    "register_error": "Error registering user: ",
+    "required_field_error": "is a required field",
+    "processing_form_error": "Failed to process form: ",
+    "generic_form_error": "An error occurred while submitting the form. Please try again."
   },
   "notifications": {
     "register_success": "User registered successfully",
+    "edit_success": "User data edited successfully",
     "data_saved": "Data saved successfully",
     "offer_created": "New offer created successful",
     "offer_updated": "Offer update successfully"

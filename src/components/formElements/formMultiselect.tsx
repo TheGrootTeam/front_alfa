@@ -27,10 +27,16 @@ export function FormMultiSelect({
   return (
     <>
       <label htmlFor={id}>{labelText}</label>
-      <select id={id} name={name} value={value} onChange={onChange} multiple>
+      <select
+        id={id}
+        name={name}
+        value={value} // Ensure the selected values are passed as an array
+        onChange={onChange}
+        multiple // Keep the 'multiple' attribute
+      >
         {options.map((option) => (
           <option key={option._id} value={option._id}>
-            {option[optionLabel]} {/* Use dynamic field */}
+            {option[optionLabel]} {/* Display the correct label */}
           </option>
         ))}
       </select>
