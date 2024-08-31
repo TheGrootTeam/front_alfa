@@ -29,7 +29,8 @@
     "company_public_offers": "Offers available",
     "main_skills": "Main Skills",
     "internship_preferences": "Internship Preferences",
-    "availability": "Availability"
+    "availability": "Availability",
+    "published_offers": "List of published offers"
   },
   "forms": {
     "search": "search...",

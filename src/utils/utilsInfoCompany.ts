@@ -11,7 +11,7 @@ export const infoCompanyMapped = (company: ICompanyInfo): ICompanyInfoMapped => 
     ubication: company.ubication,
     description: company.description,
     logo: company.logo,
-    pusblishedOffers: company.pusblishedOffers,
+    publishedOffers: company.publishedOffers,
     __v: company.__v
   };
 };
