@@ -10,7 +10,12 @@ const initialState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    initialAuth: (state, action) => {
+      state.auth = true;
+      state.isCompany = action.payload.isCompany;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(authLogin.fulfilled, (state, action) => {
@@ -20,8 +25,10 @@ export const authSlice = createSlice({
       .addCase(authLogout.fulfilled, (state) => {
         state.auth = false;
         state.isCompany = false;
-      })
+      });
   },
 });
+
+export const { initialAuth } = authSlice.actions;
 
 export default authSlice.reducer;

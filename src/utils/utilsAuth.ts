@@ -1,11 +1,8 @@
-import { client, setAuthorizationHeader } from '../api/client';
+import { setAuthorizationHeader } from '../api/client';
 import { authVerify } from './services/authService';
 
 export const authRememberSession = async (token: string) => {
-  try {
-    setAuthorizationHeader(token);
-    const isCompany = await authVerify();
-
-    debugger;
-  } catch (error) {}
+  setAuthorizationHeader(token);
+  const isCompany = await authVerify();
+  return isCompany.isCompany;
 };

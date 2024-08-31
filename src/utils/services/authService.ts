@@ -3,7 +3,7 @@ import {
   setAuthorizationHeader,
   removeAuthorizationHeader,
 } from '../../api/client';
-import { ILoginData, IToken } from '../interfaces/IAuth';
+import { IAuthIsCompany, ILoginData, IToken } from '../interfaces/IAuth';
 import storage from '../storage';
 
 export const login = (data: ILoginData): Promise<IToken> => {
@@ -24,7 +24,7 @@ export const logout = () => {
   removeAuthorizationHeader();
 };
 
-export const authVerify = async () => {
-  const isCompany: boolean = await client.get('/auth');
+export const authVerify = async (): Promise<IAuthIsCompany> => {
+  const isCompany: IAuthIsCompany = await client.get('/auth');
   return isCompany;
 };
