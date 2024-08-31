@@ -9,6 +9,17 @@
   height: auto;
 }
 
+.container_R {
+  border-radius: 1.5rem;
+  border: 1px solid var(--neutral-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2rem;
+  max-width: 350px;
+  height: auto;
+}
+
 .profile__photo {
   max-width: 200px;
   margin: 0 auto;
@@ -43,7 +54,7 @@ ul {
 }
 
 .offer_list {
-  border-radius: 0.3rem;
+  border-radius: 1.5rem;
   background-color: var(--neutral-bg);
   padding: 0.5rem 1.5rem;
   margin: 1rem;

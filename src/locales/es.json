@@ -29,7 +29,8 @@
     "company_public_offers": "Ofertas disponibles",
     "main_skills": "Competencias principales",
     "internship_preferences": "Preferencias para las prácticas",
-    "availability": "Disponibilidad"
+    "availability": "Disponibilidad",
+    "published_offers": "Listado de ofertas publicadas"
   },
   "forms": {
     "search": "buscar...",

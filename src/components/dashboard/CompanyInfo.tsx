@@ -11,10 +11,13 @@ import { getCompanyInfo } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import styles from './CompanyInfo.module.css';
 import Notification from '../common/Notification';
+import { Button } from '../common/Button';
+import { useTranslation } from 'react-i18next';
 
 export default function ApplicantInfo() {
   const dispatch = useDispatch<AppDispatch>();
   // const applicant = useSelector(getApplicantInfo);
+  const { t } = useTranslation();
   const company = useSelector(getCompanyInfo);
   const { error } = useSelector(getUi);
 
@@ -44,16 +47,36 @@ export default function ApplicantInfo() {
             <h2>Nombre: {company.name}</h2>
           </div>
           <div className={styles.profile__info}>
-            <p>Email: {company.email}</p>
-            <p>Teléfono: {company.phone}</p>
-            <p>Description: {company.description}</p>
-            <p>Ubicación: {company.ubication}</p>
-            <p>Sector: {company.sector.sector}</p>
+            <p>
+              <span>{t('forms.nif')}:</span> {company.dniCif}
+            </p>
+            <p>
+              <span>{t('fields.email')}:</span> {company.email}
+            </p>
+            <p>
+              <span>{t('fields.phone')}:</span> {company.phone}
+            </p>
+            <p>
+              <span>{t('fields.location')}:</span> {company.ubication}
+            </p>
+            <p>
+              <span>{t('fields.description')}:</span> {company.description}
+            </p>
+            <p>
+              <span>{t('fields.sector')}</span> {company.sector.sector}
+            </p>
+          </div>
+          <div className={styles.button}>
+            <Link to="/company/edit">
+              {/* <Button>{t('titles.userprofile_edit')}</Button> */}
+              <Button>Editar</Button>
+            </Link>
+            <p>(Enlace correcto pero redirige a edit applicant)</p>
           </div>
         </div>
         <div>
           <hr></hr>
-          <h2>Listado de Ofertas Publicadas</h2>
+          <h2>{t('titles.published_offers')}</h2>
           <hr></hr>
           <br></br>
           {company.publishedOffers.map((offer) => (
