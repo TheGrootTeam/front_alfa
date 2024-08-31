@@ -13,7 +13,7 @@ const initialState: ICompanyInfoReduxState = {
     ubication: '',
     description: '',
     logo: '',
-    pusblishedOffers: [],
+    publishedOffers: [],
     __v: 0,
   },
   loadedCompany: false,

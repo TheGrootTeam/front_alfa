@@ -21,7 +21,7 @@ export interface ICompanyInfo {
   ubication: string;
   description: string;
   logo: string;
-  pusblishedOffers: PublishedOffers[];
+  publishedOffers: PublishedOffers[];
   __v: number;
 }
 
@@ -35,7 +35,7 @@ export interface ICompanyInfoMapped {
   ubication: string;
   description: string;
   logo: string;
-  pusblishedOffers: PublishedOffers[];
+  publishedOffers: PublishedOffers[];
   __v: number;
 }
 
