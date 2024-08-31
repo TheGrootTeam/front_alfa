@@ -29,3 +29,31 @@ export interface ApplicantProfileState {
   loading: boolean;
   error: string | null;
 }
+
+import { IOffer } from "./IOffer";
+
+export interface ICompanyPublicProfile {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  sector: string;
+  ubication: string;
+  description: string;
+  logo: string;
+  publishedOffers: Array<IOffer>;
+  __v: number;
+}
+
+export interface ICompanyPublicProfileMapped {
+  id?: string;
+  company: string;
+  email: string;
+  phone: string;
+  sector: string;
+  ubication: string;
+  description: string;
+  logo: string;
+  offers?: Array<IOffer>;
+  __v?: number;
+}
