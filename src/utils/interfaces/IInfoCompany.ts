@@ -42,6 +42,7 @@ export interface ICompanyInfoMapped {
 export interface PublishedOffers {
   _id: string;
   position: string;
+  location: string;
   status: boolean;
 }
 

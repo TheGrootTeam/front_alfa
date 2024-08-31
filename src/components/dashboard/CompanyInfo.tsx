@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 //import { getInfoApplicantAction } from '../../store/actions/infoApplicantActions';
 import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
-import { getUi } from '../../store/selectors';
+import { getToUpdateOfferState, getUi } from '../../store/selectors';
 //import { getApplicantInfo} from '../../store/selectors';
 import { getCompanyInfo } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
@@ -55,33 +56,20 @@ export default function ApplicantInfo() {
           <h2>Listado de Ofertas Publicadas</h2>
           <hr></hr>
           <br></br>
-          {/* {company.publishedOffers.map((offer) => (
-            <div className={styles.offer_list}>
-              <p key={offer._id}>
-                <h3>{offer.position}</h3>
-                {offer.location} -{' '}
-                {offer.status ? (
-                  'Oferta Activa'
-                ) : (
-                  <span className="disables">'Oferta Cerrada'</span>
-                )}
-              </p>
-              <p>[ Editar ] - [ Eliminar ]</p>
-            </div>
-          ))} */}
-
           {company.publishedOffers.map((offer) => (
             <div className={styles.offer_list} key={offer._id}>
-              <h3>{offer.position}</h3>
-              <p>
-                {offer.location} -{' '}
-                {offer.status ? (
-                  'Oferta Activa'
-                ) : (
-                  // <span className="disabled">Oferta Cerrada</span>
-                  <span className={styles.disabled}>Oferta Cerrada</span>
-                )}
-              </p>
+              <Link to={`/offers/${offer._id}`}>
+                <h3>{offer.position}</h3>
+                <p>
+                  {offer.location} -{' '}
+                  {offer.status ? (
+                    'Oferta Activa'
+                  ) : (
+                    // <span className="disabled">Oferta Cerrada</span>
+                    <span className={styles.disabled}>Oferta Cerrada</span>
+                  )}
+                </p>
+              </Link>
               <p>[ Editar ] - [ Eliminar ]</p>
             </div>
           ))}
