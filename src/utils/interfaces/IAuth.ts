@@ -21,3 +21,7 @@ export interface RegisterPayload {
   password: string;
   isCompany: boolean;
 }
+
+export interface IAuthIsCompany {
+  isCompany: boolean;
+}
