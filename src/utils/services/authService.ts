@@ -15,11 +15,16 @@ export const login = (data: ILoginData): Promise<IToken> => {
       if (rememberMe) {
         storage.set('key', data.tokenJWT);
       }
-      return data
-    })
+      return data;
+    });
 };
 
 export const logout = () => {
   storage.remove('key');
   removeAuthorizationHeader();
+};
+
+export const authVerify = async () => {
+  const isCompany: boolean = await client.get('/auth');
+  return isCompany;
 };
