@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Notification } from '../../components/common/Notification';
 import { newOfferSlice } from '../../store/reducers/newOfferSlice';
+import { getCompanyInfo } from '../../store/selectors';
 
 export function AddNewOffer() {
   const { t } = useTranslation();
@@ -25,14 +26,14 @@ export function AddNewOffer() {
   const navigate = useNavigate();
   const { loading, error } = useSelector(getUi);
   const { offerStatus } = useSelector(getNewOfferState);
+  const company = useSelector(getCompanyInfo);
+
   const [formData, setFormData] = useState({
     position: '',
     //Inicialization with the actual date AAA-MM-DD
     publicationDate: new Date().toISOString().split('T')[0],
     description: '',
-    //DAL - Hasta que esté corregido el problema del login
-    //companyOwner: { _id: '', name: '' },
-    companyOwner: { _id: '66c6fc21a5c2d7c86aa0aa11', name: 'Apple' },
+    companyOwner: { _id: company.id, name: company.name },
     status: true,
     numberVacancies: 1,
     listApplicants: [],
