@@ -41,3 +41,19 @@ ul {
 .button {
   margin: 1rem auto;
 }
+
+.offer_list {
+  border-radius: 0.3rem;
+  background-color: var(--neutral-bg);
+  padding: 0.5rem 1.5rem;
+  margin: 1rem;
+  height: auto;
+}
+.offer_list:hover {
+  background-color: var(--neutral-min);
+}
+/* Incrementa la especificidad para asegurarte de que se aplique el estilo */
+.offer_list span.disabled {
+  color: var(--error-bg);
+  font-weight: bold;
+}

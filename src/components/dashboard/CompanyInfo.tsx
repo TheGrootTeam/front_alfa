@@ -51,15 +51,39 @@ export default function ApplicantInfo() {
           </div>
         </div>
         <div>
-          <h3>Listado de Ofertas Publicadas</h3>
-          <br></br>
+          <hr></hr>
+          <h2>Listado de Ofertas Publicadas</h2>
           <hr></hr>
           <br></br>
+          {/* {company.publishedOffers.map((offer) => (
+            <div className={styles.offer_list}>
+              <p key={offer._id}>
+                <h3>{offer.position}</h3>
+                {offer.location} -{' '}
+                {offer.status ? (
+                  'Oferta Activa'
+                ) : (
+                  <span className="disables">'Oferta Cerrada'</span>
+                )}
+              </p>
+              <p>[ Editar ] - [ Eliminar ]</p>
+            </div>
+          ))} */}
+
           {company.publishedOffers.map((offer) => (
-            <p key={offer._id}>
-              {offer.position} - {offer.location} -{' '}
-              {offer.status ? '[Activa]' : '[Cerrada]'}
-            </p>
+            <div className={styles.offer_list} key={offer._id}>
+              <h3>{offer.position}</h3>
+              <p>
+                {offer.location} -{' '}
+                {offer.status ? (
+                  'Oferta Activa'
+                ) : (
+                  // <span className="disabled">Oferta Cerrada</span>
+                  <span className={styles.disabled}>Oferta Cerrada</span>
+                )}
+              </p>
+              <p>[ Editar ] - [ Eliminar ]</p>
+            </div>
           ))}
         </div>
       </>
