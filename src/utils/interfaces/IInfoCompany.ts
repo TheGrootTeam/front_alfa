@@ -25,7 +25,7 @@ export interface ICompanyInfo {
 }
 
 export interface ICompanyInfoWithPassword
-  extends Omit<ICompanyInfo, '_id' | 'pusblishedOffers' | '__v'> {
+  extends Omit<ICompanyInfo, '_id' | 'publishedOffers' | '__v'> {
   password: string;
   confirmPassword: string;
 }
