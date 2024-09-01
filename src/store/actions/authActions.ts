@@ -50,7 +50,6 @@ export const authLogout = createAsyncThunk<
     if (getApplicantInfoLoaded(state)) {
       dispatch(applicantInfoSlice.actions.resetApplicantInfoStore());
     }
-    //BALIZA
     if (getCompanyInfoLoaded(state)) {
       dispatch(companyInfoSlice.actions.resetCompanyInfoStore());
     }

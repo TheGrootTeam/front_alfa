@@ -28,7 +28,7 @@ export async function createOffer(newOffer: IOfferForm): Promise<IOfferMapped> {
 export async function updateOffer(updatedOffer: IOfferForm) {
   try {
     //const response = await client.patch(`/offers/${updatedOffer._id}`, updatedOffer);
-    // DAL BALIZA: Paso los datos en el body. Correto aunque sea habitual hacerlo indicando el id en la URL.
+    //The id data is in the body,
     const response = await client.patch<IOfferMapped>('/offers/edit', updatedOffer);
     const mappedOffer = response as unknown as IOfferMapped;
     return mappedOffer;

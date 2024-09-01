@@ -21,9 +21,6 @@ export default function ApplicantInfo() {
   const company = useSelector(getCompanyInfo);
   const { error } = useSelector(getUi);
 
-  //BALIZA
-  console.log('COMPANY INFO : ', company);
-
   useEffect(() => {
     dispatch(getInfoCompanyAction());
   }, [dispatch]);

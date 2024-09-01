@@ -34,8 +34,6 @@ export const companyInfoSlice = createSlice({
       (state, action: PayloadAction<ICompanyInfoMapped>) => {
         state.infoCompany = action.payload;
         state.loadedCompany = true;
-        //BALIZA
-        console.log("SLICE: ", action.payload);
       }
     );
   },
