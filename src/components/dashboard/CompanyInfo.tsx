@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
-import { getToUpdateOfferState, getUi } from '../../store/selectors';
-//import { getApplicantInfo} from '../../store/selectors';
+import { getUi } from '../../store/selectors';
+//import { getToUpdateOfferState } from '../../store/selectors';
 import { getCompanyInfo } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import styles from './CompanyInfo.module.css';
@@ -16,7 +16,6 @@ import { useTranslation } from 'react-i18next';
 
 export default function ApplicantInfo() {
   const dispatch = useDispatch<AppDispatch>();
-  // const applicant = useSelector(getApplicantInfo);
   const { t } = useTranslation();
   const company = useSelector(getCompanyInfo);
   const { error } = useSelector(getUi);
@@ -65,8 +64,7 @@ export default function ApplicantInfo() {
           </div>
           <div className={styles.button}>
             <Link to="/company/edit">
-              {/* <Button>{t('titles.userprofile_edit')}</Button> */}
-              <Button>Editar</Button>
+              <Button>{t('titles.userprofile_edit')}</Button>
             </Link>
           </div>
         </div>
@@ -84,7 +82,6 @@ export default function ApplicantInfo() {
                   {offer.status ? (
                     'Oferta Activa'
                   ) : (
-                    // <span className="disabled">Oferta Cerrada</span>
                     <span className={styles.disabled}>Oferta Cerrada</span>
                   )}
                 </p>
