@@ -124,6 +124,8 @@ export function ApplicantForm({
       password: t('forms.password'),
       confirmPassword: t('forms.password_confirm'),
       phone: t('fields.phone'),
+      photo: t('fields.photo'),
+      cv: t('fields.cv'),
       ubication: t('fields.location'),
       typeJob: t('fields.preferredWorkLocation'),
       internType: t('forms.preferredInternshipType'),

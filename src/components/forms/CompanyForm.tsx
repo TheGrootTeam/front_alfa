@@ -93,6 +93,7 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
       phone: t('fields.phone'),
       ubication: t('fields.location'),
       description: t('fields.description'),
+      logo: t('fields.logo'),
       password: t('forms.password'),
       confirmPassword: t('forms.password_confirm'),
     };
@@ -101,19 +102,21 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
     let errorMessage = '';
 
     for (const [field, label] of Object.entries(requiredFields)) {
-      if (
-        !formCompanyData[field as keyof ICompanyInfoWithPassword] ||
-        (
-          formCompanyData[field as keyof ICompanyInfoWithPassword] as string
-        ).trim().length === 0
-      ) {
+      const value = formCompanyData[field as keyof ICompanyInfoWithPassword];
+
+      // añadimos esto para que no tenga en cuenta Sector, ya que es un objeto
+      if (typeof value === 'object' && value !== null) {
+        continue;
+      }
+      // ahora ya podemos validar todos los campos tipo string
+      if (typeof value !== 'string' || value.trim().length === 0) {
         isValid = false;
         errorMessage = `${label} ${t('errors.required_field_error')}`;
         break;
       }
     }
 
-    // Comprobamos el campo "sector" aparte
+    // y luego comprobamos el campo "Sector" aparte
     const { sector } = formCompanyData;
     if (!sector._id || !sector.sector) {
       isValid = false;
