@@ -71,7 +71,6 @@ export default function ApplicantInfo() {
               {/* <Button>{t('titles.userprofile_edit')}</Button> */}
               <Button>Editar</Button>
             </Link>
-            <p>(Enlace correcto pero redirige a edit applicant)</p>
           </div>
         </div>
         <div>
