@@ -13,15 +13,11 @@ export const getInfoCompanyAction = createAsyncThunk<
   const loadedInfoCompany = getCompanyInfoLoaded(state);
 
   if (loadedInfoCompany) {
-    //BALIZA
-    console.log("ACCIÓN 1: ", getCompanyInfo(state));
     return getCompanyInfo(state);
   }
 
   try {
     const info = await getInfoCompany();
-    //BALIZA
-    console.log("ACCIÓN 2: ", info);
     return info;
   } catch (error: any) {
     if (error.response && error.response.data.message) {
