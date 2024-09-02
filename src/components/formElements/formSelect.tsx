@@ -1,15 +1,16 @@
 import './formElements.module.css';
-
 interface FormSelectProps {
-  label: string;
+  id: string;
+  labelText: string;
   name: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  options: Record<string, string>;
+  options: string[];
 }
 
 export function FormSelect({
-  label,
+  id,
+  labelText,
   name,
   value,
   onChange,
@@ -17,8 +18,11 @@ export function FormSelect({
 }: FormSelectProps) {
   return (
     <>
-      <label>{label}</label>
-      <select name={name} value={value} onChange={onChange}>
+      <label>{labelText}</label>
+      <select id={id} name={name} value={value} onChange={onChange}>
+        <option key="default" value="">
+          ---
+        </option>
         {Object.entries(options).map(([key, optionValue]) => (
           <option key={key} value={key}>
             {optionValue}

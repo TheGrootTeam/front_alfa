@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { IApplicantInfoWithPassword } from '../../utils/interfaces/IInfoApplicant';
 import { FormInputText } from '../formElements/formInputText';
 import { FormCheckbox } from '../formElements/formCheckbox';
-import { FormSelect } from '../formElements/formSelectTemp';
+import { FormSelect } from '../formElements/formSelect';
 import { FormMultiSelect } from '../formElements/formMultiselect';
 import { Button } from '../common/Button';
 import Notification from '../common/Notification';
@@ -43,6 +43,9 @@ export function ApplicantForm({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
+  const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
+
   const [formApplicantData, setFormApplicantData] =
     useState<IApplicantInfoWithPassword>({
       dniCif: '',
@@ -66,9 +69,6 @@ export function ApplicantForm({
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
-  const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
 
   // VALIDACIONES
   const [passwordError, setPasswordError] = useState<string | null>(null);
