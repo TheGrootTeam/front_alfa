@@ -5,6 +5,7 @@ import { IErrorPayload } from '../../utils/interfaces/IStore';
 const initialState = {
   loading: false,
   error: null as string | null,
+  success: null as string | null,
 };
 
 export const uiSlice = createSlice({
@@ -18,7 +19,13 @@ export const uiSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
       state.loading = false;
-    }
+    },
+    resetSuccess: (state) => {
+      state.success = null;
+    },
+    setSuccess: (state, action) => {
+      state.success = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder

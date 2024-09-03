@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
-import { getOffer, getUi } from '../../store/selectors';
+import { getOffer, getUi, getUiSuccess } from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
 import { useState } from 'react';
@@ -22,6 +22,7 @@ export function OfferPage() {
   const { id } = useParams();
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
   const { error } = useSelector(getUi);
+  const success = useSelector(getUiSuccess);
   const [showConfirm, setShowCofirm] = useState(false);
   //The company owner of the offert
   const companyId = offer?.companyOwner._id;
@@ -32,7 +33,8 @@ export function OfferPage() {
 
   const deleteOffer = () => {
     if (id) {
-      dispatch(deleteOfferAction(id));
+      const successMessage = t('success.delete_offer_success');
+      dispatch(deleteOfferAction({ id, successMessage }));
     }
   };
 
@@ -48,6 +50,10 @@ export function OfferPage() {
 
   function showError() {
     return <Notification type="error" message={error} onClick={resetError} />;
+  }
+
+  function showSuccess() {
+    return <Notification type="success" message={success} />;
   }
 
   // useEffect(() => {
@@ -109,6 +115,7 @@ export function OfferPage() {
         )}
 
         {error && showError()}
+        {success && showSuccess()}
       </Layout>
     </>
   );

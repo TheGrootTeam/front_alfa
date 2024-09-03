@@ -122,5 +122,8 @@
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
     "delete_offer_message": "Are you sure you want to delete the offer?"
+  },
+  "success": {
+    "delete_offer_success": "Announcement successfully deleted."
   }
 }

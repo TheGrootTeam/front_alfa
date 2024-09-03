@@ -122,5 +122,8 @@
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",
     "delete_offer_message": "¿Estás seguro que quieres eliminar la oferta?"
+  },
+  "success": {
+    "delete_offer_success": "Anuncio eliminado satisfactoriamente"
   }
 }

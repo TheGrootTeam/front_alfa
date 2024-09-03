@@ -9,6 +9,8 @@ import { createOffer } from '../../utils/services/serviceOffers';
 import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
 import { updateOffer } from '../../utils/services/serviceOffers';
+import { uiSlice } from '../reducers/uiSlice';
+import { router } from '../../router';
 
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
@@ -77,16 +79,25 @@ export const editOffersAction = createAsyncThunk<
 
 export const deleteOfferAction = createAsyncThunk<
   void,
-  string,
-  { rejectValue: string }
->('offers/deleteOffersAction', async (id: string, { rejectWithValue }) => {
-  try {
-    await deleteOfferService(id);
-  } catch (error: any) {
-    if (error.response && error.response.data.message) {
-      return rejectWithValue(error.response.data.message as string);
-    } else {
-      return rejectWithValue(error.error || (error.message as string));
+  { id: string; successMessage: string },
+  { rejectValue: string; extra: { router: typeof router } }
+>(
+  'offers/deleteOffersAction',
+  async ({ id, successMessage }, { rejectWithValue, dispatch, extra }) => {
+    const { router } = extra;
+    try {
+      await deleteOfferService(id);
+      dispatch(uiSlice.actions.setSuccess(successMessage));
+      setTimeout(() => {
+        dispatch(uiSlice.actions.resetSuccess());
+        router.navigate(-1);
+      }, 3000);
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message as string);
+      } else {
+        return rejectWithValue(error.error || (error.message as string));
+      }
     }
   }
-});
+);
