@@ -26,14 +26,11 @@ export async function createApplicantUser(
 
 export async function createCompanyUser(
   newUser: IRegisterCompanyForm,
-  userType: boolean,
   t: (key: string) => string
 ): Promise<IRegisterCompanyForm> {
   try {
-    const response = await client.post('/register', {
-      ...newUser,
-      isCompany: userType,
-    });
+    const response = await client.post('/register', newUser
+    );
 
     return response.data;
   } catch (error: any) {

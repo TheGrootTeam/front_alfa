@@ -47,6 +47,7 @@ export interface IRegisterCompanyForm {
   logo: string;
   password: string;
   confirmPassword: string;
+  isCompany:boolean
 }
 
 export interface IAuthIsCompany {

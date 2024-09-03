@@ -21,12 +21,11 @@ export async function updateApplicantUser(
 
 export async function updateCompanyUser(
   updatedUser: IRegisterCompanyForm,
-  userType: boolean,
   t: (key: string) => string
 ): Promise<IRegisterCompanyForm> {
   try {
     // TEMP console log + return del usuario
-    console.log(userType, updatedUser);
+    console.log(updatedUser);
     return updatedUser;
   } catch (error: any) {
     console.error('Error:', error);

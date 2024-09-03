@@ -39,6 +39,7 @@ export function CompanyForm({ formMode }: CompanyFormProps) {
     logo: '',
     password: '',
     confirmPassword: '',
+    isCompany: true
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -162,10 +163,10 @@ export function CompanyForm({ formMode }: CompanyFormProps) {
   // manejo de los FILE INPUT
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
-    const file = files ? files[0] : null;
+    const file = files ? files[0] : {name: null};
     setCompanyFormData((prevData) => ({
       ...prevData,
-      [name]: file,
+      [name]: `${file.name}`,
     }));
   };
 
@@ -182,11 +183,10 @@ export function CompanyForm({ formMode }: CompanyFormProps) {
     // si todo ok procedemos
     try {
       let result;
-      const userType = true;
-
+      console.log(formCompanyData)
       // Si estamos en REGISTER
       if (formMode === 'register') {
-        result = await createCompanyUser(formCompanyData, userType, t);
+        result = await createCompanyUser(formCompanyData, t);
         console.log('Company registered successfully:', result);
 
         setSuccessMessage(t('notifications.register_success'));
@@ -199,7 +199,7 @@ export function CompanyForm({ formMode }: CompanyFormProps) {
         // Si estamos en EDIT
       } else if (formMode === 'edit') {
         // Handle editing
-        result = await updateCompanyUser(formCompanyData, userType, t);
+        result = await updateCompanyUser(formCompanyData, t);
         console.log('Company information updated successfully:', result);
 
         setSuccessMessage(t('notifications.edit_success'));
