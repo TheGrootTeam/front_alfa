@@ -15,7 +15,7 @@ export interface RequireAuthProps {
   children: ReactNode;
 }
 
-import { WantedRol, MainSkill } from './IInfoApplicant';
+// import { WantedRol, MainSkill } from './IInfoApplicant';
 export interface IRegisterApplicantForm {
   dniCif: string;
   password: string;
@@ -29,19 +29,19 @@ export interface IRegisterApplicantForm {
   ubication: string;
   typeJob: string;
   internType: string;
-  wantedRol: WantedRol[];
-  mainSkills: MainSkill[];
+  wantedRol: string[];
+  mainSkills: string[];
   geographically_mobile: boolean;
   disponibility: boolean;
 }
 
-import { Sector } from './IInfoCompany';
+// import { Sector } from './IInfoCompany';
 export interface IRegisterCompanyForm {
   dniCif: string;
   name: string;
   email: string;
   phone: string;
-  sector: Sector;
+  sector: string;
   ubication: string;
   description: string;
   logo: string;

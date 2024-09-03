@@ -1,42 +1,45 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
-import { ICompanyInfoWithPassword } from '../../utils/interfaces/IInfoCompany';
+// import { IRegisterCompanyForm } from '../../utils/interfaces/IInfoCompany';
+import { IRegisterCompanyForm } from '../../utils/interfaces/IAuth';
 import { FormInputText } from '../formElements/formInputText';
 import { FormCheckbox } from '../formElements/formCheckbox';
 import { FormTextarea } from '../formElements/formTextareaProps';
 import { Button } from '../common/Button';
 import Notification from '../common/Notification';
 import { sectors } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
-import {
-  createCompanyUser,
-  updateCompanyUser,
-} from '../../utils/services/registerService';
+import { createCompanyUser } from '../../utils/services/registerService';
+import { updateCompanyUser } from '../../utils/services/editService';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { useSelector } from 'react-redux';
+import { getUi } from '../../store/selectors';
+import { authLogin } from '../../store/actions/authActions';
 
 interface CompanyFormProps {
-  loading: boolean;
-  error: string | null;
   formMode: 'register' | 'edit';
 }
 
-export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
+export function CompanyForm({ formMode }: CompanyFormProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error } = useSelector(getUi);
 
-  const [formCompanyData, setCompanyFormData] =
-    useState<ICompanyInfoWithPassword>({
-      dniCif: '',
-      name: '',
-      email: '',
-      phone: '',
-      sector: { _id: '', sector: '' },
-      ubication: '',
-      description: '',
-      logo: '',
-      password: '',
-      confirmPassword: '',
-    });
+  const [formCompanyData, setCompanyFormData] = useState<IRegisterCompanyForm>({
+    dniCif: '',
+    name: '',
+    email: '',
+    phone: '',
+    sector: '',
+    ubication: '',
+    description: '',
+    logo: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -81,7 +84,7 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
 
   // Validacion formulario completo al enviar (campos requeridos)
   const validateForm = (
-    formCompanyData: ICompanyInfoWithPassword,
+    formCompanyData: IRegisterCompanyForm,
     t: (key: string) => string
   ): { isValid: boolean; errorMessage: string } => {
     setFormError(null);
@@ -102,7 +105,7 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
     let errorMessage = '';
 
     for (const [field, label] of Object.entries(requiredFields)) {
-      const value = formCompanyData[field as keyof ICompanyInfoWithPassword];
+      const value = formCompanyData[field as keyof IRegisterCompanyForm];
 
       // añadimos esto para que no tenga en cuenta Sector, ya que es un objeto
       if (typeof value === 'object' && value !== null) {
@@ -117,8 +120,8 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
     }
 
     // y luego comprobamos el campo "Sector" aparte
-    const { sector } = formCompanyData;
-    if (!sector._id || !sector.sector) {
+    const sector = formCompanyData.sector;
+    if (!sector || sector.trim().length === 0) {
       isValid = false;
       errorMessage = `${t('fields.sector')} ${t('errors.required_field_error')}`;
     }
@@ -150,22 +153,10 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
   ) => {
     const { name, value } = e.target;
 
-    if (name === 'sector') {
-      const selectedSector = sectors.find((sector) => sector._id === value) || {
-        _id: '',
-        sector: '',
-      };
-
-      setCompanyFormData((prevData) => ({
-        ...prevData,
-        [name]: selectedSector,
-      }));
-    } else {
-      setCompanyFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setCompanyFormData((prevData: IRegisterCompanyForm) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   // manejo de los FILE INPUT
@@ -191,28 +182,31 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
     // si todo ok procedemos
     try {
       let result;
+      const userType = true;
 
       // Si estamos en REGISTER
       if (formMode === 'register') {
-        result = await createCompanyUser(formCompanyData);
+        result = await createCompanyUser(formCompanyData, userType, t);
         console.log('Company registered successfully:', result);
 
         setSuccessMessage(t('notifications.register_success'));
         setTimeout(() => {
           setSuccessMessage(null);
-          navigate('/company');
+          dispatch(authLogin({ dniCif, password, rememberMe: true }));
+          // navigate('/company');
         }, 2000);
 
         // Si estamos en EDIT
       } else if (formMode === 'edit') {
         // Handle editing
-        result = await updateCompanyUser(formCompanyData);
+        result = await updateCompanyUser(formCompanyData, userType, t);
         console.log('Company information updated successfully:', result);
 
         setSuccessMessage(t('notifications.edit_success'));
         setTimeout(() => {
           setSuccessMessage(null);
-          navigate('/company/profile');
+          dispatch(authLogin({ dniCif, password, rememberMe: true }));
+          // navigate('/company/profile');
         }, 2000);
       }
     } catch (error) {
@@ -301,7 +295,7 @@ export function CompanyForm({ loading, error, formMode }: CompanyFormProps) {
             <select
               id="sector"
               name="sector"
-              value={formCompanyData.sector._id}
+              value={formCompanyData.sector}
               onChange={handleSectorSelectChange}
             >
               <option key="default" value="">

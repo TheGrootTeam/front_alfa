@@ -114,7 +114,9 @@
     "register_error": "Error registrando usuario: ",
     "required_field_error": "es un campo obligatorio",
     "processing_form_error": "Error procesando el formulario: ",
-    "generic_form_error": "Ha ocurrido un error mientras se enviaba el formulario, por favor inténtelo de nuevo."
+    "generic_form_error": "Ha ocurrido un error mientras se enviaba el formulario, por favor inténtelo de nuevo.",
+    "creating_user_error": "Se ha producido un error al crear el usuario",
+    "editing_user_error": "Se ha producido un error al editar los datos de usuario"
   },
   "notifications": {
     "register_success": "Usuario registrado correctamente",

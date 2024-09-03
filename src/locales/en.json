@@ -114,7 +114,9 @@
     "register_error": "Error registering user: ",
     "required_field_error": "is a required field",
     "processing_form_error": "Failed to process form: ",
-    "generic_form_error": "An error occurred while submitting the form. Please try again."
+    "generic_form_error": "An error occurred while submitting the form. Please try again.",
+    "creating_user_error": "An error occurred while creating the user",
+    "editing_user_error": "An error occurred while updating the user details"
   },
   "notifications": {
     "register_success": "User registered successfully",

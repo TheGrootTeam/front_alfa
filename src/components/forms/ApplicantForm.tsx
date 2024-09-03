@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
-import { IApplicantInfoWithPassword } from '../../utils/interfaces/IInfoApplicant';
+// import { IRegisterApplicantForm } from '../../utils/interfaces/IInfoApplicant';
+import { IRegisterApplicantForm } from '../../utils/interfaces/IAuth';
 import { FormInputText } from '../formElements/formInputText';
 import { FormCheckbox } from '../formElements/formCheckbox';
 import { FormSelect } from '../formElements/formSelect';
@@ -14,10 +15,13 @@ import {
   rols as rawRoles,
 } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
 import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
-import {
-  createApplicantUser,
-  updateApplicantUser,
-} from '../../utils/services/registerService';
+import { createApplicantUser } from '../../utils/services/registerService';
+import { updateApplicantUser } from '../../utils/services/editService';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { useSelector } from 'react-redux';
+import { getUi } from '../../store/selectors';
+import { authLogin } from '../../store/actions/authActions';
 
 const formattedSkills = rawSkills.map((skill) => ({
   _id: skill._id,
@@ -30,24 +34,20 @@ const formattedRoles = rawRoles.map((role) => ({
 }));
 
 interface ApplicantFormProps {
-  loading: boolean;
-  error: string | null;
   formMode: 'register' | 'edit';
 }
 
-export function ApplicantForm({
-  loading,
-  error,
-  formMode,
-}: ApplicantFormProps) {
+export function ApplicantForm({ formMode }: ApplicantFormProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error } = useSelector(getUi);
 
   const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
   const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
 
   const [formApplicantData, setFormApplicantData] =
-    useState<IApplicantInfoWithPassword>({
+    useState<IRegisterApplicantForm>({
       dniCif: '',
       name: '',
       lastName: '',
@@ -111,7 +111,7 @@ export function ApplicantForm({
 
   // Validacion formulario completo al enviar (campos requeridos)
   const validateForm = (
-    formApplicantData: IApplicantInfoWithPassword,
+    formApplicantData: IRegisterApplicantForm,
     t: (key: string) => string
   ): { isValid: boolean; errorMessage: string } => {
     setFormError(null);
@@ -138,8 +138,8 @@ export function ApplicantForm({
 
     for (const [field, label] of Object.entries(requiredFields)) {
       if (
-        !formApplicantData[field as keyof IApplicantInfoWithPassword] ||
-        (formApplicantData[field as keyof IApplicantInfoWithPassword] as string)
+        !formApplicantData[field as keyof IRegisterApplicantForm] ||
+        (formApplicantData[field as keyof IRegisterApplicantForm] as string)
           .length === 0
       ) {
         isValid = false;
@@ -185,26 +185,12 @@ export function ApplicantForm({
     const { name, options } = e.target;
     const selectedValues = Array.from(options)
       .filter((option) => option.selected)
-      .map((option) => option.value);
+      .map((option) => option.value); // Collect selected IDs
 
-    // Depending on the field, update the corresponding array of objects
-    if (name === 'mainSkills') {
-      const selectedSkills = formattedSkills.filter((skill) =>
-        selectedValues.includes(skill._id)
-      );
-      setFormApplicantData((prevData) => ({
-        ...prevData,
-        mainSkills: selectedSkills, // Update with selected skill objects
-      }));
-    } else if (name === 'wantedRol') {
-      const selectedRoles = formattedRoles.filter((role) =>
-        selectedValues.includes(role._id)
-      );
-      setFormApplicantData((prevData) => ({
-        ...prevData,
-        wantedRol: selectedRoles, // Update with selected role objects
-      }));
-    }
+    setFormApplicantData((prevData) => ({
+      ...prevData,
+      [name]: selectedValues, // Update the selected field (mainSkills or wantedRol) with IDs
+    }));
   };
 
   // manejo de los FILE INPUT
@@ -232,28 +218,31 @@ export function ApplicantForm({
     // si todo ok procedemos
     try {
       let result;
+      const userType = false;
 
       // Si estamos en REGISTER
       if (formMode === 'register') {
-        result = await createApplicantUser(formApplicantData);
+        result = await createApplicantUser(formApplicantData, userType, t);
         console.log('User registered successfully:', result);
 
         setSuccessMessage(t('notifications.register_success'));
         setTimeout(() => {
           setSuccessMessage(null);
-          navigate('/user');
+          // navigate('/user');
+          dispatch(authLogin({ dniCif, password, rememberMe: true }));
         }, 2000);
 
         // Si estamos en EDIT
       } else if (formMode === 'edit') {
         // Handle editing
-        result = await updateApplicantUser(formApplicantData);
+        result = await updateApplicantUser(formApplicantData, userType, t);
         console.log('User information updated successfully:', result);
 
         setSuccessMessage(t('notifications.edit_success'));
         setTimeout(() => {
           setSuccessMessage(null);
-          navigate('/user/profile');
+          // navigate('/user/profile');
+          dispatch(authLogin({ dniCif, password, rememberMe: true }));
         }, 2000);
       }
     } catch (error) {
@@ -388,7 +377,8 @@ export function ApplicantForm({
               labelText={t('fields.mainSkills')}
               id="mainSkills"
               name="mainSkills"
-              value={formApplicantData.mainSkills.map((skill) => skill._id)}
+              // value={formApplicantData.mainSkills.map((skill) => skill._id)}
+              value={formApplicantData.mainSkills}
               onChange={handleMultiSelectChange}
               optionLabel="skill"
               options={formattedSkills}
@@ -399,7 +389,8 @@ export function ApplicantForm({
               labelText={t('fields.wantedRole')}
               id="wantedRol"
               name="wantedRol"
-              value={formApplicantData.wantedRol.map((rol) => rol._id)}
+              // value={formApplicantData.wantedRol.map((rol) => rol._id)}
+              value={formApplicantData.wantedRol}
               onChange={handleMultiSelectChange}
               optionLabel="rol"
               options={formattedRoles}
