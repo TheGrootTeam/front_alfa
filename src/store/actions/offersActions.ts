@@ -1,12 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getOffers } from '../../utils/services/serviceOffers';
+import {
+  deleteOfferService,
+  getOffers,
+} from '../../utils/services/serviceOffers';
 import { offersMapped } from '../../utils/utilsOffers';
 import { IOfferForm, IOfferMapped } from '../../utils/interfaces/IOffer';
 import { createOffer } from '../../utils/services/serviceOffers';
 import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
 import { updateOffer } from '../../utils/services/serviceOffers';
-
 
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
@@ -43,7 +45,7 @@ export const createOffersAction = createAsyncThunk<
       const offer = await createOffer(newOffer);
       const mappedOffer: IOfferMapped = {
         ...offer,
-        id: offer._id!,  //  _id never is undefined
+        id: offer._id!, //  _id never is undefined
       };
       return mappedOffer;
     } catch (error: any) {
@@ -56,16 +58,35 @@ export const editOffersAction = createAsyncThunk<
   IOfferMapped,
   IOfferForm,
   { rejectValue: string }
->('offers/editOffersAction', async (updatedOffer: IOfferForm, { rejectWithValue }) => {
+>(
+  'offers/editOffersAction',
+  async (updatedOffer: IOfferForm, { rejectWithValue }) => {
+    try {
+      const offer = await updateOffer(updatedOffer);
+      const mappedOffer: IOfferMapped = {
+        ...offer,
+        id: (offer as any)._id, // Maps _id to id using an explicit conversion
+        publicationDate: new Date(offer.publicationDate), // Make sure publicationDate is a Date
+      };
+      return mappedOffer;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+export const deleteOfferAction = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: string }
+>('offers/deleteOffersAction', async (id: string, { rejectWithValue }) => {
   try {
-    const offer = await updateOffer(updatedOffer);
-    const mappedOffer: IOfferMapped = {
-      ...offer,
-      id: (offer as any)._id,  // Maps _id to id using an explicit conversion
-      publicationDate: new Date(offer.publicationDate)  // Make sure publicationDate is a Date
-    };
-    return mappedOffer;
+    await deleteOfferService(id);
   } catch (error: any) {
-    return rejectWithValue(error.response?.data?.message || error.message);
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message as string);
+    } else {
+      return rejectWithValue(error.error || (error.message as string));
+    }
   }
 });

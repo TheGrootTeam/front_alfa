@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
-import { getOffer } from '../../store/selectors';
+import { getOffer, getUi } from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
 import { useState } from 'react';
@@ -9,13 +9,19 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // import styles from "./Offermodule.css";
 import { getCompanyInfo } from '../../store/selectors';
+import { useDispatch } from 'react-redux';
+import { deleteOfferAction } from '../../store/actions/offersActions';
+import { AppDispatch } from '../../store/store';
+import Notification from '../../components/common/Notification';
+import { uiSlice } from '../../store/reducers/uiSlice';
 
 export function OfferPage() {
   const { t } = useTranslation();
-  //const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { id } = useParams();
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
+  const { error } = useSelector(getUi);
   const [showConfirm, setShowCofirm] = useState(false);
   //The company owner of the offert
   const companyId = offer?.companyOwner._id;
@@ -25,7 +31,9 @@ export function OfferPage() {
   const ownerOffer = companyId === companyLoged ? true : false;
 
   const deleteOffer = () => {
-    //DELETE AD
+    if (id) {
+      dispatch(deleteOfferAction(id));
+    }
   };
 
   const editOffer = async () => {
@@ -33,6 +41,14 @@ export function OfferPage() {
       navigate(`/offers/edit`, { state: { offer } });
     }
   };
+
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
+  };
+
+  function showError() {
+    return <Notification type="error" message={error} onClick={resetError} />;
+  }
 
   // useEffect(() => {
   //   //dispatch(getOfferAction(id));
@@ -91,6 +107,8 @@ export function OfferPage() {
         ) : (
           `Not Found`
         )}
+
+        {error && showError()}
       </Layout>
     </>
   );
