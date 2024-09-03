@@ -64,6 +64,7 @@ export function ApplicantForm({ formMode }: ApplicantFormProps) {
       mainSkills: [],
       geographically_mobile: false,
       disponibility: false,
+      isCompany: false
     });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -196,10 +197,10 @@ export function ApplicantForm({ formMode }: ApplicantFormProps) {
   // manejo de los FILE INPUT
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
-    const file = files ? files[0] : null;
+    const file = files ? files[0] : {name: null};
     setFormApplicantData((prevData) => ({
       ...prevData,
-      [name]: file,
+      [name]: `${file.name}`,
     }));
   };
 
@@ -218,11 +219,10 @@ export function ApplicantForm({ formMode }: ApplicantFormProps) {
     // si todo ok procedemos
     try {
       let result;
-      const userType = false;
 
       // Si estamos en REGISTER
       if (formMode === 'register') {
-        result = await createApplicantUser(formApplicantData, userType, t);
+        result = await createApplicantUser(formApplicantData, t);
         console.log('User registered successfully:', result);
 
         setSuccessMessage(t('notifications.register_success'));
@@ -235,7 +235,7 @@ export function ApplicantForm({ formMode }: ApplicantFormProps) {
         // Si estamos en EDIT
       } else if (formMode === 'edit') {
         // Handle editing
-        result = await updateApplicantUser(formApplicantData, userType, t);
+        result = await updateApplicantUser(formApplicantData, t);
         console.log('User information updated successfully:', result);
 
         setSuccessMessage(t('notifications.edit_success'));

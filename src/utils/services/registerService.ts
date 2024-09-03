@@ -6,14 +6,11 @@ import {
 
 export async function createApplicantUser(
   newUser: IRegisterApplicantForm,
-  userType: boolean,
   t: (key: string) => string
 ): Promise<IRegisterApplicantForm> {
   try {
-    const response = await client.post('/register', {
-      ...newUser,
-      isCompany: userType,
-    });
+    const response = await client.post('/register', newUser,
+    );
 
     return response.data;
   } catch (error: any) {

@@ -33,6 +33,7 @@ export interface IRegisterApplicantForm {
   mainSkills: string[];
   geographically_mobile: boolean;
   disponibility: boolean;
+  isCompany: boolean;
 }
 
 // import { Sector } from './IInfoCompany';
