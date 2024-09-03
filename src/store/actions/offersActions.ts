@@ -11,6 +11,7 @@ import { getOffersLoaded, getOffersState } from '../selectors';
 import { updateOffer } from '../../utils/services/serviceOffers';
 import { uiSlice } from '../reducers/uiSlice';
 import { router } from '../../router';
+import { offersSlice } from '../reducers/offersSlice';
 
 export const getOffersAction = createAsyncThunk<
   IOfferMapped[],
@@ -87,6 +88,8 @@ export const deleteOfferAction = createAsyncThunk<
     const { router } = extra;
     try {
       await deleteOfferService(id);
+      dispatch(offersSlice.actions.resetLoadedOffers());
+      await dispatch(getOffersAction() as any);
       dispatch(uiSlice.actions.setSuccess(successMessage));
       setTimeout(() => {
         dispatch(uiSlice.actions.resetSuccess());
