@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { Notification } from '../../components/common/Notification';
 import { newOfferSlice } from '../../store/reducers/newOfferSlice';
 import { getCompanyInfo } from '../../store/selectors';
+import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
 
 export function AddNewOffer() {
   const { t } = useTranslation();
@@ -27,6 +28,9 @@ export function AddNewOffer() {
   const { loading, error } = useSelector(getUi);
   const { offerStatus } = useSelector(getNewOfferState);
   const company = useSelector(getCompanyInfo);
+
+  const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
+  const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
 
   const [formData, setFormData] = useState({
     position: '',
@@ -167,7 +171,7 @@ export function AddNewOffer() {
             onChange={handleChange}
           />
         </p>
-        <p>
+        {/* MARTA - lo dejo comentado hasta verificar <p>
           <FormSelect
             label={t('forms.job_type')}
             name="typeJob"
@@ -193,6 +197,26 @@ export function AddNewOffer() {
               remunerado: 'remunerado',
               ong: 'ONG',
             }}
+          />
+        </p> */}
+        <p>
+          <FormSelect
+            labelText={t('forms.job_type')}
+            id="typeJob"
+            name="typeJob"
+            value={typeJob}
+            onChange={handleChange}
+            options={jobOptions}
+          />
+        </p>
+        <p>
+          <FormSelect
+            labelText={t('forms.internship_type')}
+            id="internJob"
+            name="internJob"
+            value={internJob}
+            onChange={handleChange}
+            options={internOptions}
           />
         </p>
         <p>

@@ -1,8 +1,39 @@
 import { client } from '../../api/client';
-import { RegisterPayload } from '../interfaces/IAuth';
+import {
+  IRegisterApplicantForm,
+  IRegisterCompanyForm,
+} from '../interfaces/IAuth';
 
-export const register = (data: RegisterPayload): Promise<RegisterPayload> => {
-  return client.post<RegisterPayload, RegisterPayload>('register', {
-    data
-  });
-};
+export async function createApplicantUser(
+  newUser: IRegisterApplicantForm,
+  t: (key: string) => string
+): Promise<IRegisterApplicantForm> {
+  try {
+    const response = await client.post('/register', newUser,
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error('Error:', error);
+    throw new Error(
+      error.response?.data?.message || t('errors.creating_user_error')
+    );
+  }
+}
+
+export async function createCompanyUser(
+  newUser: IRegisterCompanyForm,
+  t: (key: string) => string
+): Promise<IRegisterCompanyForm> {
+  try {
+    const response = await client.post('/register', newUser
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error('Error:', error);
+    throw new Error(
+      error.response?.data?.message || t('errors.creating_user_error')
+    );
+  }
+}

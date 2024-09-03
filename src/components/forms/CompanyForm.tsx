@@ -1,55 +1,50 @@
 import { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
+// import { IRegisterCompanyForm } from '../../utils/interfaces/IInfoCompany';
+import { IRegisterCompanyForm } from '../../utils/interfaces/IAuth';
 import { FormInputText } from '../formElements/formInputText';
 import { FormCheckbox } from '../formElements/formCheckbox';
 import { FormTextarea } from '../formElements/formTextareaProps';
 import { Button } from '../common/Button';
 import Notification from '../common/Notification';
 import { sectors } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
-
-interface ICompanyInfoWithPassword {
-  dniCif: string;
-  name: string;
-  email: string;
-  phone: string;
-  sector: Sector;
-  ubication: string;
-  description: string;
-  logo: string;
-  password: string;
-  confirmPassword: string;
-}
-
-interface Sector {
-  _id: string;
-  sector: string;
-}
+import { createCompanyUser } from '../../utils/services/registerService';
+import { updateCompanyUser } from '../../utils/services/editService';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { useSelector } from 'react-redux';
+import { getUi } from '../../store/selectors';
+import { authLogin } from '../../store/actions/authActions';
 
 interface CompanyFormProps {
-  loading: boolean;
-  error: string | null;
+  formMode: 'register' | 'edit';
 }
 
-export function CompanyForm({ loading, error }: CompanyFormProps) {
+export function CompanyForm({ formMode }: CompanyFormProps) {
   const { t } = useTranslation();
+  // const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error } = useSelector(getUi);
 
-  const [formCompanyData, setCompanyFormData] =
-    useState<ICompanyInfoWithPassword>({
-      dniCif: '',
-      name: '',
-      email: '',
-      phone: '',
-      sector: { _id: '', sector: '' },
-      ubication: '',
-      description: '',
-      logo: '',
-      password: '',
-      confirmPassword: '',
-    });
+  const [formCompanyData, setCompanyFormData] = useState<IRegisterCompanyForm>({
+    dniCif: '',
+    name: '',
+    email: '',
+    phone: '',
+    sector: '',
+    ubication: '',
+    description: '',
+    logo: '',
+    password: '',
+    confirmPassword: '',
+    isCompany: true
+  });
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // VALIDACIONES
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -88,6 +83,53 @@ export function CompanyForm({ loading, error }: CompanyFormProps) {
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isValidCIF = (cif: string) => /^[A-H][0-9]{8}$/.test(cif);
 
+  // Validacion formulario completo al enviar (campos requeridos)
+  const validateForm = (
+    formCompanyData: IRegisterCompanyForm,
+    t: (key: string) => string
+  ): { isValid: boolean; errorMessage: string } => {
+    setFormError(null);
+
+    const requiredFields = {
+      dniCif: t('forms.cif'),
+      name: t('fields.name'),
+      email: t('forms.email'),
+      phone: t('fields.phone'),
+      ubication: t('fields.location'),
+      description: t('fields.description'),
+      logo: t('fields.logo'),
+      password: t('forms.password'),
+      confirmPassword: t('forms.password_confirm'),
+    };
+
+    let isValid = true;
+    let errorMessage = '';
+
+    for (const [field, label] of Object.entries(requiredFields)) {
+      const value = formCompanyData[field as keyof IRegisterCompanyForm];
+
+      // añadimos esto para que no tenga en cuenta Sector, ya que es un objeto
+      if (typeof value === 'object' && value !== null) {
+        continue;
+      }
+      // ahora ya podemos validar todos los campos tipo string
+      if (typeof value !== 'string' || value.trim().length === 0) {
+        isValid = false;
+        errorMessage = `${label} ${t('errors.required_field_error')}`;
+        break;
+      }
+    }
+
+    // y luego comprobamos el campo "Sector" aparte
+    const sector = formCompanyData.sector;
+    if (!sector || sector.trim().length === 0) {
+      isValid = false;
+      errorMessage = `${t('fields.sector')} ${t('errors.required_field_error')}`;
+    }
+
+    return { isValid, errorMessage };
+  };
+
   // manejo de los campos tipo TEXTO
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -112,50 +154,65 @@ export function CompanyForm({ loading, error }: CompanyFormProps) {
   ) => {
     const { name, value } = e.target;
 
-    if (name === 'sector') {
-      const selectedSector = sectors.find((sector) => sector._id === value) || {
-        _id: '',
-        sector: '',
-      };
-
-      setCompanyFormData((prevData) => ({
-        ...prevData,
-        [name]: selectedSector,
-      }));
-    } else {
-      setCompanyFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setCompanyFormData((prevData: IRegisterCompanyForm) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   // manejo de los FILE INPUT
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
-    const file = files ? files[0] : null;
+    const file = files ? files[0] : {name: null};
     setCompanyFormData((prevData) => ({
       ...prevData,
-      [name]: file,
+      [name]: `${file.name}`,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    // si hay errores de formato o faltan campos requeridos no se envía
     if (passwordError || emailError || dniCifError) return;
+    const { isValid, errorMessage } = validateForm(formCompanyData, t);
+    if (!isValid) {
+      setFormError(errorMessage);
+      return;
+    }
 
-    // CODIGO ORIGINAL HANDLESUBMIT PARA EL REGISTER COMENTADO AL FINAL DE TODO
+    // si todo ok procedemos
+    try {
+      let result;
+      console.log(formCompanyData)
+      // Si estamos en REGISTER
+      if (formMode === 'register') {
+        result = await createCompanyUser(formCompanyData, t);
+        console.log('Company registered successfully:', result);
 
-    // TODO: si el registro sale bien,
-    // - Enviar datos del usuario
-    // - Guardar token y la info necesaria donde haga falta
-    // - Mostrar mensaje de éxito con un timeout de un par de segundos
-    // - Redirigir el usuario a su dashboard /company
+        setSuccessMessage(t('notifications.register_success'));
+        setTimeout(() => {
+          setSuccessMessage(null);
+          dispatch(authLogin({ dniCif, password, rememberMe: true }));
+          // navigate('/company');
+        }, 2000);
 
-    // TODO: si el registro sale mal,
-    // - Recoger y gestionar el error
-    // - Mostrar el mensaje correspondiente con el componente Notification
+        // Si estamos en EDIT
+      } else if (formMode === 'edit') {
+        // Handle editing
+        result = await updateCompanyUser(formCompanyData, t);
+        console.log('Company information updated successfully:', result);
+
+        setSuccessMessage(t('notifications.edit_success'));
+        setTimeout(() => {
+          setSuccessMessage(null);
+          dispatch(authLogin({ dniCif, password, rememberMe: true }));
+          // navigate('/company/profile');
+        }, 2000);
+      }
+    } catch (error) {
+      console.error(t('errors.processing_form_error'), error);
+      setFormError(t('errors.generic_form_error'));
+    }
   };
 
   return (
@@ -238,10 +295,12 @@ export function CompanyForm({ loading, error }: CompanyFormProps) {
             <select
               id="sector"
               name="sector"
-              value={formCompanyData.sector._id}
+              value={formCompanyData.sector}
               onChange={handleSectorSelectChange}
             >
-              <option value="">{t('forms.select_sector')}</option>
+              <option key="default" value="">
+                ---
+              </option>
               {sectors.map((sector) => (
                 <option key={sector._id} value={sector._id}>
                   {sector.sector}
@@ -277,70 +336,11 @@ export function CompanyForm({ loading, error }: CompanyFormProps) {
             </Button>
           </li>
         </ul>
-        {error && <Notification type="error" message={error} />}
+        {formError && <Notification type="error" message={formError} />}
+        {successMessage && (
+          <Notification message={successMessage} type="success" />
+        )}
       </form>
     </>
   );
 }
-
-// const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-//   event.preventDefault();
-//   if (passwordError || emailError || dniCifError) return;
-
-//   try {
-//     const resultAction = await dispatch(
-//       registerUser({
-//         dniCif,
-//         email,
-//         password,
-//         isCompany: isCompany === 'true',
-//       }) as any
-//     );
-
-//     if (registerUser.fulfilled.match(resultAction)) {
-//       // const { token, isCompany: isCompanyFromResponse } = resultAction.payload;
-
-//       // Guardar el token en localStorage y configurar la autorización para futuras solicitudes
-//       // localStorage.setItem('token', token);
-//       // localStorage.setItem('isCompany', isCompanyFromResponse.toString());
-//       // setAuthorizationHeader(token);
-
-//       setSuccessMessage(t('forms.register_success'));
-//       setFormData({
-//           dniCif: '',
-//           email: '',
-//           password: '',
-//           confirmPassword: '',
-//           isCompany: null,
-//       });
-//       setTimeout(() => setSuccessMessage(null), 2000);
-
-//       // Asegurarse de que el valor de isCompany es el esperado
-//       // console.log("Valor de isCompany:", isCompanyFromResponse);
-
-//       // Corregir la lógica de redirección
-
-//       const isCompany = true //USESELECTOR PARA SABER SI IS COMPANY
-//       if (isCompany) {
-//           navigate('/edit/company');
-//       } else {
-//           navigate('/edit/user');
-//       }
-//     } else if (registerUser.rejected.match(resultAction)) {
-//       const errorPayload = resultAction.payload;
-//       if (errorPayload?.message === 'User already exists') {
-//         setErrorMessage(
-//           <>
-//             {t('errors.user_exists')}.{' '}
-//             <Link to="/login">{t('forms.login_link')}</Link>
-//           </>
-//         );
-//       } else {
-//         setErrorMessage(t('errors.register_error'));
-//       }
-//     }
-//   } catch (error) {
-//     console.error(t('errors.register_error'), error);
-//     setErrorMessage(t('errors.register_error'));
-//   }
-// };

@@ -15,11 +15,40 @@ export interface RequireAuthProps {
   children: ReactNode;
 }
 
-export interface RegisterPayload {
+// import { WantedRol, MainSkill } from './IInfoApplicant';
+export interface IRegisterApplicantForm {
   dniCif: string;
-  email: string;
   password: string;
+  confirmPassword: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  photo: string;
+  cv: string;
+  ubication: string;
+  typeJob: string;
+  internType: string;
+  wantedRol: string[];
+  mainSkills: string[];
+  geographically_mobile: boolean;
+  disponibility: boolean;
   isCompany: boolean;
+}
+
+// import { Sector } from './IInfoCompany';
+export interface IRegisterCompanyForm {
+  dniCif: string;
+  name: string;
+  email: string;
+  phone: string;
+  sector: string;
+  ubication: string;
+  description: string;
+  logo: string;
+  password: string;
+  confirmPassword: string;
+  isCompany:boolean
 }
 
 export interface IAuthIsCompany {

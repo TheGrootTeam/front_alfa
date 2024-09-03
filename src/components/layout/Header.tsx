@@ -22,7 +22,7 @@ const Header = () => {
   const { error } = useSelector(getUi);
   const auth = useSelector(getIsLogged); // To verify if the user is logged
   const isCompany = useSelector(getIsCompany); //To verify if it is a company
-  const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
+  // const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
   const dispatch = useDispatch<AppDispatch>();
 
   const langs: { [key: string]: { nativeName: string } } = {
@@ -97,9 +97,9 @@ const Header = () => {
                   </li>
 
                   {/* MARTA - TEMPORAL porque si no no puedo ver la página */}
-                  <li>
+                  {/* <li>
                     <Link to={`/view/user/${loggedInUser}`}>Profile</Link>
-                  </li>
+                  </li> */}
                 </>
               )}
             </ul>
