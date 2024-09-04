@@ -2,8 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { getInfoCompany } from "../../utils/services/infoCompanyService";
 import { ICompanyInfoMapped } from "../../utils/interfaces/IInfoCompany";
-import { getCompanyInfo, getCompanyInfoLoaded, getMustRecharge } from "../selectors";
+import { getCompanyInfo, getCompanyInfoLoaded, getMustRecharge, getOffersState } from "../selectors";
 import { resetMustRecharge } from "../reducers/editOfferSlice";
+import { getOffersAction } from "../actions/offersActions";
 
 export const getInfoCompanyAction = createAsyncThunk<
   ICompanyInfoMapped,
@@ -13,8 +14,15 @@ export const getInfoCompanyAction = createAsyncThunk<
 
   const state = getState();
   const loadedInfoCompany = getCompanyInfoLoaded(state);
-  const mustRecharge = getMustRecharge(state);
 
+  //Test if offers is loaded in state
+  const offers = getOffersState(state);
+  if (!offers || offers.length === 0) {
+    await dispatch(getOffersAction()); // Load in the state the offers
+  }
+
+  //Check if there have been any edition in the offers (and take it the data of the status or the DB )
+  const mustRecharge = getMustRecharge(state);
   if (loadedInfoCompany && (mustRecharge === false || mustRecharge === null || mustRecharge === undefined)) {
     return getCompanyInfo(state);
   }
