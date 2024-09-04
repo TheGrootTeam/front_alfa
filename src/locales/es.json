@@ -102,7 +102,9 @@
     "saveAndFinish": "Guardar y Terminar",
     "yes_delete": "SI, Eliminar",
     "no_cancel": "NO, Cancelar",
-    "delete_offer": "Eliminar oferta"
+    "delete_offer": "Eliminar oferta",
+    "userprofile_edit": "Editar perfil de usuario",
+    "userprofile_delete": "Eliminar perfil de usuario"
   },
   "errors": {
     "password_empty": "Los campos de contraseña no pueden estar vacíos",

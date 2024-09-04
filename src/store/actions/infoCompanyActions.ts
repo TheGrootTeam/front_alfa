@@ -8,7 +8,8 @@ export const getInfoCompanyAction = createAsyncThunk<
   ICompanyInfoMapped,
   void,
   { state: RootState; rejectValue: string }
->('applicants/getApplicantsInfo', async (_, { getState, rejectWithValue }) => {
+>('companies/getCompaniesInfo', async (_, { getState, rejectWithValue }) => {
+  //>('applicants/getApplicantsInfo', async (_, { getState, rejectWithValue }) => {
   const state = getState();
   const loadedInfoCompany = getCompanyInfoLoaded(state);
 

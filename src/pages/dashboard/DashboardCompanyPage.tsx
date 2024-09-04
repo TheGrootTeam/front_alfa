@@ -11,7 +11,6 @@ export function DashBoardCompanyPage() {
       <Layout title={t('titles.dashboardCompany')} page="dashboard-company">
         <div className={styles.container}>
           <CompanyInfo />
-          {/* <ListingsTemporal /> */}
         </div>
       </Layout>
     </>
