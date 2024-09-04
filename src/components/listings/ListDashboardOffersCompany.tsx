@@ -1,19 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ListDashboardOffersCompany.module.css';
-
-//BALIZA
-//Interfaces a donde corresponden...
-interface offerDashboard {
-  _id: string;
-  position: string;
-  location: string;
-  status: boolean;
-}
-
-interface ListDashboardOffersCompanyProps {
-  publishedOffers: offerDashboard[];
-}
+import { ListDashboardOffersCompanyProps } from '../../utils/interfaces/IOffer';
 
 export const ListDashboardOffersCompany: React.FC<
   ListDashboardOffersCompanyProps

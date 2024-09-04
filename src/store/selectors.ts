@@ -32,3 +32,6 @@ export const getCompanyInfoLoaded = (state: RootState) =>
 
 export const getCompanyInfo = (state: RootState) =>
   state.companyInfo.infoCompany;
+
+export const getMustRecharge = (state: RootState) =>
+  state.editOffer.mustRecharge;

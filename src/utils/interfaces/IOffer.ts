@@ -93,3 +93,14 @@ export interface IOfferForm {
   status: boolean;
   typeJob: string;
 }
+
+export interface offerDashboard {
+  _id: string;
+  position: string;
+  location: string;
+  status: boolean;
+}
+
+export interface ListDashboardOffersCompanyProps {
+  publishedOffers: offerDashboard[];
+}
