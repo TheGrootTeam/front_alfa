@@ -16,7 +16,7 @@ import {
 } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
 import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
 import { createApplicantUser } from '../../utils/services/registerService';
-import { updateApplicantUser } from '../../utils/services/editService';
+// import { updateApplicantUser } from '../../utils/services/editService';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
@@ -33,11 +33,7 @@ const formattedRoles = rawRoles.map((role) => ({
   rol: role.rol,
 }));
 
-interface ApplicantFormProps {
-  formMode: 'register' | 'edit';
-}
-
-export function ApplicantForm({ formMode }: ApplicantFormProps) {
+export function RegisterApplicantForm() {
   const { t } = useTranslation();
   // const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -64,7 +60,7 @@ export function ApplicantForm({ formMode }: ApplicantFormProps) {
       mainSkills: [],
       geographically_mobile: false,
       disponibility: false,
-      isCompany: false
+      isCompany: false,
     });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -197,7 +193,7 @@ export function ApplicantForm({ formMode }: ApplicantFormProps) {
   // manejo de los FILE INPUT
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
-    const file = files ? files[0] : {name: null};
+    const file = files ? files[0] : { name: null };
     setFormApplicantData((prevData) => ({
       ...prevData,
       [name]: `${file.name}`,
@@ -220,31 +216,29 @@ export function ApplicantForm({ formMode }: ApplicantFormProps) {
     try {
       let result;
 
-      // Si estamos en REGISTER
-      if (formMode === 'register') {
-        result = await createApplicantUser(formApplicantData, t);
-        console.log('User registered successfully:', result);
+      result = await createApplicantUser(formApplicantData, t);
+      console.log('User registered successfully:', result);
 
-        setSuccessMessage(t('notifications.register_success'));
-        setTimeout(() => {
-          setSuccessMessage(null);
-          // navigate('/user');
-          dispatch(authLogin({ dniCif, password, rememberMe: true }));
-        }, 2000);
+      setSuccessMessage(t('notifications.register_success'));
+      setTimeout(() => {
+        setSuccessMessage(null);
+        // navigate('/user');
+        dispatch(authLogin({ dniCif, password, rememberMe: true }));
+      }, 2000);
 
-        // Si estamos en EDIT
-      } else if (formMode === 'edit') {
-        // Handle editing
-        result = await updateApplicantUser(formApplicantData, t);
-        console.log('User information updated successfully:', result);
+      //   // Si estamos en EDIT
+      // } else if (formMode === 'edit') {
+      //   // Handle editing
+      //   result = await updateApplicantUser(formApplicantData, t);
+      //   console.log('User information updated successfully:', result);
 
-        setSuccessMessage(t('notifications.edit_success'));
-        setTimeout(() => {
-          setSuccessMessage(null);
-          // navigate('/user/profile');
-          dispatch(authLogin({ dniCif, password, rememberMe: true }));
-        }, 2000);
-      }
+      //   setSuccessMessage(t('notifications.edit_success'));
+      //   setTimeout(() => {
+      //     setSuccessMessage(null);
+      //     // navigate('/user/profile');
+      //     dispatch(authLogin({ dniCif, password, rememberMe: true }));
+      //   }, 2000);
+      // }
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));

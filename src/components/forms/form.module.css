@@ -56,6 +56,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-right: 1.2rem;
 }
 
 .form input[type='file']::file-selector-button:hover {
@@ -93,7 +94,7 @@ select[multiple] option[selected] {
 }
 
 .form button {
-  border: 2px solid var(--neutral-light);
+  border: 2px solid var(--accent-light);
   border-radius: 1rem;
   line-height: 3.5rem;
   background-color: var(--accent-light);

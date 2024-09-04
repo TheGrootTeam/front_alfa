@@ -47,7 +47,8 @@ const Header = () => {
         <div className={styles.inner}>
           <h1 className={styles.h1}>
             <Link to={`/`}>
-              <Logo className={styles.icon} /> <span>InternIT</span>
+              <Logo className={styles.icon} />
+              <span>InternIT</span>
             </Link>
           </h1>
           <nav className={styles.nav}>
@@ -73,7 +74,7 @@ const Header = () => {
                       </li>
                     </>
                   )}
-                  <li>
+                  <li className={styles.logout}>
                     <ConfirmationButton
                       buttonLabel={t('nav.logout')}
                       dialogText={t('dialogs.logout_message')}
@@ -81,6 +82,7 @@ const Header = () => {
                       cancelLabel={t('gen.no')}
                       confirmAction={handleLogout}
                     />
+                    <span className="material-symbols-outlined">logout</span>
                   </li>
                 </>
               ) : (

@@ -1,7 +1,8 @@
 {
   "gen": {
     "yes": "yes",
-    "no": "no"
+    "no": "no",
+    "published_on": "Published on"
   },
   "nav": {
     "log_in": "Log in",
@@ -9,7 +10,8 @@
     "add_new_offer": "Add New Offer",
     "edit_offer_link": "Edit Offer",
     "about": "About",
-    "logout": "Log out"
+    "logout": "Log out",
+    "github_link": "Code on Github"
   },
   "titles": {
     "log_in": "Log in",
@@ -128,5 +130,9 @@
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
     "delete_offer_message": "Are you sure you want to delete the offer?"
+  },
+  "plurals": {
+    "vacancy_one": "vacancy",
+    "vacancy_other": "vacancies"
   }
 }

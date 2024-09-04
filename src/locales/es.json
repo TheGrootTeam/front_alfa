@@ -1,7 +1,8 @@
 {
   "gen": {
     "yes": "sí",
-    "no": "no"
+    "no": "no",
+    "published_on": "Publicada el"
   },
   "nav": {
     "log_in": "Entrar",
@@ -9,7 +10,8 @@
     "add_new_offer": "Nueva Oferta",
     "edit_offer_link": "Editar Oferta",
     "about": "Acerca de",
-    "logout": "Salir"
+    "logout": "Salir",
+    "github_link": "Código en Github"
   },
   "titles": {
     "log_in": "Entrar",
@@ -128,5 +130,9 @@
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",
     "delete_offer_message": "¿Estás seguro que quieres eliminar la oferta?"
+  },
+  "plurals": {
+    "vacancy_one": "vacante",
+    "vacancy_other": "vacantes"
   }
 }

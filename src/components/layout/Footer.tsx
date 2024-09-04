@@ -9,10 +9,15 @@ function Footer() {
       <div className={styles.inner}>
         <ul className={styles.content}>
           <li>
-            &copy; 2024 <strong>InternIT</strong>
+            <h2>
+              &copy; 2024 <strong>InternIT</strong>
+            </h2>
           </li>
           <li>
             <Link to={`/about`}>{t('nav.about')}</Link>
+          </li>
+          <li>
+            <a href="http://">{t('nav.github_link')}</a>
           </li>
         </ul>
       </div>

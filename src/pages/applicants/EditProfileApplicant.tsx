@@ -1,6 +1,5 @@
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
-import { ApplicantForm } from '../../components/forms/ApplicantForm';
 // import { useSelector } from 'react-redux';
 // import { getUi } from '../../store/selectors';
 
@@ -10,8 +9,7 @@ export function EditUserProfilePage() {
 
   return (
     <Layout title={t('titles.userprofile_edit')} page="edituserprofile">
-      {/* <ApplicantForm loading={loading} error={error} formMode="edit" /> */}
-      <ApplicantForm formMode="edit" />
+      {/* Componente del form */}
     </Layout>
   );
 }

@@ -11,18 +11,14 @@ import { Button } from '../common/Button';
 import Notification from '../common/Notification';
 import { sectors } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
 import { createCompanyUser } from '../../utils/services/registerService';
-import { updateCompanyUser } from '../../utils/services/editService';
+// import { updateCompanyUser } from '../../utils/services/editService';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { authLogin } from '../../store/actions/authActions';
 
-interface CompanyFormProps {
-  formMode: 'register' | 'edit';
-}
-
-export function CompanyForm({ formMode }: CompanyFormProps) {
+export function RegisterCompanyForm() {
   const { t } = useTranslation();
   // const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -39,7 +35,7 @@ export function CompanyForm({ formMode }: CompanyFormProps) {
     logo: '',
     password: '',
     confirmPassword: '',
-    isCompany: true
+    isCompany: true,
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -163,7 +159,7 @@ export function CompanyForm({ formMode }: CompanyFormProps) {
   // manejo de los FILE INPUT
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
-    const file = files ? files[0] : {name: null};
+    const file = files ? files[0] : { name: null };
     setCompanyFormData((prevData) => ({
       ...prevData,
       [name]: `${file.name}`,
@@ -183,32 +179,31 @@ export function CompanyForm({ formMode }: CompanyFormProps) {
     // si todo ok procedemos
     try {
       let result;
-      console.log(formCompanyData)
-      // Si estamos en REGISTER
-      if (formMode === 'register') {
-        result = await createCompanyUser(formCompanyData, t);
-        console.log('Company registered successfully:', result);
+      console.log(formCompanyData);
 
-        setSuccessMessage(t('notifications.register_success'));
-        setTimeout(() => {
-          setSuccessMessage(null);
-          dispatch(authLogin({ dniCif, password, rememberMe: true }));
-          // navigate('/company');
-        }, 2000);
+      result = await createCompanyUser(formCompanyData, t);
+      console.log('Company registered successfully:', result);
 
-        // Si estamos en EDIT
-      } else if (formMode === 'edit') {
-        // Handle editing
-        result = await updateCompanyUser(formCompanyData, t);
-        console.log('Company information updated successfully:', result);
+      setSuccessMessage(t('notifications.register_success'));
+      setTimeout(() => {
+        setSuccessMessage(null);
+        dispatch(authLogin({ dniCif, password, rememberMe: true }));
+        // navigate('/company');
+      }, 2000);
 
-        setSuccessMessage(t('notifications.edit_success'));
-        setTimeout(() => {
-          setSuccessMessage(null);
-          dispatch(authLogin({ dniCif, password, rememberMe: true }));
-          // navigate('/company/profile');
-        }, 2000);
-      }
+      // Si estamos en EDIT
+      // } else if (formMode === 'edit') {
+      //   // Handle editing
+      //   result = await updateCompanyUser(formCompanyData, t);
+      //   console.log('Company information updated successfully:', result);
+
+      //   setSuccessMessage(t('notifications.edit_success'));
+      //   setTimeout(() => {
+      //     setSuccessMessage(null);
+      //     dispatch(authLogin({ dniCif, password, rememberMe: true }));
+      //     // navigate('/company/profile');
+      //   }, 2000);
+      // }
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
