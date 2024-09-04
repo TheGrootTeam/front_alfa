@@ -1,6 +1,5 @@
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
-import { CompanyForm } from '../../components/forms/CompanyForm';
 // import { useSelector } from 'react-redux';
 // import { getUi } from '../../store/selectors';
 
@@ -10,8 +9,7 @@ export function EditCompanyProfilePage() {
 
   return (
     <Layout title={t('titles.companyprofile_edit')} page="editcompanyprofile">
-      {/* <CompanyForm loading={loading} error={error} formMode="edit" /> */}
-      <CompanyForm formMode="edit" />
+      {/* Componente del form */}
     </Layout>
   );
 }

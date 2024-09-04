@@ -4,10 +4,9 @@ textarea,
 select,
 option,
 input::file-selector-button {
-  font-family: system-ui, Helvetica, Arial, sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-primary);
+  font-style: var(--font-style-primary);
 }
 
 input[type='checkbox'] {

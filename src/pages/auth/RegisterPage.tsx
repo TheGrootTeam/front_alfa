@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Layout from '../../components/layout/Layout';
 import styles from './Register.module.css';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
-import { ApplicantForm } from '../../components/forms/ApplicantForm';
-import { CompanyForm } from '../../components/forms/CompanyForm';
+import { RegisterApplicantForm } from '../../components/forms/RegisterApplicantForm';
+import { RegisterCompanyForm } from '../../components/forms/RegisterCompanyForm';
 // import { getUi } from '../../store/selectors';
 // import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -58,7 +58,7 @@ export function RegisterPage() {
         {isCompany === 'true' && (
           <div id="companyForm" className={styles.companyForm}>
             {/* <CompanyForm loading={loading} error={error} formMode="register" /> */}
-            <CompanyForm formMode="register" />
+            <RegisterCompanyForm />
           </div>
         )}
         {isCompany === 'false' && (
@@ -68,7 +68,7 @@ export function RegisterPage() {
               error={error}
               formMode="register"
             /> */}
-            <ApplicantForm formMode="register" />
+            <RegisterApplicantForm />
           </div>
         )}
       </>

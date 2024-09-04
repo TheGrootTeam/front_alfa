@@ -1,0 +1,8 @@
+.main {
+  background-color: var(--neutral-min);
+  background: linear-gradient(
+    180deg,
+    rgba(214, 219, 209, 1) 75%,
+    rgba(154, 163, 151, 0.8) 100%
+  );
+}
