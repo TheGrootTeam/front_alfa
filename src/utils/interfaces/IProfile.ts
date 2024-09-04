@@ -37,7 +37,7 @@ export interface ICompanyPublicProfile {
   name: string;
   email: string;
   phone: string;
-  sector: string;
+  sector: {sector: string};
   ubication: string;
   description: string;
   logo: string;
