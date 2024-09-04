@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { Loader } from '../../components/common/Loader';
 import Notification from '../../components/common/Notification';
-// import { ListingDetail } from '../../components/listings/ListingDetail';
+import { ListingDetail } from '../../components/listings/ListingDetail';
 import { getPublicInfo } from '../../utils/services/publicProfileService';
 import { ICompanyPublicProfileMapped } from '../../utils/interfaces/IProfile';
 // import styles from "./Profile.module.css";
@@ -23,20 +23,30 @@ export function CompanyProfilePage() {
     company: '',
     email: '',
     phone: '',
-    sector: '',
+    sector: {sector: ''},
     ubication: '',
     description: '',
-    logo: ''
+    logo: '',
+    offers: [],
   });
 
-  const { company, email, phone, sector, ubication, description, logo } = data;
+  const {
+    company,
+    email,
+    phone,
+    sector,
+    ubication,
+    description,
+    logo,
+    offers,
+  } = data;
 
   useEffect(() => {
     async function getData() {
       try {
-        const data: any = await getPublicInfo(id, 'company'); 
-        setData(data)
-      } catch (error: any ) {
+        const data: any = await getPublicInfo(id, 'company');
+        setData(data);
+      } catch (error: any) {
         dispatch(uiSlice.actions.setError(error.error));
       }
     }
@@ -50,62 +60,43 @@ export function CompanyProfilePage() {
   return (
     <>
       <Layout title={t('titles.companyprofile')} page="companyprofile">
-      {loading && <Loader />}
-      {error && (
-        <Notification type="error" message={error} onClick={resetError} />
-      )}
+        {loading && <Loader />}
+        {error && (
+          <Notification type="error" message={error} onClick={resetError} />
+        )}
+        <div>
+          <img src={logo} alt={`Logo ${company}`} />
+        </div>
         <h2>{t('titles.company_public_profile')}</h2>
-        <p>
-          {logo}
-        </p>
-        <p>
-          {t('forms.company')}
-          {company}
-        </p>
-        <p>
-          {t('forms.email')}
-          {email}
-        </p>
-        <p>
-          {t('fields.phone')}
-          {phone}
-        </p>
-        <p>
-          {t('fields.industry')}
-          {sector}
-        </p>
-        <p>
-          {t('fields.location')}
-          {ubication}
-        </p>
-        <p>
-          {t('fields.description')}
-          {description}
-        </p>
+        <p>{`${t('forms.company')}: ${company}`}</p>
+        <p>{`${t('forms.email')}: ${email}`}</p>
+        <p>{`${t('fields.phone')}: ${phone}`}</p>
+        <p>{`${t('fields.industry')}: ${sector.sector}`}</p>
+        <p>{`${t('fields.location')}: ${ubication}`}</p>
+        <p>{`${t('fields.description')}: ${description}`}</p>
         <h2>{t('titles.company_public_offers')}</h2>
-        {/* FALTA EXTRAER LOS DATOS DE LAS OFFERS, AHORA SOLO LLEGA LA ID
-        
+
         {offers && offers.length > 0 ? (
           offers.map((offer) => (
-          <div key={offer._id}>
-            <ListingDetail
-              id={offer._id}
-              companyOwner={offer.companyOwner}
-              description={offer.description}
-              internJob={offer.internJob}
-              location={offer.location}
-              numberApplicants={offer.numberApplicants}
-              numberVacancies={offer.numberVacancies}
-              publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
-              position={offer.position}
-              status={offer.status}
-              typeJob={offer.typeJob}
-            />
-          </div>
-        ))):(
+            <div key={offer._id}>
+              <ListingDetail
+                id={offer._id}
+                companyOwner={offer.companyOwner}
+                description={offer.description}
+                internJob={offer.internJob}
+                location={offer.location}
+                numberApplicants={offer.numberApplicants}
+                numberVacancies={offer.numberVacancies}
+                publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
+                position={offer.position}
+                status={offer.status}
+                typeJob={offer.typeJob}
+              />
+            </div>
+          ))
+        ) : (
           <p>{t('No offers available')}</p>
-        )
-      } */}
+        )}
       </Layout>
     </>
   );
