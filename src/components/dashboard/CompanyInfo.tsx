@@ -13,6 +13,7 @@ import styles from './CompanyInfo.module.css';
 import Notification from '../common/Notification';
 import { Button } from '../common/Button';
 import { useTranslation } from 'react-i18next';
+import { ListDashboardOffersCompany } from '../listings/ListDashboardOffersCompany';
 
 export default function ApplicantInfo() {
   const dispatch = useDispatch<AppDispatch>();
@@ -64,7 +65,12 @@ export default function ApplicantInfo() {
           </div>
           <div className={styles.button}>
             <Link to="/company/edit">
-              <Button>{t('titles.userprofile_edit')}</Button>
+              <Button>{t('buttons.userprofile_edit')}</Button>
+            </Link>
+          </div>
+          <div className={styles.button}>
+            <Link to="">
+              <Button>{t('buttons.userprofile_delete')}</Button>
             </Link>
           </div>
         </div>
@@ -73,22 +79,9 @@ export default function ApplicantInfo() {
           <h2>{t('titles.published_offers')}</h2>
           <hr></hr>
           <br></br>
-          {company.publishedOffers.map((offer) => (
-            <div className={styles.offer_list} key={offer._id}>
-              <Link to={`/offers/${offer._id}`}>
-                <h3>{offer.position}</h3>
-                <p>
-                  {offer.location} -{' '}
-                  {offer.status ? (
-                    'Oferta Activa'
-                  ) : (
-                    <span className={styles.disabled}>Oferta Cerrada</span>
-                  )}
-                </p>
-              </Link>
-              <p>[ Editar ] - [ Eliminar ]</p>
-            </div>
-          ))}
+          <ListDashboardOffersCompany
+            publishedOffers={company.publishedOffers}
+          />
         </div>
       </>
     );
