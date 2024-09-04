@@ -1,18 +1,19 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
-import { getOffer } from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
-import { useState } from 'react';
-//import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // import styles from "./Offermodule.css";
-import { getCompanyInfo } from '../../store/selectors';
+import { getCompanyInfo, getOffer } from '../../store/selectors';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { getOffersAction } from '../../store/actions/offersActions';
 
 export function OfferPage() {
   const { t } = useTranslation();
-  //const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { id } = useParams();
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
@@ -34,9 +35,9 @@ export function OfferPage() {
     }
   };
 
-  // useEffect(() => {
-  //   //dispatch(getOfferAction(id));
-  // }, [id, dispatch]);
+  useEffect(() => {
+    dispatch(getOffersAction());
+  }, [dispatch]);
 
   return (
     <>
