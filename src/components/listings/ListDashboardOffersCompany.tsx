@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ListDashboardOffersCompany.module.css';
 
+//BALIZA
+//Interfaces a donde corresponden...
 interface offerDashboard {
   _id: string;
   position: string;

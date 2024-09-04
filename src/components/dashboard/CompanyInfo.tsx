@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-//import { getInfoApplicantAction } from '../../store/actions/infoApplicantActions';
 import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
