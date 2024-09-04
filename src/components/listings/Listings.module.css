@@ -1,7 +1,7 @@
 .listings {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2rem;
   margin: 0 auto;
   max-width: 100%;
 }

@@ -11,7 +11,7 @@ import Notification from '../../components/common/Notification';
 import { ListingDetail } from '../../components/listings/ListingDetail';
 import { getPublicInfo } from '../../utils/services/publicProfileService';
 import { ICompanyPublicProfileMapped } from '../../utils/interfaces/IProfile';
-// import styles from "./Profile.module.css";
+import styles from './ProfileCompany.module.css';
 
 export function CompanyProfilePage() {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ export function CompanyProfilePage() {
     company: '',
     email: '',
     phone: '',
-    sector: {sector: ''},
+    sector: { sector: '' },
     ubication: '',
     description: '',
     logo: '',
@@ -77,23 +77,25 @@ export function CompanyProfilePage() {
         <h2>{t('titles.company_public_offers')}</h2>
 
         {offers && offers.length > 0 ? (
-          offers.map((offer) => (
-            <div key={offer._id}>
-              <ListingDetail
-                id={offer._id}
-                companyOwner={offer.companyOwner}
-                description={offer.description}
-                internJob={offer.internJob}
-                location={offer.location}
-                numberApplicants={offer.numberApplicants}
-                numberVacancies={offer.numberVacancies}
-                publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
-                position={offer.position}
-                status={offer.status}
-                typeJob={offer.typeJob}
-              />
-            </div>
-          ))
+          <div className={styles.offersList}>
+            {offers.map((offer) => (
+              <div key={offer._id}>
+                <ListingDetail
+                  id={offer._id}
+                  companyOwner={offer.companyOwner}
+                  description={offer.description}
+                  internJob={offer.internJob}
+                  location={offer.location}
+                  numberApplicants={offer.numberApplicants}
+                  numberVacancies={offer.numberVacancies}
+                  publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
+                  position={offer.position}
+                  status={offer.status}
+                  typeJob={offer.typeJob}
+                />
+              </div>
+            ))}
+          </div>
         ) : (
           <p>{t('No offers available')}</p>
         )}
