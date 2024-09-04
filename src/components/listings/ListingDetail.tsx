@@ -15,6 +15,12 @@ export function ListingDetail({
   publicationDate,
   typeJob,
 }: IOfferListingDetail) {
+  const formattedDate = new Date(publicationDate).toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+
   return (
     <div className={styles.listingDetail}>
       <Link to={`/offers/${id}`}>
@@ -28,7 +34,7 @@ export function ListingDetail({
         <p></p>
         {/* DAL - Para adaptarlo el ISO?*/}
         {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
-        <p>Publicado el: {publicationDate.toISOString().split('T')[0]}</p>
+        <p>Publicado el: {formattedDate}</p>
         <p>
           Número vacantes: {numberVacancies} | Número solicitantes:{' '}
           {numberApplicants}
