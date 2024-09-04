@@ -16,6 +16,12 @@ export function ListingDetail({
   publicationDate,
   typeJob,
 }: IOfferListingDetail) {
+  const formattedDate = new Date(publicationDate).toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+
   const { t } = useTranslation();
 
   return (
@@ -38,7 +44,7 @@ export function ListingDetail({
         {/* DAL - Para adaptarlo el ISO?*/}
         {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
         <p className={styles.date}>
-          {t('gen.published_on')} {publicationDate.toISOString().split('T')[0]}
+          {t('gen.published_on')} {formattedDate}
         </p>
         <p>{description}</p>
       </div>

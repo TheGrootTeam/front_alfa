@@ -104,7 +104,9 @@
     "saveAndFinish": "Save & Finish",
     "yes_delete": "YES! Delete it!",
     "no_cancel": "NO! Cancel",
-    "delete_offer": "Delete offer"
+    "delete_offer": "Delete offer",
+    "userprofile_edit": "Edit User Profile",
+    "userprofile_delete": "Delete User Profile"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
