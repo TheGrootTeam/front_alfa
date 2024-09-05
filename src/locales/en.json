@@ -136,5 +136,8 @@
   "plurals": {
     "vacancy_one": "vacancy",
     "vacancy_other": "vacancies"
+  },
+  "success": {
+    "delete_offer_success": "Announcement successfully deleted."
   }
 }

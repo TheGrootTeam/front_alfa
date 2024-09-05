@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IOfferMapped, IOffersReduxState } from '../../utils/interfaces/IOffer';
-import { getOffersAction, createOffersAction, editOffersAction } from '../actions/offersActions';
+import {
+  getOffersAction,
+  createOffersAction,
+  editOffersAction,
+} from '../actions/offersActions';
 
 const initialState: IOffersReduxState = {
   offers: [],
@@ -10,7 +14,11 @@ const initialState: IOffersReduxState = {
 export const offersSlice = createSlice({
   name: 'offers',
   initialState,
-  reducers: {},
+  reducers: {
+    resetLoadedOffers: (state) => {
+      state.loadedOffers = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -30,7 +38,9 @@ export const offersSlice = createSlice({
       .addCase(
         editOffersAction.fulfilled,
         (state, action: PayloadAction<IOfferMapped>) => {
-          const index = state.offers.findIndex(offer => offer.id === action.payload.id);
+          const index = state.offers.findIndex(
+            (offer) => offer.id === action.payload.id
+          );
           if (index !== -1) {
             state.offers[index] = { ...state.offers[index], ...action.payload };
           }

@@ -136,5 +136,8 @@
   "plurals": {
     "vacancy_one": "vacante",
     "vacancy_other": "vacantes"
+  },
+  "success": {
+    "delete_offer_success": "Anuncio eliminado satisfactoriamente"
   }
 }
