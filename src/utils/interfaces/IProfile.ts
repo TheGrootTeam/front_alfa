@@ -57,3 +57,14 @@ export interface ICompanyPublicProfileMapped {
   offers?: Array<IOffer>;
   __v?: number;
 }
+
+export interface IEditCompanyInfo {
+  dniCif: string;
+  name: string;
+  email: string;
+  phone: string;
+  sector: string;
+  ubication: string;
+  description: string;
+  logo: string;
+}
