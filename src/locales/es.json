@@ -141,5 +141,8 @@
   },
   "msg": {
     "change_VAT": "Contáctanos para cambiar el CIF"
+  },
+  "success": {
+    "delete_offer_success": "Anuncio eliminado satisfactoriamente"
   }
 }
