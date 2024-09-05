@@ -138,5 +138,8 @@
   "plurals": {
     "vacancy_one": "vacante",
     "vacancy_other": "vacantes"
+  },
+  "msg": {
+    "change_VAT": "Contáctanos para cambiar el CIF"
   }
 }

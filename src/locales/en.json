@@ -138,5 +138,8 @@
   "plurals": {
     "vacancy_one": "vacancy",
     "vacancy_other": "vacancies"
+  },
+  "msg": {
+    "change_VAT": "To change VAT Number please contact us"
   }
 }

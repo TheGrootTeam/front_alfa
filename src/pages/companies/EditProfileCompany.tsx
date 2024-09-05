@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import styles from '../../components/forms/form.module.css';
+import styles from './EditProfileCompany.module.css';
 import Layout from '../../components/layout/Layout';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
@@ -14,6 +14,7 @@ import { sectors } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta qu
 import { FormTextarea } from '../../components/formElements/formTextArea';
 import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { IEditCompanyInfo } from '../../utils/interfaces/IProfile';
+import { Link } from 'react-router-dom';
 
 export function EditCompanyProfilePage() {
   const { t } = useTranslation();
@@ -29,22 +30,21 @@ export function EditCompanyProfilePage() {
     sector: '',
     ubication: '',
     description: '',
-    logo: ''
+    logo: '',
   });
-  
 
   useEffect(() => {
     dispatch(getInfoCompanyAction());
-    setCompanyFormData(
-      {dniCif:company.dniCif,
+    setCompanyFormData({
+      dniCif: company.dniCif,
       name: company.name,
       sector: company.sector._id,
       email: company.email,
       phone: company.phone,
       ubication: company.ubication,
       description: company.description,
-      logo: company.logo}
-    )
+      logo: company.logo,
+    });
   }, [dispatch, company]);
 
   const [formError, setFormError] = useState<string | null>(null);
@@ -77,7 +77,7 @@ export function EditCompanyProfilePage() {
       phone: t('fields.phone'),
       ubication: t('fields.location'),
       description: t('fields.description'),
-      logo: t('fields.logo')
+      logo: t('fields.logo'),
     };
 
     let isValid = true;
@@ -162,11 +162,10 @@ export function EditCompanyProfilePage() {
     try {
       let result;
 
-        result = await updateCompanyUser(formCompanyData, t);
-        console.log('Company information updated successfully:', result);
+      result = await updateCompanyUser(formCompanyData, t);
+      console.log('Company information updated successfully:', result);
 
-        setSuccessMessage(t('notifications.edit_success'));
-
+      setSuccessMessage(t('notifications.edit_success'));
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
@@ -178,14 +177,10 @@ export function EditCompanyProfilePage() {
       <form onSubmit={handleSubmit} className={styles.form}>
         <ul>
           <li>
-            <FormInputText
-              labelText={t('forms.cif')}
-              id="dniCif"
-              name="dniCif"
-              value={formCompanyData.dniCif}
-              onChange={() => formCompanyData.dniCif}
-              readOnly
-            />
+            <div className={styles.readonly}>
+              <h3>{t('forms.cif')}: {formCompanyData.dniCif}</h3>
+              <p>{t('msg.change_VAT')}</p>
+            </div>
           </li>
           <li>
             <FormInputText
@@ -198,20 +193,14 @@ export function EditCompanyProfilePage() {
             />
             {emailError && <Notification type="error" message={emailError} />}
           </li>
-          <li>
-            <FormInputText
-              labelText={t('forms.password')}
-              id="password"
-              name="password"
-              type={'text'}
-              value={'**********'}
-              onChange={() => '**********'}
-              readOnly
-            />
-          </li>
-          <Button
-            onClick={() => console.log('Redirect to password edit page')}
-          >{t('buttons.change_password')}</Button>
+          <div className={styles.readonly}>
+            <p>
+            {t('forms.password')}: **********
+            </p>
+            <li>
+              <Link to="/change_password">{t('buttons.change_password')}</Link>
+            </li>
+          </div>
           <li>
             <FormInputText
               labelText={t('fields.name')}
