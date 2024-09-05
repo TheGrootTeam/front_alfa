@@ -1,4 +1,3 @@
-
 //Interfaz para estado.
 export interface ICompanyInfoReduxState {
   infoCompany: ICompanyInfoMapped;
@@ -23,6 +22,12 @@ export interface ICompanyInfo {
   logo: string;
   publishedOffers: PublishedOffers[];
   __v: number;
+}
+
+export interface ICompanyInfoWithPassword
+  extends Omit<ICompanyInfo, '_id' | 'publishedOffers' | '__v'> {
+  password: string;
+  confirmPassword: string;
 }
 
 export interface ICompanyInfoMapped {

@@ -9,11 +9,18 @@ import { getOffersAction } from '../../store/actions/offersActions';
 import { Loader } from '../common/Loader';
 import Notification from '../common/Notification';
 import { uiSlice } from '../../store/reducers/uiSlice';
+import { useLocation } from 'react-router-dom';
 
 export function Listings() {
   const offers = useSelector(getOffersState);
   const { loading, error } = useSelector(getUi);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
+
+  const containerClass =
+    location.pathname === '/'
+      ? `${styles.listings} ${styles.homePage}`
+      : styles.listings;
 
   useEffect(() => {
     dispatch(getOffersAction());
@@ -29,7 +36,7 @@ export function Listings() {
 
   function showOffers() {
     return (
-      <div className={styles.listings}>
+      <div className={containerClass}>
         {offers.map((offer) => (
           <div key={offer.id}>
             <ListingDetail

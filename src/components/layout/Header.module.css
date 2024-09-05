@@ -1,5 +1,6 @@
 .header {
-  width: 100dvw;
+  width: 100%;
+  max-width: 100%;
   background-color: var(--dark);
   display: flex;
   align-items: center;
@@ -10,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1rem;
+  padding: 1.8rem 1rem;
   width: 100%;
   max-width: 1200px;
 }
@@ -21,15 +22,17 @@ h1 a {
   align-items: center;
   justify-content: flex-start;
   transition: all 0.25s ease-in;
+  color: var(--neutral-min);
 
   span {
-    color: var(--accent-light);
+    font-family: var(--font-headings);
+    font-weight: 700;
   }
 
   .icon {
     width: 4rem;
     height: 4rem;
-    fill: var(--accent-light);
+    fill: var(--neutral-min);
   }
 
   &:hover {
@@ -38,52 +41,100 @@ h1 a {
   }
 }
 
+/* h1 {
+  width: 15rem;
+  height: 5rem;
+  background: url('../../assets/noBgWhite.png') center center no-repeat;
+  background-size: contain;
+  z-index: 100;
+} */
+
 .nav {
   ul {
     display: flex;
     gap: 2rem;
+    font-family: var(--font-secondary);
 
     li {
       line-height: 3.5rem;
     }
 
+    .logout {
+      display: flex;
+      align-items: center;
+      font-family: var(--font-secondary);
+      color: var(--accent-light);
+
+      &:hover span {
+        color: var(--accent-alt-light);
+      }
+    }
+
     a {
-      font-weight: 600;
-      color: var(--neutral-light);
-      border: 2px solid var(--neutral-light);
+      font-weight: 500;
+      color: var(--accent-light);
       padding: 0 1.5rem;
       border-radius: 1rem;
       display: inline-block;
       font-size: 1.6rem;
       line-height: 3.5rem;
+      text-transform: uppercase;
       transition: transform 0.25s ease-in;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 1.5rem;
+        bottom: 0;
+        width: 0;
+        transition: all 0.3s ease-in-out;
+      }
 
       &:hover {
         text-decoration: none;
-        color: var(--accent-light);
-        border: 2px solid var(--accent-light);
-        transform: scale(1.05);
+        color: var(--accent-alt-light);
+
+        &::after {
+          width: calc(100% - 3rem);
+          border-bottom: 2px solid var(--accent-alt);
+        }
       }
     }
 
     button {
-      font-weight: 600;
+      font-family: var(--font-secondary);
+      font-weight: 500;
+      color: var(--accent-light);
       background-color: var(--dark);
-      color: var(--neutral-light);
-      border: 2px solid var(--neutral-light);
       padding: 0 1.5rem;
       border-radius: 1rem;
       display: inline-block;
       font-size: 1.6rem;
       line-height: 3.5rem;
+      text-transform: uppercase;
       transition: transform 0.25s ease-in;
+      position: relative;
+      border: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 1.5rem;
+        bottom: 0;
+        width: 0;
+        transition: all 0.3s ease-in-out;
+      }
 
       &:hover {
         text-decoration: none;
+        color: var(--accent-alt-light);
         background-color: var(--dark);
-        color: var(--accent-light);
-        border: 2px solid var(--accent-light);
-        transform: scale(1.05);
+
+        &::after {
+          width: calc(100% - 3rem);
+          border-bottom: 2px solid var(--accent-alt);
+        }
       }
     }
   }
@@ -94,35 +145,38 @@ h1 a {
   gap: 1rem;
 
   button {
-    font-size: 1.6rem;
-    line-height: 3rem;
+    font-size: 1.3rem;
+    line-height: 2.5rem;
     font-weight: 700;
     background-color: var(--dark);
-    color: var(--neutral-light);
-    border: 0;
+    color: var(--neutral);
+    border: 2px solid var(--neutral);
     outline: none;
     width: 3rem;
     border-radius: 0.5rem;
 
     &:hover {
-      color: var(--light);
+      color: var(--accent-light);
+      border: 2px solid var(--accent-light);
       cursor: pointer;
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     &:disabled {
-      background-color: var(--neutral-light);
-      color: var(--dark);
+      background-color: var(--dark);
+      color: var(--neutral-min);
+      border: 2px solid var(--neutral-min);
 
       &:hover {
         cursor: default;
         text-decoration: none;
+        border: 2px solid var(--neutral-min);
       }
     }
   }
 }
 
 .headerError {
-  width: 100dvw;
+  width: 100%;
   overflow: hidden;
 }

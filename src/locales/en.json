@@ -1,7 +1,8 @@
 {
   "gen": {
     "yes": "yes",
-    "no": "no"
+    "no": "no",
+    "published_on": "Published on"
   },
   "nav": {
     "log_in": "Log in",
@@ -9,7 +10,8 @@
     "add_new_offer": "Add New Offer",
     "edit_offer_link": "Edit Offer",
     "about": "About",
-    "logout": "Log out"
+    "logout": "Log out",
+    "github_link": "Code on Github"
   },
   "titles": {
     "log_in": "Log in",
@@ -102,7 +104,9 @@
     "saveAndFinish": "Save & Finish",
     "yes_delete": "YES! Delete it!",
     "no_cancel": "NO! Cancel",
-    "delete_offer": "Delete offer"
+    "delete_offer": "Delete offer",
+    "userprofile_edit": "Edit User Profile",
+    "userprofile_delete": "Delete User Profile"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
@@ -111,10 +115,16 @@
     "email_invalid": "Email address isn't valid",
     "dnicif_format": "VAT number must start with a letter from A to H followed by 8 digits",
     "dnicif_invalid": "Personal ID number not valid",
-    "register_error": "Error registering user: "
+    "register_error": "Error registering user: ",
+    "required_field_error": "is a required field",
+    "processing_form_error": "Failed to process form: ",
+    "generic_form_error": "An error occurred while submitting the form. Please try again.",
+    "creating_user_error": "An error occurred while creating the user",
+    "editing_user_error": "An error occurred while updating the user details"
   },
   "notifications": {
     "register_success": "User registered successfully",
+    "edit_success": "User data edited successfully",
     "data_saved": "Data saved successfully",
     "offer_created": "New offer created successful",
     "offer_updated": "Offer update successfully"
@@ -122,6 +132,10 @@
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
     "delete_offer_message": "Are you sure you want to delete the offer?"
+  },
+  "plurals": {
+    "vacancy_one": "vacancy",
+    "vacancy_other": "vacancies"
   },
   "success": {
     "delete_offer_success": "Announcement successfully deleted."

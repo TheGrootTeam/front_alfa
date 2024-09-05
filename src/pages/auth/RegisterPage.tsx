@@ -2,15 +2,15 @@ import { useState } from 'react';
 import Layout from '../../components/layout/Layout';
 import styles from './Register.module.css';
 import { FormRadioButton } from '../../components/formElements/formRadioButton';
-import { ApplicantForm } from '../../components/forms/ApplicantForm';
-import { CompanyForm } from '../../components/forms/CompanyForm';
-import { getUi } from '../../store/selectors';
-import { useSelector } from 'react-redux';
+import { RegisterApplicantForm } from '../../components/forms/RegisterApplicantForm';
+import { RegisterCompanyForm } from '../../components/forms/RegisterCompanyForm';
+// import { getUi } from '../../store/selectors';
+// import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 export function RegisterPage() {
   const { t } = useTranslation();
-  const { loading, error } = useSelector(getUi);
+  // const { loading, error } = useSelector(getUi);
 
   // State to manage radio button selection, default to null (no selection)
   const [isCompany, setIsCompany] = useState<string | null>(null);
@@ -57,12 +57,18 @@ export function RegisterPage() {
         {/* Conditionally render the form based on the radio button selection */}
         {isCompany === 'true' && (
           <div id="companyForm" className={styles.companyForm}>
-            <CompanyForm loading={loading} error={error} />
+            {/* <CompanyForm loading={loading} error={error} formMode="register" /> */}
+            <RegisterCompanyForm />
           </div>
         )}
         {isCompany === 'false' && (
           <div id="applicantForm" className={styles.applicantForm}>
-            <ApplicantForm loading={loading} error={error} />
+            {/* <ApplicantForm
+              loading={loading}
+              error={error}
+              formMode="register"
+            /> */}
+            <RegisterApplicantForm />
           </div>
         )}
       </>

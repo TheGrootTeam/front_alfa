@@ -14,6 +14,7 @@
   flex-direction: column;
   align-content: stretch;
   gap: 1.5rem;
+  padding: 0;
 }
 
 .form li {
@@ -55,6 +56,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-right: 1.2rem;
 }
 
 .form input[type='file']::file-selector-button:hover {
@@ -69,6 +71,12 @@ input[type='checkbox'] + span {
 
 select[multiple] {
   height: 10rem;
+}
+
+select[multiple] option:checked,
+select[multiple] option[selected] {
+  background-color: var(--accent-light); /* Highlighted background */
+  color: var(--light); /* Highlighted text */
 }
 
 .form textarea {
@@ -86,7 +94,7 @@ select[multiple] {
 }
 
 .form button {
-  border: 2px solid var(--neutral-light);
+  border: 2px solid var(--accent-light);
   border-radius: 1rem;
   line-height: 3.5rem;
   background-color: var(--accent-light);

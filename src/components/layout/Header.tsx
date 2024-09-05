@@ -22,7 +22,7 @@ const Header = () => {
   const { error } = useSelector(getUi);
   const auth = useSelector(getIsLogged); // To verify if the user is logged
   const isCompany = useSelector(getIsCompany); //To verify if it is a company
-  const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
+  // const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
   const dispatch = useDispatch<AppDispatch>();
 
   const langs: { [key: string]: { nativeName: string } } = {
@@ -47,7 +47,8 @@ const Header = () => {
         <div className={styles.inner}>
           <h1 className={styles.h1}>
             <Link to={`/`}>
-              <Logo className={styles.icon} /> <span>InternIT</span>
+              <Logo className={styles.icon} />
+              <span>InternIT</span>
             </Link>
           </h1>
           <nav className={styles.nav}>
@@ -73,7 +74,7 @@ const Header = () => {
                       </li>
                     </>
                   )}
-                  <li>
+                  <li className={styles.logout}>
                     <ConfirmationButton
                       buttonLabel={t('nav.logout')}
                       dialogText={t('dialogs.logout_message')}
@@ -81,6 +82,7 @@ const Header = () => {
                       cancelLabel={t('gen.no')}
                       confirmAction={handleLogout}
                     />
+                    <span className="material-symbols-outlined">logout</span>
                   </li>
                 </>
               ) : (
@@ -97,9 +99,9 @@ const Header = () => {
                   </li>
 
                   {/* MARTA - TEMPORAL porque si no no puedo ver la página */}
-                  <li>
+                  {/* <li>
                     <Link to={`/view/user/${loggedInUser}`}>Profile</Link>
-                  </li>
+                  </li> */}
                 </>
               )}
             </ul>

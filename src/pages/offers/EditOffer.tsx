@@ -17,6 +17,7 @@ import Notification from '../../components/common/Notification';
 import { useNavigate } from 'react-router-dom';
 import { getToUpdateOfferState } from '../../store/selectors';
 import { editOfferSlice } from '../../store/reducers/editOfferSlice';
+import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
 
 export function EditOffer() {
   const { t } = useTranslation();
@@ -26,6 +27,9 @@ export function EditOffer() {
   const dispatch = useDispatch<AppDispatch>();
   const theLocation = useLocation();
   const { offer } = theLocation.state || {};
+
+  const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
+  const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
 
   const [formData, setFormData] = useState({
     id: offer.id || '',
@@ -147,7 +151,7 @@ export function EditOffer() {
               onChange={handleChange}
             />
           </p>
-          <p>
+          {/* MARTA - lo dejo comentado hasta verificar <p>
             <FormSelect
               label={t('forms.job_type')}
               name="typeJob"
@@ -173,6 +177,26 @@ export function EditOffer() {
                 remunerado: 'remunerado',
                 ong: 'ONG',
               }}
+            />
+          </p> */}
+          <p>
+            <FormSelect
+              labelText={t('forms.job_type')}
+              id="typeJob"
+              name="typeJob"
+              value={typeJob}
+              onChange={handleChange}
+              options={jobOptions}
+            />
+          </p>
+          <p>
+            <FormSelect
+              labelText={t('forms.internship_type')}
+              id="internJob"
+              name="internJob"
+              value={internJob}
+              onChange={handleChange}
+              options={internOptions}
             />
           </p>
           <p>

@@ -1,19 +1,24 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
-import { getOffer, getUi, getUiSuccess } from '../../store/selectors';
+import {
+  getOffer,
+  getUi,
+  getUiSuccess,
+  getCompanyInfo,
+} from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 // import styles from "./Offermodule.css";
-import { getCompanyInfo } from '../../store/selectors';
 import { useDispatch } from 'react-redux';
 import { deleteOfferAction } from '../../store/actions/offersActions';
 import { AppDispatch } from '../../store/store';
 import Notification from '../../components/common/Notification';
 import { uiSlice } from '../../store/reducers/uiSlice';
+import { getOffersAction } from '../../store/actions/offersActions';
 
 export function OfferPage() {
   const { t } = useTranslation();
@@ -56,9 +61,9 @@ export function OfferPage() {
     return <Notification type="success" message={success} />;
   }
 
-  // useEffect(() => {
-  //   //dispatch(getOfferAction(id));
-  // }, [id, dispatch]);
+  useEffect(() => {
+    dispatch(getOffersAction());
+  }, [dispatch]);
 
   return (
     <>
