@@ -88,14 +88,15 @@ export const deleteOfferAction = createAsyncThunk<
     const { router } = extra;
     try {
       await deleteOfferService(id);
+      dispatch(uiSlice.actions.setSuccess(successMessage));
       dispatch(offersSlice.actions.resetLoadedOffers());
       await dispatch(getOffersAction() as any);
-      dispatch(uiSlice.actions.setSuccess(successMessage));
       setTimeout(() => {
         dispatch(uiSlice.actions.resetSuccess());
         router.navigate(-1);
       }, 3000);
     } catch (error: any) {
+      dispatch(uiSlice.actions.resetSuccess());
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message as string);
       } else {

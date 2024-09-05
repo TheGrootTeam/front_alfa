@@ -110,12 +110,13 @@ export function OfferPage() {
               </Button>
             )}
           </>
+        ) : success ? (
+          showSuccess()
         ) : (
-          `Not Found`
+          'NOT FOUND'
         )}
 
         {error && showError()}
-        {success && showSuccess()}
       </Layout>
     </>
   );
