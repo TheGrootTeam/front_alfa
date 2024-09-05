@@ -35,6 +35,10 @@
     "published_offers": "List of published offers"
   },
   "forms": {
+    "section_login": "Log in data",
+    "section_personal": "Personal information",
+    "section_work": "Work details and preferences",
+    "section_company": "Company information",
     "search": "search...",
     "login_button": "Log in",
     "cif_nif": "ID/VAT number",

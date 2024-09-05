@@ -35,6 +35,10 @@
     "published_offers": "Listado de ofertas publicadas"
   },
   "forms": {
+    "section_login": "Datos de autenticación",
+    "section_personal": "Datos personales",
+    "section_work": "Datos y preferencias laborales",
+    "section_company": "Datos de empresa",
     "search": "buscar...",
     "login_button": "Entrar",
     "cif_nif": "CIF o NIF/NIE",
