@@ -129,7 +129,7 @@ export function RegisterCompanyForm() {
     const sector = formCompanyData.sector;
     if (!sector || sector.trim().length === 0) {
       isValid = false;
-      errorMessage = `${t('fields.sector')} ${t('errors.required_field_error')}`;
+      errorMessage = `${t('forms.sector')} ${t('errors.required_field_error')}`;
     }
 
     return { isValid, errorMessage };
@@ -312,7 +312,7 @@ export function RegisterCompanyForm() {
               <ul>
                 <li>
                   <FormInputText
-                    labelText={t('fields.name')}
+                    labelText={t('forms.name')}
                     id="name"
                     name="name"
                     value={formCompanyData.name || ''}
@@ -321,7 +321,7 @@ export function RegisterCompanyForm() {
                 </li>
                 <li>
                   <FormInputText
-                    labelText={t('fields.phone')}
+                    labelText={t('forms.phone')}
                     id="phone"
                     name="phone"
                     value={formCompanyData.phone || ''}
@@ -329,7 +329,7 @@ export function RegisterCompanyForm() {
                   />
                 </li>
                 <li>
-                  <label htmlFor="sector">{t('fields.sector')}</label>
+                  <label htmlFor="sector">{t('forms.sector')}</label>
                   <select
                     id="sector"
                     name="sector"
@@ -348,7 +348,7 @@ export function RegisterCompanyForm() {
                 </li>
                 <li>
                   <FormInputText
-                    labelText={t('fields.location')}
+                    labelText={t('forms.location')}
                     id="ubication"
                     name="ubication"
                     value={formCompanyData.ubication || ''}
@@ -357,7 +357,7 @@ export function RegisterCompanyForm() {
                 </li>
                 <li>
                   <FormTextarea
-                    labelText={t('fields.description')}
+                    labelText={t('forms.description')}
                     id="description"
                     name="description"
                     value={formCompanyData.description || ''}
@@ -365,7 +365,7 @@ export function RegisterCompanyForm() {
                   />
                 </li>
                 <li>
-                  <label>{t('fields.logo')}</label>
+                  <label>{t('forms.logo')}</label>
                   <input type="file" name="logo" onChange={handleFileChange} />
                 </li>
               </ul>

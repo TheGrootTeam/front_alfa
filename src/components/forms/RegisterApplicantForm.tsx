@@ -347,7 +347,7 @@ export function RegisterApplicantForm() {
               <ul>
                 <li>
                   <FormInputText
-                    labelText={t('fields.name')}
+                    labelText={t('forms.name')}
                     id="name"
                     name="name"
                     value={formApplicantData.name || ''}
@@ -356,7 +356,7 @@ export function RegisterApplicantForm() {
                 </li>
                 <li>
                   <FormInputText
-                    labelText={t('fields.lastName')}
+                    labelText={t('forms.lastName')}
                     id="lastName"
                     name="lastName"
                     value={formApplicantData.lastName || ''}
@@ -365,7 +365,7 @@ export function RegisterApplicantForm() {
                 </li>
                 <li>
                   <FormInputText
-                    labelText={t('fields.phone')}
+                    labelText={t('forms.phone')}
                     id="phone"
                     name="phone"
                     value={formApplicantData.phone || ''}
@@ -374,7 +374,7 @@ export function RegisterApplicantForm() {
                 </li>
                 <li>
                   <FormInputText
-                    labelText={t('fields.location')}
+                    labelText={t('forms.location')}
                     id="ubication"
                     name="ubication"
                     value={formApplicantData.ubication || ''}
@@ -382,7 +382,7 @@ export function RegisterApplicantForm() {
                   />
                 </li>
                 <li>
-                  <label>{t('fields.photo')}</label>
+                  <label>{t('forms.photo')}</label>
                   <input type="file" name="photo" onChange={handleFileChange} />
                 </li>
               </ul>
@@ -404,12 +404,12 @@ export function RegisterApplicantForm() {
             <div className={styles.accordionContent}>
               <ul>
                 <li>
-                  <label>{t('fields.cv')}</label>
+                  <label>{t('forms.cv')}</label>
                   <input type="file" name="cv" onChange={handleFileChange} />
                 </li>
                 <li>
                   <FormSelect
-                    labelText={t('fields.preferredWorkLocation')}
+                    labelText={t('forms.preferredWorkLocation')}
                     id="typeJob"
                     name="typeJob"
                     value={formApplicantData.typeJob || ''}
@@ -429,7 +429,7 @@ export function RegisterApplicantForm() {
                 </li>
                 <li>
                   <FormMultiSelect
-                    labelText={t('fields.mainSkills')}
+                    labelText={t('forms.mainSkills')}
                     id="mainSkills"
                     name="mainSkills"
                     // value={formApplicantData.mainSkills.map((skill) => skill._id)}
@@ -441,7 +441,7 @@ export function RegisterApplicantForm() {
                 </li>
                 <li>
                   <FormMultiSelect
-                    labelText={t('fields.wantedRole')}
+                    labelText={t('forms.wantedRole')}
                     id="wantedRol"
                     name="wantedRol"
                     // value={formApplicantData.wantedRol.map((rol) => rol._id)}
