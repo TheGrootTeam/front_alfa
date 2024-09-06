@@ -106,7 +106,9 @@
     "no_cancel": "NO, Cancelar",
     "delete_offer": "Eliminar oferta",
     "userprofile_edit": "Editar perfil de usuario",
-    "userprofile_delete": "Eliminar perfil de usuario"
+    "userprofile_delete": "Eliminar perfil de usuario",
+    "change_password": "Cambiar contraseña",
+    "save_changes": "Guardar cambios"
   },
   "errors": {
     "password_empty": "Los campos de contraseña no pueden estar vacíos",
@@ -136,5 +138,11 @@
   "plurals": {
     "vacancy_one": "vacante",
     "vacancy_other": "vacantes"
+  },
+  "msg": {
+    "change_VAT": "Contáctanos para cambiar el CIF"
+  },
+  "success": {
+    "delete_offer_success": "Anuncio eliminado satisfactoriamente"
   }
 }

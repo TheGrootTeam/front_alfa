@@ -106,7 +106,9 @@
     "no_cancel": "NO! Cancel",
     "delete_offer": "Delete offer",
     "userprofile_edit": "Edit User Profile",
-    "userprofile_delete": "Delete User Profile"
+    "userprofile_delete": "Delete User Profile",
+    "change_password": "Change password",
+    "save_changes": "Save changes"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
@@ -136,5 +138,11 @@
   "plurals": {
     "vacancy_one": "vacancy",
     "vacancy_other": "vacancies"
+  },
+  "msg": {
+    "change_VAT": "To change VAT Number please contact us"
+  },
+  "success": {
+    "delete_offer_success": "Announcement successfully deleted."
   }
 }
