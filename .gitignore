@@ -25,3 +25,8 @@ dist-ssr
 
 .env
 /coverage
+
+*.timestamp-*.mjs
+
+front_structure
+back_structure

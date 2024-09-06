@@ -9,11 +9,18 @@ import { getOffersAction } from '../../store/actions/offersActions';
 import { Loader } from '../common/Loader';
 import Notification from '../common/Notification';
 import { uiSlice } from '../../store/reducers/uiSlice';
+import { useLocation } from 'react-router-dom';
 
 export function Listings() {
   const offers = useSelector(getOffersState);
   const { loading, error } = useSelector(getUi);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
+
+  const containerClass =
+    location.pathname === '/'
+      ? `${styles.listings} ${styles.homePage}`
+      : styles.listings;
 
   useEffect(() => {
     dispatch(getOffersAction());
@@ -29,21 +36,17 @@ export function Listings() {
 
   function showOffers() {
     return (
-      <div className={styles.listings}>
+      <div className={containerClass}>
         {offers.map((offer) => (
           <div key={offer.id}>
             <ListingDetail
               id={offer.id}
-              companyOwner={offer.companyOwner.name}
-              //DAL - hasta tener acceso a los usuarios
-              // companyOwner={'PRUEBA'}
+              companyOwner={offer.companyOwner}
               description={offer.description}
               internJob={offer.internJob}
               location={offer.location}
               numberApplicants={offer.numberApplicants}
               numberVacancies={offer.numberVacancies}
-              //DAL
-              //publicationDate={new Date(offer.publicationDate)} // Convertir de vuelta a Date si es necesario
               publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
               position={offer.position}
               status={offer.status}

@@ -1,15 +1,12 @@
-import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getIsLogged } from '../../store/selectors';
-
-interface RequireAuthProps {
-  children: ReactNode;
-}
+import { RequireAuthProps } from '../../utils/interfaces/IAuth';
 
 function RequireAuth({ children }: RequireAuthProps) {
   const location = useLocation();
   const isLogged = useSelector(getIsLogged);
+  //console.log:TODO: quitar
   console.log('is logged?', isLogged);
 
   return isLogged ? (

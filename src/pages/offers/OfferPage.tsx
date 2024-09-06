@@ -1,69 +1,127 @@
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
-import { getOffer } from '../../store/selectors';
+import {
+  getOffer,
+  getUi,
+  getUiSuccess,
+  getCompanyInfo,
+} from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
+//import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 // import styles from "./Offermodule.css";
+import { useDispatch } from 'react-redux';
+import { deleteOfferAction } from '../../store/actions/offersActions';
+import { AppDispatch } from '../../store/store';
+import Notification from '../../components/common/Notification';
+import { uiSlice } from '../../store/reducers/uiSlice';
+import { getOffersAction } from '../../store/actions/offersActions';
 
 export function OfferPage() {
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { id } = useParams();
-
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
-
+  const { error } = useSelector(getUi);
+  const success = useSelector(getUiSuccess);
   const [showConfirm, setShowCofirm] = useState(false);
+  //The company owner of the offert
+  const companyId = offer?.companyOwner._id;
+  //The company loged
+  const companyInUse = useSelector(getCompanyInfo);
+  const companyLoged = companyInUse.id;
+  const ownerOffer = companyId === companyLoged ? true : false;
 
   const deleteOffer = () => {
-    //DELETE AD
+    if (id) {
+      const successMessage = t('success.delete_offer_success');
+      dispatch(deleteOfferAction({ id, successMessage }));
+    }
   };
 
-  const editOffer = () => {
-    //EDIT AD
+  const editOffer = async () => {
+    if (offer) {
+      navigate(`/offers/edit`, { state: { offer } });
+    }
   };
+
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
+  };
+
+  function showError() {
+    return <Notification type="error" message={error} onClick={resetError} />;
+  }
+
+  function showSuccess() {
+    return <Notification type="success" message={success} />;
+  }
 
   useEffect(() => {
-    //dispatch(getOfferAction(id));
-  }, [id, dispatch]);
-
+    dispatch(getOffersAction());
+  }, [dispatch]);
 
   return (
     <>
       <Layout page="offer">
         {offer ? (
           <>
-            <h2>Título: {offer.position}</h2>
-            <p>Descripción: {offer.description}</p>
-            <p>Empresa: {`${offer.companyOwner}`}</p>
-            <p>Ciudad: {offer.location}</p>
+            <h2>
+              {t('forms.position')}: {offer.position}
+            </h2>
             <p>
-              Modalidad de prácticas: {offer.typeJob} y {offer.internJob}
+              {t('forms.offer_description')}: {offer.description}
             </p>
             <p>
-              Publicado el: {offer.publicationDate.toISOString().split('T')[0]}
+              {t('forms.company')}:{' '}
+              <Link
+                to={`/view/company/${companyId}`}
+              >{`${offer.companyOwner.name}`}</Link>
             </p>
             <p>
-              Número vacantes: {offer.numberVacancies} | Número solicitantes:{' '}
-              {offer.numberApplicants}
+              {t('forms.location')}: {offer.location}
             </p>
-            <Button onClick={editOffer}>Edit Offer</Button>
+            <p>
+              {t('forms.job_type')}: {offer.typeJob} y {offer.internJob}
+            </p>
+            <p>
+              {t('forms.publication_date')}:{' '}
+              {offer.publicationDate.toISOString().split('T')[0]}
+            </p>
+            <p>
+              {t('forms.number_vacancies')}: {offer.numberVacancies} |{' '}
+              {t('forms.number_applicants')}: {offer.numberApplicants}
+            </p>
+            {ownerOffer && (
+              <Button onClick={editOffer}> {t('nav.edit_offer_link')}</Button>
+            )}
+            &nbsp;
             {showConfirm && (
               <div>
-                <p>Are you sure you want to delete the offer?</p>
-                <Button onClick={deleteOffer}>YES! Delete the Offer</Button>
-                <Button onClick={() => setShowCofirm(false)}>NO! Cancel</Button>
+                <p>{t('dialogs.delete_offer_message')}</p>
+                <Button onClick={deleteOffer}>{t('buttons.yes_delete')}</Button>
+                <Button onClick={() => setShowCofirm(false)}>
+                  {t('buttons.no_cancel')}
+                </Button>
               </div>
             )}
-            {!showConfirm && (
-              <Button onClick={() => setShowCofirm(true)}>Delete Offer</Button>
+            {!showConfirm && ownerOffer && (
+              <Button onClick={() => setShowCofirm(true)}>
+                {t('buttons.delete_offer')}
+              </Button>
             )}
           </>
+        ) : success ? (
+          showSuccess()
         ) : (
-          `Not Found`
+          'NOT FOUND'
         )}
+
+        {error && showError()}
       </Layout>
     </>
   );

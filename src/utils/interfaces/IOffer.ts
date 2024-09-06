@@ -9,7 +9,7 @@ export interface IOffersReduxState {
 
 interface companyOwner {
   _id: string;
-  name: string;
+  name?: string;
 }
 
 interface applicantOwner {
@@ -17,20 +17,14 @@ interface applicantOwner {
   mail: string;
 }
 
-// export interface IOffer {
-//   companyOwner: companyOwner;
-//   description: string;
-//   numberApplicants: number;
-//   numberVacancies: number;
-//   position: string;
-//   publicationDate: string;
-//   status: boolean;
-//   __v: number;
-//   _id: string;
-//   listApplicants: number;
-// }
+export interface NewOfferState {
+  offerInfo: IOfferForm | null;
+  offerStatus: boolean;
+  error: string | null | undefined;
 
-//DAL
+}
+
+
 export interface IOffer {
   __v: number;
   _id: string;
@@ -50,6 +44,8 @@ export interface IOffer {
 export interface IOfferMapped {
   __v: number;
   id: string;
+  //DAL - For type compatibility, both are kept
+  _id?: string;
   companyOwner: companyOwner;
   description: string;
   internJob: string;
@@ -67,13 +63,14 @@ export interface IOfferMapped {
 
 export interface IOfferListingDetail {
   id: string;
-  companyOwner: string;
+  //DAL
+  //companyOwner: string;
+  companyOwner: companyOwner;
   description: string;
   internJob: string;
   location: string;
   numberApplicants: number;
   numberVacancies: number;
-  //DAL
   publicationDate: Date;
   position: string;
   status: boolean;
@@ -81,15 +78,29 @@ export interface IOfferListingDetail {
 }
 
 export interface IOfferForm {
-  companyOwner: companyOwner;
+  __v?: number;
+  _id?: string;
+  companyOwner?: companyOwner | string;
   description: string;
   internJob: string;
-  listApplicants: string[];
+  //listApplicants: string[];
+  listApplicants?: applicantOwner[];
   location: string;
-  numberApplicants: number;
+  numberApplicants?: number;
   numberVacancies: number;
   position: string;
-  publicationDate: Date | string;
+  publicationDate?: Date | string;
   status: boolean;
   typeJob: string;
+}
+
+export interface offerDashboard {
+  _id: string;
+  position: string;
+  location: string;
+  status: boolean;
+}
+
+export interface ListDashboardOffersCompanyProps {
+  publishedOffers: offerDashboard[];
 }

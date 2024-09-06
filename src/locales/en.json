@@ -1,14 +1,17 @@
 {
   "gen": {
     "yes": "yes",
-    "no": "no"
+    "no": "no",
+    "published_on": "Published on"
   },
   "nav": {
     "log_in": "Log in",
     "register": "Register",
     "add_new_offer": "Add New Offer",
+    "edit_offer_link": "Edit Offer",
     "about": "About",
-    "logout": "Log out"
+    "logout": "Log out",
+    "github_link": "Code on Github"
   },
   "titles": {
     "log_in": "Log in",
@@ -20,27 +23,37 @@
     "userprofile_edit": "Edit User Profile",
     "userprofile": "User Profile",
     "dashboard": "Dashboard",
+    "dashboardIntern": "Applicant",
+    "dashboardCompany": "Company",
     "add_offer": "Add New Offer",
-    "edit_offer": "Edit Offer"
+    "edit_offer": "Edit Offer",
+    "company_public_profile": "Company Data",
+    "company_public_offers": "Offers available",
+    "main_skills": "Main Skills",
+    "internship_preferences": "Internship Preferences",
+    "availability": "Availability",
+    "published_offers": "List of published offers"
   },
   "forms": {
     "search": "search...",
-
     "login_button": "Log in",
     "cif_nif": "ID/VAT number",
     "password": "Password",
     "password_confirm": "Confirm password",
     "password_show": "Show passwords",
     "remember_me": "Remember me",
-
     "register_button": "Register",
-    "select_usertype": "User type",
+    "select_usertype": "How will you be using InternIT?",
     "company": "Company",
     "applicant": "Applicant",
     "cif": "VAT Number",
     "nif": "ID Number",
     "email": "Email",
-
+    "willing_to_relocate": "Willing to Relocate",
+    "available_immediately": "Available to Start Immediately",
+    "preferredWorkLocation": "Preferred Work Location",
+    "preferredInternshipType": "Preferred Internship Type",
+    "cv_dl_button": "Download Resume",
     "save_offer_button": "Save Offer",
     "position": "Position",
     "publication_date": "Publication date",
@@ -49,7 +62,53 @@
     "job_type": "Job Type",
     "internship_type": "Internship Type",
     "number_vacancies": "Number of vacancies",
-    "number_applicants": "Number of applicants"
+    "number_applicants": "Number of applicants",
+    "status_closed": "Close offer  (will not accept more applicants)",
+    "company_description": "Company description",
+    "offer_description": "Offer description",
+    "select_sector": "Select Industry"
+  },
+  "formSelect": {
+    "jobType": {
+      "on_site": "On-site",
+      "hybrid": "Hybrid",
+      "remote": "Remote"
+    },
+    "internshipType": {
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "ngo": "NGO/Volunteer"
+    }
+  },
+  "fields": {
+    "cif": "VAT Number",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "industry": "Industry",
+    "location": "Location",
+    "description": "Description",
+    "logo": "Logo",
+    "photo": "Photo",
+    "cv": "Resume",
+    "preferredWorkLocation": "Preferred Work Location",
+    "wantedRole": "Wanted Role",
+    "mainSkills": "Main Skills",
+    "willingToRelocate": "Willing to Relocate",
+    "availableImmediately": "Available Immediately",
+    "sector": "Industry"
+  },
+  "buttons": {
+    "saveAndFinish": "Save & Finish",
+    "yes_delete": "YES! Delete it!",
+    "no_cancel": "NO! Cancel",
+    "delete_offer": "Delete offer",
+    "userprofile_edit": "Edit User Profile",
+    "userprofile_delete": "Delete User Profile",
+    "change_password": "Change password",
+    "save_changes": "Save changes"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
@@ -58,13 +117,32 @@
     "email_invalid": "Email address isn't valid",
     "dnicif_format": "VAT number must start with a letter from A to H followed by 8 digits",
     "dnicif_invalid": "Personal ID number not valid",
-    "register_error": "Error registering user: "
+    "register_error": "Error registering user: ",
+    "required_field_error": "is a required field",
+    "processing_form_error": "Failed to process form: ",
+    "generic_form_error": "An error occurred while submitting the form. Please try again.",
+    "creating_user_error": "An error occurred while creating the user",
+    "editing_user_error": "An error occurred while updating the user details"
   },
   "notifications": {
-    "register_success": "Usuario registered successfully",
-    "data_saved": "Data saved successfully"
+    "register_success": "User registered successfully",
+    "edit_success": "User data edited successfully",
+    "data_saved": "Data saved successfully",
+    "offer_created": "New offer created successful",
+    "offer_updated": "Offer update successfully"
   },
   "dialogs": {
-    "logout_message": "Are you sure you want to log out?"
+    "logout_message": "Are you sure you want to log out?",
+    "delete_offer_message": "Are you sure you want to delete the offer?"
+  },
+  "plurals": {
+    "vacancy_one": "vacancy",
+    "vacancy_other": "vacancies"
+  },
+  "msg": {
+    "change_VAT": "To change VAT Number please contact us"
+  },
+  "success": {
+    "delete_offer_success": "Announcement successfully deleted."
   }
 }

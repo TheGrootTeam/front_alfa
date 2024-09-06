@@ -24,7 +24,8 @@ html {
 }
 
 body {
-  min-width: 100dvw;
+  width: 100%;
+  /* overflow-x: hidden; MARTA TODO temporal para quitar el scroll horizontal, mirar por que pasa */
   min-height: 100dvh;
   font-size: 1.5rem;
   line-height: 2.8rem;

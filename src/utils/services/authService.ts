@@ -3,7 +3,7 @@ import {
   setAuthorizationHeader,
   removeAuthorizationHeader,
 } from '../../api/client';
-import { ILoginData, IToken } from '../interfaces/IAuth';
+import { IAuthIsCompany, ILoginData, IToken } from '../interfaces/IAuth';
 import storage from '../storage';
 
 export const login = (data: ILoginData): Promise<IToken> => {
@@ -15,11 +15,16 @@ export const login = (data: ILoginData): Promise<IToken> => {
       if (rememberMe) {
         storage.set('key', data.tokenJWT);
       }
-      return data
-    })
+      return data;
+    });
 };
 
 export const logout = () => {
   storage.remove('key');
   removeAuthorizationHeader();
+};
+
+export const authVerify = async (): Promise<IAuthIsCompany> => {
+  const isCompany: IAuthIsCompany = await client.get('/auth');
+  return isCompany;
 };
