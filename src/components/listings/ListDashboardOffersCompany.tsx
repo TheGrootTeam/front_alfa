@@ -17,7 +17,7 @@ export const ListDashboardOffersCompany: React.FC<
               {offer.status ? (
                 'Oferta Activa'
               ) : (
-                <span className={styles.disabled}> OfertaCerrada</span>
+                <span className={styles.disabled}> Oferta Cerrada</span>
               )}
             </p>
           </Link>
