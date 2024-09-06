@@ -1,11 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { login, logout } from '../../utils/services/authService';
-import { ILoginData, IToken } from '../../utils/interfaces/IAuth';
+import {
+  IAuthIsCompany,
+  ILoginData,
+  IToken,
+} from '../../utils/interfaces/IAuth';
 import { router } from '../../router';
 import { applicantInfoSlice } from '../reducers/infoApplicantSlice';
 import { getApplicantInfoLoaded, getCompanyInfoLoaded } from '../selectors';
 import { RootState } from '../store';
 import { companyInfoSlice } from '../reducers/infoCompanySlice';
+import { authRememberSession } from '../../utils/utilsAuth';
+import { getInfoCompanyAction } from './infoCompanyActions';
+import { getInfoApplicantAction } from './infoApplicantActions';
+import { removeAuthorizationHeader } from '../../api/client';
+import storage from '../../utils/storage';
 
 export const authLogin = createAsyncThunk<
   IToken,
@@ -54,6 +63,32 @@ export const authLogout = createAsyncThunk<
       dispatch(companyInfoSlice.actions.resetCompanyInfoStore());
     }
   } catch (error: any) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message as string);
+    } else {
+      return rejectWithValue(error.error || (error.message as string));
+    }
+  }
+});
+
+export const authTokenAction = createAsyncThunk<
+  IAuthIsCompany,
+  string,
+  { state: RootState; rejectValue: string }
+>('auth/authToken', async (token, { rejectWithValue, dispatch }) => {
+  try {
+    const isCompany = await authRememberSession(token);
+
+    if (isCompany) {
+      await dispatch(getInfoCompanyAction());
+    } else {
+      await dispatch(getInfoApplicantAction());
+    }
+
+    return { isCompany };
+  } catch (error: any) {
+    removeAuthorizationHeader();
+    storage.remove('key');
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message as string);
     } else {

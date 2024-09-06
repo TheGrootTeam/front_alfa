@@ -49,22 +49,22 @@ export default function ApplicantInfo() {
               <span>{t('forms.internship_type')}:</span>{' '}
               {`${applicant.typeJob} & ${applicant.internType}`}
             </p>
-            <p>
+            <div>
               <span>{t('fields.mainSkills')}:</span>
               <ul>
                 {applicant.mainSkills.map((skill) => (
                   <li key={skill._id}>{skill.skill}</li>
                 ))}
               </ul>
-            </p>
-            <p>
+            </div>
+            <div>
               <span>{t('fields.wantedRole')}:</span>
               <ul>
                 {applicant.wantedRol.map((rol) => (
                   <li key={rol._id}>{rol.rol}</li>
                 ))}
               </ul>
-            </p>
+            </div>
             <p>
               <span>{t('fields.cv')}:</span> {applicant.cv}
             </p>
