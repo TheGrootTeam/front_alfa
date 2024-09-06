@@ -89,7 +89,8 @@ export function AddNewOffer() {
     >
   ) => {
     const target = event.target as HTMLInputElement | HTMLSelectElement;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    //const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.value;
 
     setFormData((currentData) => ({
       ...currentData,
@@ -101,159 +102,155 @@ export function AddNewOffer() {
     dispatch(uiSlice.actions.resetError());
   };
 
-  //DAL -Prueba con librería de ventanas para mensajes
-  // useEffect(() => {
-  //   if (!loading && !error && offerStatus {
-  //     setDatesSaved(true);
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Your work has been saved",
-  //       showConfirmButton: true,
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         navigate('/');
-  //       }
-  //     });
-  //   }
-  // }, [loading, error, offerStatus, navigate]);
-
-  return (
-    <Layout title={t('titles.add_offer')} page="newOffer">
-      {showMessageDatesSaved && (
-        <div>
-          <Notification
-            message={t('notifications.data_saved')}
-            type="success"
-          />
-        </div>
-      )}
-      <form onSubmit={handleSubmit} id="newOffer-form" className={styles.form}>
-        <p>
-          <FormInputText
-            labelText={t('forms.position')}
-            className="form__inputfield"
-            id="position"
-            name="position"
-            value={position}
-            onChange={handleChange}
-          />
-        </p>
-        <p>
-          <FormInputText
-            labelText={t('forms.publication_date')}
-            className="form__inputfield"
-            id="publicationDate"
-            name="publicationDate"
-            value={publicationDate}
-            onChange={handleChange}
-            readOnly={true}
-          />
-        </p>
-        <p>
-          <FormTextarea
-            labelText={t('forms.description')}
-            className="form__inputfield"
-            id="description"
-            name="description"
-            value={description}
-            onChange={handleChange}
-            rows={5}
-            cols={20}
-          />
-        </p>
-        <p>
-          <FormInputText
-            labelText={t('forms.location')}
-            className="form__inputfield"
-            id="location"
-            name="location"
-            value={location}
-            onChange={handleChange}
-          />
-        </p>
-        {/* MARTA - lo dejo comentado hasta verificar <p>
-          <FormSelect
-            label={t('forms.job_type')}
-            name="typeJob"
-            value={typeJob}
-            onChange={handleChange}
-            options={{
-              valueInicial: '',
-              presencial: 'presencial',
-              teletrabajo: 'teletrajo',
-              hibrido: 'hibrido',
-            }}
-          />
-        </p>
-        <p>
-          <FormSelect
-            label={t('forms.internship_type')}
-            name="internJob"
-            value={internJob}
-            onChange={handleChange}
-            options={{
-              valueInicial: '',
-              no_remunerado: 'no remunerado',
-              remunerado: 'remunerado',
-              ong: 'ONG',
-            }}
-          />
-        </p> */}
-        <p>
-          <FormSelect
-            labelText={t('forms.job_type')}
-            id="typeJob"
-            name="typeJob"
-            value={typeJob}
-            onChange={handleChange}
-            options={jobOptions}
-          />
-        </p>
-        <p>
-          <FormSelect
-            labelText={t('forms.internship_type')}
-            id="internJob"
-            name="internJob"
-            value={internJob}
-            onChange={handleChange}
-            options={internOptions}
-          />
-        </p>
-        <p>
-          <FormInputNumber
-            labelText={t('forms.number_vacancies')}
-            className="form__inputfield"
-            id="numberVacancies"
-            name="numberVacancies"
-            value={numberVacancies}
-            min={1}
-            onChange={handleChange}
-          />
-        </p>
-        <Button
-          className="form__button"
-          type="submit"
-          disabled={
-            showMessageDatesSaved ||
-            !position ||
-            !description ||
-            !location ||
-            typeJob === '' ||
-            (internJob === '' && error !== null)
-          }
+  function showInfo() {
+    return (
+      <Layout title={t('titles.add_offer')} page="newOffer">
+        {showMessageDatesSaved && (
+          <div>
+            <Notification
+              message={t('notifications.data_saved')}
+              type="success"
+            />
+          </div>
+        )}
+        <form
+          onSubmit={handleSubmit}
+          id="newOffer-form"
+          className={styles.form}
         >
-          {t('forms.save_offer_button')}
-        </Button>
-      </form>
-      <div onClick={resetError}>{error ? error : null}</div>
-      {showMessageDatesSaved && (
-        <div>
-          <Notification
-            message={t('notifications.data_saved')}
-            type="success"
-          />
-        </div>
-      )}
-    </Layout>
-  );
+          <p>
+            <FormInputText
+              labelText={t('forms.position')}
+              className="form__inputfield"
+              id="position"
+              name="position"
+              value={position}
+              onChange={handleChange}
+            />
+          </p>
+          <p>
+            <FormInputText
+              labelText={t('forms.publication_date')}
+              className="form__inputfield"
+              id="publicationDate"
+              name="publicationDate"
+              value={publicationDate}
+              onChange={handleChange}
+              readOnly={true}
+            />
+          </p>
+          <p>
+            <FormTextarea
+              labelText={t('forms.description')}
+              className="form__inputfield"
+              id="description"
+              name="description"
+              value={description}
+              onChange={handleChange}
+              rows={5}
+              cols={20}
+            />
+          </p>
+          <p>
+            <FormInputText
+              labelText={t('forms.location')}
+              className="form__inputfield"
+              id="location"
+              name="location"
+              value={location}
+              onChange={handleChange}
+            />
+          </p>
+          {/* MARTA - lo dejo comentado hasta verificar <p>
+            <FormSelect
+              label={t('forms.job_type')}
+              name="typeJob"
+              value={typeJob}
+              onChange={handleChange}
+              options={{
+                valueInicial: '',
+                presencial: 'presencial',
+                teletrabajo: 'teletrajo',
+                hibrido: 'hibrido',
+              }}
+            />
+          </p>
+          <p>
+            <FormSelect
+              label={t('forms.internship_type')}
+              name="internJob"
+              value={internJob}
+              onChange={handleChange}
+              options={{
+                valueInicial: '',
+                no_remunerado: 'no remunerado',
+                remunerado: 'remunerado',
+                ong: 'ONG',
+              }}
+            />
+          </p> */}
+          <p>
+            <FormSelect
+              labelText={t('forms.job_type')}
+              id="typeJob"
+              name="typeJob"
+              value={typeJob}
+              onChange={handleChange}
+              options={jobOptions}
+            />
+          </p>
+          <p>
+            <FormSelect
+              labelText={t('forms.internship_type')}
+              id="internJob"
+              name="internJob"
+              value={internJob}
+              onChange={handleChange}
+              options={internOptions}
+            />
+          </p>
+          <p>
+            <FormInputNumber
+              labelText={t('forms.number_vacancies')}
+              className="form__inputfield"
+              id="numberVacancies"
+              name="numberVacancies"
+              value={numberVacancies}
+              min={1}
+              onChange={handleChange}
+            />
+          </p>
+          <Button
+            className="form__button"
+            type="submit"
+            disabled={
+              showMessageDatesSaved ||
+              !position ||
+              !description ||
+              !location ||
+              typeJob === '' ||
+              (internJob === '' && error !== null)
+            }
+          >
+            {t('forms.save_offer_button')}
+          </Button>
+        </form>
+        <div onClick={resetError}>{error ? error : null}</div>
+        {showMessageDatesSaved && (
+          <div>
+            <Notification
+              message={t('notifications.data_saved')}
+              type="success"
+            />
+          </div>
+        )}
+      </Layout>
+    );
+  }
+
+  function showError() {
+    return <Notification type="error" message={error} onClick={resetError} />;
+  }
+
+  return <>{error ? showError() : showInfo()}</>;
 }
