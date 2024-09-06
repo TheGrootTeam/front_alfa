@@ -14,7 +14,7 @@ import { Button } from '../common/Button';
 import { useTranslation } from 'react-i18next';
 import { ListDashboardOffersCompany } from '../listings/ListDashboardOffersCompany';
 
-export default function ApplicantInfo() {
+export default function CompanyInfo() {
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
   const company = useSelector(getCompanyInfo);

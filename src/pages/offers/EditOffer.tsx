@@ -1,7 +1,7 @@
-import { useLocation } from 'react-router-dom';
-import { getUi } from '../../store/selectors';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { getUi, getToUpdateOfferState } from '../../store/selectors';
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
 import { AppDispatch } from '../../store/store';
@@ -14,8 +14,7 @@ import { FormSelect } from '../../components/formElements/formSelect';
 import { FormCheckbox } from '../../components/formElements/formCheckbox';
 import { editOffersAction } from '../../store/actions/offersActions';
 import Notification from '../../components/common/Notification';
-import { useNavigate } from 'react-router-dom';
-import { getToUpdateOfferState } from '../../store/selectors';
+import { uiSlice } from '../../store/reducers/uiSlice';
 import { editOfferSlice } from '../../store/reducers/editOfferSlice';
 import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
 
@@ -28,8 +27,8 @@ export function EditOffer() {
   const theLocation = useLocation();
   const { offer } = theLocation.state || {};
 
-  const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
-  const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
+  const jobOptions = useFormSelectOptions('job'); // options fot the typeJob selector
+  const internOptions = useFormSelectOptions('internship'); // options for the internType selector
 
   const [formData, setFormData] = useState({
     id: offer.id || '',
@@ -93,147 +92,159 @@ export function EditOffer() {
     }));
   };
 
-  return (
-    <>
-      <Layout title={t('titles.edit_offer')} page="editoffer">
-        {showMessageDatesSaved && (
-          <div>
-            <Notification
-              message={t('notifications.offer_updated')}
-              type="success"
-            />
-          </div>
-        )}
-        <form
-          onSubmit={handleSubmit}
-          id="newOffer-form"
-          className={styles.form}
-        >
-          <p>
-            <FormCheckbox
-              id="status"
-              labelText={t('forms.status_closed')}
-              name="status"
-              checked={!status}
-              value=""
-              onChange={handleChange}
-            />
-          </p>
-          <p>
-            <FormInputText
-              labelText={t('forms.position')}
-              className="form__inputfield"
-              id="position"
-              name="position"
-              value={position}
-              onChange={handleChange}
-            />
-          </p>
-          <p>
-            <FormTextarea
-              labelText={t('forms.description')}
-              className="form__inputfield"
-              id="description"
-              name="description"
-              value={description}
-              onChange={handleChange}
-              rows={5}
-              cols={20}
-            />
-          </p>
-          <p>
-            <FormInputText
-              labelText={t('forms.location')}
-              className="form__inputfield"
-              id="location"
-              name="location"
-              value={location}
-              onChange={handleChange}
-            />
-          </p>
-          {/* MARTA - lo dejo comentado hasta verificar <p>
-            <FormSelect
-              label={t('forms.job_type')}
-              name="typeJob"
-              value={typeJob}
-              onChange={handleChange}
-              options={{
-                valueInicial: '',
-                presencial: 'presencial',
-                teletrabajo: 'teletrajo',
-                hibrido: 'hibrido',
-              }}
-            />
-          </p>
-          <p>
-            <FormSelect
-              label={t('forms.internship_type')}
-              name="internJob"
-              value={internJob}
-              onChange={handleChange}
-              options={{
-                valueInicial: '',
-                no_remunerado: 'no remunerado',
-                remunerado: 'remunerado',
-                ong: 'ONG',
-              }}
-            />
-          </p> */}
-          <p>
-            <FormSelect
-              labelText={t('forms.job_type')}
-              id="typeJob"
-              name="typeJob"
-              value={typeJob}
-              onChange={handleChange}
-              options={jobOptions}
-            />
-          </p>
-          <p>
-            <FormSelect
-              labelText={t('forms.internship_type')}
-              id="internJob"
-              name="internJob"
-              value={internJob}
-              onChange={handleChange}
-              options={internOptions}
-            />
-          </p>
-          <p>
-            <FormInputNumber
-              labelText={t('forms.number_vacancies')}
-              className="form__inputfield"
-              id="numberVacancies"
-              name="numberVacancies"
-              value={numberVacancies}
-              min={1}
-              onChange={handleChange}
-            />
-          </p>
-          <Button
-            className="form__button"
-            type="submit"
-            disabled={
-              showMessageDatesSaved ||
-              !position ||
-              !description ||
-              !location ||
-              typeJob === '' ||
-              (internJob === '' && error !== null)
-            }
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
+  };
+
+  function showInfo() {
+    return (
+      <>
+        <Layout title={t('titles.edit_offer')} page="editoffer">
+          {showMessageDatesSaved && (
+            <div>
+              <Notification
+                message={t('notifications.offer_updated')}
+                type="success"
+              />
+            </div>
+          )}
+          <form
+            onSubmit={handleSubmit}
+            id="newOffer-form"
+            className={styles.form}
           >
-            {t('forms.save_offer_button')}
-          </Button>
-        </form>
-        {showMessageDatesSaved && (
-          <div>
-            <Notification
-              message={t('notifications.offer_updated')}
-              type="success"
-            />
-          </div>
-        )}
-      </Layout>
-    </>
-  );
+            <p>
+              <FormCheckbox
+                id="status"
+                labelText={t('forms.status_closed')}
+                name="status"
+                checked={!status}
+                value=""
+                onChange={handleChange}
+              />
+            </p>
+            <p>
+              <FormInputText
+                labelText={t('forms.position')}
+                className="form__inputfield"
+                id="position"
+                name="position"
+                value={position}
+                onChange={handleChange}
+              />
+            </p>
+            <p>
+              <FormTextarea
+                labelText={t('forms.description')}
+                className="form__inputfield"
+                id="description"
+                name="description"
+                value={description}
+                onChange={handleChange}
+                rows={5}
+                cols={20}
+              />
+            </p>
+            <p>
+              <FormInputText
+                labelText={t('forms.location')}
+                className="form__inputfield"
+                id="location"
+                name="location"
+                value={location}
+                onChange={handleChange}
+              />
+            </p>
+            {/* MARTA - lo dejo comentado hasta verificar <p>
+              <FormSelect
+                label={t('forms.job_type')}
+                name="typeJob"
+                value={typeJob}
+                onChange={handleChange}
+                options={{
+                  valueInicial: '',
+                  presencial: 'presencial',
+                  teletrabajo: 'teletrajo',
+                  hibrido: 'hibrido',
+                }}
+              />
+            </p>
+            <p>
+              <FormSelect
+                label={t('forms.internship_type')}
+                name="internJob"
+                value={internJob}
+                onChange={handleChange}
+                options={{
+                  valueInicial: '',
+                  no_remunerado: 'no remunerado',
+                  remunerado: 'remunerado',
+                  ong: 'ONG',
+                }}
+              />
+            </p> */}
+            <p>
+              <FormSelect
+                labelText={t('forms.job_type')}
+                id="typeJob"
+                name="typeJob"
+                value={typeJob}
+                onChange={handleChange}
+                options={jobOptions}
+              />
+            </p>
+            <p>
+              <FormSelect
+                labelText={t('forms.internship_type')}
+                id="internJob"
+                name="internJob"
+                value={internJob}
+                onChange={handleChange}
+                options={internOptions}
+              />
+            </p>
+            <p>
+              <FormInputNumber
+                labelText={t('forms.number_vacancies')}
+                className="form__inputfield"
+                id="numberVacancies"
+                name="numberVacancies"
+                value={numberVacancies}
+                min={1}
+                onChange={handleChange}
+              />
+            </p>
+            <Button
+              className="form__button"
+              type="submit"
+              disabled={
+                showMessageDatesSaved ||
+                !position ||
+                !description ||
+                !location ||
+                typeJob === '' ||
+                (internJob === '' && error !== null)
+              }
+            >
+              {t('forms.save_offer_button')}
+            </Button>
+          </form>
+          {showMessageDatesSaved && (
+            <div>
+              <Notification
+                message={t('notifications.offer_updated')}
+                type="success"
+              />
+            </div>
+          )}
+        </Layout>
+      </>
+    );
+  }
+
+  function showError() {
+    return <Notification type="error" message={error} onClick={resetError} />;
+  }
+
+  return <>{error ? showError() : showInfo()}</>;
 }
