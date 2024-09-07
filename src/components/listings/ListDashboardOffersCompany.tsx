@@ -12,8 +12,12 @@ export const ListDashboardOffersCompany: React.FC<
       {[...publishedOffers]
         /* Most recent offer first */
         .sort((a, b) => {
-          const date_A = new Date(a.publicationDate).getTime();
-          const date_B = new Date(b.publicationDate).getTime();
+          const date_A = a.publicationDate
+            ? new Date(a.publicationDate).getTime()
+            : 0; // If is undefined, asignate 0
+          const date_B = b.publicationDate
+            ? new Date(b.publicationDate).getTime()
+            : 0; // If is undefined, asignate 0
           return date_B - date_A;
         })
         .map((offer) => (
@@ -28,7 +32,11 @@ export const ListDashboardOffersCompany: React.FC<
                   <span className={styles.disabled}> Oferta Cerrada</span>
                 )}
               </p>
-              <p>{offer.publicationDate.split('T')[0]}</p>
+              <p>
+                {offer.publicationDate
+                  ? offer.publicationDate.split('T')[0]
+                  : 'Fecha no disponible'}
+              </p>
             </Link>
           </div>
         ))}

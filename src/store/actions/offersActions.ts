@@ -52,9 +52,8 @@ export const createOffersAction = createAsyncThunk<
       };
 
 
-      // //BALIZA -> VERIFICAR  cuando se cree edición de compañía
-      // console.log('MAPPED_OFFER (ADD_NEW_OFFER): ', mappedOffer);
-
+      // //BALIZA -> VERIFICAR qcuando se cree edición de compañía
+      // console.log('MAPPED_OFFER (ADD_NEW_OFFER): ', mappedOffer);q
       // const companyId = mappedOffer.companyOwner._id;
       // console.log('LAS IDS (empresa-oferta):', companyId, mappedOffer.id);
       // await updateCompanyOffers(companyId, mappedOffer.id)

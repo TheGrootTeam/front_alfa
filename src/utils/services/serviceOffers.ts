@@ -46,7 +46,6 @@ export async function deleteOfferService(id: string) {
 
 //This function update the publishedOffers in Companies
 // export async function updateCompanyOffers(companyId: string, offerId: string): Promise<void> {
-
 //   try {
 //     await client.patch(`/company/edit/${companyId}`, {  // BALIZA -> VERIFICAR RUTA cuando se cree edición de compañía
 //       offerId: offerId,

@@ -99,7 +99,7 @@ export interface offerDashboard {
   position: string;
   location: string;
   status: boolean;
-  publicationDate: string;
+  publicationDate?: string;
 }
 
 export interface ListDashboardOffersCompanyProps {
