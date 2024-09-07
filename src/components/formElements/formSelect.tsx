@@ -24,7 +24,9 @@ export function FormSelect({
           ---
         </option>
         {Object.entries(options).map(([key, optionValue]) => (
-          <option key={key} value={key}>
+          //DAL: cambio para que devuelva en value el texto y no el índice.
+          // <option key={key} value={key}>
+          <option key={key} value={optionValue}>
             {optionValue}
           </option>
         ))}
