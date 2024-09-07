@@ -17,6 +17,7 @@ import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { authLogin } from '../../store/actions/authActions';
+import { isPasswordStrong } from '../../utils/utilsForms';
 
 export function RegisterCompanyForm() {
   const { t } = useTranslation();
@@ -71,10 +72,6 @@ export function RegisterCompanyForm() {
     }
   }, [dniCif, t]);
 
-  const isPasswordStrong = (password: string) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-      password
-    );
   const isValidEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isValidCIF = (cif: string) => /^[A-H][0-9]{8}$/.test(cif);
