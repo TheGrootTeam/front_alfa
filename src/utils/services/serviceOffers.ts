@@ -45,13 +45,13 @@ export async function deleteOfferService(id: string) {
 }
 
 //This function update the publishedOffers in Companies
-export async function updateCompanyOffers(companyId: string, offerId: string): Promise<void> {
+// export async function updateCompanyOffers(companyId: string, offerId: string): Promise<void> {
 
-  try {
-    await client.patch(`/company/edit/${companyId}`, {  // BALIZA -> VERIFICAR RUTA
-      offerId: offerId,
-    });
-  } catch (error: any) {
-    throw new Error(error.mensge || 'An error occurred while updating company offers (in DB: Companies -> publishedOffers)')
-  }
-}
+//   try {
+//     await client.patch(`/company/edit/${companyId}`, {  // BALIZA -> VERIFICAR RUTA cuando se cree edición de compañía
+//       offerId: offerId,
+//     });
+//   } catch (error: any) {
+//     throw new Error(error.mensge || 'An error occurred while updating company offers (in DB: Companies -> publishedOffers)')
+//   }
+// }

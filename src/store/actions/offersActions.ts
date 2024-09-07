@@ -5,7 +5,7 @@ import {
 } from '../../utils/services/serviceOffers';
 import { offersMapped } from '../../utils/utilsOffers';
 import { IOfferForm, IOfferMapped } from '../../utils/interfaces/IOffer';
-import { createOffer, updateOffer, updateCompanyOffers } from '../../utils/services/serviceOffers';
+import { createOffer, updateOffer, /*updateCompanyOffers*/ } from '../../utils/services/serviceOffers';
 import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
 import { uiSlice } from '../reducers/uiSlice';
@@ -52,12 +52,12 @@ export const createOffersAction = createAsyncThunk<
       };
 
 
-      //BALIZA
-      console.log('MAPPED_OFFER (ADD_NEW_OFFER): ', mappedOffer);
+      // //BALIZA -> VERIFICAR  cuando se cree edición de compañía
+      // console.log('MAPPED_OFFER (ADD_NEW_OFFER): ', mappedOffer);
 
-      const companyId = mappedOffer.companyOwner._id;
-      console.log('LAS IDS (empresa-oferta):', companyId, mappedOffer.id);
-      await updateCompanyOffers(companyId, mappedOffer.id)
+      // const companyId = mappedOffer.companyOwner._id;
+      // console.log('LAS IDS (empresa-oferta):', companyId, mappedOffer.id);
+      // await updateCompanyOffers(companyId, mappedOffer.id)
 
 
       return mappedOffer;
