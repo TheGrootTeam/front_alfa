@@ -12,10 +12,13 @@ import {
 } from '../../utils/interfaces/IFormElements';
 import { changePasswordService } from '../../utils/services/passwordService';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getIsCompany } from '../../store/selectors';
 
 export function ChangePasswordForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const isCompany = useSelector(getIsCompany);
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState<IFormChangePassword>({
@@ -75,7 +78,7 @@ export function ChangePasswordForm() {
 
     // if all ok
     try {
-      await changePasswordService(formData);
+      await changePasswordService({ ...formData, isCompany });
       setSuccessMessage(t('notifications.password_change_success'));
       setTimeout(() => {
         navigate('/company');

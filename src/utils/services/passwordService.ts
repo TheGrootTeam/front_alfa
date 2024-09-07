@@ -1,6 +1,6 @@
 import { client } from '../../api/client';
-import { IFormChangePassword } from '../interfaces/IFormElements';
+import { IDataApiChangePassword } from '../interfaces/IFormElements';
 
-export async function changePasswordService(data: IFormChangePassword) {
+export async function changePasswordService(data: IDataApiChangePassword) {
   await client.post('/changePassword', data);
 }

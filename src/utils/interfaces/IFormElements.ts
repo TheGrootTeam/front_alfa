@@ -57,6 +57,10 @@ export interface IFormChangePassword {
   confirmNewPassword: string;
 }
 
+export interface IDataApiChangePassword extends IFormChangePassword {
+  isCompany: boolean;
+}
+
 export interface IFormReturnValidateForm {
   isValid: boolean;
   errorMessage: string;
