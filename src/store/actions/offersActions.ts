@@ -5,10 +5,9 @@ import {
 } from '../../utils/services/serviceOffers';
 import { offersMapped } from '../../utils/utilsOffers';
 import { IOfferForm, IOfferMapped } from '../../utils/interfaces/IOffer';
-import { createOffer } from '../../utils/services/serviceOffers';
+import { createOffer, updateOffer, /*updateCompanyOffers*/ } from '../../utils/services/serviceOffers';
 import { RootState } from '../store';
 import { getOffersLoaded, getOffersState } from '../selectors';
-import { updateOffer } from '../../utils/services/serviceOffers';
 import { uiSlice } from '../reducers/uiSlice';
 import { router } from '../../router';
 import { offersSlice } from '../reducers/offersSlice';
@@ -44,12 +43,22 @@ export const createOffersAction = createAsyncThunk<
 >(
   'offers/createOffersAction',
   async (newOffer: IOfferForm, { rejectWithValue }) => {
+
     try {
       const offer = await createOffer(newOffer);
       const mappedOffer: IOfferMapped = {
         ...offer,
         id: offer._id!, //  _id never is undefined
       };
+
+
+      // //BALIZA -> VERIFICAR qcuando se cree edición de compañía
+      // console.log('MAPPED_OFFER (ADD_NEW_OFFER): ', mappedOffer);q
+      // const companyId = mappedOffer.companyOwner._id;
+      // console.log('LAS IDS (empresa-oferta):', companyId, mappedOffer.id);
+      // await updateCompanyOffers(companyId, mappedOffer.id)
+
+
       return mappedOffer;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message);
