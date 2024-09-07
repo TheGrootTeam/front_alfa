@@ -72,7 +72,7 @@ export function AddNewOffer() {
       setDatesSaved(true);
       setTimeout(() => {
         setDatesSaved(false);
-        navigate('/');
+        navigate('/company');
       }, 3000); // Hide the messages in 3 sg
     }
   }, [loading, error, offerStatus]);
