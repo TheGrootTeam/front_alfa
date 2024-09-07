@@ -83,8 +83,12 @@ export function ChangePasswordForm() {
       setTimeout(() => {
         navigate('/company');
       }, 2000);
-    } catch (error) {
-      setFormError(`${t('errors.generic_form_error')}`);
+    } catch (error: any) {
+      if (error.status === 403) {
+        setFormError(`${t('errors.password_current_wrong')}`);
+      } else {
+        setFormError(`${t('errors.generic_form_error')}`);
+      }
     }
   };
 

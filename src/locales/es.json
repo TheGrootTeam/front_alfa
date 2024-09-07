@@ -117,6 +117,7 @@
     "password_empty": "Los campos de contraseña no pueden estar vacíos",
     "password_different": "Las contraseñas no coinciden",
     "password_rules": "La contraseña debe tener al menos 8 caracteres, incluir un número, una letra mayúscula y un carácter especial",
+    "password_current_wrong": "La contraseña actual no es válida",
     "email_invalid": "El correo electrónico no es válido",
     "dnicif_format": "El CIF debe empezar con A, B, C, D, E, F, G, H y seguido de 8 dígitos",
     "dnicif_invalid": "El NIF/NIE no es válido",

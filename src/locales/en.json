@@ -117,6 +117,7 @@
     "password_empty": "Password fields cannot be empty",
     "password_different": "Passwords don't match",
     "password_rules": "Password needs to have at least 8 characters and include a number, an uppercase letter and a special character",
+    "password_current_wrong": "The current password is not valid",
     "email_invalid": "Email address isn't valid",
     "dnicif_format": "VAT number must start with a letter from A to H followed by 8 digits",
     "dnicif_invalid": "Personal ID number not valid",
