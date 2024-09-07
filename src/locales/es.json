@@ -125,14 +125,16 @@
     "processing_form_error": "Error procesando el formulario: ",
     "generic_form_error": "Ha ocurrido un error mientras se enviaba el formulario, por favor inténtelo de nuevo.",
     "creating_user_error": "Se ha producido un error al crear el usuario",
-    "editing_user_error": "Se ha producido un error al editar los datos de usuario"
+    "editing_user_error": "Se ha producido un error al editar los datos de usuario",
+    "all_fields_required": "Todos los campos son obligatorios"
   },
   "notifications": {
     "register_success": "Usuario registrado correctamente",
     "edit_success": "Datos de usuario editados correctamente",
     "data_saved": "Los datos se han guardado correctamente",
     "offer_created": "La nueva oferta ha sido creada con éxito",
-    "offer_updated": "La oferta se actualizó con éxito"
+    "offer_updated": "La oferta se actualizó con éxito",
+    "password_change_success": "Contraseña modificada correctamente"
   },
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",

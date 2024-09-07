@@ -6,16 +6,25 @@ import { useEffect, useState } from 'react';
 import { FormCheckbox } from '../formElements/formCheckbox';
 import Notification from '../common/Notification';
 import { isPasswordStrong } from '../../utils/utilsForms';
+import {
+  IFormChangePassword,
+  IFormReturnValidateForm,
+} from '../../utils/interfaces/IFormElements';
+import { changePasswordService } from '../../utils/services/passwordService';
+import { useNavigate } from 'react-router-dom';
 
 export function ChangePasswordForm() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<IFormChangePassword>({
     currentPassword: '',
     newPassword: '',
     confirmNewPassword: '',
   });
   const { currentPassword, newPassword, confirmNewPassword } = formData;
+  const [succesMessage, setSuccessMessage] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -37,9 +46,48 @@ export function ChangePasswordForm() {
     }));
   };
 
+  const validateForm = (data: IFormChangePassword): IFormReturnValidateForm => {
+    setFormError(null);
+    let isValid = true;
+    let errorMessage = '';
+
+    for (const value of Object.values(data)) {
+      if (typeof value !== 'string' || value.trim().length === 0) {
+        isValid = false;
+        errorMessage = `${t('errors.required_field_error')}`;
+        break;
+      }
+    }
+
+    return { isValid, errorMessage };
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // verify missing fields or errors
+    if (passwordError) return;
+    const { isValid, errorMessage } = validateForm(formData);
+    if (!isValid) {
+      setFormError(errorMessage);
+      return;
+    }
+
+    // if all ok
+    try {
+      await changePasswordService(formData);
+      setSuccessMessage(t('notifications.password_change_success'));
+      setTimeout(() => {
+        navigate('/company');
+      }, 2000);
+    } catch (error) {
+      setFormError(`${t('errors.generic_form_error')}`);
+    }
+  };
+
   return (
     <>
-      <form className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <ul>
           <li>
             <FormInputText
@@ -47,7 +95,7 @@ export function ChangePasswordForm() {
               id="currentPassword"
               name="currentPassword"
               type={showPassword ? 'text' : 'password'}
-              value={formData.currentPassword || ''}
+              value={currentPassword || ''}
               onChange={handleInputChange}
             />
           </li>
@@ -57,7 +105,7 @@ export function ChangePasswordForm() {
               id="newPassword"
               name="newPassword"
               type={showPassword ? 'text' : 'password'}
-              value={formData.newPassword || ''}
+              value={newPassword || ''}
               onChange={handleInputChange}
             />
           </li>
@@ -67,7 +115,7 @@ export function ChangePasswordForm() {
               id="confirmNewPassword"
               name="confirmNewPassword"
               type={showPassword ? 'text' : 'password'}
-              value={formData.confirmNewPassword || ''}
+              value={confirmNewPassword || ''}
               onChange={handleInputChange}
             />
             {passwordError && (
@@ -87,6 +135,10 @@ export function ChangePasswordForm() {
             <Button type="submit">{t('buttons.change_password')}</Button>
           </li>
         </ul>
+        {formError && <Notification type="error" message={formError} />}
+        {succesMessage && (
+          <Notification type="success" message={succesMessage} />
+        )}
       </form>
     </>
   );
