@@ -41,7 +41,7 @@ export async function updateOffer(updatedOffer: IOfferForm) {
 
 export async function deleteOfferService(id: string) {
   const data = { offerId: id };
-  await client.post('/offers/delete', data);
+  await client.delete('/offers/delete', { data });
 }
 
 //This function update the publishedOffers in Companies

@@ -32,6 +32,7 @@ import RequireIsApplicant from './components/auth/RequireIsApplicant';
 import { EditProfileSwitch } from './components/routing/EditProfileSwitch';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
+import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
 
 function App() {
   const isLogged = useSelector(getIsLogged);
@@ -86,6 +87,15 @@ function App() {
         <Route path="edit" element={<EditCompanyProfilePage />} />
         <Route path="profile" element={<CompanyProfilePage />} />
       </Route>
+
+      <Route
+        path="/change_password"
+        element={
+          <RequireAuth>
+            <ChangePasswordPage />
+          </RequireAuth>
+        }
+      />
 
       <Route
         path="/offers"
