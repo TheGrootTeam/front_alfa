@@ -5,7 +5,6 @@ import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
-//import { getToUpdateOfferState } from '../../store/selectors';
 import { getCompanyInfo } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import styles from './CompanyInfo.module.css';
