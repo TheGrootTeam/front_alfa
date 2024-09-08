@@ -139,7 +139,8 @@
   },
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",
-    "delete_offer_message": "¿Estás seguro que quieres eliminar la oferta?"
+    "delete_offer_message": "¿Estás seguro que quieres eliminar la oferta?",
+    "confirm_delete_profile": "¿Estás seguro de que deseas eliminar tu perfil?"
   },
   "plurals": {
     "vacancy_one": "vacante",
@@ -149,6 +150,7 @@
     "change_VAT": "Contáctanos para cambiar el CIF"
   },
   "success": {
-    "delete_offer_success": "Anuncio eliminado satisfactoriamente"
+    "delete_offer_success": "Anuncio eliminado satisfactoriamente",
+    "profile_deleted": "Perfil borrado correctamente"
   }
 }
