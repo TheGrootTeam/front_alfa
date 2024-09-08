@@ -139,7 +139,8 @@
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
-    "delete_offer_message": "Are you sure you want to delete the offer?"
+    "delete_offer_message": "Are you sure you want to delete the offer?",
+    "confirm_delete_profile": "Are you sure you want to delete your profile?"
   },
   "plurals": {
     "vacancy_one": "vacancy",
@@ -149,6 +150,7 @@
     "change_VAT": "To change VAT Number please contact us"
   },
   "success": {
-    "delete_offer_success": "Announcement successfully deleted."
+    "delete_offer_success": "Announcement successfully deleted.",
+    "profile_deleted": "Profile deleted successfully"
   }
 }
