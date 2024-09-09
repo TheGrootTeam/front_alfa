@@ -1,11 +1,11 @@
 // import { client } from '../../api/client';
-import { IRegisterApplicantForm, IRegisterCompanyForm } from '../interfaces/IAuth';
-import { IEditCompanyInfo } from '../interfaces/IProfile';
+import { IRegisterCompanyForm } from '../interfaces/IAuth';
+import { IEditApplicantInfo, IEditCompanyInfo } from '../interfaces/IProfile';
 
 export async function updateApplicantUser(
-  updatedUser: IRegisterApplicantForm,
+  updatedUser: IEditApplicantInfo,
   t: (key: string) => string
-): Promise<IRegisterApplicantForm> {
+): Promise<IEditApplicantInfo> {
   try {
     // TEMP console log + return del usuario
     console.log(updatedUser);

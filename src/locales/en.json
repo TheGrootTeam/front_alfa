@@ -69,7 +69,9 @@
     "status_closed": "Close offer  (will not accept more applicants)",
     "company_description": "Company description",
     "offer_description": "Offer description",
-    "select_sector": "Select Industry"
+    "select_sector": "Select Industry",
+    "actual_photo": "Actual photo",
+    "actual_cv": "Actual CV"
   },
   "formSelect": {
     "jobType": {
@@ -139,16 +141,19 @@
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
-    "delete_offer_message": "Are you sure you want to delete the offer?"
+    "delete_offer_message": "Are you sure you want to delete the offer?",
+    "confirm_delete_profile": "Are you sure you want to delete your profile?"
   },
   "plurals": {
     "vacancy_one": "vacancy",
     "vacancy_other": "vacancies"
   },
   "msg": {
-    "change_VAT": "To change VAT Number please contact us"
+    "change_VAT": "To change VAT Number please contact us",
+    "change_DNI": "To change NIF Number please contact us"
   },
   "success": {
-    "delete_offer_success": "Announcement successfully deleted."
+    "delete_offer_success": "Announcement successfully deleted.",
+    "profile_deleted": "Profile deleted successfully"
   }
 }
