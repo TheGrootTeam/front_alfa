@@ -283,12 +283,12 @@ export function EditUserProfilePage() {
           <li>
             <label>{t('fields.photo')}</label>
             <input type="file" name="photo" onChange={handleFileChange} />
-            <p>{formApplicantData.photo}</p>
+            <p>{t('forms.actual_photo')}: {formApplicantData.photo}</p>
           </li>
           <li>
             <label>{t('fields.cv')}</label>
             <input type="file" name="cv" onChange={handleFileChange} />
-            <p>{formApplicantData.cv}</p>
+            <p>{t('forms.actual_cv')}: {formApplicantData.cv}</p>
           </li>
           <li>
             <FormSelect

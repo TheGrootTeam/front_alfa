@@ -69,7 +69,9 @@
     "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)",
     "company_description": "Descripción de la empresa",
     "offer_description": "Descripción de la oferta",
-    "select_sector": "Seleccione sector"
+    "select_sector": "Seleccione sector",
+    "actual_photo": "Foto actual",
+    "actual_cv": "CV actual"
   },
   "formSelect": {
     "jobType": {

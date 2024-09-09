@@ -69,7 +69,9 @@
     "status_closed": "Close offer  (will not accept more applicants)",
     "company_description": "Company description",
     "offer_description": "Offer description",
-    "select_sector": "Select Industry"
+    "select_sector": "Select Industry",
+    "actual_photo": "Actual photo",
+    "actual_cv": "Actual CV"
   },
   "formSelect": {
     "jobType": {
