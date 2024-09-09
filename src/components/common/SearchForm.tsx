@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../store/store';
 import { getSearchResultsAction } from '../../store/actions/searchActions';
-import { setHasSearched } from '../../store/reducers/searchSlice';
+import {
+  setHasSearched,
+  setSearchTerm,
+} from '../../store/reducers/searchSlice';
 import { useLocation } from 'react-router-dom';
 import styles from './SearchForm.module.css';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +14,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 const SearchForm = () => {
   const { t } = useTranslation();
   const dispatch: AppDispatch = useDispatch();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTermState] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 1000); // Debounce for 500ms
   const { error, loading } = useSelector((state: RootState) => state.search);
 
@@ -25,18 +28,32 @@ const SearchForm = () => {
   useEffect(() => {
     if (debouncedSearchTerm) {
       dispatch(setHasSearched(true));
-      dispatch(getSearchResultsAction(debouncedSearchTerm));
+      dispatch(setSearchTerm(debouncedSearchTerm));
+      dispatch(
+        getSearchResultsAction({
+          searchTerm: debouncedSearchTerm,
+          page: 1, // Set the initial page to 1
+          limit: 10, // Set a default limit for results per page
+        })
+      );
     }
   }, [debouncedSearchTerm, dispatch]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    setSearchTermState(e.target.value);
   };
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
       dispatch(setHasSearched(true));
-      dispatch(getSearchResultsAction(searchTerm));
+      dispatch(setSearchTerm(searchTerm));
+      dispatch(
+        getSearchResultsAction({
+          searchTerm,
+          page: 1, // Reset page to 1 when doing a new search
+          limit: 10, // Use default limit
+        })
+      );
     }
   };
 

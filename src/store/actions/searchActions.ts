@@ -4,16 +4,15 @@ import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { RootState } from '../store';
 
 export const getSearchResultsAction = createAsyncThunk<
-  IOfferMapped[],
-  string,
+  { offers: IOfferMapped[]; totalResults: number }, // Updated return type
+  { searchTerm: string; page: number; limit: number }, // Accept page and limit as parameters
   { rejectValue: string; state: RootState }
 >(
   'search/getSearchResultsAction',
-  async (searchTerm: string, { rejectWithValue }) => {
+  async ({ searchTerm, page, limit }, { rejectWithValue }) => {
     try {
-      console.log('SEARCH TERM ', searchTerm);
-      const results = await searchOffers(searchTerm);
-      return results;
+      const response = await searchOffers(searchTerm, page, limit); // Pass page and limit to the service
+      return response; // Response should include offers and totalResults
     } catch (error: any) {
       return rejectWithValue(error.message || 'Failed to fetch search results');
     }

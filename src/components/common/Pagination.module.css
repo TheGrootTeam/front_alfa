@@ -1,3 +1,58 @@
-.paginationContainer {
+.pagination {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.paginationButton {
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  margin: 0 5px;
+  border: 2px solid var(--dark);
+  background-color: var(--light);
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.paginationButton:disabled {
+  border: 2px solid var(--neutral-bg);
+  background-color: var(--neutral-bg);
+  cursor: not-allowed;
+}
+
+.paginationButton:hover:not(:disabled) {
+  background-color: var(--accent-alt);
+  border: 2px solid var(--accent-alt);
+  color: var(--light);
+}
+
+.pageNumbers {
+  display: flex;
+  align-items: center;
+}
+
+.pageNumberButton {
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  margin: 0 3px;
+  border: 2px solid var(--dark);
+  background-color: var(--light);
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.pageNumberButton:hover {
+  border: 2px solid var(--accent-alt);
+  background-color: var(--accent-alt);
+  color: var(--light);
+}
+
+.activePage,
+.activePage:hover {
+  border: 2px solid var(--dark);
+  background-color: var(--dark);
+  color: white;
+  font-weight: bold;
+  cursor: default;
 }

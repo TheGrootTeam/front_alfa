@@ -13,10 +13,16 @@
     "logout": "Log out",
     "github_link": "Code on Github"
   },
+  "pagination": {
+    "previous": "prev",
+    "next": "next",
+    "of": "of"
+  },
   "titles": {
     "log_in": "Log in",
     "lost_password": "Recover password",
     "register": "Register",
+    "latest_offers": "Recently published offers",
     "about": "About",
     "companyprofile_edit": "Edit Company Profile",
     "companyprofile": "Company Profile",
@@ -33,7 +39,10 @@
     "internship_preferences": "Internship Preferences",
     "availability": "Availability",
     "published_offers": "List of published offers",
-    "search_results": "Results for "
+    "search_results": "Results for ",
+    "found_results": " found results",
+    "no_results": "No results found",
+    "no_results_for": "No results found for "
   },
   "forms": {
     "section_login": "Log in data",

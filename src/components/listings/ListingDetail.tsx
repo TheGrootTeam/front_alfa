@@ -3,6 +3,7 @@ import { IOfferListingDetail } from '../../utils/interfaces/IOffer';
 import styles from './ListingDetail.module.css';
 import { useTranslation } from 'react-i18next';
 // import { Button } from '../common/Button';
+import { formatDate } from '../../utils/utilsDates';
 
 export function ListingDetail({
   id,
@@ -16,11 +17,11 @@ export function ListingDetail({
   publicationDate,
   typeJob,
 }: IOfferListingDetail) {
-  const formattedDate = new Date(publicationDate).toLocaleDateString('es-ES', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
+  // const formattedDate = new Date(publicationDate).toLocaleDateString('es-ES', {
+  //   day: '2-digit',
+  //   month: '2-digit',
+  //   year: 'numeric',
+  // });
 
   const { t } = useTranslation();
 
@@ -44,7 +45,8 @@ export function ListingDetail({
         {/* DAL - Para adaptarlo el ISO?*/}
         {/* <p>Publicado el: {publicationDate.toDateString()}</p> */}
         <p className={styles.date}>
-          {t('gen.published_on')} {formattedDate}
+          {/* {t('gen.published_on')} {formattedDate} */}
+          {t('gen.published_on')} {formatDate(publicationDate)}
         </p>
         <p>{description}</p>
       </div>

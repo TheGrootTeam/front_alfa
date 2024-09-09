@@ -13,10 +13,16 @@
     "logout": "Salir",
     "github_link": "Código en Github"
   },
+  "pagination": {
+    "previous": "anterior",
+    "next": "siguiente",
+    "of": "de"
+  },
   "titles": {
     "log_in": "Entrar",
     "lost_password": "Recuperar contraseña",
     "register": "Registrarse",
+    "latest_offers": "Últimas ofertas publicadas",
     "about": "Acerca de",
     "companyprofile_edit": "Editar perfil de empresa",
     "companyprofile": "Perfil de empresa",
@@ -33,7 +39,10 @@
     "internship_preferences": "Preferencias para las prácticas",
     "availability": "Disponibilidad",
     "published_offers": "Listado de ofertas publicadas",
-    "search_results": "Resultados para "
+    "search_results": "Resultados para ",
+    "found_results": " resultados",
+    "no_results": "No se han encontrado resultados",
+    "no_results_for": "No se han encontrado resultados para "
   },
   "forms": {
     "section_login": "Datos de autenticación",
