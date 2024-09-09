@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { uiSlice } from '../../store/reducers/uiSlice';
 import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
-import { getUi, getCompanyInfo } from '../../store/selectors';
+import { getUi } from '../../store/selectors';
+import { getCompanyInfo } from '../../store/selectors';
+import { uiSlice } from '../../store/reducers/uiSlice';
 import styles from './CompanyInfo.module.css';
 import { Button } from '../common/Button';
 import { useTranslation } from 'react-i18next';
 import { ListDashboardOffersCompany } from '../listings/ListDashboardOffersCompany';
-import { deleteProfile } from '../../api/client'; 
+import { deleteProfile } from '../../api/client';
 import ConfirmationButton from '../common/ConfirmationButton';
 import { authLogout } from '../../store/actions/authActions';
 import SuccessDialog from '../common/SuccessDialog';
@@ -49,22 +50,20 @@ export default function CompanyInfo() {
       // TODO: recargar componente Listings para que actualice la lista de anuncios disponibles tras el borrado.
 
       setTimeout(async () => {
-        
         dispatch(resetCompanyInfoStore());
 
         await dispatch(getOffersAction());
 
         setLoading(true);
 
-
         setTimeout(() => {
-          navigate('/'); 
+          navigate('/');
 
           setTimeout(() => {
             dispatch(authLogout());
-          }, 500); 
-        }, 1000); 
-      }, 1500); 
+          }, 500);
+        }, 1000);
+      }, 1500);
     } catch (error) {
       console.error('Error deleting profile:', error);
       setShowErrorDialog(true);
@@ -135,7 +134,7 @@ export default function CompanyInfo() {
 
   return (
     <>
-      {loading ? ( 
+      {loading ? (
         <Loader />
       ) : (
         <>
@@ -150,7 +149,7 @@ export default function CompanyInfo() {
           {showSuccessDialog && (
             <SuccessDialog
               message={t('success.profile_deleted')}
-              onClose={() => setShowSuccessDialog(false)} 
+              onClose={() => setShowSuccessDialog(false)}
             />
           )}
           {showErrorDialog && (
