@@ -1,3 +1,14 @@
+export const formatDate = (date: Date | string) => {
+  // Convert to a Date object if it's a string
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+
+  return dateObj.toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+};
+
 // Función para serializar las fechas
 export function serializeDates(data: any): any {
   const serializedData = { ...data };
