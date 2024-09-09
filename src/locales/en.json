@@ -32,7 +32,8 @@
     "main_skills": "Main Skills",
     "internship_preferences": "Internship Preferences",
     "availability": "Availability",
-    "published_offers": "List of published offers"
+    "published_offers": "List of published offers",
+    "search_results": "Results for "
   },
   "forms": {
     "section_login": "Log in data",

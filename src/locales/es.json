@@ -32,7 +32,8 @@
     "main_skills": "Competencias principales",
     "internship_preferences": "Preferencias para las prácticas",
     "availability": "Disponibilidad",
-    "published_offers": "Listado de ofertas publicadas"
+    "published_offers": "Listado de ofertas publicadas",
+    "search_results": "Resultados para "
   },
   "forms": {
     "section_login": "Datos de autenticación",
