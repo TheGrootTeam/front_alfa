@@ -65,6 +65,14 @@ ul {
 }
 /* Incrementa la especificidad para asegurarte de que se aplique el estilo */
 .offer_list span.disabled {
-  color: var(--status-false);
+  color: var(--status-false) !important;
   font-weight: bold;
+}
+
+span.disabled {
+  color: var(--status-false) !important;
+}
+
+.marged {
+  margin: 1rem;
 }
