@@ -14,10 +14,13 @@ import { useDebounce } from '../../hooks/useDebounce';
 const SearchForm = () => {
   const { t } = useTranslation();
   const dispatch: AppDispatch = useDispatch();
-  const [searchTerm, setSearchTermState] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 1000); // Debounce for 500ms
-  const { error, loading } = useSelector((state: RootState) => state.search);
-
+  const {
+    searchTerm: reduxSearchTerm,
+    error,
+    loading,
+  } = useSelector((state: RootState) => state.search);
+  const [searchTerm, setSearchTermState] = useState(reduxSearchTerm || '');
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   const location = useLocation();
 
   const searchFormClass =
@@ -25,17 +28,27 @@ const SearchForm = () => {
       ? `${styles.searchForm} ${styles.homePage}`
       : styles.searchForm;
 
+  // Sync local searchTerm with Redux searchTerm
+  useEffect(() => {
+    setSearchTermState(reduxSearchTerm);
+  }, [reduxSearchTerm]);
+
   useEffect(() => {
     if (debouncedSearchTerm) {
+      // Trigger search only if the search term is not empty
       dispatch(setHasSearched(true));
       dispatch(setSearchTerm(debouncedSearchTerm));
       dispatch(
         getSearchResultsAction({
           searchTerm: debouncedSearchTerm,
-          page: 1, // Set the initial page to 1
-          limit: 10, // Set a default limit for results per page
+          page: 1,
+          limit: 10,
         })
       );
+    } else {
+      // Clear results if search term is empty
+      dispatch(setSearchTerm(''));
+      dispatch(setHasSearched(false)); // Optionally set this to false if no search has been performed
     }
   }, [debouncedSearchTerm, dispatch]);
 

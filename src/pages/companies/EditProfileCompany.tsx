@@ -72,12 +72,12 @@ export function EditCompanyProfilePage() {
 
     const requiredFields = {
       dniCif: t('forms.cif'),
-      name: t('fields.name'),
+      name: t('forms.name'),
       email: t('forms.email'),
-      phone: t('fields.phone'),
-      ubication: t('fields.location'),
-      description: t('fields.description'),
-      logo: t('fields.logo'),
+      phone: t('forms.phone'),
+      ubication: t('forms.location'),
+      description: t('forms.description'),
+      logo: t('forms.logo'),
     };
 
     let isValid = true;
@@ -102,7 +102,7 @@ export function EditCompanyProfilePage() {
     const sector = formCompanyData.sector;
     if (!sector || sector.trim().length === 0) {
       isValid = false;
-      errorMessage = `${t('fields.sector')} ${t('errors.required_field_error')}`;
+      errorMessage = `${t('forms.sector')} ${t('errors.required_field_error')}`;
     }
 
     return { isValid, errorMessage };
@@ -178,7 +178,9 @@ export function EditCompanyProfilePage() {
         <ul>
           <li>
             <div className={styles.readonly}>
-              <h3>{t('forms.cif')}: {formCompanyData.dniCif}</h3>
+              <h3>
+                {t('forms.cif')}: {formCompanyData.dniCif}
+              </h3>
               <p>{t('msg.change_VAT')}</p>
             </div>
           </li>
@@ -194,16 +196,14 @@ export function EditCompanyProfilePage() {
             {emailError && <Notification type="error" message={emailError} />}
           </li>
           <div className={styles.readonly}>
-            <p>
-            {t('forms.password')}: **********
-            </p>
+            <p>{t('forms.password')}: **********</p>
             <li>
               <Link to="/change_password">{t('buttons.change_password')}</Link>
             </li>
           </div>
           <li>
             <FormInputText
-              labelText={t('fields.name')}
+              labelText={t('forms.name')}
               id="name"
               name="name"
               value={formCompanyData.name || ''}
@@ -212,7 +212,7 @@ export function EditCompanyProfilePage() {
           </li>
           <li>
             <FormInputText
-              labelText={t('fields.phone')}
+              labelText={t('forms.phone')}
               id="phone"
               name="phone"
               value={formCompanyData.phone || ''}
@@ -220,7 +220,7 @@ export function EditCompanyProfilePage() {
             />
           </li>
           <li>
-            <label htmlFor="sector">{t('fields.sector')}</label>
+            <label htmlFor="sector">{t('forms.sector')}</label>
             <select
               id="sector"
               name="sector"
@@ -239,7 +239,7 @@ export function EditCompanyProfilePage() {
           </li>
           <li>
             <FormInputText
-              labelText={t('fields.location')}
+              labelText={t('forms.location')}
               id="ubication"
               name="ubication"
               value={formCompanyData.ubication || ''}
@@ -248,7 +248,7 @@ export function EditCompanyProfilePage() {
           </li>
           <li>
             <FormTextarea
-              labelText={t('fields.description')}
+              labelText={t('forms.description')}
               id="description"
               name="description"
               value={formCompanyData.description || ''}
@@ -256,7 +256,7 @@ export function EditCompanyProfilePage() {
             />
           </li>
           <li>
-            <label>{t('fields.logo')}</label>
+            <label>{t('forms.logo')}</label>
             <input type="file" name="logo" onChange={handleFileChange} />
           </li>
           <li>

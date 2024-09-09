@@ -43,8 +43,8 @@ export function AddNewOffer() {
     listApplicants: [],
     numberApplicants: 0,
     location: '',
-    typeJob: '',
-    internJob: '',
+    typeJob: jobOptions.length > 0 ? jobOptions[0] : '',
+    internJob: internOptions.length > 0 ? internOptions[0] : '',
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
