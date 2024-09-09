@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import stylesListing from './Listings.module.css';
 import stylesDetail from './ListingDetail.module.css';
 import styles from './ListDashboardOffersCompany.module.css';
 import { ListDashboardOffersCompanyProps } from '../../utils/interfaces/IOffer';
