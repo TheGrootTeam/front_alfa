@@ -206,9 +206,9 @@ export function EditUserProfilePage() {
       let result;
 
       result = await updateApplicantUser(formApplicantData, t);
-      console.log('User registered successfully:', result);
+      console.log('User information updated successfully:', result);
 
-      setSuccessMessage(t('notifications.register_success'));
+      setSuccessMessage(t('notifications.edit_success'));
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
