@@ -30,3 +30,7 @@ export const setAuthorizationHeader = (token: string) =>
 export const removeAuthorizationHeader = () => {
   delete client.defaults.headers.common['Authorization'];
 };
+
+export const deleteProfile = (): Promise<void> => {
+  return client.delete('/delete-profile');
+};

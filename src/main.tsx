@@ -8,14 +8,14 @@ import './i18n';
 import { store } from './store/store';
 import { router } from './router';
 import storage from './utils/storage';
-import { authToken } from './utils/utilsAuth';
+import { authTokenAction } from './store/actions/authActions';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 
 const token: string | null = storage.get('key');
 
 if (token) {
-  authToken(token);
+  store.dispatch(authTokenAction(token));
 }
 
 root.render(

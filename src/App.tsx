@@ -32,6 +32,7 @@ import RequireIsApplicant from './components/auth/RequireIsApplicant';
 import { EditProfileSwitch } from './components/routing/EditProfileSwitch';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
+import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
 
 function App() {
   const isLogged = useSelector(getIsLogged);
@@ -86,16 +87,36 @@ function App() {
         <Route path="edit" element={<EditCompanyProfilePage />} />
         <Route path="profile" element={<CompanyProfilePage />} />
       </Route>
+
+      <Route
+        path="/change_password"
+        element={
+          <RequireAuth>
+            <ChangePasswordPage />
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/offers"
+        element={
+          <RequireAuth>
+            <RequireIsCompany>
+              <Outlet />
+            </RequireIsCompany>
+          </RequireAuth>
+        }
+      >
+        <Route path="new" element={<AddNewOffer />} />
+        <Route path="edit" element={<EditOffer />} />
+      </Route>
       {/* END Rutas protegidas */}
 
-      {/* Al final no protegemos las rutas de Offers, ya que tienen que estar públicas según requerimientos */}
+      {/* Al final no protegemos estas rutas de Offers, ya que tienen que estar públicas según requerimientos */}
       {/* Offers - Lista e individual */}
       <Route path="/offers">
         <Route index element={<OffersList />} />
         <Route path=":id" element={<OfferPage />} />
-        {/* <Route path=":id/edit" element={<EditOffer />} /> */}
-        {/* <Route path="edit" element={<EditOffer />} />
-        <Route path="new" element={<AddNewOffer />} /> */}
       </Route>
 
       {/* Perfiles - Ruta para visualización de perfiles basada en parámetros */}
@@ -108,14 +129,6 @@ function App() {
       {/* RUTAS PRIVADAS */}
       {isLogged && (
         <>
-          {/* Offers - Crear y editar */}
-          <Route path="/offers">
-            {/* <Route path=":id/edit" element={<EditOffer />} /> */}
-            {/* La oferta a editar va en el body */}
-            <Route path="edit" element={<EditOffer />} />
-            <Route path="new" element={<AddNewOffer />} />
-          </Route>
-
           {/* Perfiles - Ruta para edición basada en parámetros */}
           <Route
             path="/edit/:userType"

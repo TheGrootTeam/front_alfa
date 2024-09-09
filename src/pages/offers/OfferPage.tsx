@@ -1,14 +1,23 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
 import { useSelector } from 'react-redux';
+import {
+  getOffer,
+  getUi,
+  getUiSuccess,
+  getCompanyInfo,
+} from '../../store/selectors';
 import { IOfferMapped } from '../../utils/interfaces/IOffer';
 import { Button } from '../../components/common/Button';
 import { useEffect, useState } from 'react';
+//import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 // import styles from "./Offermodule.css";
-import { getCompanyInfo, getOffer } from '../../store/selectors';
 import { useDispatch } from 'react-redux';
+import { deleteOfferAction } from '../../store/actions/offersActions';
 import { AppDispatch } from '../../store/store';
+import Notification from '../../components/common/Notification';
+import { uiSlice } from '../../store/reducers/uiSlice';
 import { getOffersAction } from '../../store/actions/offersActions';
 
 export function OfferPage() {
@@ -17,6 +26,8 @@ export function OfferPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const offer: IOfferMapped | undefined = useSelector(getOffer(id));
+  const { error } = useSelector(getUi);
+  const success = useSelector(getUiSuccess);
   const [showConfirm, setShowCofirm] = useState(false);
   //The company owner of the offert
   const companyId = offer?.companyOwner._id;
@@ -26,7 +37,10 @@ export function OfferPage() {
   const ownerOffer = companyId === companyLoged ? true : false;
 
   const deleteOffer = () => {
-    //DELETE AD
+    if (id) {
+      const successMessage = t('success.delete_offer_success');
+      dispatch(deleteOfferAction({ id, successMessage }));
+    }
   };
 
   const editOffer = async () => {
@@ -34,6 +48,18 @@ export function OfferPage() {
       navigate(`/offers/edit`, { state: { offer } });
     }
   };
+
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
+  };
+
+  function showError() {
+    return <Notification type="error" message={error} onClick={resetError} />;
+  }
+
+  function showSuccess() {
+    return <Notification type="success" message={success} />;
+  }
 
   useEffect(() => {
     dispatch(getOffersAction());
@@ -89,9 +115,13 @@ export function OfferPage() {
               </Button>
             )}
           </>
+        ) : success ? (
+          showSuccess()
         ) : (
-          `Not Found`
+          'NOT FOUND'
         )}
+
+        {error && showError()}
       </Layout>
     </>
   );

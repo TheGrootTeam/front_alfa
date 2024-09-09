@@ -44,6 +44,9 @@
     "login_button": "Log in",
     "cif_nif": "ID/VAT number",
     "password": "Password",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "new_password_confirm": "Confirm new password",
     "password_confirm": "Confirm password",
     "password_show": "Show passwords",
     "remember_me": "Remember me",
@@ -102,12 +105,15 @@
     "no_cancel": "NO! Cancel",
     "delete_offer": "Delete offer",
     "userprofile_edit": "Edit User Profile",
-    "userprofile_delete": "Delete User Profile"
+    "userprofile_delete": "Delete User Profile",
+    "change_password": "Change password",
+    "save_changes": "Save changes"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
     "password_different": "Passwords don't match",
     "password_rules": "Password needs to have at least 8 characters and include a number, an uppercase letter and a special character",
+    "password_current_wrong": "The current password is not valid",
     "email_invalid": "Email address isn't valid",
     "dnicif_format": "VAT number must start with a letter from A to H followed by 8 digits",
     "dnicif_invalid": "Personal ID number not valid",
@@ -116,21 +122,31 @@
     "processing_form_error": "Failed to process form: ",
     "generic_form_error": "An error occurred while submitting the form. Please try again.",
     "creating_user_error": "An error occurred while creating the user",
-    "editing_user_error": "An error occurred while updating the user details"
+    "editing_user_error": "An error occurred while updating the user details",
+    "all_fields_required": "All fields are required"
   },
   "notifications": {
     "register_success": "User registered successfully",
     "edit_success": "User data edited successfully",
     "data_saved": "Data saved successfully",
     "offer_created": "New offer created successful",
-    "offer_updated": "Offer update successfully"
+    "offer_updated": "Offer update successfully",
+    "password_change_success": "Password changed successfully"
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
-    "delete_offer_message": "Are you sure you want to delete the offer?"
+    "delete_offer_message": "Are you sure you want to delete the offer?",
+    "confirm_delete_profile": "Are you sure you want to delete your profile?"
   },
   "plurals": {
     "vacancy_one": "vacancy",
     "vacancy_other": "vacancies"
+  },
+  "msg": {
+    "change_VAT": "To change VAT Number please contact us"
+  },
+  "success": {
+    "delete_offer_success": "Announcement successfully deleted.",
+    "profile_deleted": "Profile deleted successfully"
   }
 }

@@ -1,12 +1,10 @@
 import { client } from '../../api/client';
 import { IOfferForm, IOffers, IOfferMapped } from '../interfaces/IOffer';
 
-
 export async function getOffers() {
   const offers: IOffers = await client.get(`/offers`);
   return offers.offers;
 }
-
 
 export async function createOffer(newOffer: IOfferForm): Promise<IOfferMapped> {
   try {
@@ -20,19 +18,39 @@ export async function createOffer(newOffer: IOfferForm): Promise<IOfferMapped> {
     return mappedOffer;
   } catch (error: any) {
     console.error('Error:', error);
-    throw new Error(error.message || 'An error occurred while creating the offer');
+    throw new Error(
+      error.message || 'An error occurred while creating the offer'
+    );
   }
 }
-
 
 export async function updateOffer(updatedOffer: IOfferForm) {
   try {
     //const response = await client.patch(`/offers/${updatedOffer._id}`, updatedOffer);
     //The id data is in the body,
-    const response = await client.patch<IOfferMapped>('/offers/edit', updatedOffer);
+    const response = await client.patch<IOfferMapped>(
+      '/offers/edit',
+      updatedOffer
+    );
     const mappedOffer = response as unknown as IOfferMapped;
     return mappedOffer;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || error.message);
   }
 }
+
+export async function deleteOfferService(id: string) {
+  const data = { offerId: id };
+  await client.delete('/offers/delete', { data });
+}
+
+//This function update the publishedOffers in Companies
+// export async function updateCompanyOffers(companyId: string, offerId: string): Promise<void> {
+//   try {
+//     await client.patch(`/company/edit/${companyId}`, {  // BALIZA -> VERIFICAR RUTA cuando se cree edición de compañía
+//       offerId: offerId,
+//     });
+//   } catch (error: any) {
+//     throw new Error(error.mensge || 'An error occurred while updating company offers (in DB: Companies -> publishedOffers)')
+//   }
+// }

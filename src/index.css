@@ -20,9 +20,23 @@
   --error: rgb(240, 128, 128);
   --error-text: rgb(174, 52, 52);
 
-  --success-bg: rgb(212, 245, 184);
-  --success: rgb(181, 228, 140);
-  --success-text: rgb(57, 104, 17);
+  --success-bg: #d4f5b8ff;
+  --success: #b5e48cff;
+  --success-text: #396811ff;
+
+  --status-false: rgb(128, 7, 7);
+
+  /* COLORES ORIGINALES DE LA PALETA 
+  --mindaro: #d9ed92ff;
+  --light-green: #b5e48cff;
+  --light-green-2: #99d98cff;
+  --emerald: #76c893ff;
+  --keppel: #52b69aff;
+  --verdigris: #34a0a4ff;
+  --bondi-blue: #168aadff;
+  --cerulean: #1a759fff;
+  --lapis-lazuli: #1e6091ff;
+  --indigo-dye: #184e77ff; */
 
   --font-headings: 'Raleway', sans-serif;
   --font-weight-headings: 600;
