@@ -140,7 +140,8 @@
     "vacancy_other": "vacancies"
   },
   "msg": {
-    "change_VAT": "To change VAT Number please contact us"
+    "change_VAT": "To change VAT Number please contact us",
+    "change_DNI": "To change NIF Number please contact us"
   },
   "success": {
     "delete_offer_success": "Announcement successfully deleted."

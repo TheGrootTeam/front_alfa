@@ -140,7 +140,8 @@
     "vacancy_other": "vacantes"
   },
   "msg": {
-    "change_VAT": "Contáctanos para cambiar el CIF"
+    "change_VAT": "Contáctanos para cambiar el CIF",
+    "change_DNI": "Contáctanos para cambiar el DNI"
   },
   "success": {
     "delete_offer_success": "Anuncio eliminado satisfactoriamente"

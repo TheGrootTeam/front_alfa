@@ -51,20 +51,20 @@ export default function ApplicantInfo() {
             </p>
             <p>
               <span>{t('fields.mainSkills')}:</span>
-              <ul>
-                {applicant.mainSkills.map((skill) => (
-                  <li key={skill._id}>{skill.skill}</li>
-                ))}
-              </ul>
             </p>
+            <ul>
+              {applicant.mainSkills.map((skill) => (
+                <li key={skill._id}>{skill.skill}</li>
+              ))}
+            </ul>
             <p>
               <span>{t('fields.wantedRole')}:</span>
-              <ul>
-                {applicant.wantedRol.map((rol) => (
-                  <li key={rol._id}>{rol.rol}</li>
-                ))}
-              </ul>
             </p>
+            <ul>
+              {applicant.wantedRol.map((rol) => (
+                <li key={rol._id}>{rol.rol}</li>
+              ))}
+            </ul>
             <p>
               <span>{t('fields.cv')}:</span> {applicant.cv}
             </p>
