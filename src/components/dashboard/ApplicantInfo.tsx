@@ -1,25 +1,62 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getInfoApplicantAction } from '../../store/actions/infoApplicantActions';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getApplicantInfo, getUi } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
-import Notification from '../common/Notification';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../common/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './ApplicantInfo.module.css';
+import { deleteProfile } from '../../api/client';
+import ConfirmationButton from '../common/ConfirmationButton';
+import { authLogout } from '../../store/actions/authActions';
+import SuccessDialog from '../common/SuccessDialog';
+import ErrorDialog from '../common/ErrorDialog';
+import { Loader } from '../common/Loader';  
+
+// Change the import of notification to avoid conflicts
+import { Notification as CustomNotification } from '../common/Notification';
 
 export default function ApplicantInfo() {
   const dispatch = useDispatch<AppDispatch>();
   const applicant = useSelector(getApplicantInfo);
   const { error } = useSelector(getUi);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [loading, setLoading] = useState(false);  
   useEffect(() => {
     dispatch(getInfoApplicantAction());
   }, [dispatch]);
+
+  // Function to delete the profile and log out the user
+  const handleDeleteProfile = async () => {
+    try {
+      await deleteProfile();
+
+      setShowSuccessDialog(true);
+
+      setTimeout(() => {
+
+        setLoading(true);
+
+        setTimeout(() => {
+          navigate('/');
+
+          setTimeout(() => {
+            dispatch(authLogout());
+          }, 500);
+        }, 1000);
+      }, 1500);  
+    } catch (error) {
+      console.error('Error deleting profile:', error);
+      setShowErrorDialog(true);
+    }
+  };
 
   function showInfo() {
     return (
@@ -49,22 +86,22 @@ export default function ApplicantInfo() {
               <span>{t('forms.internship_type')}:</span>{' '}
               {`${applicant.typeJob} & ${applicant.internType}`}
             </p>
-            <p>
+            <div>
               <span>{t('fields.mainSkills')}:</span>
-            </p>
-            <ul>
-              {applicant.mainSkills.map((skill) => (
-                <li key={skill._id}>{skill.skill}</li>
-              ))}
-            </ul>
-            <p>
+              <ul>
+                {applicant.mainSkills.map((skill) => (
+                  <li key={skill._id}>{skill.skill}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
               <span>{t('fields.wantedRole')}:</span>
-            </p>
-            <ul>
-              {applicant.wantedRol.map((rol) => (
-                <li key={rol._id}>{rol.rol}</li>
-              ))}
-            </ul>
+              <ul>
+                {applicant.wantedRol.map((rol) => (
+                  <li key={rol._id}>{rol.rol}</li>
+                ))}
+              </ul>
+            </div>
             <p>
               <span>{t('fields.cv')}:</span> {applicant.cv}
             </p>
@@ -78,7 +115,31 @@ export default function ApplicantInfo() {
               <Button>{t('titles.userprofile_edit')}</Button>
             </Link>
           </div>
+
+          <div className={styles.button}>
+            <ConfirmationButton
+              buttonLabel={t('buttons.userprofile_delete')}
+              dialogText={t('dialogs.confirm_delete_profile')}
+              confirmLabel={t('buttons.yes_delete')}
+              cancelLabel={t('buttons.no_cancel')}
+              confirmAction={handleDeleteProfile}
+            />
+          </div>
         </div>
+
+        {showSuccessDialog && (
+          <SuccessDialog 
+            message={t('success.profile_deleted')} 
+            onClose={() => setShowSuccessDialog(false)} 
+          />
+        )}
+
+        {showErrorDialog && (
+          <ErrorDialog 
+            message={t('errors.generic_form_error')} 
+            onClose={() => setShowErrorDialog(false)} 
+          />
+        )}
       </>
     );
   }
@@ -87,9 +148,19 @@ export default function ApplicantInfo() {
     dispatch(uiSlice.actions.resetError());
   };
 
-  function showError() {
-    return <Notification type="error" message={error} onClick={resetError} />;
-  }
-
-  return <>{error ? showError() : showInfo()}</>;
+  return (
+    <>
+      {loading ? (  
+        <Loader />
+      ) : (
+        <>
+          {error ? (
+            <CustomNotification type="error" message={error} onClick={resetError} />
+          ) : (
+            showInfo()
+          )}
+        </>
+      )}
+    </>
+  );
 }

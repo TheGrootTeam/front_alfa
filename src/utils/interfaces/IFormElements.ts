@@ -50,3 +50,18 @@ export interface FormCheckboxProps {
   checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface IFormChangePassword {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface IDataApiChangePassword extends IFormChangePassword {
+  isCompany: boolean;
+}
+
+export interface IFormReturnValidateForm {
+  isValid: boolean;
+  errorMessage: string;
+}

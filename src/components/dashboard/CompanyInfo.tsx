@@ -1,31 +1,74 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { uiSlice } from '../../store/reducers/uiSlice';
 import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
-import { getUi } from '../../store/selectors';
-//import { getToUpdateOfferState } from '../../store/selectors';
-import { getCompanyInfo } from '../../store/selectors';
-import { uiSlice } from '../../store/reducers/uiSlice';
+import { getUi, getCompanyInfo } from '../../store/selectors';
 import styles from './CompanyInfo.module.css';
-import Notification from '../common/Notification';
 import { Button } from '../common/Button';
 import { useTranslation } from 'react-i18next';
 import { ListDashboardOffersCompany } from '../listings/ListDashboardOffersCompany';
+import { deleteProfile } from '../../api/client'; 
+import ConfirmationButton from '../common/ConfirmationButton';
+import { authLogout } from '../../store/actions/authActions';
+import SuccessDialog from '../common/SuccessDialog';
+import ErrorDialog from '../common/ErrorDialog';
+import { Loader } from '../common/Loader';
+
+// Import the Action RESETCompanyinfostore and Getoffersaction
+import { resetCompanyInfoStore } from '../../store/reducers/infoCompanySlice';
+import { getOffersAction } from '../../store/actions/offersActions';
+
+// Change the import of notification to avoid conflicts
+import { Notification as CustomNotification } from '../common/Notification';
 
 export default function CompanyInfo() {
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
   const company = useSelector(getCompanyInfo);
   const { error } = useSelector(getUi);
+  const navigate = useNavigate();
+
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(getInfoCompanyAction());
   }, [dispatch]);
 
-  const resetError = () => {
-    dispatch(uiSlice.actions.resetError());
+  // Function to delete the profile and log out the user
+  const handleDeleteProfile = async () => {
+    try {
+      await deleteProfile();
+
+      setShowSuccessDialog(true);
+
+      // TODO: recargar componente Listings para que actualice la lista de anuncios disponibles tras el borrado.
+
+      setTimeout(async () => {
+        
+        dispatch(resetCompanyInfoStore());
+
+        await dispatch(getOffersAction());
+
+        setLoading(true);
+
+
+        setTimeout(() => {
+          navigate('/'); 
+
+          setTimeout(() => {
+            dispatch(authLogout());
+          }, 500); 
+        }, 1000); 
+      }, 1500); 
+    } catch (error) {
+      console.error('Error deleting profile:', error);
+      setShowErrorDialog(true);
+    }
   };
 
   function showInfo() {
@@ -39,10 +82,7 @@ export default function CompanyInfo() {
             />
           </div>
           <div className={styles.profile__info}>
-            <p></p>
-            <h2>Nombre: {company.name}</h2>
-          </div>
-          <div className={styles.profile__info}>
+            <h2>{company.name}</h2>
             <p>
               <span>{t('forms.nif')}:</span> {company.dniCif}
             </p>
@@ -59,7 +99,7 @@ export default function CompanyInfo() {
               <span>{t('fields.description')}:</span> {company.description}
             </p>
             <p>
-              <span>{t('fields.sector')}</span> {company.sector.sector}
+              <span>{t('fields.sector')}:</span> {company.sector.sector}
             </p>
           </div>
           <div className={styles.button}>
@@ -68,16 +108,19 @@ export default function CompanyInfo() {
             </Link>
           </div>
           <div className={styles.button}>
-            <Link to="">
-              <Button>{t('buttons.userprofile_delete')}</Button>
-            </Link>
+            <ConfirmationButton
+              buttonLabel={t('buttons.userprofile_delete')}
+              dialogText={t('dialogs.confirm_delete_profile')}
+              confirmLabel={t('buttons.yes_delete')}
+              cancelLabel={t('buttons.no_cancel')}
+              confirmAction={handleDeleteProfile}
+            />
           </div>
         </div>
         <div>
-          <hr></hr>
+          <hr />
           <h2>{t('titles.published_offers')}</h2>
-          <hr></hr>
-          <br></br>
+          <hr />
           <ListDashboardOffersCompany
             publishedOffers={company.publishedOffers}
           />
@@ -86,9 +129,38 @@ export default function CompanyInfo() {
     );
   }
 
-  function showError() {
-    return <Notification type="error" message={error} onClick={resetError} />;
-  }
+  const resetError = () => {
+    dispatch(uiSlice.actions.resetError());
+  };
 
-  return <>{error ? showError() : showInfo()}</>;
+  return (
+    <>
+      {loading ? ( 
+        <Loader />
+      ) : (
+        <>
+          {error && (
+            <CustomNotification
+              type="error"
+              message={error}
+              onClick={resetError}
+            />
+          )}
+          {showInfo()}
+          {showSuccessDialog && (
+            <SuccessDialog
+              message={t('success.profile_deleted')}
+              onClose={() => setShowSuccessDialog(false)} 
+            />
+          )}
+          {showErrorDialog && (
+            <ErrorDialog
+              message={t('errors.generic_form_error')}
+              onClose={() => setShowErrorDialog(false)}
+            />
+          )}
+        </>
+      )}
+    </>
+  );
 }
