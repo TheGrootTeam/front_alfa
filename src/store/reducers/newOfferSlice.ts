@@ -6,6 +6,7 @@ const initialState: NewOfferState = {
   offerInfo: null,
   offerStatus: false,
   error: null,
+  haveToRecharge: false
 };
 
 export const newOfferSlice = createSlice({
@@ -16,6 +17,9 @@ export const newOfferSlice = createSlice({
       state.offerStatus = false;
       state.offerInfo = null;
       state.error = null;
+    },
+    resetHaveToRecharge: (state) => {
+      state.haveToRecharge = false; // Reducer to put haveToRecharge to false
     },
   },
   extraReducers: (builder) => {
@@ -28,6 +32,7 @@ export const newOfferSlice = createSlice({
       .addCase(createOffersAction.fulfilled, (state, action: PayloadAction<IOfferForm>) => {
         state.offerStatus = true;
         state.offerInfo = action.payload;
+        state.haveToRecharge = true;
       })
       .addCase(createOffersAction.rejected, (state, action) => {
         state.offerStatus = false;
@@ -35,5 +40,8 @@ export const newOfferSlice = createSlice({
       });
   },
 });
+
+//Export the action that reset 'haveToRecharge'
+export const { resetHaveToRecharge } = newOfferSlice.actions;
 
 export default newOfferSlice.reducer;

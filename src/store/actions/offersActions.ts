@@ -50,15 +50,6 @@ export const createOffersAction = createAsyncThunk<
         ...offer,
         id: offer._id!, //  _id never is undefined
       };
-
-
-      // //BALIZA -> VERIFICAR qcuando se cree edición de compañía
-      // console.log('MAPPED_OFFER (ADD_NEW_OFFER): ', mappedOffer);q
-      // const companyId = mappedOffer.companyOwner._id;
-      // console.log('LAS IDS (empresa-oferta):', companyId, mappedOffer.id);
-      // await updateCompanyOffers(companyId, mappedOffer.id)
-
-
       return mappedOffer;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || error.message);

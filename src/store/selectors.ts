@@ -37,3 +37,6 @@ export const getCompanyInfo = (state: RootState) =>
 
 export const getMustRecharge = (state: RootState) =>
   state.editOffer.mustRecharge;
+
+export const getHaveToRecharge = (state: RootState) =>
+  state.newOffer.haveToRecharge;

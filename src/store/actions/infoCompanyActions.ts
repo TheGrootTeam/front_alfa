@@ -2,8 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { getInfoCompany } from "../../utils/services/infoCompanyService";
 import { ICompanyInfoMapped } from "../../utils/interfaces/IInfoCompany";
-import { getCompanyInfo, getCompanyInfoLoaded, getMustRecharge, getOffersState } from "../selectors";
+import { getCompanyInfo, getCompanyInfoLoaded, getHaveToRecharge, getMustRecharge, getOffersState } from "../selectors";
 import { resetMustRecharge } from "../reducers/editOfferSlice";
+import { resetHaveToRecharge } from "../reducers/newOfferSlice";
 import { getOffersAction } from "../actions/offersActions";
 
 export const getInfoCompanyAction = createAsyncThunk<
@@ -21,9 +22,13 @@ export const getInfoCompanyAction = createAsyncThunk<
     await dispatch(getOffersAction()); // Load in the state the offers
   }
 
-  //Check if there have been any edition in the offers (and take it the data of the status or the DB )
+  //Check if there have been any edition or added in the offers (and take it the data of the status or the DB )
   const mustRecharge = getMustRecharge(state);
-  if (loadedInfoCompany && (mustRecharge === false || mustRecharge === null || mustRecharge === undefined)) {
+  const haveToRecharge = getHaveToRecharge(state);
+  if (loadedInfoCompany
+    && (mustRecharge === false || mustRecharge === null || mustRecharge === undefined)
+    && (haveToRecharge === false || haveToRecharge === null || haveToRecharge === undefined)
+  ) {
     return getCompanyInfo(state);
   }
 
@@ -31,6 +36,9 @@ export const getInfoCompanyAction = createAsyncThunk<
     const info = await getInfoCompany();
     if (mustRecharge) {
       dispatch(resetMustRecharge());
+    }
+    if (haveToRecharge) {
+      dispatch(resetHaveToRecharge());
     }
     return info;
   } catch (error: any) {

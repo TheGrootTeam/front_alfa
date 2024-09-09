@@ -21,6 +21,7 @@ export interface NewOfferState {
   offerInfo: IOfferForm | null;
   offerStatus: boolean;
   error: string | null | undefined;
+  haveToRecharge: boolean;
 
 }
 
