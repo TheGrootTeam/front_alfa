@@ -69,7 +69,9 @@
     "status_closed": "Cerrar oferta (La oferta no aceptará más aspirantes)",
     "company_description": "Descripción de la empresa",
     "offer_description": "Descripción de la oferta",
-    "select_sector": "Seleccione sector"
+    "select_sector": "Seleccione sector",
+    "actual_photo": "Foto actual",
+    "actual_cv": "CV actual"
   },
   "formSelect": {
     "jobType": {
@@ -147,7 +149,8 @@
     "vacancy_other": "vacantes"
   },
   "msg": {
-    "change_VAT": "Contáctanos para cambiar el CIF"
+    "change_VAT": "Contáctanos para cambiar el CIF",
+    "change_DNI": "Contáctanos para cambiar el DNI"
   },
   "success": {
     "delete_offer_success": "Anuncio eliminado satisfactoriamente",
