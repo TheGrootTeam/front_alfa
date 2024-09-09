@@ -20,9 +20,6 @@ export function FormSelect({
     <>
       <label>{labelText}</label>
       <select id={id} name={name} value={value} onChange={onChange}>
-        <option key="default" value="">
-          ---
-        </option>
         {Object.entries(options).map(([key, optionValue]) => (
           //DAL: cambio para que devuelva en value el texto y no el índice.
           // <option key={key} value={key}>

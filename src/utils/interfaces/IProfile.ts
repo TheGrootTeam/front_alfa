@@ -30,6 +30,7 @@ export interface ApplicantProfileState {
   error: string | null;
 }
 
+import { MainSkill, WantedRol } from "./IInfoApplicant";
 import { IOffer } from "./IOffer";
 
 export interface ICompanyPublicProfile {
@@ -67,4 +68,21 @@ export interface IEditCompanyInfo {
   ubication: string;
   description: string;
   logo: string;
+}
+
+export interface IEditApplicantInfo {
+  dniCif: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  photo: string;
+  cv: string;
+  ubication: string;
+  typeJob: string;
+  internType: string;
+  wantedRol: WantedRol[];
+  mainSkills: MainSkill[];
+  geographically_mobile: boolean;
+  disponibility: boolean;
 }

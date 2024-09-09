@@ -120,6 +120,25 @@ select[multiple] option[selected] {
   }
 }
 
+.accordionSection h3 {
+  font-size: 1.8rem;
+  line-height: 3rem;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  color: var(--accent-light);
+  display: flex;
+}
+
+.iconSmall {
+  font-size: 1.8rem;
+  line-height: 3rem;
+}
+
+.accordionContent {
+  padding-bottom: 2rem;
+}
+
 @media (min-width: 480px) {
   .form p {
     flex-direction: row;

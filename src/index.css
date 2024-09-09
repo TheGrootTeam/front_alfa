@@ -1,25 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  --light: #f4f9f0;
-  --neutral-min: #d6dbd1;
-  --neutral-bg: #b8bfb4;
-  --neutral-light: #9aa397;
-  --neutral: #69716c;
-  --neutral-dark: #383f41;
-  --dark: #1c2021;
-  /* --dark: #030b11; */
-  --accent-alt-light: #d9ed92ff;
-  --accent-alt: #76c893ff;
-  --accent-alt-dark: #52b69aff;
-  /* --accent-alt-dark: #1e483cff; */
-  --accent-light: #34a0a4ff;
-  --accent: #168aadff;
-  --accent-dark: #184e77ff;
+  --light: rgb(244, 249, 240);
+  --neutral-min: rgb(214, 219, 209);
+  --neutral-bg: rgb(184, 191, 180);
+  --neutral-light: rgb(154, 163, 151);
+  --neutral: rgb(105, 113, 108);
+  --neutral-dark: rgb(56, 63, 65);
+  --dark: rgb(28, 32, 33);
+  --dark-alt: rgb(13, 62, 64);
+  --accent-alt-light: rgb(217, 237, 146);
+  --accent-alt: rgb(82, 182, 154);
+  --accent-alt-dark: rgb(51, 132, 117);
+  --accent-light: rgb(52, 160, 164);
+  --accent: rgb(22, 138, 173);
+  --accent-dark: rgb(24, 78, 119);
 
-  --error-bg: #fad4d4ff;
-  --error: #f08080ff;
-  --error-text: #ae3434ff;
+  --error-bg: rgb(250, 212, 212);
+  --error: rgb(240, 128, 128);
+  --error-text: rgb(174, 52, 52);
 
   --success-bg: #d4f5b8ff;
   --success: #b5e48cff;

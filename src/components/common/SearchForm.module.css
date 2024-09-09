@@ -130,3 +130,12 @@
     cursor: not-allowed;
   }
 }
+
+.results {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: yellow;
+  padding: 2rem;
+}

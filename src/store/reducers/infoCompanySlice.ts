@@ -38,3 +38,7 @@ export const companyInfoSlice = createSlice({
     );
   },
 });
+
+// Resets the company info store before loading after deleting the company
+export const { resetCompanyInfoStore } = companyInfoSlice.actions;
+export default companyInfoSlice.reducer;

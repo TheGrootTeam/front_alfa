@@ -13,10 +13,16 @@
     "logout": "Log out",
     "github_link": "Code on Github"
   },
+  "pagination": {
+    "previous": "prev",
+    "next": "next",
+    "of": "of"
+  },
   "titles": {
     "log_in": "Log in",
     "lost_password": "Recover password",
     "register": "Register",
+    "latest_offers": "Recently published offers",
     "about": "About",
     "companyprofile_edit": "Edit Company Profile",
     "companyprofile": "Company Profile",
@@ -32,9 +38,17 @@
     "main_skills": "Main Skills",
     "internship_preferences": "Internship Preferences",
     "availability": "Availability",
-    "published_offers": "List of published offers"
+    "published_offers": "List of published offers",
+    "search_results": "Results for ",
+    "found_results": " found results",
+    "no_results": "No results found",
+    "no_results_for": "No results found for "
   },
   "forms": {
+    "section_login": "Log in data",
+    "section_personal": "Personal information",
+    "section_work": "Work details and preferences",
+    "section_company": "Company information",
     "search": "search...",
     "login_button": "Log in",
     "cif_nif": "ID/VAT number",
@@ -52,6 +66,19 @@
     "cif": "VAT Number",
     "nif": "ID Number",
     "email": "Email",
+    "name": "Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "industry": "Industry",
+    "location": "Location",
+    "description": "Description",
+    "logo": "Logo",
+    "photo": "Photo",
+    "cv": "Resume",
+    "wantedRole": "Wanted Role",
+    "mainSkills": "Main Skills",
+    "availableImmediately": "Available Immediately",
+    "sector": "Industry",
     "willing_to_relocate": "Willing to Relocate",
     "available_immediately": "Available to Start Immediately",
     "preferredWorkLocation": "Preferred Work Location",
@@ -60,8 +87,6 @@
     "save_offer_button": "Save Offer",
     "position": "Position",
     "publication_date": "Publication date",
-    "description": "Description",
-    "location": "Location",
     "job_type": "Job Type",
     "internship_type": "Internship Type",
     "number_vacancies": "Number of vacancies",
@@ -69,7 +94,9 @@
     "status_closed": "Close offer  (will not accept more applicants)",
     "company_description": "Company description",
     "offer_description": "Offer description",
-    "select_sector": "Select Industry"
+    "select_sector": "Select Industry",
+    "actual_photo": "Actual photo",
+    "actual_cv": "Actual CV"
   },
   "formSelect": {
     "jobType": {
@@ -82,26 +109,6 @@
       "unpaid": "Unpaid",
       "ngo": "NGO/Volunteer"
     }
-  },
-  "fields": {
-    "cif": "VAT Number",
-    "email": "Email",
-    "password": "Password",
-    "name": "Name",
-    "lastName": "Last Name",
-    "phone": "Phone",
-    "industry": "Industry",
-    "location": "Location",
-    "description": "Description",
-    "logo": "Logo",
-    "photo": "Photo",
-    "cv": "Resume",
-    "preferredWorkLocation": "Preferred Work Location",
-    "wantedRole": "Wanted Role",
-    "mainSkills": "Main Skills",
-    "willingToRelocate": "Willing to Relocate",
-    "availableImmediately": "Available Immediately",
-    "sector": "Industry"
   },
   "buttons": {
     "saveAndFinish": "Save & Finish",
@@ -139,16 +146,19 @@
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
-    "delete_offer_message": "Are you sure you want to delete the offer?"
+    "delete_offer_message": "Are you sure you want to delete the offer?",
+    "confirm_delete_profile": "Are you sure you want to delete your profile?"
   },
   "plurals": {
     "vacancy_one": "vacancy",
     "vacancy_other": "vacancies"
   },
   "msg": {
-    "change_VAT": "To change VAT Number please contact us"
+    "change_VAT": "To change VAT Number please contact us",
+    "change_DNI": "To change NIF Number please contact us"
   },
   "success": {
-    "delete_offer_success": "Announcement successfully deleted."
+    "delete_offer_success": "Announcement successfully deleted.",
+    "profile_deleted": "Profile deleted successfully"
   }
 }

@@ -6,3 +6,10 @@
     rgba(154, 163, 151, 0.8) 100%
   );
 }
+
+.latest {
+  margin: 3rem 2rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
