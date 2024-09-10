@@ -25,12 +25,15 @@ export function RegisterCompanyForm() {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector(getUi);
 
+  // Assuming the first sector is always valid in the sectors array
+  const firstSector = sectors.length > 0 ? sectors[0]._id : '';
+
   const [formCompanyData, setCompanyFormData] = useState<IRegisterCompanyForm>({
     dniCif: '',
     name: '',
     email: '',
     phone: '',
-    sector: '',
+    sector: firstSector,
     ubication: '',
     description: '',
     logo: '',
@@ -94,12 +97,12 @@ export function RegisterCompanyForm() {
 
     const requiredFields = {
       dniCif: t('forms.cif'),
-      name: t('fields.name'),
+      name: t('forms.name'),
       email: t('forms.email'),
-      phone: t('fields.phone'),
-      ubication: t('fields.location'),
-      description: t('fields.description'),
-      logo: t('fields.logo'),
+      phone: t('forms.phone'),
+      ubication: t('forms.location'),
+      description: t('forms.description'),
+      logo: t('forms.logo'),
       password: t('forms.password'),
       confirmPassword: t('forms.password_confirm'),
     };

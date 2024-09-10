@@ -86,19 +86,19 @@ export default function CompanyInfo() {
               <span>{t('forms.nif')}:</span> {company.dniCif}
             </p>
             <p>
-              <span>{t('fields.email')}:</span> {company.email}
+              <span>{t('forms.email')}:</span> {company.email}
             </p>
             <p>
-              <span>{t('fields.phone')}:</span> {company.phone}
+              <span>{t('forms.phone')}:</span> {company.phone}
             </p>
             <p>
-              <span>{t('fields.location')}:</span> {company.ubication}
+              <span>{t('forms.location')}:</span> {company.ubication}
             </p>
             <p>
-              <span>{t('fields.description')}:</span> {company.description}
+              <span>{t('forms.description')}:</span> {company.description}
             </p>
             <p>
-              <span>{t('fields.sector')}:</span> {company.sector.sector}
+              <span>{t('forms.sector')}:</span> {company.sector.sector}
             </p>
           </div>
           <div className={styles.button}>

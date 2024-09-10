@@ -14,7 +14,7 @@ import ConfirmationButton from '../common/ConfirmationButton';
 import { authLogout } from '../../store/actions/authActions';
 import SuccessDialog from '../common/SuccessDialog';
 import ErrorDialog from '../common/ErrorDialog';
-import { Loader } from '../common/Loader';  
+import { Loader } from '../common/Loader';
 
 // Change the import of notification to avoid conflicts
 import { Notification as CustomNotification } from '../common/Notification';
@@ -28,7 +28,7 @@ export default function ApplicantInfo() {
 
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     dispatch(getInfoApplicantAction());
   }, [dispatch]);
@@ -41,7 +41,6 @@ export default function ApplicantInfo() {
       setShowSuccessDialog(true);
 
       setTimeout(() => {
-
         setLoading(true);
 
         setTimeout(() => {
@@ -51,7 +50,7 @@ export default function ApplicantInfo() {
             dispatch(authLogout());
           }, 500);
         }, 1000);
-      }, 1500);  
+      }, 1500);
     } catch (error) {
       console.error('Error deleting profile:', error);
       setShowErrorDialog(true);
@@ -74,20 +73,20 @@ export default function ApplicantInfo() {
               <span>{t('forms.nif')}:</span> {applicant.dniCif}
             </p>
             <p>
-              <span>{t('fields.email')}:</span> {applicant.email}
+              <span>{t('forms.email')}:</span> {applicant.email}
             </p>
             <p>
-              <span>{t('fields.phone')}:</span> {applicant.phone}
+              <span>{t('forms.phone')}:</span> {applicant.phone}
             </p>
             <p>
-              <span>{t('fields.location')}:</span> {applicant.ubication}
+              <span>{t('forms.location')}:</span> {applicant.ubication}
             </p>
             <p>
               <span>{t('forms.internship_type')}:</span>{' '}
               {`${applicant.typeJob} & ${applicant.internType}`}
             </p>
             <div>
-              <span>{t('fields.mainSkills')}:</span>
+              <span>{t('forms.mainSkills')}:</span>
               <ul>
                 {applicant.mainSkills.map((skill) => (
                   <li key={skill._id}>{skill.skill}</li>
@@ -95,7 +94,7 @@ export default function ApplicantInfo() {
               </ul>
             </div>
             <div>
-              <span>{t('fields.wantedRole')}:</span>
+              <span>{t('forms.wantedRole')}:</span>
               <ul>
                 {applicant.wantedRol.map((rol) => (
                   <li key={rol._id}>{rol.rol}</li>
@@ -103,10 +102,10 @@ export default function ApplicantInfo() {
               </ul>
             </div>
             <p>
-              <span>{t('fields.cv')}:</span> {applicant.cv}
+              <span>{t('forms.cv')}:</span> {applicant.cv}
             </p>
             <p>
-              <span>{t('fields.willingToRelocate')}:</span>{' '}
+              <span>{t('forms.willing_to_relocate')}:</span>{' '}
               {applicant.geographically_mobile ? t('gen.yes') : t('gen.no')}
             </p>
           </div>
@@ -128,16 +127,16 @@ export default function ApplicantInfo() {
         </div>
 
         {showSuccessDialog && (
-          <SuccessDialog 
-            message={t('success.profile_deleted')} 
-            onClose={() => setShowSuccessDialog(false)} 
+          <SuccessDialog
+            message={t('success.profile_deleted')}
+            onClose={() => setShowSuccessDialog(false)}
           />
         )}
 
         {showErrorDialog && (
-          <ErrorDialog 
-            message={t('errors.generic_form_error')} 
-            onClose={() => setShowErrorDialog(false)} 
+          <ErrorDialog
+            message={t('errors.generic_form_error')}
+            onClose={() => setShowErrorDialog(false)}
           />
         )}
       </>
@@ -150,12 +149,16 @@ export default function ApplicantInfo() {
 
   return (
     <>
-      {loading ? (  
+      {loading ? (
         <Loader />
       ) : (
         <>
           {error ? (
-            <CustomNotification type="error" message={error} onClick={resetError} />
+            <CustomNotification
+              type="error"
+              message={error}
+              onClick={resetError}
+            />
           ) : (
             showInfo()
           )}
