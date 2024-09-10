@@ -20,10 +20,12 @@ export const authSlice = createSlice({
       .addCase(authLogin.fulfilled, (state, action) => {
         state.auth = true;
         state.isCompany = action.payload.isCompany;
+        state.authLoading = false;
       })
       .addCase(authLogout.fulfilled, (state) => {
         state.auth = false;
         state.isCompany = false;
+        state.authLoading = true;
       })
       .addCase(authTokenAction.fulfilled, (state, action) => {
         state.auth = true;
