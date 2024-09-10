@@ -1,8 +1,8 @@
 // import { client } from '../../api/client';
+import { IEditApplicantInfo, IEditCompanyInfo } from '../interfaces/IProfile';
 import { client } from '../../api/client';
 import { IRegisterCompanyForm } from '../interfaces/IAuth';
 import { IInfoApplicants } from '../interfaces/IInfoApplicant';
-import { IEditApplicantInfo, IEditCompanyInfo } from '../interfaces/IProfile';
 
 export async function updateApplicantUser(
   updatedUser: IEditApplicantInfo,

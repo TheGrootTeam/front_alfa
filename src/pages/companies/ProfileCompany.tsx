@@ -70,10 +70,10 @@ export function CompanyProfilePage() {
         <h2>{t('titles.company_public_profile')}</h2>
         <p>{`${t('forms.company')}: ${company}`}</p>
         <p>{`${t('forms.email')}: ${email}`}</p>
-        <p>{`${t('fields.phone')}: ${phone}`}</p>
-        <p>{`${t('fields.industry')}: ${sector.sector}`}</p>
-        <p>{`${t('fields.location')}: ${ubication}`}</p>
-        <p>{`${t('fields.description')}: ${description}`}</p>
+        <p>{`${t('forms.phone')}: ${phone}`}</p>
+        <p>{`${t('forms.industry')}: ${sector.sector}`}</p>
+        <p>{`${t('forms.location')}: ${ubication}`}</p>
+        <p>{`${t('forms.description')}: ${description}`}</p>
         <h2>{t('titles.company_public_offers')}</h2>
 
         {offers && offers.length > 0 ? (

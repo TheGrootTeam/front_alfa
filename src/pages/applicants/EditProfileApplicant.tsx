@@ -44,7 +44,7 @@ export function EditUserProfilePage() {
 
   const [formApplicantData, setApplicantFormData] =
     useState<IEditApplicantInfo>({
-      id: '',
+      id:'',
       dniCif: '',
       name: '',
       lastName: '',
@@ -107,17 +107,17 @@ export function EditUserProfilePage() {
 
     const requiredFields = {
       dniCif: t('forms.nif'),
-      name: t('fields.name'),
-      lastName: t('fields.lastName'),
+      name: t('forms.name'),
+      lastName: t('forms.lastName'),
       email: t('forms.email'),
-      phone: t('fields.phone'),
-      photo: t('fields.photo'),
-      cv: t('fields.cv'),
-      ubication: t('fields.location'),
-      typeJob: t('fields.preferredWorkLocation'),
+      phone: t('forms.phone'),
+      photo: t('forms.photo'),
+      cv: t('forms.cv'),
+      ubication: t('forms.location'),
+      typeJob: t('forms.preferredWorkLocation'),
       internType: t('forms.preferredInternshipType'),
-      wantedRol: t('fields.wantedRole'),
-      mainSkills: t('fields.mainSkills'),
+      wantedRol: t('forms.wantedRole'),
+      mainSkills: t('forms.mainSkills'),
     };
 
     let isValid = true;
@@ -207,9 +207,9 @@ export function EditUserProfilePage() {
       let result;
 
       result = await updateApplicantUser(formApplicantData, t);
-      console.log('User information updated successfully:', result);
+      console.log('User registered successfully:', result);
 
-      setSuccessMessage(t('notifications.edit_success'));
+      setSuccessMessage(t('notifications.register_success'));
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
@@ -247,7 +247,7 @@ export function EditUserProfilePage() {
           </div>
           <li>
             <FormInputText
-              labelText={t('fields.name')}
+              labelText={t('forms.name')}
               id="name"
               name="name"
               value={formApplicantData.name}
@@ -256,7 +256,7 @@ export function EditUserProfilePage() {
           </li>
           <li>
             <FormInputText
-              labelText={t('fields.lastName')}
+              labelText={t('forms.lastName')}
               id="lastName"
               name="lastName"
               value={formApplicantData.lastName}
@@ -265,7 +265,7 @@ export function EditUserProfilePage() {
           </li>
           <li>
             <FormInputText
-              labelText={t('fields.phone')}
+              labelText={t('forms.phone')}
               id="phone"
               name="phone"
               value={formApplicantData.phone}
@@ -274,7 +274,7 @@ export function EditUserProfilePage() {
           </li>
           <li>
             <FormInputText
-              labelText={t('fields.location')}
+              labelText={t('forms.location')}
               id="ubication"
               name="ubication"
               value={formApplicantData.ubication}
@@ -282,18 +282,22 @@ export function EditUserProfilePage() {
             />
           </li>
           <li>
-            <label>{t('fields.photo')}</label>
+            <label>{t('forms.photo')}</label>
             <input type="file" name="photo" onChange={handleFileChange} />
-            <p>{t('forms.actual_photo')}: {formApplicantData.photo}</p>
+            <p>
+              {t('forms.actual_photo')}: {formApplicantData.photo}
+            </p>
           </li>
           <li>
-            <label>{t('fields.cv')}</label>
+            <label>{t('forms.cv')}</label>
             <input type="file" name="cv" onChange={handleFileChange} />
-            <p>{t('forms.actual_cv')}: {formApplicantData.cv}</p>
+            <p>
+              {t('forms.actual_cv')}: {formApplicantData.cv}
+            </p>
           </li>
           <li>
             <FormSelect
-              labelText={t('fields.preferredWorkLocation')}
+              labelText={t('forms.preferredWorkLocation')}
               id="typeJob"
               name="typeJob"
               value={formApplicantData.typeJob || ''}
@@ -313,7 +317,7 @@ export function EditUserProfilePage() {
           </li>
           <li>
             <FormMultiSelect
-              labelText={t('fields.mainSkills')}
+              labelText={t('forms.mainSkills')}
               id="mainSkills"
               name="mainSkills"
               value={formApplicantData.mainSkills.map((skill) => skill._id)}
@@ -324,7 +328,7 @@ export function EditUserProfilePage() {
           </li>
           <li>
             <FormMultiSelect
-              labelText={t('fields.wantedRole')}
+              labelText={t('forms.wantedRole')}
               id="wantedRol"
               name="wantedRol"
               value={formApplicantData.wantedRol.map((rol) => rol._id)}
