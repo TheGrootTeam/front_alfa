@@ -1,10 +1,14 @@
 // authSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 import { authLogin, authLogout, authTokenAction } from '../actions/authActions';
+import storage from '../../utils/storage';
+
+const token: string | null = storage.get('key');
 
 const initialState = {
-  auth: false,
+  auth: !!token,
   isCompany: false,
+  authLoading: true,
 };
 
 export const authSlice = createSlice({
@@ -24,6 +28,7 @@ export const authSlice = createSlice({
       .addCase(authTokenAction.fulfilled, (state, action) => {
         state.auth = true;
         state.isCompany = action.payload.isCompany;
+        state.authLoading = false;
       });
   },
 });

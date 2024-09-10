@@ -8,6 +8,8 @@ Adjust the selector in consequence.*/
 
 export const getIsCompany = (state: RootState) => state.auth.isCompany;
 
+export const getLoadingAuth = (state: RootState) => state.auth.authLoading;
+
 export const getUi = (state: RootState) => state.ui;
 
 export const getUiSuccess = (state: RootState) => state.ui.success;
