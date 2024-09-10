@@ -44,6 +44,7 @@ export function EditUserProfilePage() {
 
   const [formApplicantData, setApplicantFormData] =
     useState<IEditApplicantInfo>({
+      id: '',
       dniCif: '',
       name: '',
       lastName: '',
@@ -62,8 +63,8 @@ export function EditUserProfilePage() {
 
   useEffect(() => {
     dispatch(getInfoApplicantAction());
-    console.log(applicant)
     setApplicantFormData({
+      id: applicant.id,
       dniCif: applicant.dniCif,
       name: applicant.name,
       email: applicant.email,

@@ -1,5 +1,7 @@
 // import { client } from '../../api/client';
+import { client } from '../../api/client';
 import { IRegisterCompanyForm } from '../interfaces/IAuth';
+import { IInfoApplicants } from '../interfaces/IInfoApplicant';
 import { IEditApplicantInfo, IEditCompanyInfo } from '../interfaces/IProfile';
 
 export async function updateApplicantUser(
@@ -7,8 +9,11 @@ export async function updateApplicantUser(
   t: (key: string) => string
 ): Promise<IEditApplicantInfo> {
   try {
-    // TEMP console log + return del usuario
-    console.log(updatedUser);
+    console.log(updatedUser)
+    const infoApplicant: IInfoApplicants = await client.patch(
+      '/infoDashboards/applicant', updatedUser
+    );
+    console.log(infoApplicant);
     return updatedUser;
   } catch (error: any) {
     console.error('Error:', error);
