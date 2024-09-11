@@ -22,7 +22,7 @@ export const getInfoCompanyAction = createAsyncThunk<
     await dispatch(getOffersAction()); // Load in the state the offers
   }
 
-  //Check if there have been any edition or added in the offers (and take it the data of the status or the DB )
+  //Check if there has been any edit or addition to the offers (and retrieve the data from the state or the database).
   const mustRecharge = getMustRecharge(state);
   const haveToRecharge = getHaveToRecharge(state);
   if (loadedInfoCompany
