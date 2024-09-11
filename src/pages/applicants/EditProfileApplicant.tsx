@@ -22,6 +22,7 @@ import {
   rols as rawRoles,
 } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
 import { MainSkill, WantedRol } from '../../utils/interfaces/IInfoApplicant';
+import { applicantInfoSlice } from '../../store/reducers/infoApplicantSlice';
 
 const formattedSkills = rawSkills.map((skill) => ({
   _id: skill._id,
@@ -221,9 +222,10 @@ export function EditUserProfilePage() {
     try {
       let result;
       result = await updateApplicantUser(formApplicantData, t);
-      console.log('User registered successfully:', result);
+      console.log('User info updated successfully:', result);
 
       setSuccessMessage(t('notifications.register_success'));
+      dispatch(applicantInfoSlice.actions.resetApplicantInfoStore())
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
