@@ -71,6 +71,7 @@ export interface IEditCompanyInfo {
 }
 
 export interface IEditApplicantInfo {
+  id: string,
   dniCif: string;
   name: string;
   lastName: string;
