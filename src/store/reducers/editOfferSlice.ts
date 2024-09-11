@@ -7,7 +7,7 @@ export const editOfferSlice = createSlice({
   initialState: {
     offerInfo: {} as IOfferForm,
     offerStatus: false,
-    mustRecharge: false
+    mustRecharge: false //true when there are news(it was been edited an offer)
   },
   reducers: {
     resetEditOfferState: (state) => {
@@ -16,6 +16,9 @@ export const editOfferSlice = createSlice({
     },
     resetMustRecharge: (state) => {
       state.mustRecharge = false; // Reducer to put mustRecharge to false
+    },
+    activateMustRecharge: (state) => {
+      state.mustRecharge = true; // Reducer to put mustRecharge to false
     },
   },
   extraReducers: (builder) => {

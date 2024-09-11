@@ -6,7 +6,7 @@ const initialState: NewOfferState = {
   offerInfo: null,
   offerStatus: false,
   error: null,
-  haveToRecharge: false
+  haveToRecharge: false //true when there are news(it was been created an offer)
 };
 
 export const newOfferSlice = createSlice({
