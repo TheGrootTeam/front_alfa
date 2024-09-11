@@ -21,6 +21,7 @@ import {
   skills as rawSkills,
   rols as rawRoles,
 } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
+import { MainSkill, WantedRol } from '../../utils/interfaces/IInfoApplicant';
 
 const formattedSkills = rawSkills.map((skill) => ({
   _id: skill._id,
@@ -44,7 +45,7 @@ export function EditUserProfilePage() {
 
   const [formApplicantData, setApplicantFormData] =
     useState<IEditApplicantInfo>({
-      id:'',
+      id: '',
       dniCif: '',
       name: '',
       lastName: '',
@@ -170,13 +171,27 @@ export function EditUserProfilePage() {
   // manejo de los MULTISELECT
   const handleMultiSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, options } = e.target;
+
+    //Convert selected values to an ID's array
     const selectedValues = Array.from(options)
       .filter((option) => option.selected)
       .map((option) => option.value); // Collect selected IDs
 
+    // Find skill or role value by id
+    let selectedValuesFormatted: Array<MainSkill | WantedRol> = [];
+    if (name === 'mainSkills') {
+      selectedValuesFormatted = formattedSkills.filter((skill) =>
+        selectedValues.includes(skill._id)
+      );
+    } else if (name === 'wantedRol') {
+      selectedValuesFormatted = formattedRoles.filter((role) =>
+        selectedValues.includes(role._id)
+      );
+    }
+
     setApplicantFormData((prevData) => ({
       ...prevData,
-      [name]: selectedValues, // Update the selected field (mainSkills or wantedRol) with IDs
+      [name]: selectedValuesFormatted,
     }));
   };
 
@@ -205,7 +220,6 @@ export function EditUserProfilePage() {
     // si todo ok procedemos
     try {
       let result;
-
       result = await updateApplicantUser(formApplicantData, t);
       console.log('User registered successfully:', result);
 
