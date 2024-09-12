@@ -1,7 +1,7 @@
 import { Navigate, Route, Outlet, Routes } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
-import { useSelector } from 'react-redux';
-import { getIsLogged } from './store/selectors';
+// import { useSelector } from 'react-redux';
+// import { getIsLogged } from './store/selectors';
 
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
@@ -24,13 +24,13 @@ import { NotFoundPage } from './pages/notfound/NotFoundPage';
 import RequireIsCompany from './components/auth/RequireIsCompany';
 import RequireIsApplicant from './components/auth/RequireIsApplicant';
 
-import { EditProfileSwitch } from './components/routing/EditProfileSwitch';
+// import { EditProfileSwitch } from './components/routing/EditProfileSwitch';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
 import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
 
 function App() {
-  const isLogged = useSelector(getIsLogged);
+  // const isLogged = useSelector(getIsLogged);
 
   return (
     <Routes>
@@ -119,7 +119,7 @@ function App() {
       <Route path="*" element={<Navigate to="/404" />} />
 
       {/* REVISAR - PRIVATE (ANY) - Perfiles - Ruta para edición basada en parámetros */}
-      {isLogged && (
+      {/* {isLogged && (
         <>
           <Route
             path="/edit/:userType"
@@ -130,7 +130,7 @@ function App() {
             }
           />
         </>
-      )}
+      )} */}
     </Routes>
   );
 }
