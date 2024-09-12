@@ -11,7 +11,6 @@ import { getOffersLoaded, getOffersState } from '../selectors';
 import { uiSlice } from '../reducers/uiSlice';
 import { router } from '../../router';
 import { offersSlice } from '../reducers/offersSlice';
-//BALIZA
 import { editOfferSlice } from '../reducers/editOfferSlice';
 
 export const getOffersAction = createAsyncThunk<
@@ -92,7 +91,6 @@ export const deleteOfferAction = createAsyncThunk<
       await deleteOfferService(id);
       dispatch(uiSlice.actions.setSuccess(successMessage));
       dispatch(offersSlice.actions.resetLoadedOffers());
-      //BALIZA
       dispatch(editOfferSlice.actions.activateMustRecharge());
       await dispatch(getOffersAction() as any);
       setTimeout(() => {

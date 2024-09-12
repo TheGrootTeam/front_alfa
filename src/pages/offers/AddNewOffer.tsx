@@ -6,13 +6,13 @@ import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextarea } from '../../components/formElements/formTextareaProps';
 import { FormSelect } from '../../components/formElements/formSelect';
 import styles from './AddNewOffer.module.css';
+import { Button } from '../../components/common/Button';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { getNewOfferState } from '../../store/selectors';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { createOffersAction } from '../../store/actions/offersActions';
-import { Button } from '../../components/common/Button';
 import { AppDispatch } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -197,6 +197,7 @@ export function AddNewOffer() {
               value={typeJob}
               onChange={handleChange}
               options={jobOptions}
+              required={true}
             />
           </p>
           <p>
@@ -207,6 +208,7 @@ export function AddNewOffer() {
               value={internJob}
               onChange={handleChange}
               options={internOptions}
+              required={true}
             />
           </p>
           <p>
@@ -220,8 +222,17 @@ export function AddNewOffer() {
               onChange={handleChange}
             />
           </p>
+          {showMessageDatesSaved && (
+            <div>
+              <Notification
+                message={t('notifications.data_saved')}
+                type="success"
+              />
+            </div>
+          )}
+          <br></br>
           <Button
-            className="form__button"
+            className={styles.button}
             type="submit"
             disabled={
               showMessageDatesSaved ||
@@ -236,14 +247,6 @@ export function AddNewOffer() {
           </Button>
         </form>
         <div onClick={resetError}>{error ? error : null}</div>
-        {showMessageDatesSaved && (
-          <div>
-            <Notification
-              message={t('notifications.data_saved')}
-              type="success"
-            />
-          </div>
-        )}
       </Layout>
     );
   }
