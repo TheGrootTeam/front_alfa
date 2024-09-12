@@ -160,5 +160,8 @@
   "success": {
     "delete_offer_success": "Announcement successfully deleted.",
     "profile_deleted": "Profile deleted successfully"
+  },
+  "links": {
+    "forgot_password": "Forgot password?"
   }
 }

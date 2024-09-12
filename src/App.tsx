@@ -33,6 +33,7 @@ import { EditProfileSwitch } from './components/routing/EditProfileSwitch';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
 import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
+import { LostPasswordEmail } from './pages/auth/LostPasswordEmail';
 
 function App() {
   const isLogged = useSelector(getIsLogged);
@@ -56,6 +57,7 @@ function App() {
 
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/lost-password" element={<LostPassword />} />
+      <Route path="/lost-password-email" element={<LostPasswordEmail />} />
 
       {/* START Rutas protegidas */}
       <Route
