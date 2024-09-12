@@ -37,7 +37,7 @@
   text-align: left;
 }
 
-.form input[type='number'], 
+.form input[type='number'],
 .form input[type='text'],
 .form input[type='password'] {
   font-size: 1.5rem;
@@ -52,8 +52,8 @@
   outline: 1px solid var(--neutral-bg);
 }
 
-.form button {
-  border: 0;
+.form__Button {
+  border: 1;
   border-radius: 0.5rem;
   line-height: 3.5rem;
   background-color: var(--color-mid);
