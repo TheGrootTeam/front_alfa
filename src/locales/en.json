@@ -118,7 +118,8 @@
     "userprofile_edit": "Edit User Profile",
     "userprofile_delete": "Delete User Profile",
     "change_password": "Change password",
-    "save_changes": "Save changes"
+    "save_changes": "Save changes",
+    "lost_password_email": "Send reset email"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
@@ -134,7 +135,8 @@
     "generic_form_error": "An error occurred while submitting the form. Please try again.",
     "creating_user_error": "An error occurred while creating the user",
     "editing_user_error": "An error occurred while updating the user details",
-    "all_fields_required": "All fields are required"
+    "all_fields_required": "All fields are required",
+    "no_user_email": "No user with this email"
   },
   "notifications": {
     "register_success": "User registered successfully",

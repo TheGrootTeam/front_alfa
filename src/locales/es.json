@@ -118,7 +118,8 @@
     "userprofile_edit": "Editar perfil de usuario",
     "userprofile_delete": "Eliminar perfil de usuario",
     "change_password": "Cambiar contraseña",
-    "save_changes": "Guardar cambios"
+    "save_changes": "Guardar cambios",
+    "lost_password_email": "Enviar email de reinicio"
   },
   "errors": {
     "password_empty": "Los campos de contraseña no pueden estar vacíos",
@@ -134,7 +135,8 @@
     "generic_form_error": "Ha ocurrido un error mientras se enviaba el formulario, por favor inténtelo de nuevo.",
     "creating_user_error": "Se ha producido un error al crear el usuario",
     "editing_user_error": "Se ha producido un error al editar los datos de usuario",
-    "all_fields_required": "Todos los campos son obligatorios"
+    "all_fields_required": "Todos los campos son obligatorios",
+    "no_user_email": "Ningún usuario con este email"
   },
   "notifications": {
     "register_success": "Usuario registrado correctamente",
