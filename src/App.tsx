@@ -9,20 +9,15 @@ import { LostPassword } from './pages/auth/LostPassword';
 
 import { HomePage } from './pages/home/HomePage';
 
-// DASHBOARDS - mirar como se ha montado el switch para perfiles, si creeis que puede ir bien para esto tb
-
 import { DashBoardInternPage } from './pages/dashboard/DashboardInternPage';
-import { UserProfilePage } from './pages/applicants/ProfileApplicant';
 import { EditUserProfilePage } from './pages/applicants/EditProfileApplicant';
 
 import { DashBoardCompanyPage } from './pages/dashboard/DashboardCompanyPage';
-import { CompanyProfilePage } from './pages/companies/ProfileCompany';
 import { EditCompanyProfilePage } from './pages/companies/EditProfileCompany';
 
 import { OfferPage } from './pages/offers/OfferPage';
 import { EditOffer } from './pages/offers/EditOffer';
 import { AddNewOffer } from './pages/offers/AddNewOffer';
-import { OffersList } from './pages/offers/OffersList';
 
 import { AboutPage } from './pages/about/AboutPage';
 import { NotFoundPage } from './pages/notfound/NotFoundPage';
@@ -39,10 +34,62 @@ function App() {
 
   return (
     <Routes>
-      {/* RUTAS PÚBLICAS */}
-      <Route path="/" element={<HomePage />} />
+      {/* PRIVATE (APPLICANT) - dashboard */}
+      <Route
+        path="/user"
+        element={
+          <RequireAuth>
+            <RequireIsApplicant>
+              <Outlet />
+            </RequireIsApplicant>
+          </RequireAuth>
+        }
+      >
+        <Route index element={<DashBoardInternPage />} />
+        <Route path="edit" element={<EditUserProfilePage />} />
+      </Route>
 
-      {/* Auth - Login, Registro, lost password */}
+      {/* PRIVATE (COMPANY) - Dashboard */}
+      <Route
+        path="/company"
+        element={
+          <RequireAuth>
+            <RequireIsCompany>
+              <Outlet />
+            </RequireIsCompany>
+          </RequireAuth>
+        }
+      >
+        <Route index element={<DashBoardCompanyPage />} />
+        <Route path="edit" element={<EditCompanyProfilePage />} />
+      </Route>
+
+      {/* PRIVATE (ANY) - Cambio de password (accesible para usuario logado de cualquier tipo) */}
+      <Route
+        path="/change_password"
+        element={
+          <RequireAuth>
+            <ChangePasswordPage />
+          </RequireAuth>
+        }
+      />
+
+      {/* PRIVATE (COMPANY) - Offers - Publicación y edición */}
+      <Route
+        path="/offers"
+        element={
+          <RequireAuth>
+            <RequireIsCompany>
+              <Outlet />
+            </RequireIsCompany>
+          </RequireAuth>
+        }
+      >
+        <Route path="new" element={<AddNewOffer />} />
+        <Route path="edit" element={<EditOffer />} />
+      </Route>
+
+      {/* PUBLIC - Auth - Login, Registro, Lost Password */}
       <Route
         path="/login"
         element={
@@ -57,79 +104,23 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/lost-password" element={<LostPassword />} />
 
-      {/* START Rutas protegidas */}
-      <Route
-        path="/user"
-        element={
-          <RequireAuth>
-            <RequireIsApplicant>
-              <Outlet />
-            </RequireIsApplicant>
-          </RequireAuth>
-        }
-      >
-        <Route index element={<DashBoardInternPage />} />
-        <Route path="edit" element={<EditUserProfilePage />} />
-        <Route path="profile" element={<UserProfilePage />} />
-      </Route>
-
-      <Route
-        path="/company"
-        element={
-          <RequireAuth>
-            <RequireIsCompany>
-              <Outlet />
-            </RequireIsCompany>
-          </RequireAuth>
-        }
-      >
-        <Route index element={<DashBoardCompanyPage />} />
-        <Route path="edit" element={<EditCompanyProfilePage />} />
-        <Route path="profile" element={<CompanyProfilePage />} />
-      </Route>
-
-      <Route
-        path="/change_password"
-        element={
-          <RequireAuth>
-            <ChangePasswordPage />
-          </RequireAuth>
-        }
-      />
-
-      <Route
-        path="/offers"
-        element={
-          <RequireAuth>
-            <RequireIsCompany>
-              <Outlet />
-            </RequireIsCompany>
-          </RequireAuth>
-        }
-      >
-        <Route path="new" element={<AddNewOffer />} />
-        <Route path="edit" element={<EditOffer />} />
-      </Route>
-      {/* END Rutas protegidas */}
-
-      {/* Al final no protegemos estas rutas de Offers, ya que tienen que estar públicas según requerimientos */}
-      {/* Offers - Lista e individual */}
+      {/* PUBLIC - Vista de oferta individual */}
       <Route path="/offers">
-        <Route index element={<OffersList />} />
         <Route path=":id" element={<OfferPage />} />
       </Route>
 
-      {/* Perfiles - Ruta para visualización de perfiles basada en parámetros */}
+      {/* PUBLIC - Ruta para visualización de perfiles basada en parámetros */}
       <Route path="/view/:userType/:id/" element={<ProfileSwitch />} />
 
+      {/* PUBLIC home, about y manejo de errores */}
+      <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/404" element={<NotFoundPage />} />
       <Route path="*" element={<Navigate to="/404" />} />
 
-      {/* RUTAS PRIVADAS */}
+      {/* REVISAR - PRIVATE (ANY) - Perfiles - Ruta para edición basada en parámetros */}
       {isLogged && (
         <>
-          {/* Perfiles - Ruta para edición basada en parámetros */}
           <Route
             path="/edit/:userType"
             element={
