@@ -1,3 +1,5 @@
+import { InputHTMLAttributes } from "react";
+
 export interface IFormInputTextProps {
   labelText: string;
   className?: string;
@@ -64,4 +66,9 @@ export interface IDataApiChangePassword extends IFormChangePassword {
 export interface IFormReturnValidateForm {
   isValid: boolean;
   errorMessage: string;
+}
+
+export interface IFormFileProps extends InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+  label: string;
 }

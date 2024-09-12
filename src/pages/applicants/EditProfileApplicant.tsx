@@ -6,7 +6,7 @@ import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getApplicantInfo, getUi } from '../../store/selectors';
 import { useFormSelectOptions } from '../../hooks/useFormSelectOptions';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FormInputText } from '../../components/formElements/formInputText';
 import Notification from '../../components/common/Notification';
 import { IEditApplicantInfo } from '../../utils/interfaces/IProfile';
@@ -22,6 +22,7 @@ import {
   rols as rawRoles,
 } from '../../utils/utilsInfoCollections'; // TEMPORAL hasta que los carguemos de la API
 import { MainSkill, WantedRol } from '../../utils/interfaces/IInfoApplicant';
+import FormField from '../../components/formElements/formFile';
 import { applicantInfoSlice } from '../../store/reducers/infoApplicantSlice';
 
 const formattedSkills = rawSkills.map((skill) => ({
@@ -62,6 +63,9 @@ export function EditUserProfilePage() {
       geographically_mobile: false,
       disponibility: false,
     });
+
+  const photoInputRef = useRef<HTMLInputElement | null>(null);;
+  const cvInputRef = useRef<HTMLInputElement | null>(null);;
 
   useEffect(() => {
     dispatch(getInfoApplicantAction());
@@ -196,19 +200,17 @@ export function EditUserProfilePage() {
     }));
   };
 
-  // manejo de los FILE INPUT
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-    const file = files ? files[0] : { name: null };
-    setApplicantFormData((prevData) => ({
-      ...prevData,
-      [name]: `${file.name}`,
-    }));
-  };
-
   // Envio de formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Add files to formApplicantData
+    formApplicantData.photo = (photoInputRef?.current?.files && photoInputRef.current.files.length > 0)
+      ? `${photoInputRef.current.files[0]}`
+      : applicant.photo;
+    formApplicantData.cv = (cvInputRef?.current?.files && cvInputRef.current.files.length > 0)
+      ? `${cvInputRef.current.files[0]}`
+      : applicant.cv;
 
     // si hay errores de formato o faltan campos requeridos no se envía
     if (emailError) return;
@@ -223,8 +225,7 @@ export function EditUserProfilePage() {
       let result;
       result = await updateApplicantUser(formApplicantData, t);
       console.log('User info updated successfully:', result);
-
-      setSuccessMessage(t('notifications.register_success'));
+      setSuccessMessage(t('notifications.data_updated'));
       dispatch(applicantInfoSlice.actions.resetApplicantInfoStore())
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
@@ -298,15 +299,27 @@ export function EditUserProfilePage() {
             />
           </li>
           <li>
-            <label>{t('forms.photo')}</label>
-            <input type="file" name="photo" onChange={handleFileChange} />
+            <FormField
+              type="file"
+              name="photo"
+              label={t('forms.photo')}
+              className="applicantphoto"
+              accept="image/png, image/jpeg"
+              ref={photoInputRef}
+            />
             <p>
               {t('forms.actual_photo')}: {formApplicantData.photo}
             </p>
           </li>
           <li>
-            <label>{t('forms.cv')}</label>
-            <input type="file" name="cv" onChange={handleFileChange} />
+            <FormField
+              type="file"
+              name="cv"
+              label={t('forms.cv')}
+              className="applicantcv"
+              accept="application/pdf"
+              ref={cvInputRef}
+            />
             <p>
               {t('forms.actual_cv')}: {formApplicantData.cv}
             </p>

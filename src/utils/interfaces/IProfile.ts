@@ -77,8 +77,8 @@ export interface IEditApplicantInfo {
   lastName: string;
   email: string;
   phone: string;
-  photo: string;
-  cv: string;
+  photo: any;
+  cv: any;
   ubication: string;
   typeJob: string;
   internType: string;

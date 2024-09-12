@@ -142,7 +142,8 @@
     "data_saved": "Los datos se han guardado correctamente",
     "offer_created": "La nueva oferta ha sido creada con éxito",
     "offer_updated": "La oferta se actualizó con éxito",
-    "password_change_success": "Contraseña modificada correctamente"
+    "password_change_success": "Contraseña modificada correctamente",
+    "data_updated": "Información actualizada correctamente"
   },
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",
