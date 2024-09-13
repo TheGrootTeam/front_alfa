@@ -206,10 +206,10 @@ export function EditUserProfilePage() {
 
     // Add files to formApplicantData
     formApplicantData.photo = (photoInputRef?.current?.files && photoInputRef.current.files.length > 0)
-      ? `${photoInputRef.current.files[0]}`
+      ? photoInputRef.current.files[0]
       : applicant.photo;
     formApplicantData.cv = (cvInputRef?.current?.files && cvInputRef.current.files.length > 0)
-      ? `${cvInputRef.current.files[0]}`
+      ? cvInputRef.current.files[0]
       : applicant.cv;
 
     // si hay errores de formato o faltan campos requeridos no se envía
