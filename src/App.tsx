@@ -1,4 +1,4 @@
-import { Navigate, Route, Outlet, Routes } from 'react-router-dom';
+import { Route, Outlet, Routes } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
 // import { useSelector } from 'react-redux';
 // import { getIsLogged } from './store/selectors';
@@ -116,7 +116,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/404" element={<NotFoundPage />} />
-      <Route path="*" element={<Navigate to="/404" />} />
+      <Route path="*" element={<NotFoundPage />} />
 
       {/* REVISAR - PRIVATE (ANY) - Perfiles - Ruta para edición basada en parámetros */}
       {/* {isLogged && (
