@@ -2,6 +2,7 @@ import { Navigate, Route, Outlet, Routes } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
 import { useSelector } from 'react-redux';
 import { getIsLogged } from './store/selectors';
+import Modal from 'react-modal';
 
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
@@ -33,6 +34,9 @@ import { EditProfileSwitch } from './components/routing/EditProfileSwitch';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
 import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
+
+
+Modal.setAppElement('#root'); 
 
 function App() {
   const isLogged = useSelector(getIsLogged);
