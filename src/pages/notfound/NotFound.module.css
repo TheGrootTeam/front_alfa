@@ -1,0 +1,89 @@
+.NotFoundContent {
+  display: flex;
+  gap: 6rem;
+  align-items: center;
+  color: var(--neutral-dark);
+
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  h2 {
+    font-size: 6rem;
+    line-height: 8rem;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--error);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+    color: var(--error);
+  }
+
+  .bigIcon {
+    font-size: 5rem;
+    color: var(--error);
+  }
+
+  p {
+    font-size: 2rem;
+    line-height: 6rem;
+    color: var(--neutral);
+  }
+
+  b {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    color: var(--dark);
+    padding: 0 0.5rem;
+  }
+
+  ul {
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  a:link,
+  a:visited {
+    background-color: var(--light);
+    border: 2px solid var(--neutral);
+    color: var(--neutral);
+    padding: 0.6rem 2.8rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+  }
+
+  a:hover,
+  a:active {
+    background-color: var(--accent-light);
+    border: 2px solid var(--accent-light);
+    color: var(--light);
+    padding: 0.6rem 2.8rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
