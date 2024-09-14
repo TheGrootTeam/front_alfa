@@ -4,13 +4,16 @@ import { useState } from 'react';
 import { FormInputText } from '../formElements/formInputText';
 import { Button } from '../common/Button';
 import Notification from '../common/Notification';
-import { verifyEmail } from '../../utils/utilsPassword';
+import { verifyEmailService } from '../../utils/services/passwordService';
+import { useNavigate } from 'react-router-dom';
 
 export function LostPasswordEmailForm() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
+  const [succesMessage, setSuccessMessage] = useState<string | null>(null);
 
   const isValidEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -29,7 +32,11 @@ export function LostPasswordEmailForm() {
       if (!isValidEmail(email)) {
         setError(t('errors.email_invalid'));
       } else {
-        await verifyEmail(email);
+        await verifyEmailService(email);
+        setSuccessMessage(t('notifications.email_sended'));
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
       }
     } catch (error: any) {
       if (error.status === 404) {
@@ -63,6 +70,9 @@ export function LostPasswordEmailForm() {
             </Button>
           </li>
         </ul>
+        {succesMessage && (
+          <Notification type="success" message={succesMessage} />
+        )}
       </form>
     </>
   );

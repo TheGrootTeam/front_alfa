@@ -152,7 +152,8 @@
     "data_saved": "Data saved successfully",
     "offer_created": "New offer created successful",
     "offer_updated": "Offer update successfully",
-    "password_change_success": "Password changed successfully"
+    "password_change_success": "Password changed successfully",
+    "email_sended": "Email sent successfully"
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
