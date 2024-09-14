@@ -5,25 +5,25 @@ import styles from './ContactForm.module.css';
 import { getPublicInfo } from '../../utils/services/publicProfileService'; 
 
 interface ContactFormProps {
-  companyId: string; // ID de la empresa
+  companyId: string; 
   offerName: string;
   isOpen: boolean;
   onRequestClose: () => void;
-  applicantEmail: string;  // Pasar el email del applicant
+  applicantEmail: string;  
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
   companyId,
-  applicantEmail,  // Asegurarse de recibir el applicantEmail
+  applicantEmail,  
   offerName,
   isOpen,
   onRequestClose,
 }) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [companyEmail, setCompanyEmail] = useState('');  // Estado para almacenar el email de la empresa
+  const [companyEmail, setCompanyEmail] = useState('');  
 
-  // Función para obtener el email de la empresa desde el API
+  // Function to obtain the company email from the API
   const fetchCompanyEmail = async () => {
     try {
       const companyData = await getPublicInfo(companyId, 'company');
@@ -37,7 +37,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
   };
 
-  // Obtener el email de la empresa al abrir el modal
+  // Obtain the company's email when opening the Modal
   useEffect(() => {
     if (isOpen && companyId) {
       fetchCompanyEmail();
@@ -48,7 +48,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     e.preventDefault();
     setLoading(true);
 
-    // Verificar que todos los campos están llenos
+    // Verify that all fields are full
     if (!companyEmail || !applicantEmail || !message) {
       console.error("Error: Todos los campos son requeridos.");
       alert('Error: Todos los campos son requeridos.');
@@ -57,14 +57,20 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/v1/send-email/contact-company', {
+    
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const apiVersion = import.meta.env.VITE_API_VERSION;
+    
+      const url = `${apiUrl}/api/${apiVersion}/send-email/contact-company`;
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          applicantEmail,  // Enviar el email del applicant
-          companyEmail,    // Enviar el email de la empresa
+          applicantEmail,  
+          companyEmail,    
           offerTitle: offerName,
           message,
         }),
