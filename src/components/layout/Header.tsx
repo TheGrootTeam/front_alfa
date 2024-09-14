@@ -139,8 +139,8 @@ const Header = () => {
             onClick={toggleMenu}
             type="button"
           >
-            <span className="material-symbols-outlined">
-              {menuBurgerOpen ? 'close' : 'menu'}{' '}
+            <span className={`material-symbols-outlined ${styles.icon}`}>
+              {menuBurgerOpen ? 'close' : 'menu'}
             </span>
           </button>
         </div>

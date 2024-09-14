@@ -141,16 +141,26 @@ h1 a {
 
   /* BALIZA */
   @media (max-width: 768px) {
-    display: none;
     ul {
+      display: none;
+      position: fixed;
+      top: 0%;
+      right: 0;
+      background-color: var(--dark);
+      border-radius: 5%;
+      width: 200px;
       flex-direction: column;
       gap: 0.2rem;
+      padding: 1rem;
+      z-index: 1000;
+      max-height: 0;
+      overflow: hidden; /* OCULTA EL CONTENIDO FUERA DEL LÍMITE */
+      transition: max-height 0.5s ease-in-out; /* TRANSICIÓN AL ABRIR */
     }
 
     &.open {
       display: flex;
-      max-height: 300px;
-      transition: max-height 1s ease-in-out;
+      max-height: 600px;
     }
   }
 }
@@ -198,24 +208,28 @@ h1 a {
 
 .hamburger {
   display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.hamburger .material-symbols-outlined {
-  font-size: 4.5rem; /* Tamaño del ícono */
-  color: var(--accent-light);
 }
 
 @media (max-width: 768px) {
   .hamburger {
     display: block;
-    color: var(--accent-light);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0.5rem; /* Alinea el botón de hamburguesa a la derecha */
+    top: 0rem;
+    z-index: 1001;
+  }
+
+  .icon {
+    font-size: 4rem; /* Tamaño del ícono */
+    color: var(--accent-light); /* Ajusta el color según tu necesidad */
   }
 
   .nav.open ul {
     display: flex;
     flex-direction: column;
+    max-height: 500px; /* CAMBIO: AUMENTA EL ESPACIO DEL MENÚ AL ABRIR */
   }
 }
