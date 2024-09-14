@@ -136,7 +136,10 @@
     "creating_user_error": "An error occurred while creating the user",
     "editing_user_error": "An error occurred while updating the user details",
     "all_fields_required": "All fields are required",
-    "no_user_email": "No user with this email"
+    "no_user_email": "No user with this email",
+    "expired_token": "Expired token, please restart the password renewal process",
+    "invalid_token": "Invalid Token",
+    "user_not_found": "User not found"
   },
   "notifications": {
     "register_success": "User registered successfully",

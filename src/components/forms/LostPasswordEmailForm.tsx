@@ -29,7 +29,7 @@ export function LostPasswordEmailForm() {
       if (!isValidEmail(email)) {
         setError(t('errors.email_invalid'));
       } else {
-        await verifyEmail(email);
+        const data = await verifyEmail(email);
       }
     } catch (error: any) {
       if (error.status === 404) {

@@ -56,7 +56,7 @@ function App() {
       </Route>
 
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/lost-password" element={<LostPassword />} />
+      <Route path="/lost-password/:token" element={<LostPassword />} />
       <Route path="/lost-password-email" element={<LostPasswordEmail />} />
 
       {/* START Rutas protegidas */}
