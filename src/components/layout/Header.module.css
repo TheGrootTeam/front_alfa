@@ -138,6 +138,30 @@ h1 a {
       }
     }
   }
+
+  @media (max-width: 768px) {
+    ul {
+      display: none;
+      position: fixed;
+      top: 2%;
+      right: 0%;
+      background-color: var(--dark);
+      border-radius: 5%;
+      width: 225px;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1rem;
+      z-index: 1000;
+      max-height: 0;
+      overflow: hidden; /* hidden the content out of the limit */
+      transition: max-height 0.5s ease-in-out; /* transition */
+    }
+
+    &.open {
+      display: flex;
+      max-height: 500px;
+    }
+  }
 }
 
 .languageSwitcher {
@@ -179,4 +203,43 @@ h1 a {
 .headerError {
   width: 100%;
   overflow: hidden;
+}
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  /* Adjust the language selectors and the hamburger button*/
+  .inner {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    width: 100%;
+  }
+
+  .languageSwitcher {
+    display: flex;
+    gap: 1rem;
+    margin-right: 1rem;
+  }
+
+  .icon {
+    font-size: 5rem; /* size */
+    color: var(--accent-light);
+  }
+
+  .nav.open ul {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+  }
 }

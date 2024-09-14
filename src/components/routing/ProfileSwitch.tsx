@@ -7,7 +7,7 @@ export function ProfileSwitch() {
     userType?: string /*; id?: string*/;
   }>();
 
-  if (userType === 'user') {
+  if (userType === 'applicant') {
     return <UserProfilePage /*userId={id ?? ''}*/ />;
   } else if (userType === 'company') {
     return <CompanyProfilePage /*userId={id ?? ''}*/ />;
