@@ -12,7 +12,7 @@ input::file-selector-button {
 input[type='checkbox'] {
   appearance: none;
   cursor: pointer;
-  background-color: var(--neutral-bg);
+  background-color: var(--neutral-min);
   width: 2.5rem;
   height: 2.5rem;
   border: none;
@@ -33,7 +33,7 @@ textarea {
   line-height: 3rem;
   font-weight: 500;
   color: var(--neutral-text);
-  background-color: var(--neutral-bg);
+  background-color: var(--neutral-min);
   border-radius: 0.5rem;
   outline: none;
   border: 1px solid var(--neutral);

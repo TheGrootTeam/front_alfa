@@ -5,8 +5,9 @@ import { getUi, getToUpdateOfferState } from '../../store/selectors';
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
 import { AppDispatch } from '../../store/store';
-import { Button } from '../../components/common/Button';
 import styles from './EditOffer.module.css';
+//import buttonStyles from '../../components/common/Button.module.css';
+import { Button } from '../../components/common/Button';
 import { FormInputText } from '../../components/formElements/formInputText';
 import { FormInputNumber } from '../../components/formElements/formInputNumber';
 import { FormTextarea } from '../../components/formElements/formTextareaProps';
@@ -43,6 +44,7 @@ export function EditOffer() {
   });
 
   const [showMessageDatesSaved, setDatesSaved] = useState(false);
+  const [dataModified, setDataModified] = useState(false);
   const {
     position,
     description,
@@ -85,6 +87,7 @@ export function EditOffer() {
   ) => {
     const target = event.target as HTMLInputElement | HTMLSelectElement;
     const value = target.type === 'checkbox' ? !target.checked : target.value;
+    setDataModified(true);
 
     setFormData((currentData: any) => ({
       ...currentData,
@@ -214,11 +217,22 @@ export function EditOffer() {
                 onChange={handleChange}
               />
             </p>
+            {showMessageDatesSaved && (
+              <div>
+                <Notification
+                  message={t('notifications.offer_updated')}
+                  type="success"
+                />
+              </div>
+            )}
+            <br></br>
             <Button
-              className="form__button"
+              // className="form__Button"
+              className={styles.button}
               type="submit"
               disabled={
                 showMessageDatesSaved ||
+                !dataModified ||
                 !position ||
                 !description ||
                 !location ||
@@ -229,14 +243,6 @@ export function EditOffer() {
               {t('forms.save_offer_button')}
             </Button>
           </form>
-          {showMessageDatesSaved && (
-            <div>
-              <Notification
-                message={t('notifications.offer_updated')}
-                type="success"
-              />
-            </div>
-          )}
         </Layout>
       </>
     );

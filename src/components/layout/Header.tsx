@@ -12,6 +12,7 @@ import styles from './Header.module.css';
 import ConfirmationButton from '../common/ConfirmationButton';
 
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 // interface HeaderProps {
 //   userId: string;
@@ -22,8 +23,9 @@ const Header = () => {
   const { error } = useSelector(getUi);
   const auth = useSelector(getIsLogged); // To verify if the user is logged
   const isCompany = useSelector(getIsCompany); //To verify if it is a company
-  // const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
   const dispatch = useDispatch<AppDispatch>();
+  // To control the burger menu
+  const [menuBurgerOpen, setMenuBurgerOpen] = useState(false);
 
   const langs: { [key: string]: { nativeName: string } } = {
     es: { nativeName: 'Español' },
@@ -36,6 +38,10 @@ const Header = () => {
 
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
+  };
+
+  const toggleMenu = () => {
+    setMenuBurgerOpen(!menuBurgerOpen);
   };
 
   return (
@@ -51,7 +57,10 @@ const Header = () => {
               <span>InternIT</span>
             </Link>
           </h1>
-          <nav className={styles.nav}>
+          {/* <nav className={styles.nav}> */}
+          <nav
+            className={`${styles.nav} ${menuBurgerOpen ? styles.open : ''} `}
+          >
             <ul>
               {auth ? (
                 // When the user is authenticated
@@ -97,7 +106,6 @@ const Header = () => {
                   <li>
                     <Link to="/about">{t('nav.about')}</Link>
                   </li>
-
                   {/* MARTA - TEMPORAL porque si no no puedo ver la página */}
                   {/* <li>
                     <Link to={`/view/user/${loggedInUser}`}>Profile</Link>
@@ -119,6 +127,15 @@ const Header = () => {
               </li>
             ))}
           </ul>
+          <button
+            className={styles.hamburger}
+            onClick={toggleMenu}
+            type="button"
+          >
+            <span className={`material-symbols-outlined ${styles.icon}`}>
+              {menuBurgerOpen ? 'close' : 'menu'}
+            </span>
+          </button>
         </div>
       </header>
     </>

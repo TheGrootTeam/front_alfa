@@ -28,7 +28,7 @@
     "companyprofile": "Perfil de empresa",
     "userprofile_edit": "Editar perfil de usuario",
     "userprofile": "Perfil de usuario",
-    "dashboard": "Panel de Control",
+    "dashboard": "Panel",
     "dashboardIntern": "Aspirante",
     "dashboardCompany": "Compañía",
     "add_offer": "Publicar Nueva Oferta",
@@ -42,7 +42,9 @@
     "search_results": "Resultados para ",
     "found_results": " resultados",
     "no_results": "No se han encontrado resultados",
-    "no_results_for": "No se han encontrado resultados para "
+    "no_results_for": "No se han encontrado resultados para ",
+    "error404": "error 404",
+    "page_not_found": "Página no encontrada"
   },
   "forms": {
     "section_login": "Datos de autenticación",
@@ -119,6 +121,8 @@
     "userprofile_delete": "Eliminar perfil de usuario",
     "change_password": "Cambiar contraseña",
     "save_changes": "Guardar cambios",
+    "back_home": "Vuelve al inicio",
+    "back_dashboard": "Vuelve a tu panel de control",
     "lost_password_email": "Enviar email de reinicio"
   },
   "errors": {
@@ -136,6 +140,7 @@
     "creating_user_error": "Se ha producido un error al crear el usuario",
     "editing_user_error": "Se ha producido un error al editar los datos de usuario",
     "all_fields_required": "Todos los campos son obligatorios",
+    "404_page": "Lo sentimos, pero parece que en <b>{{path}}</b> no hay nada",
     "no_user_email": "Ningún usuario con este email",
     "expired_token": "Token expirado, reinicie el proceso de renovación de contraseña",
     "invalid_token": "Token no válido",

@@ -42,7 +42,9 @@
     "search_results": "Results for ",
     "found_results": " found results",
     "no_results": "No results found",
-    "no_results_for": "No results found for "
+    "no_results_for": "No results found for ",
+    "error404": "404 error",
+    "page_not_found": "Page not found"
   },
   "forms": {
     "section_login": "Log in data",
@@ -119,6 +121,8 @@
     "userprofile_delete": "Delete User Profile",
     "change_password": "Change password",
     "save_changes": "Save changes",
+    "back_home": "Go back to the home page",
+    "back_dashboard": "Go back to your dashboard",
     "lost_password_email": "Send reset email"
   },
   "errors": {
@@ -136,6 +140,7 @@
     "creating_user_error": "An error occurred while creating the user",
     "editing_user_error": "An error occurred while updating the user details",
     "all_fields_required": "All fields are required",
+    "404_page": "Sorry, but it looks like there's nothing at <b>{{path}}</b>",
     "no_user_email": "No user with this email",
     "expired_token": "Expired token, please restart the password renewal process",
     "invalid_token": "Invalid Token",
