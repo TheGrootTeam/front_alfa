@@ -39,6 +39,16 @@
   color: var(--neutral-light);
 }
 
+.listingDetail .description {
+  margin-top: 1rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; /* Limit the text to 2 lines */
+  white-space: normal; /* Allows text to wrap */
+  text-overflow: ellipsis; /* Adds the ellipsis at the end */
+}
+
 .listingDetail h3 {
   display: inline-flex;
   align-items: center;
@@ -56,8 +66,9 @@
 
 .listingDetail footer {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
   color: var(--neutral-dark);
+  padding-top: 1rem;
 
   p {
     margin-bottom: 0;
@@ -69,7 +80,7 @@
   }
 }
 
-.listingDetail>a:hover {
+.listingDetail > a:hover {
   text-decoration: none;
 }
 
@@ -85,9 +96,17 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   align-self: flex-end;
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 1rem;
 }
 
 .contactButton:hover {
   background-color: var(--accent-dark);
+}
+
+@media (min-width: 600px) {
+  .listingDetail footer {
+    flex-direction: row;
+    gap: 1.5rem;
+    padding-top: -;
+  }
 }
