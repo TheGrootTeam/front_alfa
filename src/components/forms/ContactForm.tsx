@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from '../common/Button';
 import Modal from 'react-modal';
 import styles from './ContactForm.module.css';
-import { getPublicInfo } from '../../utils/services/publicProfileService'; // Importar el servicio que obtiene los datos
+import { getPublicInfo } from '../../utils/services/publicProfileService'; 
 
 interface ContactFormProps {
-  companyId: string; // Necesitamos el ID de la compañía para obtener su información
+  companyId: string; // ID de la empresa
   offerName: string;
   isOpen: boolean;
   onRequestClose: () => void;
+  applicantEmail: string;  // Pasar el email del applicant
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
-  companyId, // Ahora necesitamos el ID de la empresa
+  companyId,
+  applicantEmail,  // Asegurarse de recibir el applicantEmail
   offerName,
   isOpen,
   onRequestClose,
 }) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [companyEmail, setCompanyEmail] = useState(''); // Estado para almacenar el email de la empresa
+  const [companyEmail, setCompanyEmail] = useState('');  // Estado para almacenar el email de la empresa
 
   // Función para obtener el email de la empresa desde el API
   const fetchCompanyEmail = async () => {
     try {
-      const companyData = await getPublicInfo(companyId, 'company'); // Usar la función getPublicInfo
+      const companyData = await getPublicInfo(companyId, 'company');
       if (companyData.email) {
-        setCompanyEmail(companyData.email); // Guardar el email obtenido
+        setCompanyEmail(companyData.email);
       } else {
         console.error('No se pudo obtener el email de la empresa');
       }
@@ -34,10 +37,10 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
   };
 
-  // Llamar a fetchCompanyEmail cuando el modal se abra
+  // Obtener el email de la empresa al abrir el modal
   useEffect(() => {
     if (isOpen && companyId) {
-      fetchCompanyEmail(); // Solo obtener el email cuando el modal se abra y companyId esté disponible
+      fetchCompanyEmail();
     }
   }, [isOpen, companyId]);
 
@@ -45,9 +48,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
     e.preventDefault();
     setLoading(true);
 
-    // Verificar que todos los campos están llenos antes de enviar el correo
-    if (!companyEmail || !message) {
-      console.error("Error: Uno o más campos están vacíos.");
+    // Verificar que todos los campos están llenos
+    if (!companyEmail || !applicantEmail || !message) {
+      console.error("Error: Todos los campos son requeridos.");
       alert('Error: Todos los campos son requeridos.');
       setLoading(false);
       return;
@@ -60,7 +63,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          companyEmail, // Enviar el email de la empresa
+          applicantEmail,  // Enviar el email del applicant
+          companyEmail,    // Enviar el email de la empresa
           offerTitle: offerName,
           message,
         }),
@@ -112,7 +116,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
       </div>
       <form onSubmit={handleSendEmail} className={styles.form}>
         <h2>Contactar a la Empresa</h2>
-        <p>Para: {companyEmail ? companyEmail : 'Cargando email de la empresa...'}</p> {/* Mostrar el email o un mensaje de carga */}
+        <p>Para: {companyEmail ? companyEmail : 'Cargando email de la empresa...'}</p>
         <p>Asunto: {offerName}</p>
         <textarea
           placeholder="Me interesa esta oferta porque..."
@@ -120,9 +124,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
           onChange={(e) => setMessage(e.target.value)}
           required
         />
-        <button type="submit" disabled={loading || !companyEmail}> {/* Deshabilitar hasta que el email esté disponible */}
+        <Button type="submit" disabled={loading || !companyEmail || !applicantEmail}>
           {loading ? 'Enviando...' : 'Enviar'}
-        </button>
+        </Button>
       </form>
     </Modal>
   );
