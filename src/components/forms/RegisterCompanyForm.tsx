@@ -179,7 +179,6 @@ export function RegisterCompanyForm() {
     // si todo ok procedemos
     try {
       let result;
-      console.log(formCompanyData);
 
       result = await createCompanyUser(formCompanyData, t);
       console.log('Company registered successfully:', result);
@@ -204,9 +203,15 @@ export function RegisterCompanyForm() {
       //     // navigate('/company/profile');
       //   }, 2000);
       // }
-    } catch (error) {
-      console.error(t('errors.processing_form_error'), error);
-      setFormError(t('errors.generic_form_error'));
+    } catch (error: any) {
+      console.error(
+        'Error:',
+        error.message || t('errors.processing_form_error')
+      );
+      setFormError(error.message || t('errors.generic_form_error'));
+
+      // console.error(t('errors.processing_form_error'), error);
+      // setFormError(t('errors.generic_form_error'));
     }
   };
 
