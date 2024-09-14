@@ -10,6 +10,7 @@ la primera el header y el resto después
   border-radius: 1.5rem;
   padding: 3rem;
   gap: 3rem;
+  width: 100%;
 }
 
 .profile__photo {
@@ -36,12 +37,15 @@ la primera el header y el resto después
 
   h3 {
     font-size: 2.5rem;
+    line-height: 3.5rem;
     margin: 0;
   }
 
   .profile__location {
     font-weight: 700;
     font-size: 1.8rem;
+    display: flex;
+    gap: 0.6rem;
   }
 
   .profile__downloadCV {
@@ -67,20 +71,28 @@ la primera el header y el resto después
 .profile__details {
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
-  margin-top: 4rem;
+  gap: 4rem;
+  margin: 4rem auto;
 
   & > div {
-    min-width: 180px;
   }
 
   h3 {
     margin-bottom: 2rem;
+    display: flex;
+    gap: 0.6rem;
   }
 
   .profile__skills {
-    /* MARTA TODO - Sin estilos por ahora, si nos da tiempo de hacer los tags clicables sí que
-    habria que añadir algun estilo específico a las skills pero si no se puede quedar como está */
+    width: 30%;
+  }
+
+  .profile__preferences {
+    width: 40%;
+  }
+
+  .profile__availability {
+    width: 30%;
   }
 
   dl {
@@ -100,23 +112,23 @@ la primera el header y el resto después
 
   .profile__preferences {
     dt {
-      flex-basis: 40%;
+      flex-basis: 50%;
       font-weight: bold;
     }
 
     dd {
-      flex-basis: 60%;
+      flex-basis: 50%;
     }
   }
 
   .profile__availability {
     dt {
-      flex-basis: 80%;
+      flex-basis: 70%;
       font-weight: bold;
     }
 
     dd {
-      flex-basis: 20%;
+      flex-basis: 30%;
     }
   }
 }

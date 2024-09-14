@@ -12,9 +12,13 @@
   --accent-alt-light: rgb(217, 237, 146);
   --accent-alt: rgb(82, 182, 154);
   --accent-alt-dark: rgb(51, 132, 117);
-  --accent-light: rgb(52, 160, 164);
-  --accent: rgb(22, 138, 173);
-  --accent-dark: rgb(24, 78, 119);
+  --accent-light: rgb(42, 165, 183);
+  --accent: rgb(2, 140, 182);
+  --accent-dark: rgb(1, 100, 130);
+
+  /* --accent-light: rgb(52, 160, 164); */
+  /* --accent: rgb(22, 138, 173); */
+  /* --accent-dark: rgb(24, 78, 119); */
 
   --error-bg: rgb(250, 212, 212);
   --error: rgb(240, 128, 128);
@@ -90,6 +94,11 @@ a {
 h1 {
   font-size: 3rem;
   line-height: 5rem;
+}
+
+/* para layouts donde el contenido tenga que estar centrado verticalmente */
+.centered {
+  justify-content: center;
 }
 
 /* @media (prefers-color-scheme: dark) {
