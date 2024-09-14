@@ -47,15 +47,10 @@ export default function CompanyInfo() {
 
       setShowSuccessDialog(true);
 
-      // TODO: recargar componente Listings para que actualice la lista de anuncios disponibles tras el borrado.
-
       setTimeout(async () => {
         dispatch(resetCompanyInfoStore());
-
         await dispatch(getOffersAction());
-
         setLoading(true);
-
         setTimeout(() => {
           navigate('/');
 

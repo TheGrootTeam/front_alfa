@@ -138,6 +138,21 @@ h1 a {
       }
     }
   }
+
+  /* BALIZA */
+  @media (max-width: 768px) {
+    display: none;
+    ul {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    &.open {
+      display: flex;
+      max-height: 300px;
+      transition: max-height 1s ease-in-out;
+    }
+  }
 }
 
 .languageSwitcher {
@@ -179,4 +194,28 @@ h1 a {
 .headerError {
   width: 100%;
   overflow: hidden;
+}
+
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger .material-symbols-outlined {
+  font-size: 4.5rem; /* Tamaño del ícono */
+  color: var(--accent-light);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    color: var(--accent-light);
+  }
+
+  .nav.open ul {
+    display: flex;
+    flex-direction: column;
+  }
 }

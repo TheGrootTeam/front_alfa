@@ -12,7 +12,6 @@ import styles from './Header.module.css';
 import ConfirmationButton from '../common/ConfirmationButton';
 
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 
 // interface HeaderProps {
 //   userId: string;
@@ -26,10 +25,6 @@ const Header = () => {
   // const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
   const dispatch = useDispatch<AppDispatch>();
 
-  //BALIZA
-  // To control the burger menu
-  const [menuBurgerOpen, setMenuBurgerOpen] = useState(false);
-
   const langs: { [key: string]: { nativeName: string } } = {
     es: { nativeName: 'Español' },
     en: { nativeName: 'English' },
@@ -41,11 +36,6 @@ const Header = () => {
 
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
-  };
-
-  //BALIZA
-  const toggleMenu = () => {
-    setMenuBurgerOpen(!menuBurgerOpen);
   };
 
   return (
@@ -61,10 +51,7 @@ const Header = () => {
               <span>InternIT</span>
             </Link>
           </h1>
-          {/* <nav className={styles.nav}> */}
-          <nav
-            className={`${styles.nav} ${menuBurgerOpen ? styles.open : ''} `}
-          >
+          <nav className={styles.nav}>
             <ul>
               {auth ? (
                 // When the user is authenticated
@@ -132,17 +119,6 @@ const Header = () => {
               </li>
             ))}
           </ul>
-
-          {/* BALIZA */}
-          <button
-            className={styles.hamburger}
-            onClick={toggleMenu}
-            type="button"
-          >
-            <span className="material-symbols-outlined">
-              {menuBurgerOpen ? 'close' : 'menu'}{' '}
-            </span>
-          </button>
         </div>
       </header>
     </>
