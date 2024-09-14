@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';  
+import { useState } from 'react'; 
 import { Link } from 'react-router-dom';
 import { IOfferListingDetail } from '../../utils/interfaces/IOffer';
 import styles from './ListingDetail.module.css';
@@ -7,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '../common/Button';
 import ContactForm from '../forms/ContactForm';
 import { formatDate } from '../../utils/utilsDates';
-import { getApplicantInfo } from '../../store/selectors'; 
+
 
 export function ListingDetail({
   id,
@@ -35,10 +34,6 @@ export function ListingDetail({
   // Funciones para abrir y cerrar el modal
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-
-  // Obtener la información del applicant desde Redux
-  const applicantInfo = useSelector(getApplicantInfo);
-  const applicantEmail = applicantInfo?.email || ''; 
 
   return (
     <div className={styles.listingDetail}>
@@ -95,10 +90,8 @@ export function ListingDetail({
       <ContactForm
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
-        companyEmail={companyOwner.email || ''}  // Verifica que este valor no esté vacío
-        applicantEmail={applicantEmail}  // Email del applicant desde el estado global
+        companyId={companyOwner._id}  // Pasar el ID de la empresa para obtener su email
         offerName={position}  // Asunto del email: la posición de la oferta
-        companyName={companyOwner.name || ''}  // Nombre de la empresa
       />
 
 

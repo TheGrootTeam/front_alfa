@@ -29,10 +29,7 @@ export interface NewOfferState {
 export interface IOffer {
   __v: number;
   _id: string;
-  companyOwner:{
-    name: string;
-    email: string; 
-  };
+  companyOwner: companyOwner;
   description: string;
   internJob: string;
   listApplicants: applicantOwner[];
