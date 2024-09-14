@@ -20,6 +20,7 @@
     "of": "of"
   },
   "titles": {
+    "home_title": "Your internship search portal",
     "log_in": "Log in",
     "lost_password": "Recover password",
     "register": "Register",
@@ -41,7 +42,7 @@
     "availability": "Availability",
     "published_offers": "List of published offers",
     "search_results": "Results for ",
-    "found_results": " found results",
+    "found_results": " results found",
     "no_results": "No results found",
     "no_results_for": "No results found for ",
     "error404": "404 error",

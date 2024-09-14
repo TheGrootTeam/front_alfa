@@ -74,7 +74,7 @@ export function ListingDetail({
           {/* {t('gen.published_on')} {formattedDate} */}
           {t('gen.published_on')} {formatDate(publicationDate)}
         </p>
-        <p>{description}</p>
+        <div className={styles.description}>{description}</div>
       </div>
       <footer>
         <p>
