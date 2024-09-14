@@ -67,15 +67,6 @@ export function RegisterApplicantForm() {
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // TOGGLE SECCIONES
-  const [visibleSection, setVisibleSection] = useState<string>('loginInfo');
-
-  const toggleSection = (section: string) => {
-    setVisibleSection((prevSection) =>
-      prevSection === section ? '' : section
-    );
-  };
-
   // VALIDACIONES
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -259,219 +250,207 @@ export function RegisterApplicantForm() {
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* LOGIN SECTION */}
         <div className={styles.accordionSection}>
-          <h3 onClick={() => toggleSection('loginInfo')}>
+          <h3>
             <span className={`material-symbols-outlined ${styles.iconSmall}`}>
-              {visibleSection === 'loginInfo'
-                ? 'keyboard_arrow_down'
-                : 'keyboard_arrow_right'}
+              login
             </span>
             {t('forms.section_login')}
           </h3>
-          {visibleSection === 'loginInfo' && (
-            <div className={styles.accordionContent}>
-              <ul>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.nif')}
-                    id="dniCif"
-                    name="dniCif"
-                    value={formApplicantData.dniCif || ''}
-                    onChange={handleTextChange}
-                  />
-                  {dniCifError && (
-                    <Notification type="error" message={dniCifError} />
-                  )}
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.email')}
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formApplicantData.email || ''}
-                    onChange={handleTextChange}
-                  />
-                  {emailError && (
-                    <Notification type="error" message={emailError} />
-                  )}
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.password')}
-                    id="password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={formApplicantData.password || ''}
-                    onChange={handleTextChange}
-                  />
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.password_confirm')}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={showPassword ? 'text' : 'password'}
-                    value={formApplicantData.confirmPassword || ''}
-                    onChange={handleTextChange}
-                  />
-                  {passwordError && (
-                    <Notification type="error" message={passwordError} />
-                  )}
-                </li>
-                <li>
-                  <FormCheckbox
-                    id="showPassword-checkbox"
-                    name="showPassword"
-                    labelText={t('forms.password_show')}
-                    checked={showPassword}
-                    onChange={() => setShowPassword((prev) => !prev)}
-                  />
-                </li>
-              </ul>
-            </div>
-          )}
+          <div className={styles.accordionContent}>
+            <ul>
+              <li>
+                <FormInputText
+                  labelText={t('forms.nif')}
+                  id="dniCif"
+                  name="dniCif"
+                  value={formApplicantData.dniCif || ''}
+                  onChange={handleTextChange}
+                />
+                {dniCifError && (
+                  <Notification type="error" message={dniCifError} />
+                )}
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.email')}
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formApplicantData.email || ''}
+                  onChange={handleTextChange}
+                />
+                {emailError && (
+                  <Notification type="error" message={emailError} />
+                )}
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.password')}
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={formApplicantData.password || ''}
+                  onChange={handleTextChange}
+                />
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.password_confirm')}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showPassword ? 'text' : 'password'}
+                  value={formApplicantData.confirmPassword || ''}
+                  onChange={handleTextChange}
+                />
+                {passwordError && (
+                  <Notification type="error" message={passwordError} />
+                )}
+              </li>
+              <li>
+                <FormCheckbox
+                  id="showPassword-checkbox"
+                  name="showPassword"
+                  labelText={t('forms.password_show')}
+                  checked={showPassword}
+                  onChange={() => setShowPassword((prev) => !prev)}
+                />
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* PERSONAL INFORMATION SECTION */}
         <div className={styles.accordionSection}>
-          <h3 onClick={() => toggleSection('personalInfo')}>
+          <h3>
             <span className={`material-symbols-outlined ${styles.iconSmall}`}>
-              {visibleSection === 'personalInfo'
-                ? 'keyboard_arrow_down'
-                : 'keyboard_arrow_right'}
+              account_box
             </span>
             {t('forms.section_personal')}
           </h3>
-          {visibleSection === 'personalInfo' && (
-            <div className={styles.accordionContent}>
-              <ul>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.name')}
-                    id="name"
-                    name="name"
-                    value={formApplicantData.name || ''}
-                    onChange={handleTextChange}
-                  />
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.lastName')}
-                    id="lastName"
-                    name="lastName"
-                    value={formApplicantData.lastName || ''}
-                    onChange={handleTextChange}
-                  />
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.phone')}
-                    id="phone"
-                    name="phone"
-                    value={formApplicantData.phone || ''}
-                    onChange={handleTextChange}
-                  />
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.location')}
-                    id="ubication"
-                    name="ubication"
-                    value={formApplicantData.ubication || ''}
-                    onChange={handleTextChange}
-                  />
-                </li>
-                <li>
-                  <label>{t('forms.photo')}</label>
-                  <input type="file" name="photo" onChange={handleFileChange} />
-                </li>
-              </ul>
-            </div>
-          )}
+          <div className={styles.accordionContent}>
+            <ul>
+              <li>
+                <FormInputText
+                  labelText={t('forms.name')}
+                  id="name"
+                  name="name"
+                  value={formApplicantData.name || ''}
+                  onChange={handleTextChange}
+                />
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.lastName')}
+                  id="lastName"
+                  name="lastName"
+                  value={formApplicantData.lastName || ''}
+                  onChange={handleTextChange}
+                />
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.phone')}
+                  id="phone"
+                  name="phone"
+                  value={formApplicantData.phone || ''}
+                  onChange={handleTextChange}
+                />
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.location')}
+                  id="ubication"
+                  name="ubication"
+                  value={formApplicantData.ubication || ''}
+                  onChange={handleTextChange}
+                />
+              </li>
+              <li>
+                <label>{t('forms.photo')}</label>
+                <input type="file" name="photo" onChange={handleFileChange} />
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* RESUME/WORK SECTION */}
         <div className={styles.accordionSection}>
-          <h3 onClick={() => toggleSection('resumeWork')}>
+          <h3>
             <span className={`material-symbols-outlined ${styles.iconSmall}`}>
-              {visibleSection === 'resumeWork'
-                ? 'keyboard_arrow_down'
-                : 'keyboard_arrow_right'}
+              work
             </span>
             {t('forms.section_work')}
           </h3>
-          {visibleSection === 'resumeWork' && (
-            <div className={styles.accordionContent}>
-              <ul>
-                <li>
-                  <label>{t('forms.cv')}</label>
-                  <input type="file" name="cv" onChange={handleFileChange} />
-                </li>
-                <li>
-                  <FormSelect
-                    labelText={t('forms.preferredWorkLocation')}
-                    id="typeJob"
-                    name="typeJob"
-                    value={formApplicantData.typeJob || ''}
-                    onChange={handleSelectChange}
-                    options={jobOptions}
-                  />
-                </li>
-                <li>
-                  <FormSelect
-                    labelText={t('forms.preferredInternshipType')}
-                    id="internType"
-                    name="internType"
-                    value={formApplicantData.internType || ''}
-                    onChange={handleSelectChange}
-                    options={internOptions}
-                  />
-                </li>
-                <li>
-                  <FormMultiSelect
-                    labelText={t('forms.mainSkills')}
-                    id="mainSkills"
-                    name="mainSkills"
-                    // value={formApplicantData.mainSkills.map((skill) => skill._id)}
-                    value={formApplicantData.mainSkills}
-                    onChange={handleMultiSelectChange}
-                    optionLabel="skill"
-                    options={formattedSkills}
-                  />
-                </li>
-                <li>
-                  <FormMultiSelect
-                    labelText={t('forms.wantedRole')}
-                    id="wantedRol"
-                    name="wantedRol"
-                    // value={formApplicantData.wantedRol.map((rol) => rol._id)}
-                    value={formApplicantData.wantedRol}
-                    onChange={handleMultiSelectChange}
-                    optionLabel="rol"
-                    options={formattedRoles}
-                  />
-                </li>
-                <li>
-                  <FormCheckbox
-                    id="geographically_mobile"
-                    name="geographically_mobile"
-                    labelText={t('forms.willing_to_relocate')}
-                    checked={!!formApplicantData.geographically_mobile}
-                    onChange={handleCheckboxChange}
-                  />
-                </li>
-                <li>
-                  <FormCheckbox
-                    id="disponibility"
-                    name="disponibility"
-                    labelText={t('forms.available_immediately')}
-                    checked={!!formApplicantData.disponibility}
-                    onChange={handleCheckboxChange}
-                  />
-                </li>
-              </ul>
-            </div>
-          )}
+          <div className={styles.accordionContent}>
+            <ul>
+              <li>
+                <label>{t('forms.cv')}</label>
+                <input type="file" name="cv" onChange={handleFileChange} />
+              </li>
+              <li>
+                <FormSelect
+                  labelText={t('forms.preferredWorkLocation')}
+                  id="typeJob"
+                  name="typeJob"
+                  value={formApplicantData.typeJob || ''}
+                  onChange={handleSelectChange}
+                  options={jobOptions}
+                />
+              </li>
+              <li>
+                <FormSelect
+                  labelText={t('forms.preferredInternshipType')}
+                  id="internType"
+                  name="internType"
+                  value={formApplicantData.internType || ''}
+                  onChange={handleSelectChange}
+                  options={internOptions}
+                />
+              </li>
+              <li>
+                <FormMultiSelect
+                  labelText={t('forms.mainSkills')}
+                  id="mainSkills"
+                  name="mainSkills"
+                  // value={formApplicantData.mainSkills.map((skill) => skill._id)}
+                  value={formApplicantData.mainSkills}
+                  onChange={handleMultiSelectChange}
+                  optionLabel="skill"
+                  options={formattedSkills}
+                />
+              </li>
+              <li>
+                <FormMultiSelect
+                  labelText={t('forms.wantedRole')}
+                  id="wantedRol"
+                  name="wantedRol"
+                  // value={formApplicantData.wantedRol.map((rol) => rol._id)}
+                  value={formApplicantData.wantedRol}
+                  onChange={handleMultiSelectChange}
+                  optionLabel="rol"
+                  options={formattedRoles}
+                />
+              </li>
+              <li>
+                <FormCheckbox
+                  id="geographically_mobile"
+                  name="geographically_mobile"
+                  labelText={t('forms.willing_to_relocate')}
+                  checked={!!formApplicantData.geographically_mobile}
+                  onChange={handleCheckboxChange}
+                />
+              </li>
+              <li>
+                <FormCheckbox
+                  id="disponibility"
+                  name="disponibility"
+                  labelText={t('forms.available_immediately')}
+                  checked={!!formApplicantData.disponibility}
+                  onChange={handleCheckboxChange}
+                />
+              </li>
+            </ul>
+          </div>
         </div>
 
         <li>
