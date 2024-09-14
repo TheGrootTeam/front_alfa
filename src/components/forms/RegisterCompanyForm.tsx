@@ -46,15 +46,6 @@ export function RegisterCompanyForm() {
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // TOGGLE SECCIONES
-  const [visibleSection, setVisibleSection] = useState<string>('loginInfo');
-
-  const toggleSection = (section: string) => {
-    setVisibleSection((prevSection) =>
-      prevSection === section ? '' : section
-    );
-  };
-
   // VALIDACIONES
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -224,153 +215,145 @@ export function RegisterCompanyForm() {
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* LOGIN SECTION */}
         <div className={styles.accordionSection}>
-          <h3 onClick={() => toggleSection('loginInfo')}>
+          <h3>
             <span className={`material-symbols-outlined ${styles.iconSmall}`}>
-              {visibleSection === 'loginInfo'
-                ? 'keyboard_arrow_down'
-                : 'keyboard_arrow_right'}
+              login
             </span>
             {t('forms.section_login')}
           </h3>
-          {visibleSection === 'loginInfo' && (
-            <div className={styles.accordionContent}>
-              <ul>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.cif')}
-                    id="dniCif"
-                    name="dniCif"
-                    value={formCompanyData.dniCif || ''}
-                    onChange={handleInputChange}
-                  />
-                  {dniCifError && (
-                    <Notification type="error" message={dniCifError} />
-                  )}
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.email')}
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formCompanyData.email || ''}
-                    onChange={handleInputChange}
-                  />
-                  {emailError && (
-                    <Notification type="error" message={emailError} />
-                  )}
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.password')}
-                    id="password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={formCompanyData.password || ''}
-                    onChange={handleInputChange}
-                  />
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.password_confirm')}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={showPassword ? 'text' : 'password'}
-                    value={formCompanyData.confirmPassword || ''}
-                    onChange={handleInputChange}
-                  />
-                  {passwordError && (
-                    <Notification type="error" message={passwordError} />
-                  )}
-                </li>
-                <li>
-                  <FormCheckbox
-                    id="showPassword-checkbox"
-                    name="showPassword"
-                    labelText={t('forms.password_show')}
-                    checked={showPassword}
-                    onChange={() => setShowPassword((prev) => !prev)}
-                  />
-                </li>
-              </ul>
-            </div>
-          )}
+          <div className={styles.accordionContent}>
+            <ul>
+              <li>
+                <FormInputText
+                  labelText={t('forms.cif')}
+                  id="dniCif"
+                  name="dniCif"
+                  value={formCompanyData.dniCif || ''}
+                  onChange={handleInputChange}
+                />
+                {dniCifError && (
+                  <Notification type="error" message={dniCifError} />
+                )}
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.email')}
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formCompanyData.email || ''}
+                  onChange={handleInputChange}
+                />
+                {emailError && (
+                  <Notification type="error" message={emailError} />
+                )}
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.password')}
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={formCompanyData.password || ''}
+                  onChange={handleInputChange}
+                />
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.password_confirm')}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showPassword ? 'text' : 'password'}
+                  value={formCompanyData.confirmPassword || ''}
+                  onChange={handleInputChange}
+                />
+                {passwordError && (
+                  <Notification type="error" message={passwordError} />
+                )}
+              </li>
+              <li>
+                <FormCheckbox
+                  id="showPassword-checkbox"
+                  name="showPassword"
+                  labelText={t('forms.password_show')}
+                  checked={showPassword}
+                  onChange={() => setShowPassword((prev) => !prev)}
+                />
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* COMPANY INFORMATION SECTION */}
         <div className={styles.accordionSection}>
-          <h3 onClick={() => toggleSection('companyInfo')}>
+          <h3>
             <span className={`material-symbols-outlined ${styles.iconSmall}`}>
-              {visibleSection === 'companyInfo'
-                ? 'keyboard_arrow_down'
-                : 'keyboard_arrow_right'}
+              domain
             </span>
             {t('forms.section_company')}
           </h3>
-          {visibleSection === 'companyInfo' && (
-            <div className={styles.accordionContent}>
-              <ul>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.name')}
-                    id="name"
-                    name="name"
-                    value={formCompanyData.name || ''}
-                    onChange={handleInputChange}
-                  />
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.phone')}
-                    id="phone"
-                    name="phone"
-                    value={formCompanyData.phone || ''}
-                    onChange={handleInputChange}
-                  />
-                </li>
-                <li>
-                  <label htmlFor="sector">{t('forms.sector')}</label>
-                  <select
-                    id="sector"
-                    name="sector"
-                    value={formCompanyData.sector}
-                    onChange={handleSectorSelectChange}
-                  >
-                    <option key="default" value="">
-                      ---
+          <div className={styles.accordionContent}>
+            <ul>
+              <li>
+                <FormInputText
+                  labelText={t('forms.name')}
+                  id="name"
+                  name="name"
+                  value={formCompanyData.name || ''}
+                  onChange={handleInputChange}
+                />
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.phone')}
+                  id="phone"
+                  name="phone"
+                  value={formCompanyData.phone || ''}
+                  onChange={handleInputChange}
+                />
+              </li>
+              <li>
+                <label htmlFor="sector">{t('forms.sector')}</label>
+                <select
+                  id="sector"
+                  name="sector"
+                  value={formCompanyData.sector}
+                  onChange={handleSectorSelectChange}
+                >
+                  <option key="default" value="">
+                    ---
+                  </option>
+                  {sectors.map((sector) => (
+                    <option key={sector._id} value={sector._id}>
+                      {sector.sector}
                     </option>
-                    {sectors.map((sector) => (
-                      <option key={sector._id} value={sector._id}>
-                        {sector.sector}
-                      </option>
-                    ))}
-                  </select>
-                </li>
-                <li>
-                  <FormInputText
-                    labelText={t('forms.location')}
-                    id="ubication"
-                    name="ubication"
-                    value={formCompanyData.ubication || ''}
-                    onChange={handleInputChange}
-                  />
-                </li>
-                <li>
-                  <FormTextarea
-                    labelText={t('forms.description')}
-                    id="description"
-                    name="description"
-                    value={formCompanyData.description || ''}
-                    onChange={handleTextChange}
-                  />
-                </li>
-                <li>
-                  <label>{t('forms.logo')}</label>
-                  <input type="file" name="logo" onChange={handleFileChange} />
-                </li>
-              </ul>
-            </div>
-          )}
+                  ))}
+                </select>
+              </li>
+              <li>
+                <FormInputText
+                  labelText={t('forms.location')}
+                  id="ubication"
+                  name="ubication"
+                  value={formCompanyData.ubication || ''}
+                  onChange={handleInputChange}
+                />
+              </li>
+              <li>
+                <FormTextarea
+                  labelText={t('forms.description')}
+                  id="description"
+                  name="description"
+                  value={formCompanyData.description || ''}
+                  onChange={handleTextChange}
+                />
+              </li>
+              <li>
+                <label>{t('forms.logo')}</label>
+                <input type="file" name="logo" onChange={handleFileChange} />
+              </li>
+            </ul>
+          </div>
         </div>
         <li>
           <Button type="submit" disabled={loading || !!error}>
