@@ -41,10 +41,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
   };
 
-  // Obtain the company's name and email when opening the Modal
+  // Reset fields when modal opens or closes
   useEffect(() => {
     if (isOpen && companyId) {
       fetchCompanyEmail();
+      // Reset the message and notification when the modal opens
+      setMessage('');
+      setNotification(null);
     }
   }, [isOpen, companyId]);
 
@@ -79,7 +82,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
       const result = await response.json();
       if (result.success) {
-        setNotification({ message: 'Correo enviado con éxito', type: 'success' })
+        setNotification({ message: 'Correo enviado con éxito', type: 'success' });
         setTimeout(() => {
           onRequestClose();  
         }, 2000);
@@ -131,7 +134,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
           onChange={(e) => setMessage(e.target.value)}
           required
         />
-
 
         <Button type="submit" disabled={loading || !companyEmail || !applicantEmail}>
           {loading ? 'Enviando...' : 'Enviar'}
