@@ -21,26 +21,28 @@ const ContactForm: React.FC<ContactFormProps> = ({
 }) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [companyEmail, setCompanyEmail] = useState('');  
+  const [companyEmail, setCompanyEmail] = useState('');  // Estado para almacenar el email de la empresa
+  const [companyName, setCompanyName] = useState('');    // Estado para almacenar el nombre de la empresa
 
-  // Function to obtain the company email from the API
-  const fetchCompanyEmail = async () => {
+  // Function to obtain the company name and email from the API
+  const fetchCompanyInfo = async () => {
     try {
       const companyData = await getPublicInfo(companyId, 'company');
-      if (companyData.email) {
+      if (companyData.email && companyData.company) {
         setCompanyEmail(companyData.email);
+        setCompanyName(companyData.company);  // Guardar el nombre de la empresa
       } else {
-        console.error('No se pudo obtener el email de la empresa');
+        console.error('No se pudo obtener la información de la empresa');
       }
     } catch (error) {
-      console.error('Error al obtener el email de la empresa:', error);
+      console.error('Error al obtener la información de la empresa:', error);
     }
   };
 
-  // Obtain the company's email when opening the Modal
+  // Obtener el nombre y el email de la empresa al abrir el modal
   useEffect(() => {
     if (isOpen && companyId) {
-      fetchCompanyEmail();
+      fetchCompanyInfo();
     }
   }, [isOpen, companyId]);
 
@@ -48,7 +50,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     e.preventDefault();
     setLoading(true);
 
-    // Verify that all fields are full
+    // Verificar que todos los campos están llenos
     if (!companyEmail || !applicantEmail || !message) {
       console.error("Error: Todos los campos son requeridos.");
       alert('Error: Todos los campos son requeridos.');
@@ -57,7 +59,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
 
     try {
-    
       const apiUrl = import.meta.env.VITE_API_URL;
       const apiVersion = import.meta.env.VITE_API_VERSION;
     
@@ -110,7 +111,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'right',
           justifyContent: 'center',
         },
       }}
@@ -121,8 +122,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         </button>
       </div>
       <form onSubmit={handleSendEmail} className={styles.form}>
-        <h2>Contactar a la Empresa</h2>
-        <p>Para: {companyEmail ? companyEmail : 'Cargando email de la empresa...'}</p>
+        <h2>Contactar a {companyName}</h2>  {/* Mostrar el nombre de la empresa */}
         <p>Asunto: {offerName}</p>
         <textarea
           placeholder="Me interesa esta oferta porque..."
