@@ -23,10 +23,7 @@ const Header = () => {
   const { error } = useSelector(getUi);
   const auth = useSelector(getIsLogged); // To verify if the user is logged
   const isCompany = useSelector(getIsCompany); //To verify if it is a company
-  // const loggedInUser = '66c6fc21a5c2d7c86aa0aa0e';
   const dispatch = useDispatch<AppDispatch>();
-
-  //BALIZA
   // To control the burger menu
   const [menuBurgerOpen, setMenuBurgerOpen] = useState(false);
 
@@ -43,7 +40,6 @@ const Header = () => {
     dispatch(uiSlice.actions.resetError());
   };
 
-  //BALIZA
   const toggleMenu = () => {
     setMenuBurgerOpen(!menuBurgerOpen);
   };
@@ -132,8 +128,6 @@ const Header = () => {
               </li>
             ))}
           </ul>
-
-          {/* BALIZA */}
           <button
             className={styles.hamburger}
             onClick={toggleMenu}

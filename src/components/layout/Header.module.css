@@ -139,28 +139,27 @@ h1 a {
     }
   }
 
-  /* BALIZA */
   @media (max-width: 768px) {
     ul {
       display: none;
       position: fixed;
-      top: 0%;
-      right: 0;
+      top: 2%;
+      right: 0%;
       background-color: var(--dark);
       border-radius: 5%;
-      width: 200px;
+      width: 225px;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 1.5rem;
       padding: 1rem;
       z-index: 1000;
       max-height: 0;
-      overflow: hidden; /* OCULTA EL CONTENIDO FUERA DEL LÍMITE */
-      transition: max-height 0.5s ease-in-out; /* TRANSICIÓN AL ABRIR */
+      overflow: hidden; /* hidden the content out of the limit */
+      transition: max-height 0.5s ease-in-out; /* transition */
     }
 
     &.open {
       display: flex;
-      max-height: 600px;
+      max-height: 500px;
     }
   }
 }
@@ -216,20 +215,32 @@ h1 a {
     background: transparent;
     border: none;
     cursor: pointer;
-    position: absolute;
-    right: 0.5rem; /* Alinea el botón de hamburguesa a la derecha */
-    top: 0rem;
     z-index: 1001;
   }
 
+  /* Adjust the language selectors and the hamburger button*/
+
+  .inner {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    width: 100%;
+  }
+
+  .languageSwitcher {
+    display: flex;
+    gap: 1rem;
+    margin-right: 1rem;
+  }
+
   .icon {
-    font-size: 4rem; /* Tamaño del ícono */
-    color: var(--accent-light); /* Ajusta el color según tu necesidad */
+    font-size: 5rem; /* size */
+    color: var(--accent-light);
   }
 
   .nav.open ul {
     display: flex;
     flex-direction: column;
-    max-height: 500px; /* CAMBIO: AUMENTA EL ESPACIO DEL MENÚ AL ABRIR */
+    max-height: 500px;
   }
 }
