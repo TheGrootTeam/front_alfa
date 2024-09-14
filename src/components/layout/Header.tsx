@@ -106,7 +106,6 @@ const Header = () => {
                   <li>
                     <Link to="/about">{t('nav.about')}</Link>
                   </li>
-
                   {/* MARTA - TEMPORAL porque si no no puedo ver la página */}
                   {/* <li>
                     <Link to={`/view/user/${loggedInUser}`}>Profile</Link>
