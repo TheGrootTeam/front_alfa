@@ -1,5 +1,6 @@
 import { Route, Outlet, Routes } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
+import Modal from 'react-modal';
 // import { useSelector } from 'react-redux';
 // import { getIsLogged } from './store/selectors';
 
@@ -28,6 +29,9 @@ import RequireIsApplicant from './components/auth/RequireIsApplicant';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
 import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
+
+
+Modal.setAppElement('#root'); 
 
 function App() {
   // const isLogged = useSelector(getIsLogged);

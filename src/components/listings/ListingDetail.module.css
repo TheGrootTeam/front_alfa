@@ -69,6 +69,25 @@
   }
 }
 
-.listingDetail > a:hover {
+.listingDetail>a:hover {
   text-decoration: none;
+}
+
+.contactButton {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--accent);
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-end;
+  margin-top: 1.5rem;
+}
+
+.contactButton:hover {
+  background-color: var(--accent-dark);
 }
