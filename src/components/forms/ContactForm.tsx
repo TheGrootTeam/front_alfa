@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../common/Button';
 import Modal from 'react-modal';
-import Notification from '../common/Notification';  
+import Notification from '../common/Notification';
 import styles from './ContactForm.module.css';
-import { getPublicInfo } from '../../utils/services/publicProfileService'; 
+import { getPublicInfo } from '../../utils/services/publicProfileService';
+import { useTranslation } from 'react-i18next';
 
 interface ContactFormProps {
-  companyId: string; 
+  companyId: string;
   offerName: string;
   isOpen: boolean;
   onRequestClose: () => void;
-  applicantEmail: string;  
+  applicantEmail: string;
+  applicantId: string;
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
   companyId,
-  applicantEmail,  
+  applicantEmail,
+  applicantId,
   offerName,
   isOpen,
   onRequestClose,
 }) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [companyEmail, setCompanyEmail] = useState('');  
-  const [companyName, setCompanyName] = useState('');    
-  const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' } | null>(null);  
+  const [companyEmail, setCompanyEmail] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: 'success' | 'error';
+  } | null>(null);
+
+  const { t } = useTranslation();
+
+  // Construct the applicant URL
+  const applicantUrl = `${import.meta.env.VITE_SITE_URL}/view/applicant/${applicantId}`;
 
   // Function to obtain the company email from the API
   const fetchCompanyEmail = async () => {
@@ -32,7 +43,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
       const companyData = await getPublicInfo(companyId, 'company');
       if (companyData.email && companyData.company) {
         setCompanyEmail(companyData.email);
-        setCompanyName(companyData.company);  
+        setCompanyName(companyData.company);
       } else {
         console.error('No se pudo obtener la información de la empresa');
       }
@@ -56,15 +67,20 @@ const ContactForm: React.FC<ContactFormProps> = ({
     setLoading(true);
 
     if (!companyEmail || !applicantEmail || !message) {
-      setNotification({ message: "Todos los campos son requeridos", type: 'error' });
+      setNotification({
+        message: t('errors.all_fields_required'),
+        type: 'error',
+      });
       setLoading(false);
       return;
     }
 
+    const messageWithApplicantUrl = `${message}<br/><br/>${t('mail.view_profile')} ${applicantUrl}`;
+
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const apiVersion = import.meta.env.VITE_API_VERSION;
-    
+
       const url = `${apiUrl}/api/${apiVersion}/send-email/contact-company`;
 
       const response = await fetch(url, {
@@ -73,24 +89,33 @@ const ContactForm: React.FC<ContactFormProps> = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          applicantEmail,  
-          companyEmail,    
+          applicantEmail,
+          companyEmail,
           offerTitle: offerName,
-          message,
+          message: messageWithApplicantUrl,
         }),
       });
 
       const result = await response.json();
       if (result.success) {
-        setNotification({ message: 'Correo enviado con éxito', type: 'success' });
+        setNotification({
+          message: t('notifications.mail_sending_success'),
+          type: 'success',
+        });
         setTimeout(() => {
-          onRequestClose();  
+          onRequestClose();
         }, 2000);
       } else {
-        setNotification({ message: 'Error al enviar el correo', type: 'error' });
+        setNotification({
+          message: t('errors.mail_sending_error'),
+          type: 'error',
+        });
       }
     } catch (error) {
-      setNotification({ message: 'Error al enviar el correo', type: 'error' });
+      setNotification({
+        message: t('errors.mail_sending_error'),
+        type: 'error',
+      });
     } finally {
       setLoading(false);
     }
@@ -100,7 +125,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="Contactar Empresa"
+      contentLabel={t('titles.contact_company')}
       style={{
         content: {
           width: '40%',
@@ -126,17 +151,24 @@ const ContactForm: React.FC<ContactFormProps> = ({
         </button>
       </div>
       <form onSubmit={handleSendEmail} className={styles.form}>
-        <h2>Contactar a {companyName}</h2>
-        <p>Asunto: {offerName}</p>
+        <h2>
+          {t('titles.contact_')} {companyName}
+        </h2>
+        <p>
+          {t('gen.mail_subject')} {offerName}
+        </p>
         <textarea
-          placeholder="Me interesa esta oferta porque..."
+          placeholder={t('forms.mail_message_placeholder')}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
         />
 
-        <Button type="submit" disabled={loading || !companyEmail || !applicantEmail}>
-          {loading ? 'Enviando...' : 'Enviar'}
+        <Button
+          type="submit"
+          disabled={loading || !companyEmail || !applicantEmail}
+        >
+          {loading ? t('buttons.mail_sending') : t('buttons.mail_send')}
         </Button>
       </form>
 
@@ -144,7 +176,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         <Notification
           message={notification.message}
           type={notification.type}
-          onClick={() => setNotification(null)} 
+          onClick={() => setNotification(null)}
         />
       )}
     </Modal>

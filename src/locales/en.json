@@ -2,7 +2,8 @@
   "gen": {
     "yes": "yes",
     "no": "no",
-    "published_on": "Published on"
+    "published_on": "Published on",
+    "mail_subject": "Subject: "
   },
   "nav": {
     "log_in": "Log in",
@@ -44,7 +45,9 @@
     "no_results": "No results found",
     "no_results_for": "No results found for ",
     "error404": "404 error",
-    "page_not_found": "Page not found"
+    "page_not_found": "Page not found",
+    "contact_company": "Contact company",
+    "contact_": "Contact "
   },
   "forms": {
     "section_login": "Log in data",
@@ -97,8 +100,9 @@
     "company_description": "Company description",
     "offer_description": "Offer description",
     "select_sector": "Select Industry",
-    "actual_photo": "Actual photo",
-    "actual_cv": "Actual CV"
+    "actual_photo": "Current photo",
+    "actual_cv": "Current CV",
+    "mail_message_placeholder": "I'm interested in this offer because..."
   },
   "formSelect": {
     "jobType": {
@@ -122,7 +126,10 @@
     "change_password": "Change password",
     "save_changes": "Save changes",
     "back_home": "Go back to the home page",
-    "back_dashboard": "Go back to your dashboard"
+    "back_dashboard": "Go back to your dashboard",
+    "mail_sending": "Sending...",
+    "mail_send": "Send email",
+    "mail_contact_company": "Contact the Company"
   },
   "errors": {
     "password_empty": "Password fields cannot be empty",
@@ -139,7 +146,8 @@
     "creating_user_error": "An error occurred while creating the user",
     "editing_user_error": "An error occurred while updating the user details",
     "all_fields_required": "All fields are required",
-    "404_page": "Sorry, but it looks like there's nothing at <b>{{path}}</b>"
+    "404_page": "Sorry, but it looks like there's nothing at <b>{{path}}</b>",
+    "mail_sending_error": "Error sending the email"
   },
   "notifications": {
     "register_success": "User registered successfully",
@@ -147,7 +155,8 @@
     "data_saved": "Data saved successfully",
     "offer_created": "New offer created successful",
     "offer_updated": "Offer update successfully",
-    "password_change_success": "Password changed successfully"
+    "password_change_success": "Password changed successfully",
+    "mail_sending_success": "Mail sent successfully"
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
@@ -165,5 +174,8 @@
   "success": {
     "delete_offer_success": "Announcement successfully deleted.",
     "profile_deleted": "Profile deleted successfully"
+  },
+  "mail": {
+    "view_profile": "You can view mt profile here: "
   }
 }
