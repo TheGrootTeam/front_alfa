@@ -15,6 +15,7 @@ import { FormTextarea } from '../../components/formElements/formTextArea';
 import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { IEditCompanyInfo } from '../../utils/interfaces/IProfile';
 import { Link } from 'react-router-dom';
+import { companyInfoSlice } from '../../store/reducers/infoCompanySlice';
 
 export function EditCompanyProfilePage() {
   const { t } = useTranslation();
@@ -166,6 +167,8 @@ export function EditCompanyProfilePage() {
       console.log('Company information updated successfully:', result);
 
       setSuccessMessage(t('notifications.edit_success'));
+      dispatch(companyInfoSlice.actions.resetCompanyInfoStore())
+
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
