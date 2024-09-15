@@ -14,9 +14,9 @@ export async function createApplicantUser(
 
     return response.data;
   } catch (error: any) {
-    console.error('Error:', error);
     throw new Error(
-      error.response?.data?.message || t('errors.creating_user_error')
+      // error.response?.data?.message || t('errors.creating_user_error')
+      error.data?.message || t('errors.creating_user_error')
     );
   }
 }
@@ -31,9 +31,9 @@ export async function createCompanyUser(
 
     return response.data;
   } catch (error: any) {
-    console.error('Error:', error);
     throw new Error(
-      error.response?.data?.message || t('errors.creating_user_error')
+      //error.response?.data?.message || t('errors.creating_user_error')
+      error.data?.message || t('errors.creating_user_error')
     );
   }
 }

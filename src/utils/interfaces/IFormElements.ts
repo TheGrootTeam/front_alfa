@@ -68,6 +68,16 @@ export interface IFormReturnValidateForm {
   errorMessage: string;
 }
 
+export interface IFormForgotPassword {
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface IRenewPassword {
+  token: string;
+  newPassword: string;
+}
+
 export interface IFormFileProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label: string;

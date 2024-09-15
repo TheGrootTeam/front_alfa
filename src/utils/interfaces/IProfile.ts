@@ -1,3 +1,6 @@
+import { MainSkill, WantedRol } from './IInfoApplicant';
+import { IOffer } from './IOffer';
+
 export interface ApplicantProfileData {
   dniCif?: string;
   email?: string;
@@ -30,15 +33,12 @@ export interface ApplicantProfileState {
   error: string | null;
 }
 
-import { MainSkill, WantedRol } from "./IInfoApplicant";
-import { IOffer } from "./IOffer";
-
 export interface ICompanyPublicProfile {
   _id: string;
   name: string;
   email: string;
   phone: string;
-  sector: {sector: string};
+  sector: { sector: string };
   ubication: string;
   description: string;
   logo: string;
@@ -51,11 +51,43 @@ export interface ICompanyPublicProfileMapped {
   company: string;
   email: string;
   phone: string;
-  sector: {sector: string};
+  sector: { sector: string };
   ubication: string;
   description: string;
   logo: string;
   offers?: Array<IOffer>;
+  __v?: number;
+}
+
+export interface IApplicantPublicProfile {
+  _id: string;
+  name: string;
+  lastName: string;
+  ubication: string;
+  cv: string;
+  email: string;
+  typeJob: string;
+  internType: string;
+  wantedRol: WantedRol[];
+  mainSkills: MainSkill[];
+  geographically_mobile: boolean;
+  disponibility: boolean;
+  __v: number;
+}
+
+export interface IApplicantPublicProfileMapped {
+  id?: string;
+  name: string;
+  lastName: string;
+  ubication: string;
+  cv: string;
+  email: string;
+  jobType: string;
+  internType: string;
+  wantedRol: WantedRol[];
+  skills: string[];
+  mobility: boolean;
+  disponibility: boolean;
   __v?: number;
 }
 
