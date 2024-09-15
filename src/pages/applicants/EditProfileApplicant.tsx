@@ -211,11 +211,11 @@ export function EditUserProfilePage() {
     e.preventDefault();
     console.log(formApplicantData);
     // Add files to formApplicantData
-    formApplicantData.photo =
+    const photo =
       photoInputRef?.current?.files && photoInputRef.current.files.length > 0
         ? photoInputRef.current.files[0]
         : applicant.photo;
-    formApplicantData.cv =
+    const cv =
       cvInputRef?.current?.files && cvInputRef.current.files.length > 0
         ? cvInputRef.current.files[0]
         : applicant.cv;
@@ -230,12 +230,28 @@ export function EditUserProfilePage() {
 
     // si todo ok procedemos
     try {
-      if (initialData === formApplicantData) {
+      if (
+        initialData === formApplicantData &&
+        initialData.cv === cv &&
+        initialData.photo === photo
+      ) {
         return;
       }
+      formApplicantData.photo = photo;
+      formApplicantData.cv = cv;
+
       const result = await updateApplicantUser(formApplicantData, t);
       console.log('User info updated successfully:', result);
       setSuccessMessage(t('notifications.data_updated'));
+
+      // Reset current value in photo and cv inputs
+      if (photoInputRef.current) {
+        photoInputRef.current.value = '';
+      }
+      if (cvInputRef.current) {
+        cvInputRef.current.value = '';
+      }
+
       dispatch(applicantInfoSlice.actions.resetApplicantInfoStore());
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
