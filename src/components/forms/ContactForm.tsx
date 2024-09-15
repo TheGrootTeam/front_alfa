@@ -13,12 +13,16 @@ interface ContactFormProps {
   onRequestClose: () => void;
   applicantEmail: string;
   applicantId: string;
+  applicantName: string;  
+  applicantLastName: string;  
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
   companyId,
   applicantEmail,
   applicantId,
+  applicantName,
+  applicantLastName,  
   offerName,
   isOpen,
   onRequestClose,
@@ -34,7 +38,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
   const { t } = useTranslation();
 
-  // Función para obtener el email de la empresa desde la API
+  // Function to get the company's email from the API
   const fetchCompanyEmail = async () => {
     try {
       const companyData = await getPublicInfo(companyId, 'company');
@@ -49,11 +53,10 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
   };
 
-  // Resetear campos cuando el modal se abre o se cierra
   useEffect(() => {
     if (isOpen && companyId) {
       fetchCompanyEmail();
-      // Reiniciar el mensaje y la notificación cuando el modal se abre
+
       setMessage('');
       setNotification(null);
     }
@@ -62,8 +65,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const handleSendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    if (!companyEmail || !applicantEmail || !message) {
+  
+    if (!companyEmail || !applicantEmail || !message || !applicantId || !applicantName || !applicantLastName) {
       setNotification({
         message: t('errors.all_fields_required'),
         type: 'error',
@@ -71,13 +74,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
       setLoading(false);
       return;
     }
-
+  
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const apiVersion = import.meta.env.VITE_API_VERSION;
-
+  
       const url = `${apiUrl}/api/${apiVersion}/send-email/contact-company`;
-
+  
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -88,10 +91,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
           companyEmail,
           offerTitle: offerName,
           message,
-          applicantId, // Enviar el applicantId al backend
+          applicantId,
+          applicantName,
+          applicantLastName,  
         }),
       });
-
+  
       const result = await response.json();
       if (result.success) {
         setNotification({
@@ -116,7 +121,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
       setLoading(false);
     }
   };
-
+  
+  
   return (
     <Modal
       isOpen={isOpen}

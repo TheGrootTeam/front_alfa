@@ -110,6 +110,8 @@ export function ListingDetail({
             offerName={position}
             applicantEmail={applicantEmail}
             applicantId={applicantId}
+            applicantName={applicantInfo?.name || ''} // Pass the applicant's name
+            applicantLastName={applicantInfo?.lastName || ''} 
           />
         </>
       )}
