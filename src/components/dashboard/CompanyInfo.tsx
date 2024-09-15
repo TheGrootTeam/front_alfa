@@ -80,7 +80,7 @@ export default function CompanyInfo() {
           <div className={styles.profile__info}>
             <h2>{company.name}</h2>
             <p>
-              <span>{t('forms.nif')}:</span> {company.dniCif}
+              <span>{t('forms.cif')}:</span> {company.dniCif}
             </p>
             <p>
               <span>{t('forms.email')}:</span> {company.email}
