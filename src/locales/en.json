@@ -162,6 +162,7 @@
     "offer_created": "New offer created successful",
     "offer_updated": "Offer update successfully",
     "password_change_success": "Password changed successfully",
+    "data_updated": "Information updated successfully",
     "mail_sending_success": "Mail sent successfully",
     "email_sended": "Email sent successfully"
   },
