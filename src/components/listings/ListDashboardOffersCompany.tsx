@@ -4,25 +4,20 @@ import stylesDetail from './ListingDetail.module.css';
 import styles from './ListDashboardOffersCompany.module.css';
 import { ListDashboardOffersCompanyProps } from '../../utils/interfaces/IOffer';
 import { offerDashboard } from '../../utils/interfaces/IOffer';
-//BALIZA
 import { useEffect, useState } from 'react';
 import Pagination from '../common/Pagination';
 
 export const ListDashboardOffersCompany: React.FC<
   ListDashboardOffersCompanyProps
 > = ({ publishedOffers }) => {
-  //BALIZA
-  // NUEVO: Añadimos el estado para controlar la página actual y el número total de páginas
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const offersPerPage = 5; // NUEVO: Número de ofertas por página
 
-  // NUEVO: Calculamos el número total de páginas según el número de ofertas publicadas
   useEffect(() => {
     setTotalPages(Math.ceil(publishedOffers.length / offersPerPage));
   }, [publishedOffers]);
 
-  // NUEVO: Función para manejar el cambio de página
   const handlePagination = (newPage: number) => {
     setCurrentPage(newPage);
   };
@@ -43,10 +38,7 @@ export const ListDashboardOffersCompany: React.FC<
             ? dateDifference
             : b._id.localeCompare(a._id);
         })
-
-        //BALIZA
         .slice((currentPage - 1) * offersPerPage, currentPage * offersPerPage)
-
         .map((offer) => (
           <div
             className={`${stylesDetail.listingDetail} ${styles.marged}`}
@@ -101,7 +93,6 @@ export const ListDashboardOffersCompany: React.FC<
             </footer>
           </div>
         ))}
-      {/* BALIZA */}
       <Pagination
         currentPage={currentPage} // La página actual
         totalPages={totalPages} // El número total de páginas
