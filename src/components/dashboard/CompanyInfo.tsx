@@ -112,9 +112,12 @@ export default function CompanyInfo() {
           </div>
         </div>
         <div>
-          <hr />
+          {/* <hr />
           <h2>{t('titles.published_offers')}</h2>
-          <hr />
+          <hr /> */}
+          <center>
+            <h3>{t('titles.published_offers')}</h3>
+          </center>
           <ListDashboardOffersCompany
             publishedOffers={company.publishedOffers}
           />
