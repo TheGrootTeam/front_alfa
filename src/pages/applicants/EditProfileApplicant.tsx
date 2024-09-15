@@ -45,31 +45,35 @@ export function EditUserProfilePage() {
   const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
   const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
 
+  const setVariables = {
+    id: '',
+    dniCif: '',
+    name: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    photo: '',
+    cv: '',
+    ubication: '',
+    typeJob: '',
+    internType: '',
+    wantedRol: [],
+    mainSkills: [],
+    geographically_mobile: false,
+    disponibility: false,
+  };
   const [formApplicantData, setApplicantFormData] =
-    useState<IEditApplicantInfo>({
-      id: '',
-      dniCif: '',
-      name: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      photo: '',
-      cv: '',
-      ubication: '',
-      typeJob: '',
-      internType: '',
-      wantedRol: [],
-      mainSkills: [],
-      geographically_mobile: false,
-      disponibility: false,
-    });
+    useState<IEditApplicantInfo>(setVariables);
 
-  const photoInputRef = useRef<HTMLInputElement | null>(null);;
-  const cvInputRef = useRef<HTMLInputElement | null>(null);;
+  const photoInputRef = useRef<HTMLInputElement | null>(null);
+  const cvInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [initialData, setInitialData] =
+    useState<IEditApplicantInfo>(setVariables);
 
   useEffect(() => {
     dispatch(getInfoApplicantAction());
-    setApplicantFormData({
+    const userInfo = {
       id: applicant.id,
       dniCif: applicant.dniCif,
       name: applicant.name,
@@ -85,7 +89,9 @@ export function EditUserProfilePage() {
       mainSkills: applicant.mainSkills,
       geographically_mobile: applicant.geographically_mobile,
       disponibility: applicant.disponibility,
-    });
+    };
+    setApplicantFormData(userInfo);
+    setInitialData(userInfo);
   }, [dispatch, applicant]);
 
   const [formError, setFormError] = useState<string | null>(null);
@@ -203,14 +209,16 @@ export function EditUserProfilePage() {
   // Envio de formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    console.log(formApplicantData);
     // Add files to formApplicantData
-    formApplicantData.photo = (photoInputRef?.current?.files && photoInputRef.current.files.length > 0)
-      ? photoInputRef.current.files[0]
-      : applicant.photo;
-    formApplicantData.cv = (cvInputRef?.current?.files && cvInputRef.current.files.length > 0)
-      ? cvInputRef.current.files[0]
-      : applicant.cv;
+    formApplicantData.photo =
+      photoInputRef?.current?.files && photoInputRef.current.files.length > 0
+        ? photoInputRef.current.files[0]
+        : applicant.photo;
+    formApplicantData.cv =
+      cvInputRef?.current?.files && cvInputRef.current.files.length > 0
+        ? cvInputRef.current.files[0]
+        : applicant.cv;
 
     // si hay errores de formato o faltan campos requeridos no se envía
     if (emailError) return;
@@ -222,11 +230,13 @@ export function EditUserProfilePage() {
 
     // si todo ok procedemos
     try {
-      let result;
-      result = await updateApplicantUser(formApplicantData, t);
+      if (initialData === formApplicantData) {
+        return;
+      }
+      const result = await updateApplicantUser(formApplicantData, t);
       console.log('User info updated successfully:', result);
       setSuccessMessage(t('notifications.data_updated'));
-      dispatch(applicantInfoSlice.actions.resetApplicantInfoStore())
+      dispatch(applicantInfoSlice.actions.resetApplicantInfoStore());
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
@@ -308,7 +318,7 @@ export function EditUserProfilePage() {
               ref={photoInputRef}
             />
             <p>
-              {t('forms.actual_photo')}: {formApplicantData.photo}
+              {t('forms.actual_photo')}: {`${formApplicantData.photo}`}
             </p>
           </li>
           <li>
@@ -321,7 +331,7 @@ export function EditUserProfilePage() {
               ref={cvInputRef}
             />
             <p>
-              {t('forms.actual_cv')}: {formApplicantData.cv}
+              {t('forms.actual_cv')}: {`${formApplicantData.cv}`}
             </p>
           </li>
           <li>
