@@ -14,10 +14,6 @@ import ConfirmationButton from '../common/ConfirmationButton';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
-// interface HeaderProps {
-//   userId: string;
-// }
-
 const Header = () => {
   const { t, i18n } = useTranslation();
   const { error } = useSelector(getUi);
@@ -61,7 +57,7 @@ const Header = () => {
           <nav
             className={`${styles.nav} ${menuBurgerOpen ? styles.open : ''} `}
           >
-            <ul>
+            <ul className={styles.mainNav}>
               {auth ? (
                 // When the user is authenticated
                 <>
@@ -106,10 +102,6 @@ const Header = () => {
                   <li>
                     <Link to="/about">{t('nav.about')}</Link>
                   </li>
-                  {/* MARTA - TEMPORAL porque si no no puedo ver la página */}
-                  {/* <li>
-                    <Link to={`/view/user/${loggedInUser}`}>Profile</Link>
-                  </li> */}
                 </>
               )}
             </ul>
@@ -122,6 +114,13 @@ const Header = () => {
                   onClick={() => i18n.changeLanguage(lang)}
                   disabled={i18n.resolvedLanguage === lang}
                 >
+                  {i18n.resolvedLanguage !== lang && (
+                    <span
+                      className={`material-symbols-outlined ${styles.iconLang}`}
+                    >
+                      sync_alt
+                    </span>
+                  )}
                   {lang.toUpperCase()}
                 </button>
               </li>

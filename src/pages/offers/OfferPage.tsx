@@ -12,7 +12,7 @@ import { Button } from '../../components/common/Button';
 import { useEffect, useState } from 'react';
 //import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-// import styles from "./Offermodule.css";
+import styles from './Offer.module.css';
 import { useDispatch } from 'react-redux';
 import { deleteOfferAction } from '../../store/actions/offersActions';
 import { AppDispatch } from '../../store/store';
@@ -69,52 +69,104 @@ export function OfferPage() {
     <>
       <Layout page="offer">
         {offer ? (
-          <>
-            <h2>
-              {t('forms.position')}: {offer.position}
-            </h2>
-            <p>
-              {t('forms.offer_description')}: {offer.description}
-            </p>
-            <p>
-              {t('forms.company')}:{' '}
-              <Link
-                to={`/view/company/${companyId}`}
-              >{`${offer.companyOwner.name}`}</Link>
-            </p>
-            <p>
-              {t('forms.location')}: {offer.location}
-            </p>
-            <p>
-              {t('forms.job_type')}: {offer.typeJob} y {offer.internJob}
-            </p>
-            <p>
-              {t('forms.publication_date')}:{' '}
-              {offer.publicationDate.toISOString().split('T')[0]}
-            </p>
-            <p>
-              {t('forms.number_vacancies')}: {offer.numberVacancies} |{' '}
-              {t('forms.number_applicants')}: {offer.numberApplicants}
-            </p>
-            {ownerOffer && (
-              <Button onClick={editOffer}> {t('nav.edit_offer_link')}</Button>
-            )}
-            &nbsp;
-            {showConfirm && (
-              <div>
-                <p>{t('dialogs.delete_offer_message')}</p>
-                <Button onClick={deleteOffer}>{t('buttons.yes_delete')}</Button>
-                <Button onClick={() => setShowCofirm(false)}>
-                  {t('buttons.no_cancel')}
-                </Button>
+          <article className={styles.offerArticle}>
+            <header className={styles.offerHeader}>
+              <h2>
+                <span
+                  className={`material-symbols-outlined ${styles.iconSmall}`}
+                >
+                  laptop_chromebook
+                </span>
+                {offer.position}
+              </h2>
+              <h3>
+                <span
+                  className={`material-symbols-outlined ${styles.iconSmall}`}
+                >
+                  domain
+                </span>
+                <Link
+                  to={`/view/company/${companyId}`}
+                >{`${offer.companyOwner.name}`}</Link>
+              </h3>
+            </header>
+            <section className={styles.offerContent}>
+              <div className={styles.offerDetails}>
+                <ul>
+                  <li>
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
+                      event
+                    </span>
+                    {t('gen.published_on')}{' '}
+                    {offer.publicationDate.toISOString().split('T')[0]}
+                  </li>
+                  <li>
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
+                      location_on
+                    </span>{' '}
+                    {offer.location}
+                  </li>
+                  <li>
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
+                      work
+                    </span>{' '}
+                    {offer.typeJob}
+                  </li>
+                  <li>
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
+                      {offer.internJob === 'Remunerado' ? 'paid' : 'money_off'}
+                    </span>{' '}
+                    {offer.internJob}
+                  </li>
+                </ul>
               </div>
-            )}
-            {!showConfirm && ownerOffer && (
-              <Button onClick={() => setShowCofirm(true)}>
-                {t('buttons.delete_offer')}
-              </Button>
-            )}
-          </>
+              <div className={styles.offerDescription}>
+                <p className={styles.numVacantes}>
+                  <span
+                    className={`material-symbols-outlined ${styles.iconSmall}`}
+                  >
+                    group
+                  </span>
+                  {t('forms.number_vacancies')}: {offer.numberVacancies}
+                  {/* {t('forms.number_applicants')}: {offer.numberApplicants} */}
+                </p>
+                <div>{offer.description}</div>
+                <div className={styles.offerOptions}>
+                  {ownerOffer && (
+                    <Button onClick={editOffer}>
+                      {' '}
+                      {t('nav.edit_offer_link')}
+                    </Button>
+                  )}
+                  &nbsp;
+                  {showConfirm && (
+                    <div>
+                      <p>{t('dialogs.delete_offer_message')}</p>
+                      <Button onClick={deleteOffer}>
+                        {t('buttons.yes_delete')}
+                      </Button>
+                      <Button onClick={() => setShowCofirm(false)}>
+                        {t('buttons.no_cancel')}
+                      </Button>
+                    </div>
+                  )}
+                  {!showConfirm && ownerOffer && (
+                    <Button onClick={() => setShowCofirm(true)}>
+                      {t('buttons.delete_offer')}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </section>
+          </article>
         ) : success ? (
           showSuccess()
         ) : (

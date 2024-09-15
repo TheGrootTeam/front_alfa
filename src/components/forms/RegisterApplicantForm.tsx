@@ -239,9 +239,12 @@ export function RegisterApplicantForm() {
       //     dispatch(authLogin({ dniCif, password, rememberMe: true }));
       //   }, 2000);
       // }
-    } catch (error) {
-      console.error(t('errors.processing_form_error'), error);
-      setFormError(t('errors.generic_form_error'));
+    } catch (error: any) {
+      console.error(
+        'Error:',
+        error.message || t('errors.processing_form_error')
+      );
+      setFormError(error.message || t('errors.generic_form_error'));
     }
   };
 

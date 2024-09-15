@@ -79,7 +79,7 @@ const SearchForm = () => {
 
   return (
     <div className={styles.container}>
-      {location.pathname === '/' && <h2>Tu portal de búsqueda de prácticas</h2>}
+      {location.pathname === '/' && <h2>{t('titles.home_title')}</h2>}
       <div className={searchFormClass}>
         <div>
           <input
