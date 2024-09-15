@@ -9,9 +9,15 @@ export async function updateApplicantUser(
   t: (key: string) => string
 ): Promise<IEditApplicantInfo> {
   try {
-    console.log(updatedUser)
+    console.log(updatedUser);
     const infoApplicant: IInfoApplicants = await client.patch(
-      '/infoDashboards/applicant', updatedUser
+      '/infoDashboards/applicant',
+      updatedUser,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      }
     );
     console.log(infoApplicant);
     return updatedUser;
