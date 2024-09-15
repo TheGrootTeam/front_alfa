@@ -1,5 +1,6 @@
 import { Route, Outlet, Routes } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
+import Modal from 'react-modal';
 // import { useSelector } from 'react-redux';
 // import { getIsLogged } from './store/selectors';
 
@@ -28,6 +29,10 @@ import RequireIsApplicant from './components/auth/RequireIsApplicant';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
 import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
+import { LostPasswordEmail } from './pages/auth/LostPasswordEmail';
+
+
+Modal.setAppElement('#root'); 
 
 function App() {
   // const isLogged = useSelector(getIsLogged);
@@ -102,7 +107,8 @@ function App() {
       </Route>
 
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/lost-password" element={<LostPassword />} />
+      <Route path="/lost-password/:token" element={<LostPassword />} />
+      <Route path="/lost-password-email" element={<LostPasswordEmail />} />
 
       {/* PUBLIC - Vista de oferta individual */}
       <Route path="/offers">
