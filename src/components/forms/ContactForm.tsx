@@ -34,10 +34,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
   const { t } = useTranslation();
 
-  // Construct the applicant URL
-  const applicantUrl = `${import.meta.env.VITE_SITE_URL}/view/applicant/${applicantId}`;
-
-  // Function to obtain the company email from the API
+  // Función para obtener el email de la empresa desde la API
   const fetchCompanyEmail = async () => {
     try {
       const companyData = await getPublicInfo(companyId, 'company');
@@ -52,11 +49,11 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
   };
 
-  // Reset fields when modal opens or closes
+  // Resetear campos cuando el modal se abre o se cierra
   useEffect(() => {
     if (isOpen && companyId) {
       fetchCompanyEmail();
-      // Reset the message and notification when the modal opens
+      // Reiniciar el mensaje y la notificación cuando el modal se abre
       setMessage('');
       setNotification(null);
     }
@@ -75,8 +72,6 @@ const ContactForm: React.FC<ContactFormProps> = ({
       return;
     }
 
-    const messageWithApplicantUrl = `${message}<br/><br/>${t('mail.view_profile')} ${applicantUrl}`;
-
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const apiVersion = import.meta.env.VITE_API_VERSION;
@@ -92,7 +87,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
           applicantEmail,
           companyEmail,
           offerTitle: offerName,
-          message: messageWithApplicantUrl,
+          message,
+          applicantId, // Enviar el applicantId al backend
         }),
       });
 
