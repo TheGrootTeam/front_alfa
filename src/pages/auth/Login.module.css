@@ -29,6 +29,11 @@
   }
 }
 
+.form .link {
+  display: flex;
+  justify-content: end;
+}
+
 .form label {
   font-size: 1.6rem;
   line-height: 3rem;

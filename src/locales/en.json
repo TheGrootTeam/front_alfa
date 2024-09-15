@@ -128,6 +128,7 @@
     "save_changes": "Save changes",
     "back_home": "Go back to the home page",
     "back_dashboard": "Go back to your dashboard",
+    "lost_password_email": "Send reset email",
     "mail_sending": "Sending...",
     "mail_send": "Send email",
     "mail_contact_company": "Contact the Company"
@@ -148,7 +149,11 @@
     "editing_user_error": "An error occurred while updating the user details",
     "all_fields_required": "All fields are required",
     "404_page": "Sorry, but it looks like there's nothing at <b>{{path}}</b>",
-    "mail_sending_error": "Error sending the email"
+    "mail_sending_error": "Error sending the email",
+    "no_user_email": "No user with this email",
+    "expired_token": "Expired token, please restart the password renewal process",
+    "invalid_token": "Invalid Token",
+    "user_not_found": "User not found"
   },
   "notifications": {
     "register_success": "User registered successfully",
@@ -157,7 +162,8 @@
     "offer_created": "New offer created successful",
     "offer_updated": "Offer update successfully",
     "password_change_success": "Password changed successfully",
-    "mail_sending_success": "Mail sent successfully"
+    "mail_sending_success": "Mail sent successfully",
+    "email_sended": "Email sent successfully"
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
@@ -178,5 +184,8 @@
   },
   "mail": {
     "view_profile": "You can view mt profile here: "
+  },
+  "links": {
+    "forgot_password": "Forgot password?"
   }
 }

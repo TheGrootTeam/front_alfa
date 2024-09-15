@@ -128,6 +128,7 @@
     "save_changes": "Guardar cambios",
     "back_home": "Vuelve al inicio",
     "back_dashboard": "Vuelve a tu panel de control",
+    "lost_password_email": "Enviar email de reinicio",
     "mail_sending": "Enviando...",
     "mail_send": "Enviar email",
     "mail_contact_company": "Contactar con la Empresa"
@@ -148,7 +149,11 @@
     "editing_user_error": "Se ha producido un error al editar los datos de usuario",
     "all_fields_required": "Todos los campos son obligatorios",
     "404_page": "Lo sentimos, pero parece que en <b>{{path}}</b> no hay nada",
-    "mail_sending_error": "Error al enviar el correo"
+    "mail_sending_error": "Error al enviar el correo",
+    "no_user_email": "Ningún usuario con este email",
+    "expired_token": "Token expirado, reinicie el proceso de renovación de contraseña",
+    "invalid_token": "Token no válido",
+    "user_not_found": "Usuario no encontrado"
   },
   "notifications": {
     "register_success": "Usuario registrado correctamente",
@@ -157,7 +162,8 @@
     "offer_created": "La nueva oferta ha sido creada con éxito",
     "offer_updated": "La oferta se actualizó con éxito",
     "password_change_success": "Contraseña modificada correctamente",
-    "mail_sending_success": "Correo enviado con éxito"
+    "mail_sending_success": "Correo enviado con éxito",
+    "email_sended": "Email enviado correctamente"
   },
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",
@@ -178,5 +184,8 @@
   },
   "mail": {
     "view_profile": "Puedes ver mi perfil aquí: "
+  },
+  "links": {
+    "forgot_password": "¿Olvidaste la contraseña?"
   }
 }

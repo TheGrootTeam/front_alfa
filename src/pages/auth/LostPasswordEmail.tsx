@@ -1,9 +1,9 @@
+import { LostPasswordEmailForm } from '../../components/forms/LostPasswordEmailForm';
 import Layout from '../../components/layout/Layout';
 import { useTranslation } from 'react-i18next';
 import styles from './LostPasswordEmail.module.css';
-import { LostPasswordForm } from '../../components/forms/LostPasswordForm';
 
-export function LostPassword() {
+export function LostPasswordEmail() {
   const { t } = useTranslation();
   return (
     <Layout
@@ -11,7 +11,7 @@ export function LostPassword() {
       page="password"
       mainClassName={styles.lost_password_email}
     >
-      <LostPasswordForm />
+      <LostPasswordEmailForm />
     </Layout>
   );
 }

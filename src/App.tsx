@@ -29,6 +29,7 @@ import RequireIsApplicant from './components/auth/RequireIsApplicant';
 import { ProfileSwitch } from './components/routing/ProfileSwitch';
 import RequireNotLoguedToLoguin from './components/auth/RequireNotLoguedToLogin';
 import { ChangePasswordPage } from './pages/password/ChangePasswordPage';
+import { LostPasswordEmail } from './pages/auth/LostPasswordEmail';
 
 
 Modal.setAppElement('#root'); 
@@ -106,7 +107,8 @@ function App() {
       </Route>
 
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/lost-password" element={<LostPassword />} />
+      <Route path="/lost-password/:token" element={<LostPassword />} />
+      <Route path="/lost-password-email" element={<LostPasswordEmail />} />
 
       {/* PUBLIC - Vista de oferta individual */}
       <Route path="/offers">

@@ -13,6 +13,7 @@ import { AppDispatch } from '../../store/store';
 import Notification from '../../components/common/Notification';
 import { Loader } from '../../components/common/Loader';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export function LoginPage() {
   const { t } = useTranslation();
@@ -87,6 +88,9 @@ export function LoginPage() {
             onChange={handleChange}
           />
         </p>
+        <div className={styles.link}>
+          <Link to={'/lost-password-email'}>{t('links.forgot_password')}</Link>
+        </div>
         <Button
           className="form__button"
           type="submit"
