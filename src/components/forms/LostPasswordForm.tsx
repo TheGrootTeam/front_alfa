@@ -55,7 +55,7 @@ export function LostPasswordForm() {
       });
       setSuccessMessage(t('notifications.password_change_success'));
       setTimeout(() => {
-        navigate('/');
+        navigate('/login');
       }, 3000);
     } catch (error: any) {
       // error missing fields
