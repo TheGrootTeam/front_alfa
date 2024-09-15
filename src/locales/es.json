@@ -2,7 +2,8 @@
   "gen": {
     "yes": "sí",
     "no": "no",
-    "published_on": "Publicada el"
+    "published_on": "Publicada el",
+    "mail_subject": "Asunto: "
   },
   "nav": {
     "log_in": "Entrar",
@@ -19,6 +20,7 @@
     "of": "de"
   },
   "titles": {
+    "home_title": "Tu portal de búsqueda de prácticas",
     "log_in": "Entrar",
     "lost_password": "Recuperar contraseña",
     "register": "Registrarse",
@@ -44,7 +46,9 @@
     "no_results": "No se han encontrado resultados",
     "no_results_for": "No se han encontrado resultados para ",
     "error404": "error 404",
-    "page_not_found": "Página no encontrada"
+    "page_not_found": "Página no encontrada",
+    "contact_company": "Contactar empresa",
+    "contact_": "Contactar a "
   },
   "forms": {
     "section_login": "Datos de autenticación",
@@ -98,7 +102,8 @@
     "offer_description": "Descripción de la oferta",
     "select_sector": "Seleccione sector",
     "actual_photo": "Foto actual",
-    "actual_cv": "CV actual"
+    "actual_cv": "CV actual",
+    "mail_message_placeholder": "Me interesa esta oferta porque..."
   },
   "formSelect": {
     "jobType": {
@@ -122,7 +127,11 @@
     "change_password": "Cambiar contraseña",
     "save_changes": "Guardar cambios",
     "back_home": "Vuelve al inicio",
-    "back_dashboard": "Vuelve a tu panel de control"
+    "back_dashboard": "Vuelve a tu panel de control",
+    "lost_password_email": "Enviar email de reinicio",
+    "mail_sending": "Enviando...",
+    "mail_send": "Enviar email",
+    "mail_contact_company": "Contactar con la Empresa"
   },
   "errors": {
     "password_empty": "Los campos de contraseña no pueden estar vacíos",
@@ -139,7 +148,12 @@
     "creating_user_error": "Se ha producido un error al crear el usuario",
     "editing_user_error": "Se ha producido un error al editar los datos de usuario",
     "all_fields_required": "Todos los campos son obligatorios",
-    "404_page": "Lo sentimos, pero parece que en <b>{{path}}</b> no hay nada"
+    "404_page": "Lo sentimos, pero parece que en <b>{{path}}</b> no hay nada",
+    "mail_sending_error": "Error al enviar el correo",
+    "no_user_email": "Ningún usuario con este email",
+    "expired_token": "Token expirado, reinicie el proceso de renovación de contraseña",
+    "invalid_token": "Token no válido",
+    "user_not_found": "Usuario no encontrado"
   },
   "notifications": {
     "register_success": "Usuario registrado correctamente",
@@ -147,7 +161,9 @@
     "data_saved": "Los datos se han guardado correctamente",
     "offer_created": "La nueva oferta ha sido creada con éxito",
     "offer_updated": "La oferta se actualizó con éxito",
-    "password_change_success": "Contraseña modificada correctamente"
+    "password_change_success": "Contraseña modificada correctamente",
+    "mail_sending_success": "Correo enviado con éxito",
+    "email_sended": "Email enviado correctamente"
   },
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",
@@ -165,5 +181,11 @@
   "success": {
     "delete_offer_success": "Anuncio eliminado satisfactoriamente",
     "profile_deleted": "Perfil borrado correctamente"
+  },
+  "mail": {
+    "view_profile": "Puedes ver mi perfil aquí: "
+  },
+  "links": {
+    "forgot_password": "¿Olvidaste la contraseña?"
   }
 }

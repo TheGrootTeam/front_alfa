@@ -56,22 +56,30 @@ export const SearchResults = () => {
       {results.length > 0 ? (
         <>
           <h2 className={styles.title}>
-            <span className={`material-symbols-outlined ${styles.icon}`}>
-              format_list_bulleted
+            <span>
+              <span className={`material-symbols-outlined ${styles.icon}`}>
+                format_list_bulleted
+              </span>
+
+              {t('titles.search_results')}
+              <em>"{searchTerm}"</em>
             </span>
-            {t('titles.search_results')} <span>"{searchTerm}"</span> (
-            {totalResults} {t('titles.found_results')})
+            <span>
+              ({totalResults} {t('titles.found_results')})
+            </span>
           </h2>
 
           {results.map((result) => (
             <div key={result._id} className={styles.result}>
-              <Link to={`/offers/${result._id}`}>
-                <h3>{result.position}</h3>
-              </Link>
-              <span className={styles.date}>
-                {formatDate(result.publicationDate)}
-              </span>
-              <p>{result.description}</p>
+              <div className={styles.resultHeader}>
+                <Link to={`/offers/${result._id}`}>
+                  <h3>{result.position}</h3>
+                </Link>
+                <span className={styles.date}>
+                  {formatDate(result.publicationDate)}
+                </span>
+              </div>
+              <div className={styles.resultDesc}>{result.description}</div>
             </div>
           ))}
 

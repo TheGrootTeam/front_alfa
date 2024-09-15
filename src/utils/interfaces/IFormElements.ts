@@ -65,3 +65,13 @@ export interface IFormReturnValidateForm {
   isValid: boolean;
   errorMessage: string;
 }
+
+export interface IFormForgotPassword {
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface IRenewPassword {
+  token: string;
+  newPassword: string;
+}
