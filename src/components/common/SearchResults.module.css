@@ -1,8 +1,18 @@
-.results {
+.homePage {
   padding: 2rem 4rem;
   background-color: color-mix(in srgb, var(--light) 50%, transparent);
   margin: 0 auto;
+  max-width: 100%;
   border-radius: 0 0 2rem 2rem;
+}
+
+.default {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background-color: color-mix(in srgb, var(--neutral-min) 50%, transparent);
+  margin: 0;
+  max-width: 100%;
+  border-radius: 2rem;
 }
 
 .disabled {
@@ -67,7 +77,12 @@
 .resultDesc {
   flex-grow: 1;
   overflow: hidden;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; /* Limit the text to 2 lines */
+  white-space: normal; /* Allows text to wrap */
+  text-overflow: ellipsis;
   text-overflow: ellipsis;
   font-size: 1.4rem;
   line-height: 2.2rem;
@@ -94,5 +109,8 @@
 @media only screen and (min-width: 960px) {
   .homePage {
     max-width: calc(1400px - 6rem);
+  }
+  .default {
+    max-width: 820px;
   }
 }

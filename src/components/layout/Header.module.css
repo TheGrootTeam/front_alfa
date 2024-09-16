@@ -33,7 +33,7 @@ h1 {
       font-weight: 700;
     }
 
-    .icon {
+    .logo {
       width: 4rem;
       height: 4rem;
       fill: var(--neutral-min);
@@ -62,7 +62,7 @@ h1 {
       font-family: var(--font-secondary);
       color: var(--accent-light);
 
-      &:hover span {
+      & button:hover + span {
         color: var(--accent-alt-light);
       }
     }
@@ -199,6 +199,10 @@ h1 {
 .headerError {
   width: 100%;
   overflow: hidden;
+  background-color: var(--error-bg);
+  text-align: center;
+  color: var(--error-text);
+  font-weight: 500;
 }
 
 .hamburger {

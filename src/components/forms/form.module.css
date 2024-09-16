@@ -3,6 +3,7 @@
 }
 
 .form {
+  width: 96%;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -159,4 +160,14 @@ select[multiple] option[selected] {
 .checkboxGroup label {
   font-size: 1.4rem;
   line-height: 3rem;
+}
+
+/* Correcciones para evitar que las notificaciones de error muestren el boton de cerrar */
+.accordionContent ul li div span,
+.form > div:last-child span {
+  display: none !important;
+}
+
+.formErrorMessage {
+  padding: 0;
 }
