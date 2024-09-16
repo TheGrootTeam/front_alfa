@@ -70,6 +70,7 @@ ul {
 @media (641px < width < 800px) {
   .container {
     flex-direction: row;
+    flex-wrap: wrap;
     padding: 2rem;
     gap: 2rem;
   }
@@ -89,10 +90,7 @@ ul {
     max-width: 200px;
   }
   .buttons {
-    position: absolute;
-    bottom: 2rem;
-    left: 2rem;
-    width: 200px;
+    flex-basis: 100%;
   }
 }
 
