@@ -49,6 +49,10 @@ export function LostPasswordEmailForm() {
     }
   };
 
+  const handleErrorClick = () => {
+    setError(null);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -62,10 +66,16 @@ export function LostPasswordEmailForm() {
               value={email || ''}
               onChange={handleEmail}
             />
-            {error && <Notification type="error" message={error} />}
+            {error && (
+              <Notification
+                type="error"
+                message={error}
+                onClick={handleErrorClick}
+              />
+            )}
           </li>
           <li>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading || !email}>
               {t('buttons.lost_password_email')}
             </Button>
           </li>
