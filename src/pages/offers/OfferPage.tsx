@@ -47,6 +47,20 @@ export function OfferPage() {
   const companyLoged = companyInUse.id;
   const ownerOffer = companyId === companyLoged ? true : false;
 
+  // To choose the icon for 'typeJob'
+  const getJobLocation = (typeJob: string) => {
+    if (typeJob === 'Remoto') return 'location_away';
+    if (typeJob === 'Presencial') return 'domain';
+    return 'work';
+  };
+
+  // To choose the icon for 'internJob'
+  const getInternshipType = (internJob: string) => {
+    if (internJob === 'Remunerado') return 'paid';
+    if (internJob === 'Voluntariado/ONG') return 'volunteer_activism';
+    return 'money_off';
+  };
+
   const deleteOffer = () => {
     if (id) {
       const successMessage = t('success.delete_offer_success');
@@ -95,13 +109,17 @@ export function OfferPage() {
           <article className={styles.offerArticle}>
             <header className={styles.offerHeader}>
               <h2>
-                <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+                <span
+                  className={`material-symbols-outlined ${styles.iconSmall}`}
+                >
                   laptop_chromebook
                 </span>
                 {offer.position}
               </h2>
               <h3>
-                <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+                <span
+                  className={`material-symbols-outlined ${styles.iconSmall}`}
+                >
                   domain
                 </span>
                 <Link to={`/view/company/${companyId}`}>
@@ -113,35 +131,45 @@ export function OfferPage() {
               <div className={styles.offerDetails}>
                 <ul>
                   <li>
-                    <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
                       event
                     </span>
                     {t('gen.published_on')}{' '}
                     {offer.publicationDate.toISOString().split('T')[0]}
                   </li>
                   <li>
-                    <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
                       location_on
-                    </span>{' '}
+                    </span>
                     {offer.location}
                   </li>
                   <li>
-                    <span className={`material-symbols-outlined ${styles.iconSmall}`}>
-                      work
-                    </span>{' '}
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
+                      {getJobLocation(offer.typeJob)}
+                    </span>
                     {offer.typeJob}
                   </li>
                   <li>
-                    <span className={`material-symbols-outlined ${styles.iconSmall}`}>
-                      {offer.internJob === 'Remunerado' ? 'paid' : 'money_off'}
-                    </span>{' '}
+                    <span
+                      className={`material-symbols-outlined ${styles.iconSmall}`}
+                    >
+                      {getInternshipType(offer.internJob)}
+                    </span>
                     {offer.internJob}
                   </li>
                 </ul>
               </div>
               <div className={styles.offerDescription}>
                 <p className={styles.numVacantes}>
-                  <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+                  <span
+                    className={`material-symbols-outlined ${styles.iconSmall}`}
+                  >
                     group
                   </span>
                   {t('forms.number_vacancies')}: {offer.numberVacancies}
@@ -149,13 +177,17 @@ export function OfferPage() {
                 <div>{offer.description}</div>
                 <div className={styles.offerOptions}>
                   {ownerOffer && (
-                    <Button onClick={editOffer}>{t('nav.edit_offer_link')}</Button>
+                    <Button onClick={editOffer}>
+                      {t('nav.edit_offer_link')}
+                    </Button>
                   )}
                   &nbsp;
                   {showConfirm && (
                     <div>
                       <p>{t('dialogs.delete_offer_message')}</p>
-                      <Button onClick={deleteOffer}>{t('buttons.yes_delete')}</Button>
+                      <Button onClick={deleteOffer}>
+                        {t('buttons.yes_delete')}
+                      </Button>
                       <Button onClick={() => setShowCofirm(false)}>
                         {t('buttons.no_cancel')}
                       </Button>
@@ -169,7 +201,10 @@ export function OfferPage() {
                   {/* Añadir el botón para contactar con la empresa */}
                   {!ownerOffer && isLogged && (
                     <>
-                      <Button onClick={handleOpenModal} className={styles.contactButton}>
+                      <Button
+                        onClick={handleOpenModal}
+                        className={styles.contactButton}
+                      >
                         {t('buttons.mail_contact_company')}
                       </Button>
 

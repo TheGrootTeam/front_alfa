@@ -13,7 +13,7 @@ export function DashBoardInternPage() {
       <Layout title={t('titles.dashboardIntern')} page="dashboard-intern">
         <div className={styles.container}>
           <ApplicantInfo />
-          <div>
+          <div className={styles.offersResults}>
             <SearchForm />
             <SearchResults />
             <Listings />
