@@ -64,6 +64,7 @@
     "new_password_confirm": "Confirmar nueva contraseña",
     "password_confirm": "Confirmar contraseña",
     "password_show": "Mostrar contraseñas",
+    "password_one_show": "Mostrar contraseña",
     "remember_me": "Recuérdame",
     "register_button": "Registrarse",
     "select_usertype": "¿Cómo vas a usar InternIT?",
@@ -162,6 +163,7 @@
     "offer_created": "La nueva oferta ha sido creada con éxito",
     "offer_updated": "La oferta se actualizó con éxito",
     "password_change_success": "Contraseña modificada correctamente",
+    "data_updated": "Información actualizada correctamente",
     "mail_sending_success": "Correo enviado con éxito",
     "email_sended": "Email enviado correctamente"
   },

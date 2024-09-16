@@ -17,6 +17,8 @@ import { authLogout } from '../../store/actions/authActions';
 import SuccessDialog from '../common/SuccessDialog';
 import ErrorDialog from '../common/ErrorDialog';
 import { Loader } from '../common/Loader';
+import SearchForm from '../../components/common/SearchForm';
+import { SearchResults } from '../../components/common/SearchResults';
 
 // Import the Action RESETCompanyinfostore and Getoffersaction
 import { resetCompanyInfoStore } from '../../store/reducers/infoCompanySlice';
@@ -78,7 +80,7 @@ export default function CompanyInfo() {
           <div className={styles.profile__info}>
             <h2>{company.name}</h2>
             <p>
-              <span>{t('forms.nif')}:</span> {company.dniCif}
+              <span>{t('forms.cif')}:</span> {company.dniCif}
             </p>
             <p>
               <span>{t('forms.email')}:</span> {company.email}
@@ -112,9 +114,13 @@ export default function CompanyInfo() {
           </div>
         </div>
         <div>
-          <hr />
-          <h2>{t('titles.published_offers')}</h2>
-          <hr />
+          <SearchForm />
+          <SearchResults />
+          <center>
+            <br></br>
+            <hr></hr>
+            <h3>{t('titles.published_offers')}</h3>
+          </center>
           <ListDashboardOffersCompany
             publishedOffers={company.publishedOffers}
           />

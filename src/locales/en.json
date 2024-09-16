@@ -64,6 +64,7 @@
     "new_password_confirm": "Confirm new password",
     "password_confirm": "Confirm password",
     "password_show": "Show passwords",
+    "password_one_show": "Show password",
     "remember_me": "Remember me",
     "register_button": "Register",
     "select_usertype": "How will you be using InternIT?",
@@ -162,6 +163,7 @@
     "offer_created": "New offer created successful",
     "offer_updated": "Offer update successfully",
     "password_change_success": "Password changed successfully",
+    "data_updated": "Information updated successfully",
     "mail_sending_success": "Mail sent successfully",
     "email_sended": "Email sent successfully"
   },
