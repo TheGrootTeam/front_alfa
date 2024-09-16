@@ -64,6 +64,7 @@
     "new_password_confirm": "Confirmar nueva contraseña",
     "password_confirm": "Confirmar contraseña",
     "password_show": "Mostrar contraseñas",
+    "password_one_show": "Mostrar contraseña",
     "remember_me": "Recuérdame",
     "register_button": "Registrarse",
     "select_usertype": "¿Cómo vas a usar InternIT?",

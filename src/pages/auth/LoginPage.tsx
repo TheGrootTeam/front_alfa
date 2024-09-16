@@ -28,6 +28,9 @@ export function LoginPage() {
 
   const { dniCif, password, rememberMe } = formData;
 
+  //BALIZA
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(authLogin(formData));
@@ -70,7 +73,9 @@ export function LoginPage() {
           <FormInputText
             labelText={t('forms.password')}
             className="form__inputfield"
-            type="password"
+            // BALIZA
+            // type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             name="password"
             value={password}
@@ -78,6 +83,18 @@ export function LoginPage() {
             required
           />
         </p>
+
+        {/* BALIZA */}
+        <p className={styles.withCheckbox}>
+          <FormCheckbox
+            id="showPassword-checkbox"
+            name="showPassword"
+            labelText={t('forms.password_one_show')}
+            checked={showPassword}
+            onChange={() => setShowPassword((prev) => !prev)}
+          />
+        </p>
+
         <p className={styles.withCheckbox}>
           <FormCheckbox
             labelText={t('forms.remember_me')}
