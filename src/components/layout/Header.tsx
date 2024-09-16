@@ -1,7 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-// import { getUi } from '../../store/selectors';
-// import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogout } from '../../store/actions/authActions';
 import { getIsLogged, getIsCompany } from '../../store/selectors';
 import { AppDispatch } from '../../store/store';

@@ -118,6 +118,7 @@ select[multiple] option[selected] {
     cursor: not-allowed;
     box-shadow: none;
     border: 2px solid var(--dark);
+    color: var(--reverse-text-color);
   }
 }
 
