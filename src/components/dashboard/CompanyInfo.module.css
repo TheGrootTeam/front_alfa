@@ -1,27 +1,17 @@
+/* COMPANY INFO */
 .container {
+  position: relative;
   border-radius: 1.5rem;
   background-color: var(--neutral-bg);
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 2rem;
-  max-width: 350px;
-  height: auto;
-}
 
-.container_R {
-  border-radius: 1.5rem;
-  border: 1px solid var(--neutral-bg);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 2rem;
-  max-width: 350px;
-  height: auto;
+  & > * {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .profile__photo {
-  max-width: 200px;
   margin: 0 auto;
 
   img {
@@ -34,12 +24,6 @@ h2 {
   margin: 2rem auto;
 }
 
-.profile__info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 span {
   font-weight: bold;
 }
@@ -49,22 +33,86 @@ ul {
   padding-left: 2rem;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .button {
   margin: 1rem auto;
 }
 
-.offer_list {
-  border-radius: 1.5rem;
-  background-color: var(--neutral-bg);
-  padding: 0.5rem 1.5rem;
-  margin: 1rem;
-  height: auto;
+/* SEARCH FORM ETC container */
+.offersResults {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
 }
-.offer_list:hover {
-  background-color: var(--neutral-min);
+
+@media (max-width: 640px) {
+  .container {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .profile__photo,
+  .profile__photo img {
+    max-width: 300px;
+  }
 }
-/* Incrementa la especificidad para asegurarte de que se aplique el estilo */
-.offer_list span.disabled {
-  color: var(--error-bg);
-  font-weight: bold;
+
+@media (641px < width < 800px) {
+  .container {
+    flex-direction: row;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  .info__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    h2 {
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+
+  .profile__photo,
+  .profile__photo img {
+    max-width: 200px;
+  }
+  .buttons {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    width: 200px;
+  }
+}
+
+@media (min-width: 800px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    max-width: 300px;
+    height: auto;
+  }
+
+  .profile__photo,
+  .profile__photo img {
+    max-width: 180px;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .buttons {
+    align-self: stretch;
+  }
 }

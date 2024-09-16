@@ -1,7 +1,7 @@
 .listings {
   margin: 0 auto;
   max-width: 100%;
-  padding: 2rem 2rem 4rem;
+  padding: 0 0 4rem;
 
   .listingsContainer {
     display: flex;
@@ -11,6 +11,9 @@
 }
 
 @media only screen and (min-width: 1280px) {
+  .homePage.listings {
+    padding: 2rem 2rem 4rem;
+  }
   .homePage .listingsContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
