@@ -99,7 +99,7 @@
 .containerDefault {
   display: flex;
   align-items: stretch;
-  wisth: 100%;
+  width: 100%;
 }
 
 .default {
