@@ -125,7 +125,7 @@ export default function CompanyInfo() {
         <div className={styles.offersResults}>
           <SearchForm />
           <SearchResults />
-          <h3>{t('titles.published_offers')}</h3>
+          <h3 className={styles.h3}>{t('titles.published_offers')}</h3>
           <ListDashboardOffersCompany
             publishedOffers={company.publishedOffers}
           />
