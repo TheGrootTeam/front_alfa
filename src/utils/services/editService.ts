@@ -1,16 +1,12 @@
-// import { client } from '../../api/client';
 import { IEditApplicantInfo, IEditCompanyInfo } from '../interfaces/IProfile';
 import { client } from '../../api/client';
-import { IRegisterCompanyForm } from '../interfaces/IAuth';
-import { IInfoApplicants } from '../interfaces/IInfoApplicant';
 
 export async function updateApplicantUser(
   updatedUser: IEditApplicantInfo,
   t: (key: string) => string
 ): Promise<IEditApplicantInfo> {
   try {
-    console.log(updatedUser);
-    const infoApplicant: IInfoApplicants = await client.patch(
+    const infoApplicant: IEditApplicantInfo = await client.patch(
       '/infoDashboards/applicant',
       updatedUser,
       {
@@ -19,8 +15,7 @@ export async function updateApplicantUser(
         },
       }
     );
-    console.log(infoApplicant);
-    return updatedUser;
+    return infoApplicant;
   } catch (error: any) {
     console.error('Error:', error);
     throw new Error(error.message || t('errors.editing_user_error'));
@@ -28,13 +23,22 @@ export async function updateApplicantUser(
 }
 
 export async function updateCompanyUser(
-  updatedUser: IRegisterCompanyForm | IEditCompanyInfo,
+  updatedUser: IEditCompanyInfo,
   t: (key: string) => string
-): Promise<IRegisterCompanyForm | IEditCompanyInfo> {
+): Promise<IEditCompanyInfo> {
   try {
-    // TEMP console log + return del usuario
-    console.log(updatedUser);
-    return updatedUser;
+    console.log(updatedUser)
+    const infoCompany: IEditCompanyInfo = await client.patch(
+      '/infoDashboards/company',
+      updatedUser,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      }
+    );
+    console.log(infoCompany)
+    return infoCompany;
   } catch (error: any) {
     console.error('Error:', error);
     throw new Error(error.message || t('errors.editing_user_error'));

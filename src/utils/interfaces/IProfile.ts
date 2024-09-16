@@ -99,7 +99,7 @@ export interface IEditCompanyInfo {
   sector: string;
   ubication: string;
   description: string;
-  logo: string;
+  logo: any;
 }
 
 export interface IEditApplicantInfo {
