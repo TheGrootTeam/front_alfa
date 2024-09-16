@@ -49,10 +49,12 @@ h1 {
 .nav {
   .mainNav {
     display: flex;
-    gap: 2rem;
     font-family: var(--font-secondary);
+    list-style-type: none;
+    margin: 0;
 
     li {
+      list-style-type: none;
       line-height: 3.5rem;
     }
 
@@ -273,6 +275,19 @@ h1 {
         }
       }
     }
+  }
+}
+
+@media (max-width: 800px) {
+  .nav .mainNav a,
+  .nav .mainNav button {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .nav .mainNav {
+    gap: 2rem;
   }
 }
 

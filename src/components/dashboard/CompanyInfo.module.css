@@ -1,3 +1,7 @@
+.h3 {
+  color: var(--accent-light);
+}
+
 /* COMPANY INFO */
 .container {
   position: relative;
