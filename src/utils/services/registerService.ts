@@ -9,8 +9,11 @@ export async function createApplicantUser(
   t: (key: string) => string
 ): Promise<IRegisterApplicantForm> {
   try {
-    const response = await client.post('/register', newUser,
-    );
+    const response = await client.post('/register', newUser, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     return response.data;
   } catch (error: any) {
@@ -26,9 +29,14 @@ export async function createCompanyUser(
   t: (key: string) => string
 ): Promise<IRegisterCompanyForm> {
   try {
-    const response = await client.post('/register', newUser
-    );
-
+    console.log(newUser);
+    const response = await client.post('/register', newUser, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log(response);
+    
     return response.data;
   } catch (error: any) {
     throw new Error(
