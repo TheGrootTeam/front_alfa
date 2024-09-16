@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { authLogin } from '../../store/actions/authActions';
+import FormField from '../formElements/formFile';
 
 const formattedSkills = rawSkills.map((skill) => ({
   _id: skill._id,
@@ -51,8 +52,8 @@ export function RegisterApplicantForm() {
       password: '',
       confirmPassword: '',
       phone: '',
-      photo: '',
-      cv: '',
+      photo: {},
+      cv: {},
       ubication: '',
       typeJob: jobOptions.length > 0 ? jobOptions[0] : '',
       internType: internOptions.length > 0 ? internOptions[0] : '',
@@ -66,6 +67,9 @@ export function RegisterApplicantForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const photoInputRef = useRef<HTMLInputElement | null>(null);
+  const cvInputRef = useRef<HTMLInputElement | null>(null);
 
   // VALIDACIONES
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -190,19 +194,18 @@ export function RegisterApplicantForm() {
     }));
   };
 
-  // manejo de los FILE INPUT
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-    const file = files ? files[0] : { name: null };
-    setFormApplicantData((prevData) => ({
-      ...prevData,
-      [name]: `${file.name}`,
-    }));
-  };
-
   // Envio de formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const photo =
+      photoInputRef?.current?.files && photoInputRef.current.files.length > 0
+        ? photoInputRef.current.files[0]
+        : 'applicant.photo';
+    const cv =
+      cvInputRef?.current?.files && cvInputRef.current.files.length > 0
+        ? cvInputRef.current.files[0]
+        : 'applicant.cv;';
 
     // si hay errores de formato o faltan campos requeridos no se envía
     if (passwordError || emailError || dniCifError) return;
@@ -215,30 +218,17 @@ export function RegisterApplicantForm() {
     // si todo ok procedemos
     try {
       let result;
-
+      formApplicantData.cv = cv;
+      formApplicantData.photo = photo;
+      console.log(formApplicantData)
       result = await createApplicantUser(formApplicantData, t);
       console.log('User registered successfully:', result);
-
       setSuccessMessage(t('notifications.register_success'));
       setTimeout(() => {
         setSuccessMessage(null);
         // navigate('/user');
         dispatch(authLogin({ dniCif, password, rememberMe: true }));
       }, 2000);
-
-      //   // Si estamos en EDIT
-      // } else if (formMode === 'edit') {
-      //   // Handle editing
-      //   result = await updateApplicantUser(formApplicantData, t);
-      //   console.log('User information updated successfully:', result);
-
-      //   setSuccessMessage(t('notifications.edit_success'));
-      //   setTimeout(() => {
-      //     setSuccessMessage(null);
-      //     // navigate('/user/profile');
-      //     dispatch(authLogin({ dniCif, password, rememberMe: true }));
-      //   }, 2000);
-      // }
     } catch (error: any) {
       console.error(
         'Error:',
@@ -369,8 +359,14 @@ export function RegisterApplicantForm() {
                 />
               </li>
               <li>
-                <label>{t('forms.photo')}</label>
-                <input type="file" name="photo" onChange={handleFileChange} />
+                <FormField
+                  type="file"
+                  name="photo"
+                  label={t('forms.photo')}
+                  className="applicantphoto"
+                  accept="image/png, image/jpg, image/jpeg"
+                  ref={photoInputRef}
+                />
               </li>
             </ul>
           </div>
@@ -387,8 +383,14 @@ export function RegisterApplicantForm() {
           <div className={styles.accordionContent}>
             <ul>
               <li>
-                <label>{t('forms.cv')}</label>
-                <input type="file" name="cv" onChange={handleFileChange} />
+              <FormField
+              type="file"
+              name="cv"
+              label={t('forms.cv')}
+              className="applicantcv"
+              accept="application/pdf"
+              ref={cvInputRef}
+            />
               </li>
               <li>
                 <FormSelect
