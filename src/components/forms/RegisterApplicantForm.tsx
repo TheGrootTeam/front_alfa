@@ -358,6 +358,7 @@ export function RegisterApplicantForm() {
                   onChange={handleTextChange}
                 />
               </li>
+              <h4>{t('forms.photo')}</h4>
               <li>
                 <FormField
                   type="file"
@@ -382,6 +383,7 @@ export function RegisterApplicantForm() {
           </h3>
           <div className={styles.accordionContent}>
             <ul>
+            <h4>{t('forms.cv')}</h4>
               <li>
               <FormField
               type="file"
