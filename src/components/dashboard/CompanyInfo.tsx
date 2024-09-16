@@ -114,7 +114,6 @@ export default function CompanyInfo() {
           </div>
         </div>
         <div>
-          {/* BALIZA */}
           <SearchForm />
           <SearchResults />
           <center>
