@@ -45,7 +45,7 @@ export interface IRegisterCompanyForm {
   sector: string;
   ubication: string;
   description: string;
-  logo: string;
+  logo: any;
   password: string;
   confirmPassword: string;
   isCompany:boolean

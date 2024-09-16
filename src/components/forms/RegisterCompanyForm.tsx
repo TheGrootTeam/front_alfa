@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import styles from './form.module.css';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { getUi } from '../../store/selectors';
 import { authLogin } from '../../store/actions/authActions';
 import { isPasswordStrong } from '../../utils/utilsForms';
+import FormField from '../formElements/formFile';
 
 export function RegisterCompanyForm() {
   const { t } = useTranslation();
@@ -36,11 +37,14 @@ export function RegisterCompanyForm() {
     sector: firstSector,
     ubication: '',
     description: '',
-    logo: '',
+    logo: {},
     password: '',
     confirmPassword: '',
     isCompany: true,
   });
+
+  const logoInputRef = useRef<HTMLInputElement | null>(null);
+
 
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -104,7 +108,7 @@ export function RegisterCompanyForm() {
     for (const [field, label] of Object.entries(requiredFields)) {
       const value = formCompanyData[field as keyof IRegisterCompanyForm];
 
-      // añadimos esto para que no tenga en cuenta Sector, ya que es un objeto
+      // añadimos esto para que no tenga en cuenta Sector ni logo, ya que es un objeto
       if (typeof value === 'object' && value !== null) {
         continue;
       }
@@ -120,6 +124,7 @@ export function RegisterCompanyForm() {
     const sector = formCompanyData.sector;
     if (!sector || sector.trim().length === 0) {
       isValid = false;
+
       errorMessage = `${t('forms.sector')} ${t('errors.required_field_error')}`;
     }
 
@@ -156,20 +161,18 @@ export function RegisterCompanyForm() {
     }));
   };
 
-  // manejo de los FILE INPUT
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-    const file = files ? files[0] : { name: null };
-    setCompanyFormData((prevData) => ({
-      ...prevData,
-      [name]: `${file.name}`,
-    }));
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const logo =
+      logoInputRef?.current?.files && logoInputRef.current.files.length > 0
+        ? logoInputRef.current.files[0]
+        : 'company.logo';
+
     // si hay errores de formato o faltan campos requeridos no se envía
-    if (passwordError || emailError || dniCifError) return;
+    if (passwordError || emailError || dniCifError) {
+      return;}
     const { isValid, errorMessage } = validateForm(formCompanyData, t);
     if (!isValid) {
       setFormError(errorMessage);
@@ -179,30 +182,18 @@ export function RegisterCompanyForm() {
     // si todo ok procedemos
     try {
       let result;
-
+      formCompanyData.logo = logo;
+      console.log(formCompanyData)
       result = await createCompanyUser(formCompanyData, t);
       console.log('Company registered successfully:', result);
 
       setSuccessMessage(t('notifications.register_success'));
       setTimeout(() => {
         setSuccessMessage(null);
+        console.log(dniCif, password)
         dispatch(authLogin({ dniCif, password, rememberMe: true }));
         // navigate('/company');
       }, 2000);
-
-      // Si estamos en EDIT
-      // } else if (formMode === 'edit') {
-      //   // Handle editing
-      //   result = await updateCompanyUser(formCompanyData, t);
-      //   console.log('Company information updated successfully:', result);
-
-      //   setSuccessMessage(t('notifications.edit_success'));
-      //   setTimeout(() => {
-      //     setSuccessMessage(null);
-      //     dispatch(authLogin({ dniCif, password, rememberMe: true }));
-      //     // navigate('/company/profile');
-      //   }, 2000);
-      // }
     } catch (error: any) {
       console.error(
         'Error:',
@@ -354,8 +345,14 @@ export function RegisterCompanyForm() {
                 />
               </li>
               <li>
-                <label>{t('forms.logo')}</label>
-                <input type="file" name="logo" onChange={handleFileChange} />
+                <FormField
+                  type="file"
+                  name="logo"
+                  label={t('forms.logo')}
+                  className="companylogo"
+                  accept="image/png, image/jpg, image/jpeg"
+                  ref={logoInputRef}
+                />
               </li>
             </ul>
           </div>
