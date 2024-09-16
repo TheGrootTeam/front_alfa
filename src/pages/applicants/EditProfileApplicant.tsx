@@ -209,8 +209,7 @@ export function EditUserProfilePage() {
   // Envio de formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formApplicantData);
-    // Add files to formApplicantData
+
     const photo =
       photoInputRef?.current?.files && photoInputRef.current.files.length > 0
         ? photoInputRef.current.files[0]
@@ -237,6 +236,7 @@ export function EditUserProfilePage() {
       ) {
         return;
       }
+      // Add files to formApplicantData
       formApplicantData.photo = photo;
       formApplicantData.cv = cv;
 
@@ -330,7 +330,7 @@ export function EditUserProfilePage() {
               name="photo"
               label={t('forms.photo')}
               className="applicantphoto"
-              accept="image/png, image/jpeg"
+              accept="image/png, image/jpg, image/jpeg"
               ref={photoInputRef}
             />
             <p>
