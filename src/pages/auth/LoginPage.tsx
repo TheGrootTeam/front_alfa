@@ -53,7 +53,9 @@ export function LoginPage() {
     <Layout title={t('titles.log_in')} page="loginPage">
       {loading && <Loader />}
       {error && (
-        <Notification type="error" message={error} onClick={resetError} />
+        <div className={styles.errorMessage}>
+          <Notification type="error" message={error} onClick={resetError} />
+        </div>
       )}
       <form onSubmit={handleSubmit} id="login-form" className={styles.form}>
         <p>

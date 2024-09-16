@@ -22,8 +22,8 @@
 }
 
 .paginationButton:hover:not(:disabled) {
-  background-color: var(--accent-alt);
-  border: 2px solid var(--accent-alt);
+  background-color: var(--accent-light);
+  border: 2px solid var(--accent-light);
   color: var(--light);
 }
 
@@ -43,8 +43,8 @@
 }
 
 .pageNumberButton:hover {
-  border: 2px solid var(--accent-alt);
-  background-color: var(--accent-alt);
+  border: 2px solid var(--accent-light);
+  background-color: var(--accent-light);
   color: var(--light);
 }
 

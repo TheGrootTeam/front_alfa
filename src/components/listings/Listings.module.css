@@ -1,14 +1,17 @@
 .listings {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
   margin: 0 auto;
   max-width: 100%;
   padding: 2rem 2rem 4rem;
+
+  .listingsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 @media only screen and (min-width: 1280px) {
-  .homePage {
+  .homePage .listingsContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;

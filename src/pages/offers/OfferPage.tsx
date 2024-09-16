@@ -36,6 +36,20 @@ export function OfferPage() {
   const companyLoged = companyInUse.id;
   const ownerOffer = companyId === companyLoged ? true : false;
 
+  // To choose the icon for 'typeJob'
+  const getJobLocation = (typeJob: string) => {
+    if (typeJob === 'Remoto') return 'location_away';
+    if (typeJob === 'Presencial') return 'domain';
+    return 'work';
+  };
+
+  // To choose the icon for 'internJob'
+  const getInternshipType = (internJob: string) => {
+    if (internJob === 'Remunerado') return 'paid';
+    if (internJob === 'Voluntariado/ONG') return 'volunteer_activism';
+    return 'money_off';
+  };
+
   const deleteOffer = () => {
     if (id) {
       const successMessage = t('success.delete_offer_success');
@@ -107,23 +121,23 @@ export function OfferPage() {
                       className={`material-symbols-outlined ${styles.iconSmall}`}
                     >
                       location_on
-                    </span>{' '}
+                    </span>
                     {offer.location}
                   </li>
                   <li>
                     <span
                       className={`material-symbols-outlined ${styles.iconSmall}`}
                     >
-                      work
-                    </span>{' '}
+                      {getJobLocation(offer.typeJob)}
+                    </span>
                     {offer.typeJob}
                   </li>
                   <li>
                     <span
                       className={`material-symbols-outlined ${styles.iconSmall}`}
                     >
-                      {offer.internJob === 'Remunerado' ? 'paid' : 'money_off'}
-                    </span>{' '}
+                      {getInternshipType(offer.internJob)}
+                    </span>
                     {offer.internJob}
                   </li>
                 </ul>
@@ -142,7 +156,6 @@ export function OfferPage() {
                 <div className={styles.offerOptions}>
                   {ownerOffer && (
                     <Button onClick={editOffer}>
-                      {' '}
                       {t('nav.edit_offer_link')}
                     </Button>
                   )}

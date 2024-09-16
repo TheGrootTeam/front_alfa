@@ -2,15 +2,27 @@
 .notification {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  margin-top: 1rem;
-  font-size: 1.4rem;
+  margin: 1rem auto;
+  font-size: 1.5rem;
   font-weight: 500;
   text-align: center;
   width: 100%;
+  max-width: 600px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease-in;
 
-  &:hover {
-    cursor: pointer;
+  .icon {
+    position: absolute;
+    right: 1rem;
   }
+}
+
+.notification:hover {
+  cursor: pointer;
+  transform: scale(1.02);
 }
 
 .success {
