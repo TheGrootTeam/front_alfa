@@ -64,7 +64,7 @@ h1 {
       font-family: var(--font-secondary);
       color: var(--accent-light);
 
-      & button:hover + span {
+      & .logout:hover + span {
         color: var(--accent-alt-light);
       }
     }
@@ -100,7 +100,7 @@ h1 {
       }
     }
 
-    button {
+    .logout > button {
       font-family: var(--font-secondary);
       font-weight: 500;
       color: var(--accent-light);

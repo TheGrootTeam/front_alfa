@@ -81,6 +81,14 @@ li:has(span.iconSmall) {
 .offerOptions:not(:empty) {
   margin: 2rem 0 0 0;
   display: flex;
+
+  .button:first-child {
+    margin-right: 1rem;
+  }
+}
+
+.deleteOfferOptions {
+  display: flex;
   gap: 1rem;
 }
 
@@ -89,6 +97,26 @@ li:has(span.iconSmall) {
     ul {
       gap: 0.5rem;
       margin-bottom: 2rem;
+    }
+  }
+  .offerOptions {
+    flex-direction: column;
+  }
+
+  .deleteOfferOptions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+
+    p {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+    button:first-child {
+      grid-area: 2 / 1 / 3 / 2;
+    }
+    button:last-child {
+      grid-area: 2 / 2 / 3 / 3;
     }
   }
 }

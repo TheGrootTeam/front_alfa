@@ -183,7 +183,7 @@ export function OfferPage() {
                   )}
                   &nbsp;
                   {showConfirm && (
-                    <div>
+                    <div className={styles.deleteOfferOptions}>
                       <p>{t('dialogs.delete_offer_message')}</p>
                       <Button onClick={deleteOffer}>
                         {t('buttons.yes_delete')}
