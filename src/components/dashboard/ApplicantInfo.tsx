@@ -61,69 +61,74 @@ export default function ApplicantInfo() {
     return (
       <>
         <div className={styles.container}>
-          <div className={styles.profile__photo}>
-            <img
-              src="https://previews.123rf.com/images/yupiramos/yupiramos1609/yupiramos160911129/62789324-avatar-cara-hombre-dibujos-animados-hombre-persona-ilustraci%C3%B3n-vectorial.jpg"
-              alt={applicant.photo}
-            />
-          </div>
-          <h2>{`${applicant.name} ${applicant.lastName}`}</h2>
-          <div className={styles.profile__info}>
-            <p>
-              <span>{t('forms.nif')}:</span> {applicant.dniCif}
-            </p>
-            <p>
-              <span>{t('forms.email')}:</span> {applicant.email}
-            </p>
-            <p>
-              <span>{t('forms.phone')}:</span> {applicant.phone}
-            </p>
-            <p>
-              <span>{t('forms.location')}:</span> {applicant.ubication}
-            </p>
-            <p>
-              <span>{t('forms.internship_type')}:</span>{' '}
-              {`${applicant.typeJob} & ${applicant.internType}`}
-            </p>
-            <div>
-              <span>{t('forms.mainSkills')}:</span>
-              <ul>
-                {applicant.mainSkills.map((skill) => (
-                  <li key={skill._id}>{skill.skill}</li>
-                ))}
-              </ul>
+          <header className={styles.info__header}>
+            <div className={styles.profile__photo}>
+              <img
+                src="https://previews.123rf.com/images/yupiramos/yupiramos1609/yupiramos160911129/62789324-avatar-cara-hombre-dibujos-animados-hombre-persona-ilustraci%C3%B3n-vectorial.jpg"
+                alt={applicant.photo}
+              />
             </div>
-            <div>
-              <span>{t('forms.wantedRole')}:</span>
-              <ul>
-                {applicant.wantedRol.map((rol) => (
-                  <li key={rol._id}>{rol.rol}</li>
-                ))}
-              </ul>
+            <h2>{`${applicant.name} ${applicant.lastName}`}</h2>
+          </header>
+          <section className={styles.info__maindetails}>
+            <div className={styles.profile__info}>
+              <p>
+                <span>{t('forms.nif')}:</span> {applicant.dniCif}
+              </p>
+              <p>
+                <span>{t('forms.email')}:</span> {applicant.email}
+              </p>
+              <p>
+                <span>{t('forms.phone')}:</span> {applicant.phone}
+              </p>
+              <p>
+                <span>{t('forms.location')}:</span> {applicant.ubication}
+              </p>
+              <p>
+                <span>{t('forms.internship_type')}:</span>{' '}
+                {`${applicant.typeJob} & ${applicant.internType}`}
+              </p>
+              <div>
+                <span>{t('forms.mainSkills')}:</span>
+                <ul>
+                  {applicant.mainSkills.map((skill) => (
+                    <li key={skill._id}>{skill.skill}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <span>{t('forms.wantedRole')}:</span>
+                <ul>
+                  {applicant.wantedRol.map((rol) => (
+                    <li key={rol._id}>{rol.rol}</li>
+                  ))}
+                </ul>
+              </div>
+              <p>
+                <span>{t('forms.cv')}:</span> {applicant.cv}
+              </p>
+              <p>
+                <span>{t('forms.willing_to_relocate')}:</span>{' '}
+                {applicant.geographically_mobile ? t('gen.yes') : t('gen.no')}
+              </p>
             </div>
-            <p>
-              <span>{t('forms.cv')}:</span> {applicant.cv}
-            </p>
-            <p>
-              <span>{t('forms.willing_to_relocate')}:</span>{' '}
-              {applicant.geographically_mobile ? t('gen.yes') : t('gen.no')}
-            </p>
-          </div>
-          <div className={styles.button}>
-            <Link to="/user/edit">
-              <Button>{t('titles.userprofile_edit')}</Button>
-            </Link>
-          </div>
-
-          <div className={styles.button}>
-            <ConfirmationButton
-              buttonLabel={t('buttons.userprofile_delete')}
-              dialogText={t('dialogs.confirm_delete_profile')}
-              confirmLabel={t('buttons.yes_delete')}
-              cancelLabel={t('buttons.no_cancel')}
-              confirmAction={handleDeleteProfile}
-            />
-          </div>
+          </section>
+          <section className={styles.buttons}>
+            <div className={styles.button}>
+              <Link to="/user/edit">
+                <Button>{t('titles.userprofile_edit')}</Button>
+              </Link>
+            </div>
+            <div className={styles.button}>
+              <ConfirmationButton
+                buttonLabel={t('buttons.userprofile_delete')}
+                dialogText={t('dialogs.confirm_delete_profile')}
+                confirmLabel={t('buttons.yes_delete')}
+                cancelLabel={t('buttons.no_cancel')}
+                confirmAction={handleDeleteProfile}
+              />
+            </div>
+          </section>
         </div>
 
         {showSuccessDialog && (

@@ -70,58 +70,62 @@ export default function CompanyInfo() {
   function showInfo() {
     return (
       <>
+        {/* COMPANY PROFILE */}
         <div className={styles.container}>
-          <div className={styles.profile__photo}>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Logo-imperio-gal%C3%A1ctico.png"
-              alt={company.logo}
-            />
-          </div>
-          <div className={styles.profile__info}>
+          <header className={styles.info__header}>
+            <div className={styles.profile__photo}>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Logo-imperio-gal%C3%A1ctico.png"
+                alt={company.logo}
+              />
+            </div>
             <h2>{company.name}</h2>
-            <p>
-              <span>{t('forms.cif')}:</span> {company.dniCif}
-            </p>
-            <p>
-              <span>{t('forms.email')}:</span> {company.email}
-            </p>
-            <p>
-              <span>{t('forms.phone')}:</span> {company.phone}
-            </p>
-            <p>
-              <span>{t('forms.location')}:</span> {company.ubication}
-            </p>
-            <p>
-              <span>{t('forms.description')}:</span> {company.description}
-            </p>
-            <p>
-              <span>{t('forms.sector')}:</span> {company.sector.sector}
-            </p>
-          </div>
-          <div className={styles.button}>
-            <Link to="/company/edit">
-              <Button>{t('buttons.userprofile_edit')}</Button>
-            </Link>
-          </div>
-          <div className={styles.button}>
-            <ConfirmationButton
-              buttonLabel={t('buttons.userprofile_delete')}
-              dialogText={t('dialogs.confirm_delete_profile')}
-              confirmLabel={t('buttons.yes_delete')}
-              cancelLabel={t('buttons.no_cancel')}
-              confirmAction={handleDeleteProfile}
-            />
-          </div>
+          </header>
+          <section className={styles.info__maindetails}>
+            <div className={styles.profile__info}>
+              <p>
+                <span>{t('forms.cif')}:</span> {company.dniCif}
+              </p>
+              <p>
+                <span>{t('forms.email')}:</span> {company.email}
+              </p>
+              <p>
+                <span>{t('forms.phone')}:</span> {company.phone}
+              </p>
+              <p>
+                <span>{t('forms.location')}:</span> {company.ubication}
+              </p>
+              <p>
+                <span>{t('forms.description')}:</span> {company.description}
+              </p>
+              <p>
+                <span>{t('forms.sector')}:</span> {company.sector.sector}
+              </p>
+            </div>
+          </section>
+          <section className={styles.buttons}>
+            <div className={styles.button}>
+              <Link to="/company/edit">
+                <Button>{t('buttons.userprofile_edit')}</Button>
+              </Link>
+            </div>
+            <div className={styles.button}>
+              <ConfirmationButton
+                buttonLabel={t('buttons.userprofile_delete')}
+                dialogText={t('dialogs.confirm_delete_profile')}
+                confirmLabel={t('buttons.yes_delete')}
+                cancelLabel={t('buttons.no_cancel')}
+                confirmAction={handleDeleteProfile}
+              />
+            </div>
+          </section>
         </div>
-        <div>
-          {/* BALIZA */}
+
+        {/* LISTINGS ETC */}
+        <div className={styles.offersResults}>
           <SearchForm />
           <SearchResults />
-          <center>
-            <br></br>
-            <hr></hr>
-            <h3>{t('titles.published_offers')}</h3>
-          </center>
+          <h3 className={styles.h3}>{t('titles.published_offers')}</h3>
           <ListDashboardOffersCompany
             publishedOffers={company.publishedOffers}
           />

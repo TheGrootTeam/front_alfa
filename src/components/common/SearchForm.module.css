@@ -1,21 +1,14 @@
+/* Estilos generales formulario */
 .searchForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 4rem auto;
-  width: calc(100% - 4rem);
-
   & > div {
     display: flex;
-    width: 100%;
   }
 
   .input {
     flex-grow: 1;
-    border: 1px solid var(--neutral-bg);
+    border: 1px solid var(--neutral-min);
     border-radius: 1rem 0 0 1rem;
-    background-color: var(--neutral-bg);
+    background-color: var(--light);
     font-size: 2rem;
 
     line-height: 4rem;
@@ -32,9 +25,31 @@
       border: 1px solid var(--neutral);
     }
   }
+
+  .button {
+    line-height: 4rem;
+    padding: 0 1rem;
+    border-radius: 0 1rem 1rem 0;
+    background-color: var(--accent-light);
+    border: 1px solid var(--accent-light);
+    outline: none;
+    color: var(--light);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--accent), black 10%);
+      border: 1px solid color-mix(in srgb, var(--accent), black 10%);
+      cursor: pointer;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
 }
 
-.container {
+/* Estilos especificos HOME */
+.containerHome {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,12 +83,34 @@
 }
 
 .homePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem auto;
+  width: calc(100% - 4rem);
+
+  .input {
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 20px 30px -10px;
+  }
+}
+
+/* Estilos FORMULARIO POR DEFECTO (dashboard) */
+.containerDefault {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.default {
+  width: 100%;
+
   & > div {
     display: flex;
   }
 
   .input {
-    flex-grow: 0;
+    width: 100%;
     border: 1px solid var(--neutral-bg);
     border-radius: 1rem 0 0 1rem;
     background-color: var(--light);
@@ -82,8 +119,9 @@
     color: var(--neutral-dark);
     padding: 0 2rem;
     outline: none;
-    width: calc(100% - 3rem);
-    box-shadow: rgba(0, 0, 0, 0.7) 0px 20px 30px -10px;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 
     &:placeholder {
       color: var(--neutral-light);
@@ -93,27 +131,6 @@
       height: calc(4rem - 2px);
       border: 1px solid var(--neutral);
     }
-  }
-}
-
-.searchForm .button {
-  line-height: 4rem;
-  padding: 0 1rem;
-  border-radius: 0 1rem 1rem 0;
-  background-color: var(--accent);
-  border: 1px solid var(--accent);
-  outline: none;
-  color: var(--light);
-
-  &:hover {
-    background-color: color-mix(in srgb, var(--accent), white 25%);
-    border: 1px solid color-mix(in srgb, var(--accent), white 25%);
-    cursor: pointer;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
   }
 }
 
@@ -127,11 +144,9 @@
 }
 
 @media (min-width: 600px) {
-  .searchForm {
+  .homePage {
     width: 400px;
     max-width: calc(100% - 4rem);
-  }
-  .homePage {
     input {
       width: 400px;
     }
@@ -139,7 +154,7 @@
 }
 
 @media (min-width: 768px) {
-  .container {
+  .containerHome {
     height: 30dvh;
     gap: 1rem;
     background-image: linear-gradient(
@@ -156,14 +171,14 @@
 }
 
 @media (min-width: 960px) {
-  .container {
+  .containerHome {
     height: 45dvh;
     gap: 2rem;
   }
 }
 
 @media (max-height: 620px) {
-  .container {
+  .containerHome {
     height: 15dvh;
 
     h2 {
@@ -173,16 +188,13 @@
 }
 
 @media (min-width: 1400px) {
-  .searchForm {
-    width: 500px;
-  }
   .homePage {
     input {
       width: 600px;
     }
   }
 
-  .container h2 {
+  .containerHome h2 {
     font-size: 6rem;
   }
 }

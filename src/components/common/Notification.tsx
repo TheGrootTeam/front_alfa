@@ -20,7 +20,12 @@ export const Notification: React.FC<NotificationProps> = ({
       className={`${styles.notification} ${styles[type]}`}
       onClick={handleClick}
     >
-      {message}{' '}
+      {message}
+      {type === 'error' && (
+        <span className={`material-symbols-outlined ${styles.icon}`}>
+          close
+        </span>
+      )}
     </div>
   );
 };

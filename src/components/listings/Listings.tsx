@@ -48,29 +48,31 @@ export function Listings() {
   function showOffers() {
     return (
       <div className={containerClass}>
-        {offers.map((offer, index) => {
-          const min = currentPage * 10 - 10;
-          const max = currentPage * 10 - 1;
-          if (min <= index && index <= max) {
-            return (
-              <div key={offer.id}>
-                <ListingDetail
-                  id={offer.id}
-                  companyOwner={offer.companyOwner}
-                  description={offer.description}
-                  internJob={offer.internJob}
-                  location={offer.location}
-                  numberApplicants={offer.numberApplicants}
-                  numberVacancies={offer.numberVacancies}
-                  publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
-                  position={offer.position}
-                  status={offer.status}
-                  typeJob={offer.typeJob}
-                />
-              </div>
-            );
-          }
-        })}
+        <div className={styles.listingsContainer}>
+          {offers.map((offer, index) => {
+            const min = currentPage * 10 - 10;
+            const max = currentPage * 10 - 1;
+            if (min <= index && index <= max) {
+              return (
+                <div key={offer.id}>
+                  <ListingDetail
+                    id={offer.id}
+                    companyOwner={offer.companyOwner}
+                    description={offer.description}
+                    internJob={offer.internJob}
+                    location={offer.location}
+                    numberApplicants={offer.numberApplicants}
+                    numberVacancies={offer.numberVacancies}
+                    publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
+                    position={offer.position}
+                    status={offer.status}
+                    typeJob={offer.typeJob}
+                  />
+                </div>
+              );
+            }
+          })}
+        </div>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

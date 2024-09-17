@@ -1,7 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { getUi } from '../../store/selectors';
-import { uiSlice } from '../../store/reducers/uiSlice';
 import { authLogout } from '../../store/actions/authActions';
 import { getIsLogged, getIsCompany } from '../../store/selectors';
 import { AppDispatch } from '../../store/store';
@@ -16,7 +14,6 @@ import { useState } from 'react';
 
 const Header = () => {
   const { t, i18n } = useTranslation();
-  const { error } = useSelector(getUi);
   const auth = useSelector(getIsLogged); // To verify if the user is logged
   const isCompany = useSelector(getIsCompany); //To verify if it is a company
   const dispatch = useDispatch<AppDispatch>();
@@ -32,28 +29,20 @@ const Header = () => {
     dispatch(authLogout());
   };
 
-  const resetError = () => {
-    dispatch(uiSlice.actions.resetError());
-  };
-
   const toggleMenu = () => {
     setMenuBurgerOpen(!menuBurgerOpen);
   };
 
   return (
     <>
-      <div className={styles.headerError} onClick={resetError}>
-        {error ? error : null}
-      </div>
       <header className={styles.header}>
         <div className={styles.inner}>
           <h1 className={styles.h1}>
             <Link to={`/`}>
-              <Logo className={styles.icon} />
-              <span>InternIT</span>
+              <Logo className={styles.logo} />
+              <span>internIT</span>
             </Link>
           </h1>
-          {/* <nav className={styles.nav}> */}
           <nav
             className={`${styles.nav} ${menuBurgerOpen ? styles.open : ''} `}
           >

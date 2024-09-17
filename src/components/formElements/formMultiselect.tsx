@@ -1,4 +1,5 @@
 import './formElements.module.css';
+import { useTranslation } from 'react-i18next';
 
 interface MultiSelectOption {
   _id: string;
@@ -24,9 +25,17 @@ export function FormMultiSelect({
   options,
   optionLabel,
 }: FormMultiSelectProps) {
+  const { t } = useTranslation();
+
+  // Sort the options array alphabetically by the optionLabel
+  const sortedOptions = [...options].sort((a, b) =>
+    a[optionLabel].localeCompare(b[optionLabel])
+  );
+
   return (
     <>
       <label htmlFor={id}>{labelText}</label>
+      <em style={{ textAlign: 'left' }}>{t('forms.multi_instructions')}</em>
       <select
         id={id}
         name={name}
@@ -34,7 +43,7 @@ export function FormMultiSelect({
         onChange={onChange}
         multiple // Keep the 'multiple' attribute
       >
-        {options.map((option) => (
+        {sortedOptions.map((option) => (
           <option key={option._id} value={option._id}>
             {option[optionLabel]} {/* Display the correct label */}
           </option>

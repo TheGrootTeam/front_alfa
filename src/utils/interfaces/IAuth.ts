@@ -24,8 +24,8 @@ export interface IRegisterApplicantForm {
   lastName: string;
   email: string;
   phone: string;
-  photo: string;
-  cv: string;
+  photo: any;
+  cv: any;
   ubication: string;
   typeJob: string;
   internType: string;
@@ -45,7 +45,7 @@ export interface IRegisterCompanyForm {
   sector: string;
   ubication: string;
   description: string;
-  logo: string;
+  logo: any;
   password: string;
   confirmPassword: string;
   isCompany:boolean

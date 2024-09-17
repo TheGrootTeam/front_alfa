@@ -28,6 +28,8 @@ export function LoginPage() {
 
   const { dniCif, password, rememberMe } = formData;
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(authLogin(formData));
@@ -53,7 +55,9 @@ export function LoginPage() {
     <Layout title={t('titles.log_in')} page="loginPage">
       {loading && <Loader />}
       {error && (
-        <Notification type="error" message={error} onClick={resetError} />
+        <div className={styles.errorMessage}>
+          <Notification type="error" message={error} onClick={resetError} />
+        </div>
       )}
       <form onSubmit={handleSubmit} id="login-form" className={styles.form}>
         <p>
@@ -70,12 +74,21 @@ export function LoginPage() {
           <FormInputText
             labelText={t('forms.password')}
             className="form__inputfield"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             name="password"
             value={password}
             onChange={handleChange}
             required
+          />
+        </p>
+        <p className={styles.withCheckbox}>
+          <FormCheckbox
+            id="showPassword-checkbox"
+            name="showPassword"
+            labelText={t('forms.password_one_show')}
+            checked={showPassword}
+            onChange={() => setShowPassword((prev) => !prev)}
           />
         </p>
         <p className={styles.withCheckbox}>

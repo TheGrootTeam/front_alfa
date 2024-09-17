@@ -28,9 +28,7 @@ export const SearchResults = () => {
   const location = useLocation();
 
   const containerClass =
-    location.pathname === '/'
-      ? `${styles.listings} ${styles.homePage}`
-      : styles.listings;
+    location.pathname === '/' ? `${styles.homePage}` : `${styles.default}`;
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {

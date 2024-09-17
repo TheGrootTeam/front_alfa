@@ -16,7 +16,7 @@ export default function Layout(props: PropsWithChildren<Props>) {
       <main
         className={`${styles.layout_main} ${props.page} ${props.mainClassName || ''}`}
       >
-        {props.title && <h2>{props.title}</h2>}
+        {props.title && <h2 className={styles.visibleTitle}>{props.title}</h2>}
         {props.children}
       </main>
       <Footer />

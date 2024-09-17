@@ -23,10 +23,15 @@ const SearchForm = () => {
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   const location = useLocation();
 
+  const containerClass =
+    location.pathname === '/'
+      ? `${styles.containerHome}`
+      : `${styles.containerDefault}`;
+
   const searchFormClass =
     location.pathname === '/'
       ? `${styles.searchForm} ${styles.homePage}`
-      : styles.searchForm;
+      : `${styles.searchForm} ${styles.default}`;
 
   // Sync local searchTerm with Redux searchTerm
   useEffect(() => {
@@ -78,7 +83,7 @@ const SearchForm = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={containerClass}>
       {location.pathname === '/' && <h2>{t('titles.home_title')}</h2>}
       <div className={searchFormClass}>
         <div>

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { getCompanyInfo, getUi } from '../../store/selectors';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { updateCompanyUser } from '../../utils/services/editService';
 import { FormInputText } from '../../components/formElements/formInputText';
 import Notification from '../../components/common/Notification';
@@ -16,14 +16,18 @@ import { getInfoCompanyAction } from '../../store/actions/infoCompanyActions';
 import { IEditCompanyInfo } from '../../utils/interfaces/IProfile';
 import { Link } from 'react-router-dom';
 import { companyInfoSlice } from '../../store/reducers/infoCompanySlice';
+import FormField from '../../components/formElements/formFile';
+import { useNavigate } from 'react-router-dom';
 
 export function EditCompanyProfilePage() {
   const { t } = useTranslation();
   const company = useSelector(getCompanyInfo);
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector(getUi);
+  const navigate = useNavigate();
 
-  const [formCompanyData, setCompanyFormData] = useState<IEditCompanyInfo>({
+  const setVariables = {
+    id: '',
     dniCif: '',
     name: '',
     email: '',
@@ -32,11 +36,22 @@ export function EditCompanyProfilePage() {
     ubication: '',
     description: '',
     logo: '',
-  });
+  };
+
+  const [formCompanyData, setCompanyFormData] =
+    useState<IEditCompanyInfo>(setVariables);
+
+  const [dataModified, setDataModified] = useState(false);
+
+  const logoInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [initialData, setInitialData] =
+    useState<IEditCompanyInfo>(setVariables);
 
   useEffect(() => {
     dispatch(getInfoCompanyAction());
-    setCompanyFormData({
+    const companyInfo = {
+      id: company.id,
       dniCif: company.dniCif,
       name: company.name,
       sector: company.sector._id,
@@ -45,7 +60,10 @@ export function EditCompanyProfilePage() {
       ubication: company.ubication,
       description: company.description,
       logo: company.logo,
-    });
+    };
+
+    setCompanyFormData(companyInfo);
+    setInitialData(companyInfo);
   }, [dispatch, company]);
 
   const [formError, setFormError] = useState<string | null>(null);
@@ -112,6 +130,8 @@ export function EditCompanyProfilePage() {
   // manejo de los campos tipo TEXTO
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    //To activate the form button
+    setDataModified(true);
     setCompanyFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -121,6 +141,8 @@ export function EditCompanyProfilePage() {
   // manejo de los campos tipo TEXTAREA
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    ////To activate the form button
+    setDataModified(true);
     setCompanyFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -132,25 +154,22 @@ export function EditCompanyProfilePage() {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
+    //To activate the form button
+    setDataModified(true);
     setCompanyFormData((prevData: IEditCompanyInfo) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  // manejo de los FILE INPUT
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-    const file = files ? files[0] : { name: null };
-    setCompanyFormData((prevData) => ({
-      ...prevData,
-      [name]: `${file.name}`,
-    }));
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setDataModified(false);
+    const logo =
+      logoInputRef?.current?.files && logoInputRef.current.files.length > 0
+        ? logoInputRef.current.files[0]
+        : company.logo;
+
     // si hay errores de formato o faltan campos requeridos no se envía
     if (emailError) return;
     const { isValid, errorMessage } = validateForm(formCompanyData, t);
@@ -161,17 +180,49 @@ export function EditCompanyProfilePage() {
 
     // si todo ok procedemos
     try {
-      let result;
+      if (initialData === formCompanyData && initialData.logo === logo) {
+        return;
+      }
+      // Add files to formApplicantData
+      formCompanyData.logo = logo;
 
-      result = await updateCompanyUser(formCompanyData, t);
+      console.log(formCompanyData);
+
+      const result = await updateCompanyUser(formCompanyData, t);
       console.log('Company information updated successfully:', result);
 
       setSuccessMessage(t('notifications.edit_success'));
-      dispatch(companyInfoSlice.actions.resetCompanyInfoStore())
-
+      // Reset current value in logo
+      if (logoInputRef.current) {
+        logoInputRef.current.value = '';
+      }
+      dispatch(companyInfoSlice.actions.resetCompanyInfoStore());
     } catch (error) {
       console.error(t('errors.processing_form_error'), error);
       setFormError(t('errors.generic_form_error'));
+    }
+  };
+
+  useEffect(() => {
+    if (!loading && !error && successMessage) {
+      setTimeout(() => {
+        setSuccessMessage(null);
+        navigate('/company');
+      }, 3000); // Hide the messages in 3 sg and redirect
+    }
+  }, [loading, error, successMessage, navigate]);
+
+  // Handling logo type fields (file)
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      //To activate the form button
+      setDataModified(true);
+
+      const file = e.target.files[0];
+      setCompanyFormData((prevData) => ({
+        ...prevData,
+        logo: file,
+      }));
     }
   };
 
@@ -259,11 +310,28 @@ export function EditCompanyProfilePage() {
             />
           </li>
           <li>
-            <label>{t('forms.logo')}</label>
-            <input type="file" name="logo" onChange={handleFileChange} />
+            <FormField
+              type="file"
+              name="logo"
+              label={t('forms.logo')}
+              className="companylogo"
+              accept="image/png, image/jpg, image/jpeg"
+              ref={logoInputRef}
+              //To activate the form button
+              onChange={handleLogoChange}
+            />
+            <p>
+              {t('forms.actual_photo')}:{' '}
+              {typeof formCompanyData.logo === 'string'
+                ? `${formCompanyData.logo}`
+                : '--'}
+            </p>
           </li>
           <li>
-            <Button type="submit" disabled={loading || !!error}>
+            <Button
+              type="submit"
+              disabled={loading || !!error || !dataModified}
+            >
               {t('buttons.save_changes')}
             </Button>
           </li>
