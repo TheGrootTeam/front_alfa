@@ -24,6 +24,7 @@ import {
 import { MainSkill, WantedRol } from '../../utils/interfaces/IInfoApplicant';
 import FormField from '../../components/formElements/formFile';
 import { applicantInfoSlice } from '../../store/reducers/infoApplicantSlice';
+import { useNavigate } from 'react-router-dom';
 
 const formattedSkills = rawSkills.map((skill) => ({
   _id: skill._id,
@@ -44,6 +45,8 @@ export function EditUserProfilePage() {
 
   const jobOptions = useFormSelectOptions('job'); // opciones para el selector typeJob
   const internOptions = useFormSelectOptions('internship'); // opciones para el selector internType
+
+  const navigate = useNavigate();
 
   const setVariables = {
     id: '',
@@ -258,6 +261,18 @@ export function EditUserProfilePage() {
       setFormError(t('errors.generic_form_error'));
     }
   };
+
+  useEffect(() => {
+    // if (!loading && !error && offerStatus) {
+    if (!loading && !error && successMessage) {
+      // setDatesSaved(true);
+      setTimeout(() => {
+        setSuccessMessage(null);
+        //setDatesSaved(false);
+        navigate('/user');
+      }, 3000); // Hide the messages in 3 sg
+    }
+  }, [loading, error, successMessage, navigate]);
 
   return (
     <Layout title={t('titles.userprofile_edit')} page="edituserprofile">
