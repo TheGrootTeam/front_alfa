@@ -107,6 +107,7 @@ select[multiple] option[selected] {
   cursor: pointer;
   transition:
     background-color 0.3s ease,
+    border 0.3s ease,
     box-shadow 0.3s ease,
     transform 0.25s ease-in;
   padding: 0 1.5rem;
@@ -114,6 +115,7 @@ select[multiple] option[selected] {
 
   &:hover {
     background-color: var(--accent-dark);
+    border: 2px solid var(--accent-dark);
     transform: scale(1.02);
   }
 
@@ -121,8 +123,8 @@ select[multiple] option[selected] {
     background-color: var(--neutral-min);
     cursor: not-allowed;
     box-shadow: none;
-    border: 2px solid var(--dark);
-    color: var(--reverse-text-color);
+    border: 2px solid var(--neutral);
+    color: var(--neutral-dark);
   }
 }
 

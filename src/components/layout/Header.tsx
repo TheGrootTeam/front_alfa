@@ -40,7 +40,7 @@ const Header = () => {
           <h1 className={styles.h1}>
             <Link to={`/`}>
               <Logo className={styles.logo} />
-              <span>InternIT</span>
+              <span>internIT</span>
             </Link>
           </h1>
           <nav
