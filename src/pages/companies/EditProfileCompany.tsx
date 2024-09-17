@@ -17,12 +17,14 @@ import { IEditCompanyInfo } from '../../utils/interfaces/IProfile';
 import { Link } from 'react-router-dom';
 import { companyInfoSlice } from '../../store/reducers/infoCompanySlice';
 import FormField from '../../components/formElements/formFile';
+import { useNavigate } from 'react-router-dom';
 
 export function EditCompanyProfilePage() {
   const { t } = useTranslation();
   const company = useSelector(getCompanyInfo);
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector(getUi);
+  const navigate = useNavigate();
 
   const setVariables = {
     id: '',
@@ -193,6 +195,15 @@ export function EditCompanyProfilePage() {
       setFormError(t('errors.generic_form_error'));
     }
   };
+
+  useEffect(() => {
+    if (!loading && !error && successMessage) {
+      setTimeout(() => {
+        setSuccessMessage(null);
+        navigate('/company');
+      }, 3000); // Hide the messages in 3 sg
+    }
+  }, [loading, error, successMessage, navigate]);
 
   return (
     <Layout title={t('titles.companyprofile_edit')} page="editcompanyprofile">
