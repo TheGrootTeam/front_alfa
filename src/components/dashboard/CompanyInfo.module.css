@@ -65,6 +65,9 @@ ul {
   .profile__photo img {
     max-width: 300px;
   }
+  .offersResults {
+    width: 100%;
+  }
 }
 
 @media (641px < width < 800px) {
@@ -80,7 +83,7 @@ ul {
     justify-content: flex-start;
 
     h2 {
-      margin: 0 auto;
+      margin: 1rem auto 0;
       padding: 0;
     }
   }
@@ -91,6 +94,9 @@ ul {
   }
   .buttons {
     flex-basis: 100%;
+  }
+  .offersResults {
+    width: 100%;
   }
 }
 

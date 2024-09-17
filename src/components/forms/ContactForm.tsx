@@ -13,8 +13,8 @@ interface ContactFormProps {
   onRequestClose: () => void;
   applicantEmail: string;
   applicantId: string;
-  applicantName: string;  
-  applicantLastName: string;  
+  applicantName: string;
+  applicantLastName: string;
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
@@ -22,7 +22,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   applicantEmail,
   applicantId,
   applicantName,
-  applicantLastName,  
+  applicantLastName,
   offerName,
   isOpen,
   onRequestClose,
@@ -65,8 +65,15 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const handleSendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-  
-    if (!companyEmail || !applicantEmail || !message || !applicantId || !applicantName || !applicantLastName) {
+
+    if (
+      !companyEmail ||
+      !applicantEmail ||
+      !message ||
+      !applicantId ||
+      !applicantName ||
+      !applicantLastName
+    ) {
       setNotification({
         message: t('errors.all_fields_required'),
         type: 'error',
@@ -74,13 +81,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
       setLoading(false);
       return;
     }
-  
+
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const apiVersion = import.meta.env.VITE_API_VERSION;
-  
+
       const url = `${apiUrl}/api/${apiVersion}/send-email/contact-company`;
-  
+
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -93,10 +100,10 @@ const ContactForm: React.FC<ContactFormProps> = ({
           message,
           applicantId,
           applicantName,
-          applicantLastName,  
+          applicantLastName,
         }),
       });
-  
+
       const result = await response.json();
       if (result.success) {
         setNotification({
@@ -121,8 +128,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
       setLoading(false);
     }
   };
-  
-  
+
   return (
     <Modal
       isOpen={isOpen}
@@ -130,7 +136,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
       contentLabel={t('titles.contact_company')}
       style={{
         content: {
-          width: '40%',
+          width: '50%',
           height: '60%',
           margin: 'auto',
           borderRadius: '20px',
@@ -140,7 +146,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
             'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
         },
         overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(17, 17, 17, 0.3);',
+          backdropFilter: 'blur(3px)',
           display: 'flex',
           alignItems: 'right',
           justifyContent: 'center',
@@ -149,15 +156,15 @@ const ContactForm: React.FC<ContactFormProps> = ({
     >
       <div className={styles.modalHeader}>
         <button onClick={onRequestClose} className={styles.closeButton}>
-          X
+          <span className="material-symbols-outlined">close</span>
         </button>
       </div>
       <form onSubmit={handleSendEmail} className={styles.form}>
-        <h2>
+        <h2 className={styles.h2}>
           {t('titles.contact_')} {companyName}
         </h2>
-        <p>
-          {t('gen.mail_subject')} {offerName}
+        <p className={styles.subject}>
+          <strong>{t('gen.mail_subject')}</strong> {offerName}
         </p>
         <textarea
           placeholder={t('forms.mail_message_placeholder')}
