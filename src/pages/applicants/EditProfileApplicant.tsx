@@ -99,6 +99,7 @@ export function EditUserProfilePage() {
 
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [dataModified, setDataModified] = useState(false);
 
   // VALIDACIONES
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -158,6 +159,8 @@ export function EditUserProfilePage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    //To activate the form button
+    setDataModified(true);
     setApplicantFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -167,6 +170,8 @@ export function EditUserProfilePage() {
   // manejo de las CHECKBOX
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
+    //To activate the form button
+    setDataModified(true);
     setApplicantFormData((prevData) => ({
       ...prevData,
       [name]: checked,
@@ -176,6 +181,8 @@ export function EditUserProfilePage() {
   // manejo de los SELECT simples
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
+    //To activate the form button
+    setDataModified(true);
     setApplicantFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -202,17 +209,46 @@ export function EditUserProfilePage() {
         selectedValues.includes(role._id)
       );
     }
-
+    //To activate the form button
+    setDataModified(true);
     setApplicantFormData((prevData) => ({
       ...prevData,
       [name]: selectedValuesFormatted,
     }));
   };
 
+  // Handling files type fields
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      //To activate the form button
+      setDataModified(true);
+
+      const file = e.target.files[0];
+      setApplicantFormData((prevData) => ({
+        ...prevData,
+        logo: file,
+      }));
+    }
+  };
+
+  const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      //To activate the form button
+      setDataModified(true);
+
+      const file = e.target.files[0];
+      setApplicantFormData((prevData) => ({
+        ...prevData,
+        logo: file,
+      }));
+    }
+  };
+
   // Envio de formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setDataModified(false);
     const photo =
       photoInputRef?.current?.files && photoInputRef.current.files.length > 0
         ? photoInputRef.current.files[0]
@@ -263,14 +299,11 @@ export function EditUserProfilePage() {
   };
 
   useEffect(() => {
-    // if (!loading && !error && offerStatus) {
     if (!loading && !error && successMessage) {
-      // setDatesSaved(true);
       setTimeout(() => {
         setSuccessMessage(null);
-        //setDatesSaved(false);
         navigate('/user');
-      }, 3000); // Hide the messages in 3 sg
+      }, 3000); // Hide the messages in 3 sg and redirect
     }
   }, [loading, error, successMessage, navigate]);
 
@@ -347,9 +380,14 @@ export function EditUserProfilePage() {
               className="applicantphoto"
               accept="image/png, image/jpg, image/jpeg"
               ref={photoInputRef}
+              //To activate the form button
+              onChange={handlePhotoChange}
             />
             <p>
-              {t('forms.actual_photo')}: {`${formApplicantData.photo}`}
+              {t('forms.actual_photo')}:{' '}
+              {typeof formApplicantData.photo === 'string'
+                ? `${formApplicantData.photo}`
+                : '--'}
             </p>
           </li>
           <li>
@@ -360,9 +398,14 @@ export function EditUserProfilePage() {
               className="applicantcv"
               accept="application/pdf"
               ref={cvInputRef}
+              //To activate the form button
+              onChange={handleCvChange}
             />
             <p>
-              {t('forms.actual_cv')}: {`${formApplicantData.cv}`}
+              {t('forms.actual_photo')}:{' '}
+              {typeof formApplicantData.cv === 'string'
+                ? `${formApplicantData.cv}`
+                : '--'}
             </p>
           </li>
           <li>
@@ -427,7 +470,10 @@ export function EditUserProfilePage() {
           </li>
 
           <li>
-            <Button type="submit" disabled={loading || !!error}>
+            <Button
+              type="submit"
+              disabled={loading || !!error || !dataModified}
+            >
               {t('buttons.saveAndFinish')}
             </Button>
           </li>

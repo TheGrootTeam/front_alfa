@@ -18,7 +18,6 @@ import { Link } from 'react-router-dom';
 import { companyInfoSlice } from '../../store/reducers/infoCompanySlice';
 import FormField from '../../components/formElements/formFile';
 import { useNavigate } from 'react-router-dom';
-import { string } from 'yargs';
 
 export function EditCompanyProfilePage() {
   const { t } = useTranslation();
@@ -165,7 +164,7 @@ export function EditCompanyProfilePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setDataModified(false);
     const logo =
       logoInputRef?.current?.files && logoInputRef.current.files.length > 0
         ? logoInputRef.current.files[0]
@@ -216,7 +215,7 @@ export function EditCompanyProfilePage() {
   // Handling logo type fields (file)
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      //////To activate the form button
+      //To activate the form button
       setDataModified(true);
 
       const file = e.target.files[0];
