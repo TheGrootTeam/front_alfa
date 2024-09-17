@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { companyInfoSlice } from '../../store/reducers/infoCompanySlice';
 import FormField from '../../components/formElements/formFile';
 import { useNavigate } from 'react-router-dom';
+import { string } from 'yargs';
 
 export function EditCompanyProfilePage() {
   const { t } = useTranslation();
@@ -40,6 +41,8 @@ export function EditCompanyProfilePage() {
 
   const [formCompanyData, setCompanyFormData] =
     useState<IEditCompanyInfo>(setVariables);
+
+  const [dataModified, setDataModified] = useState(false);
 
   const logoInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -128,6 +131,8 @@ export function EditCompanyProfilePage() {
   // manejo de los campos tipo TEXTO
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    //To activate the form button
+    setDataModified(true);
     setCompanyFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -137,6 +142,8 @@ export function EditCompanyProfilePage() {
   // manejo de los campos tipo TEXTAREA
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    ////To activate the form button
+    setDataModified(true);
     setCompanyFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -148,7 +155,8 @@ export function EditCompanyProfilePage() {
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
+    //To activate the form button
+    setDataModified(true);
     setCompanyFormData((prevData: IEditCompanyInfo) => ({
       ...prevData,
       [name]: value,
@@ -201,9 +209,23 @@ export function EditCompanyProfilePage() {
       setTimeout(() => {
         setSuccessMessage(null);
         navigate('/company');
-      }, 3000); // Hide the messages in 3 sg
+      }, 3000); // Hide the messages in 3 sg and redirect
     }
   }, [loading, error, successMessage, navigate]);
+
+  // Handling logo type fields (file)
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      //////To activate the form button
+      setDataModified(true);
+
+      const file = e.target.files[0];
+      setCompanyFormData((prevData) => ({
+        ...prevData,
+        logo: file,
+      }));
+    }
+  };
 
   return (
     <Layout title={t('titles.companyprofile_edit')} page="editcompanyprofile">
@@ -296,13 +318,21 @@ export function EditCompanyProfilePage() {
               className="companylogo"
               accept="image/png, image/jpg, image/jpeg"
               ref={logoInputRef}
+              //To activate the form button
+              onChange={handleLogoChange}
             />
             <p>
-              {t('forms.actual_photo')}: {`${formCompanyData.logo}`}
+              {t('forms.actual_photo')}:{' '}
+              {typeof formCompanyData.logo === 'string'
+                ? `${formCompanyData.logo}`
+                : '--'}
             </p>
           </li>
           <li>
-            <Button type="submit" disabled={loading || !!error}>
+            <Button
+              type="submit"
+              disabled={loading || !!error || !dataModified}
+            >
               {t('buttons.save_changes')}
             </Button>
           </li>
