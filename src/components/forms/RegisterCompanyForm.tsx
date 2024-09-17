@@ -344,6 +344,7 @@ export function RegisterCompanyForm() {
                   onChange={handleTextChange}
                 />
               </li>
+              <h4>{t('forms.logo')}</h4>
               <li>
                 <FormField
                   type="file"
