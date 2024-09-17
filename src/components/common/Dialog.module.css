@@ -30,7 +30,8 @@
 }
 
 .dialog button {
-  font-family: var(--font-primary);
+  font-family: var(--font-secondary);
+  text-transform: uppercase;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 1rem;
