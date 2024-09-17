@@ -1,3 +1,7 @@
+.h3 {
+  color: var(--accent-light);
+}
+
 /* COMPANY INFO */
 .container {
   position: relative;
@@ -61,11 +65,15 @@ ul {
   .profile__photo img {
     max-width: 300px;
   }
+  .offersResults {
+    width: 100%;
+  }
 }
 
 @media (641px < width < 800px) {
   .container {
     flex-direction: row;
+    flex-wrap: wrap;
     padding: 2rem;
     gap: 2rem;
   }
@@ -75,7 +83,7 @@ ul {
     justify-content: flex-start;
 
     h2 {
-      margin: 0 auto;
+      margin: 1rem auto 0;
       padding: 0;
     }
   }
@@ -85,10 +93,10 @@ ul {
     max-width: 200px;
   }
   .buttons {
-    position: absolute;
-    bottom: 2rem;
-    left: 2rem;
-    width: 200px;
+    flex-basis: 100%;
+  }
+  .offersResults {
+    width: 100%;
   }
 }
 

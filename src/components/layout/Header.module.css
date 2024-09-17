@@ -49,10 +49,12 @@ h1 {
 .nav {
   .mainNav {
     display: flex;
-    gap: 2rem;
     font-family: var(--font-secondary);
+    list-style-type: none;
+    margin: 0;
 
     li {
+      list-style-type: none;
       line-height: 3.5rem;
     }
 
@@ -62,7 +64,7 @@ h1 {
       font-family: var(--font-secondary);
       color: var(--accent-light);
 
-      & button:hover + span {
+      & .logout:hover + span {
         color: var(--accent-alt-light);
       }
     }
@@ -98,7 +100,7 @@ h1 {
       }
     }
 
-    button {
+    .logout > button {
       font-family: var(--font-secondary);
       font-weight: 500;
       color: var(--accent-light);
@@ -273,6 +275,19 @@ h1 {
         }
       }
     }
+  }
+}
+
+@media (max-width: 800px) {
+  .nav .mainNav a,
+  .nav .mainNav button {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .nav .mainNav {
+    gap: 2rem;
   }
 }
 

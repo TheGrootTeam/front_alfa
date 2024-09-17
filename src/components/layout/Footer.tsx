@@ -22,7 +22,10 @@ function Footer() {
             </Link>
           </li>
           <li>
-            <a href="http://" target="_blank">
+            <a
+              href="https://github.com/orgs/TheGrootTeam/repositories"
+              target="_blank"
+            >
               <span className={`material-symbols-outlined ${styles.icon}`}>
                 code
               </span>
