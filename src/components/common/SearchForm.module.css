@@ -30,14 +30,14 @@
     line-height: 4rem;
     padding: 0 1rem;
     border-radius: 0 1rem 1rem 0;
-    background-color: var(--accent);
-    border: 1px solid var(--accent);
+    background-color: var(--accent-light);
+    border: 1px solid var(--accent-light);
     outline: none;
     color: var(--light);
 
     &:hover {
-      background-color: color-mix(in srgb, var(--accent), white 25%);
-      border: 1px solid color-mix(in srgb, var(--accent), white 25%);
+      background-color: color-mix(in srgb, var(--accent), black 10%);
+      border: 1px solid color-mix(in srgb, var(--accent), black 10%);
       cursor: pointer;
     }
 
