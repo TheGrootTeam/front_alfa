@@ -1,14 +1,114 @@
 .listingDetail {
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 4px;
+  border-radius: 1.5rem;
+  background-color: var(--light);
+  padding: 1rem 2rem;
+  justify-content: center;
+  align-items: center;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.listingDetail header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  color: var(--neutral);
+
+  &:hover {
+    h2 {
+      color: var(--accent-alt);
+      text-decoration: none;
+    }
+  }
 }
 
 .listingDetail h2 {
-  margin-top: 0;
+  margin: 0;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 3rem;
 }
 
-.listingDetail p {
-  margin-bottom: 0;
+.listingDetail .date {
+  margin: 0;
+  padding: 0.2rem 0 0 0;
+  font-size: 1.6rem;
+  color: var(--neutral-light);
+  text-align: left;
+}
+
+.listingDetail .description {
+  margin-top: 1rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; /* Limit the text to 2 lines */
+  white-space: normal; /* Allows text to wrap */
+  text-overflow: ellipsis; /* Adds the ellipsis at the end */
+  text-align: left;
+}
+
+.listingDetail h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--neutral-bg);
+  font-family: var(--font-secondary);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  margin: 1rem 0 0 0;
+}
+
+.iconSmall {
+  font-size: 2rem;
+}
+
+.listingDetail footer {
+  display: flex;
+  flex-direction: column;
+  color: var(--neutral-dark);
+  padding-top: 1rem;
+
+  p {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+}
+
+.listingDetail > a:hover {
+  text-decoration: none;
+}
+
+.contactButton {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--accent);
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-end;
+  margin: 1.5rem 0 1rem;
+}
+
+.contactButton:hover {
+  background-color: var(--accent-dark);
+}
+
+@media (min-width: 600px) {
+  .listingDetail footer {
+    flex-direction: row;
+    gap: 1.5rem;
+    padding-top: -;
+  }
 }

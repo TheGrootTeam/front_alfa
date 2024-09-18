@@ -1,30 +1,28 @@
-import './formElements.css';
-
-interface FormInputTextProps {
-  id: string;
-  name: string;
-  value: string;
-  type?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-}
+import { IFormInputTextProps } from '../../utils/interfaces/IFormElements';
+import './formElements.module.css';
 
 export function FormInputText({
+  labelText,
   id,
   name,
   value,
-  type,
+  type = 'text',
   onChange,
-  required,
-}: FormInputTextProps) {
+  readOnly = false,
+  ...props
+}: IFormInputTextProps) {
   return (
-    <input
-      id={id}
-      name={name}
-      type={type ? type : 'text'}
-      value={value}
-      onChange={onChange}
-      required={required}
-    />
+    <>
+      <label htmlFor={id}>{labelText}</label>
+      <input
+        id={id}
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        readOnly={readOnly}
+        {...props}
+      />
+    </>
   );
 }

@@ -1,13 +1,18 @@
+.errorMessage {
+  width: 90%;
+  max-width: 100%;
+}
+
 .form {
-  padding: 2rem;
+  padding: 2rem 0;
   border-radius: 2rem;
-  background-color: var(--bg-color);
-  width: 100%;
-  max-width: 480px;
+  width: 90%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   accent-color: var(--accent);
+  margin: 0 auto;
 }
 
 .form p {
@@ -28,6 +33,11 @@
   }
 }
 
+.form .link {
+  display: flex;
+  justify-content: end;
+}
+
 .form label {
   font-size: 1.6rem;
   line-height: 3rem;
@@ -42,32 +52,66 @@
   line-height: 3rem;
   font-weight: 500;
   min-width: 75%;
-  background-color: var(--neutral-bg);
+  background-color: var(--neutral-min);
   border: none;
   border-radius: 0.5rem;
   padding: 0 0.5rem;
   color: var(--neutral-text);
-  outline: 1px solid var(--neutral-bg);
+  outline: 1px solid var(--neutral-min);
+}
+
+input[type='checkbox'] {
+  -webkit-appearance: none; /* Chrome, Safari */
+  -moz-appearance: none; /* Firefox */
+  appearance: none; /* Standard */
+  cursor: pointer;
+  background-color: var(--neutral-min);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+}
+
+input[type='checkbox']:checked {
+  background-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='rgb(243, 241, 235)' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
 }
 
 .form button {
-  border: 0;
-  border-radius: 0.5rem;
+  border: 2px solid var(--accent-light);
+  border-radius: 1rem;
   line-height: 3.5rem;
-  background-color: var(--color-mid);
-  color: var(--reverse-text-color);
+  background-color: var(--accent-light);
+  color: var(--light);
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s ease-in;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 1.5rem;
+  font-weight: 600;
 
   &:hover {
-    background-color: var(--color-mid-text);
+    background-color: var(--accent);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
   }
 
   &:disabled {
-    background-color: var(--neutral-text);
+    background-color: var(--light);
+    color: var(--neutral);
+    cursor: not-allowed;
+    box-shadow: none;
+    border: 2px solid var(--neutral-light);
   }
 }
 
-@media (min-width: 480px) {
-  .login__form p {
-    flex-direction: row;
+@media (min-width: 640px) {
+  .errorMessage {
+    width: 600px;
+  }
+
+  .form {
+    width: 600px;
   }
 }

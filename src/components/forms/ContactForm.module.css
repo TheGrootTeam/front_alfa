@@ -1,0 +1,79 @@
+:root {
+  accent-color: var(--accent);
+}
+
+.h2 {
+  margin: 0 0 1rem 0;
+  font-family: var(--font-headings);
+}
+
+.subject {
+}
+
+/* Estilos para el formulario */
+.form {
+  width: 100%;
+  /* Asegurarse de que el formulario se ajuste al tamaño del modal */
+}
+
+.form textarea {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  font-weight: 500;
+  width: 100%;
+  height: 150px;
+  background-color: var(--neutral-min);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  color: var(--neutral-text);
+  outline: 1px solid var(--neutral-min);
+}
+
+.form button {
+  border: 2px solid var(--accent-light);
+  border-radius: 1rem;
+  line-height: 3.5rem;
+  background-color: var(--accent-light);
+  color: var(--light);
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.25s ease-in;
+  padding: 0 1.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.form button:hover {
+  background-color: var(--accent-dark);
+  transform: scale(1.02);
+}
+
+.form button:disabled {
+  background-color: var(--neutral-min);
+  cursor: not-allowed;
+}
+
+/* Estilos para el botón de cerrar */
+.closeButton {
+  background-color: var(--accent-light);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  float: right;
+}
+
+.closeButton:hover {
+  background-color: var(--accent-dark);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}

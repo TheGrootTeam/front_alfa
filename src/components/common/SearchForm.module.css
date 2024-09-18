@@ -1,46 +1,202 @@
-.form {
+/* Estilos generales formulario */
+.searchForm {
+  & > div {
+    display: flex;
+  }
+
+  .input {
+    flex-grow: 1;
+    border: 1px solid var(--neutral-min);
+    border-radius: 1rem 0 0 1rem;
+    background-color: var(--light);
+    font-size: 2rem;
+
+    line-height: 4rem;
+    color: var(--neutral-dark);
+    padding: 0 2rem;
+    outline: none;
+
+    &:placeholder {
+      color: var(--neutral-light);
+    }
+
+    &:focus {
+      height: calc(4rem - 2px);
+      border: 1px solid var(--neutral);
+    }
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    line-height: 4rem;
+    padding: 0 1rem;
+    border-radius: 0 1rem 1rem 0;
+    background-color: var(--accent-light);
+    border: 1px solid var(--accent-light);
+    outline: none;
+    color: var(--light);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--accent), black 10%);
+      border: 1px solid color-mix(in srgb, var(--accent), black 10%);
+      cursor: pointer;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Estilos especificos HOME */
+.containerHome {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height: 25dvh;
+  max-height: 300px;
+  width: 100%;
+  background-image: linear-gradient(
+      rgba(28, 32, 33, 0.8),
+      rgba(28, 32, 33, 0.3)
+    ),
+    url('../../assets/home.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+
+  h2 {
+    display: none;
+    font-family: var(--font-headings);
+    font-weight: var(--font-weight-headings);
+    color: var(--light);
+    font-size: 3rem;
+    line-height: 4rem;
+    margin: 0;
+    text-shadow: 0 5px 8px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    opacity: 0.95;
+  }
+}
+
+.homePage {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
   margin: 4rem auto;
-}
+  width: calc(100% - 4rem);
 
-.input {
-  flex-grow: 1;
-  border-radius: 1rem 0 0 1rem;
-  font-size: 2rem;
-  line-height: 4rem;
-  color: var(--neutral);
-  padding: 0 2rem;
-  outline: none;
-  border: 1px solid var(--neutral);
-
-  &:placeholder {
-    color: var(--neutral-light);
-  }
-
-  &:focus {
-    border: 1px solid var(--accent);
+  .input {
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 20px 30px -10px;
   }
 }
 
-.button {
-  line-height: 4rem;
-  padding: 0 1rem;
-  border-radius: 0 1rem 1rem 0;
-  background-color: var(--neutral);
-  border: 1px solid var(--neutral);
-  outline: none;
-  color: var(--light);
+/* Estilos FORMULARIO POR DEFECTO (dashboard) */
+.containerDefault {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
 
-  &:hover {
-    background-color: var(--accent);
-    cursor: pointer;
+.default {
+  width: 100%;
+
+  & > div {
+    display: flex;
   }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  .input {
+    width: 100%;
+    border: 1px solid var(--neutral-bg);
+    border-radius: 1rem 0 0 1rem;
+    background-color: var(--light);
+    font-size: 2rem;
+    line-height: 4rem;
+    color: var(--neutral-dark);
+    padding: 0 2rem;
+    outline: none;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+    &:placeholder {
+      color: var(--neutral-light);
+    }
+
+    &:focus {
+      height: calc(4rem - 2px);
+      border: 1px solid var(--neutral);
+    }
+  }
+}
+
+.results {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: yellow;
+  padding: 2rem;
+}
+
+@media (min-width: 600px) {
+  .homePage {
+    width: 400px;
+    max-width: calc(100% - 4rem);
+    input {
+      width: 400px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .containerHome {
+    height: 30dvh;
+    gap: 1rem;
+    background-image: linear-gradient(
+        rgba(28, 32, 33, 0.7),
+        rgba(28, 32, 33, 0.1)
+      ),
+      url('../../assets/home.jpg');
+    h2 {
+      display: block;
+      font-size: 3.8rem;
+      padding: 0 1rem;
+    }
+  }
+}
+
+@media (min-width: 960px) {
+  .containerHome {
+    height: 45dvh;
+    gap: 2rem;
+  }
+}
+
+@media (max-height: 620px) {
+  .containerHome {
+    height: 15dvh;
+
+    h2 {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  .homePage {
+    input {
+      width: 600px;
+    }
+  }
+
+  .containerHome h2 {
+    font-size: 6rem;
   }
 }

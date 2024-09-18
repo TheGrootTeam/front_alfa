@@ -1,21 +1,63 @@
+import { Link } from 'react-router-dom';
+import { IOfferListingDetail } from '../../utils/interfaces/IOffer';
 import styles from './ListingDetail.module.css';
-import { Button } from '../common/Button';
+import { useTranslation } from 'react-i18next';
+import { formatDate } from '../../utils/utilsDates';
 
-interface ListingProps {
-  id: number;
-  title: string;
-  description: string;
-}
+export function ListingDetail({
+  id,
+  companyOwner,
+  description,
+  internJob,
+  location,
+  // numberApplicants,
+  numberVacancies,
+  position,
+  publicationDate,
+  typeJob,
+}: IOfferListingDetail) {
+  const { t } = useTranslation();
 
-const ListingDetail: React.FC<ListingProps> = ({ id, title, description }) => {
   return (
-    <div className={styles.listing}>
-      <h2>{title}</h2>
-      <p>{description}</p>
-      {/* TODO: Incluir el componente Button en funcion del pefil (company o user) y si el user ha aplicado o no */}
-      <Button onClick={() => {}}>Apply Now</Button>
+    <div className={styles.listingDetail}>
+      <header>
+        <Link to={`/offers/${id}`}>
+          <h2>{position}</h2>
+        </Link>
+        <h3>
+          <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+            group
+          </span>
+          {numberVacancies}{' '}
+          {t('plurals.vacancy', { count: Number(numberVacancies) })}
+        </h3>
+      </header>
+      <div className="content">
+        <p className={styles.date}>
+          {t('gen.published_on')} {formatDate(publicationDate)}
+        </p>
+        <div className={styles.description}>{description}</div>
+      </div>
+      <footer>
+        <p>
+          <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+            domain
+          </span>{' '}
+          {companyOwner.name}
+        </p>
+        <p>
+          <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+            location_on
+          </span>
+          {location}
+        </p>
+        <p>
+          <span className={`material-symbols-outlined ${styles.iconSmall}`}>
+            work
+          </span>{' '}
+          {typeJob} / {internJob}
+        </p>
+      </footer>
     </div>
   );
-};
-
-export default ListingDetail;
+}

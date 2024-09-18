@@ -1,0 +1,25 @@
+.listings {
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 0 4rem;
+
+  .listingsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.h3 {
+  width: 100%;
+  text-align: left;
+}
+
+.emptyMessage {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--error-text);
+  text-align: center;
+  margin: 4rem auto;
+}

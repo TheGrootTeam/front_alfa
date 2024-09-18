@@ -1,31 +1,20 @@
-import './formElements.css';
-
-interface FormRadioButtonProps {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  id: string;
-  name: string;
-  value: string;
-  checked: boolean;
-}
+import { IFormRadioButtonProps } from '../../utils/interfaces/IFormElements';
+import './formElements.module.css';
 
 export function FormRadioButton({
-  onChange,
-  id,
-  name,
-  value,
-  checked,
-}: FormRadioButtonProps) {
+  className,
+  title,
+  arrayOptions,
+}: IFormRadioButtonProps) {
   return (
-    <>
-      <input
-        onChange={onChange}
-        type="radio"
-        id={id}
-        name={name}
-        value={value}
-        checked={checked}
-      />
-      <label htmlFor={id}>{id}</label>
-    </>
+    <div className={className}>
+      <p>{title}</p>
+      {arrayOptions.map(({ labelText, id, ...props }) => (
+        <div key={id}>
+          <label htmlFor={id}>{labelText}</label>
+          <input type="radio" id={id} {...props}></input>
+        </div>
+      ))}
+    </div>
   );
 }

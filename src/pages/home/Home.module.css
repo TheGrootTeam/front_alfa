@@ -1,0 +1,25 @@
+.main {
+  background-color: var(--neutral-min);
+  background: linear-gradient(
+    180deg,
+    rgba(214, 219, 209, 1) 75%,
+    rgba(154, 163, 151, 0.8) 100%
+  );
+
+  flex-grow: 2;
+}
+
+.latest {
+  margin: 3rem auto 1rem;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media only screen and (min-width: 960px) {
+  .latest {
+    margin: 3rem auto 1.5rem;
+    max-width: 1400px;
+  }
+}

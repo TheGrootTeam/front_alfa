@@ -1,17 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
-  --light: #f5f6f3ff;
-  --neutral-bg: #cccaceff;
-  --neutral-light: #aeabb0ff;
-  --neutral: #8f8b92ff;
-  --neutral-dark: #5d585fff;
-  --dark: #211f23ff;
-  --accent-light: #9775e6ff;
-  --accent: #8357ebff;
-  --accent-dark: #5e24e5ff;
+  --light: rgb(244, 249, 240);
+  --neutral-min: rgb(214, 219, 209);
+  --neutral-bg: rgb(184, 191, 180);
+  --neutral-light: rgb(154, 163, 151);
+  --neutral: rgb(105, 113, 108);
+  --neutral-dark: rgb(56, 63, 65);
+  --dark: rgb(28, 32, 33);
+  --dark-alt: rgb(13, 62, 64);
+  --accent-alt-light: rgb(217, 237, 146);
+  --accent-alt: rgb(82, 182, 154);
+  --accent-alt-dark: rgb(51, 132, 117);
+  --accent-light: rgb(42, 165, 183);
+  --accent: rgb(2, 130, 172);
+  --accent-dark: rgb(1, 90, 130);
 
-  font-family: system-ui, Helvetica, Arial, sans-serif;
+  --error-bg: rgb(250, 212, 212);
+  --error: rgb(240, 128, 128);
+  --error-text: rgb(174, 52, 52);
 
-  color-scheme: light;
+  --success-bg: #d4f5b8ff;
+  --success: #b5e48cff;
+  --success-text: #396811ff;
+
+  --font-headings: 'Raleway', sans-serif;
+  --font-weight-headings: 600;
+  --font-style-headings: normal;
+
+  --font-primary: 'Noto Sans', sans-serif;
+  --font-weight-primary: 400;
+  --font-style-primary: normal;
+
+  --font-secondary: 'Noto Sans Mono', monospace;
+  --font-weight-secondary: 500;
+  --font-style-secondary: normal;
+
   background-color: var(--light);
   color: var(--dark);
 
@@ -21,10 +45,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
+body {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-primary);
+  font-style: var(--font-style-primary);
+}
+
+body > div {
+  height: 100dvh;
   width: 100%;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
 }
 
 p {
@@ -37,19 +71,11 @@ a {
   text-decoration: inherit;
 }
 
-a:hover {
-  color: var(--accent-dark);
-  text-decoration: underline;
-}
-
 h1 {
   font-size: 3rem;
   line-height: 5rem;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    background-color: var(--dark);
-    color: var(--light);
-  }
-} */
+.centered {
+  justify-content: center;
+}
