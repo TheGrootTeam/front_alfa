@@ -10,6 +10,11 @@
   }
 }
 
+.h3 {
+  width: 100%;
+  text-align: left;
+}
+
 .emptyMessage {
   width: 100%;
   font-size: 2rem;

@@ -35,6 +35,8 @@
     "dashboardCompany": "Company",
     "add_offer": "Add New Offer",
     "edit_offer": "Edit Offer",
+    "active_offer": "Active Offer",
+    "closed_offer": "Closed Offer",
     "company_public_profile": "Company Data",
     "company_public_offers": "Offers available",
     "main_skills": "Main Skills",
@@ -156,7 +158,8 @@
     "no_user_email": "No user with this email",
     "expired_token": "Expired token, please restart the password renewal process",
     "invalid_token": "Invalid Token",
-    "user_not_found": "User not found"
+    "user_not_found": "User not found",
+    "date_not_available": "Date not available"
   },
   "notifications": {
     "register_success": "User registered successfully",
