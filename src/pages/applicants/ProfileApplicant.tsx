@@ -97,7 +97,11 @@ export function UserProfilePage() {
               </span>
               {ubication}
             </p>
-            <a className={styles.profile__downloadCV} href={cvSRC}>
+            <a
+              className={styles.profile__downloadCV}
+              target="_blank"
+              href={cvSRC}
+            >
               <span className={`material-symbols-outlined ${styles.iconSmall}`}>
                 download
               </span>

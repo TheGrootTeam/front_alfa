@@ -48,7 +48,8 @@
     "error404": "404 error",
     "page_not_found": "Page not found",
     "contact_company": "Contact company",
-    "contact_": "Contact "
+    "contact_": "Contact ",
+    "cv": "Your resume"
   },
   "forms": {
     "section_login": "Log in data",
