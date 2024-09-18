@@ -11,6 +11,7 @@ export const infoProfileApplicantMapped = (
     name: applicant.name,
     lastName: applicant.lastName,
     email: applicant.email,
+    photo: applicant.photo,
     wantedRol: applicant.wantedRol,
     ubication: applicant.ubication,
     cv: applicant.cv,
