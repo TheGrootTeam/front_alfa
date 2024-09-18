@@ -52,26 +52,28 @@ export const ListDashboardOffersCompany: React.FC<
                   <h2>{offer.position}</h2>
                 </Link>
               </header>
-              <h3 className={styles.h3}>
-                {offer.status ? (
-                  <span className={`material-symbols-outlined`}> group </span>
-                ) : (
-                  <span
-                    className={`material-symbols-outlined ${styles.disabled}`}
-                  >
-                    group{' '}
-                  </span>
-                )}
-                <span className={styles.activeOffer}>
+              <div>
+                <h3>
                   {offer.status ? (
-                    t('titles.active_offer')
+                    <span className={`material-symbols-outlined`}> group </span>
                   ) : (
-                    <span className={styles.disabled}>
-                      {t('titles.closed_offer')}
+                    <span
+                      className={`material-symbols-outlined ${styles.disabled}`}
+                    >
+                      group{' '}
                     </span>
                   )}
-                </span>
-              </h3>
+                  <span>
+                    {offer.status ? (
+                      t('titles.active_offer')
+                    ) : (
+                      <span className={styles.disabled}>
+                        {t('titles.closed_offer')}
+                      </span>
+                    )}
+                  </span>
+                </h3>
+              </div>
               <footer>
                 <p className={stylesDetail.date}>
                   <span
@@ -82,7 +84,7 @@ export const ListDashboardOffersCompany: React.FC<
                   <span>
                     {offer.publicationDate
                       ? offer.publicationDate.split('T')[0]
-                      : 'Fecha no disponible'}
+                      : t('errors.date_not_available')}
                   </span>
                 </p>
                 <p>
@@ -98,9 +100,9 @@ export const ListDashboardOffersCompany: React.FC<
           ))}
       </div>
       <Pagination
-        currentPage={currentPage} // La página actual
-        totalPages={totalPages} // El número total de páginas
-        onPageChange={handlePagination} // Función para cambiar de página
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePagination}
       />
     </div>
   );
