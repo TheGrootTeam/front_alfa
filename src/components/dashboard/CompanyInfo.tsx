@@ -68,6 +68,8 @@ export default function CompanyInfo() {
   };
 
   function showInfo() {
+    const logoSRC =
+      `${import.meta.env.VITE_FILE_PATH}/logo/${company.logo}` 
     return (
       <>
         {/* COMPANY PROFILE */}
@@ -75,7 +77,7 @@ export default function CompanyInfo() {
           <header className={styles.info__header}>
             <div className={styles.profile__photo}>
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Logo-imperio-gal%C3%A1ctico.png"
+                src={logoSRC}
                 alt={company.logo}
               />
             </div>

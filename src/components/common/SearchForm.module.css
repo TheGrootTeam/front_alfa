@@ -27,6 +27,8 @@
   }
 
   .button {
+    display: flex;
+    align-items: center;
     line-height: 4rem;
     padding: 0 1rem;
     border-radius: 0 1rem 1rem 0;

@@ -48,7 +48,8 @@
     "error404": "error 404",
     "page_not_found": "Página no encontrada",
     "contact_company": "Contactar empresa",
-    "contact_": "Contactar a "
+    "contact_": "Contactar a ",
+    "cv": "Tu currículum"
   },
   "forms": {
     "section_login": "Datos de autenticación",

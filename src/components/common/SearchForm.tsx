@@ -100,7 +100,7 @@ const SearchForm = () => {
             onClick={handleSearch}
             disabled={loading}
           >
-            <i className="fa fa-search" aria-hidden="true"></i>
+            <span className="material-symbols-outlined">search</span>
           </button>
         </div>
         {loading && <div>Loading...</div>}
