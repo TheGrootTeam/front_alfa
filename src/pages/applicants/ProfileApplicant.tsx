@@ -27,6 +27,7 @@ export function UserProfilePage() {
     email: '',
     wantedRol: [],
     ubication: '',
+    photo: '',
     cv: '',
     skills: [],
     jobType: '',
@@ -41,6 +42,7 @@ export function UserProfilePage() {
     // email,
     wantedRol,
     ubication,
+    photo,
     cv,
     skills,
     jobType,
@@ -65,6 +67,9 @@ export function UserProfilePage() {
     dispatch(uiSlice.actions.resetError());
   };
 
+  const photoSRC = `${import.meta.env.VITE_FILE_PATH}/photo/${photo}` ||`${import.meta.env.VITE_DEFAULT_FILE_URL}`;
+  const cvSRC = `${import.meta.env.VITE_FILE_PATH}/cv/${cv}` ||`${import.meta.env.VITE_DEFAULT_FILE_URL}`;
+
   return (
     <Layout title={t('titles.userprofile')} page="userprofile">
       {loading && <Loader />}
@@ -73,7 +78,7 @@ export function UserProfilePage() {
       )}
       <header className={styles.header}>
         <div className={styles.profile__photo}>
-          <img src="https://i.pravatar.cc/600" alt="" />
+          <img src={photoSRC} alt="" />
         </div>
 
         <div className={styles.profile__data}>
@@ -87,7 +92,7 @@ export function UserProfilePage() {
             </span>
             {ubication}
           </p>
-          <a className={styles.profile__downloadCV} href={cv}>
+          <a className={styles.profile__downloadCV} href={cvSRC}>
             {t('forms.cv_dl_button')}
           </a>
         </div>

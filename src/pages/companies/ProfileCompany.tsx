@@ -56,6 +56,8 @@ export function CompanyProfilePage() {
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
   };
+  const logoSRC =
+      `${import.meta.env.VITE_FILE_PATH}/logo/${logo}`
 
   return (
     <>
@@ -65,7 +67,7 @@ export function CompanyProfilePage() {
           <Notification type="error" message={error} onClick={resetError} />
         )}
         <div>
-          <img src={logo} alt={`Logo ${company}`} />
+          <img src={logoSRC} alt={`Logo ${company}`} />
         </div>
         <h2>{t('titles.company_public_profile')}</h2>
         <p>{`${t('forms.company')}: ${company}`}</p>
