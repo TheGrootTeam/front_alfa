@@ -6,6 +6,7 @@ import { ListDashboardOffersCompanyProps } from '../../utils/interfaces/IOffer';
 import { offerDashboard } from '../../utils/interfaces/IOffer';
 import { useEffect, useState } from 'react';
 import Pagination from '../common/Pagination';
+import { useTranslation } from 'react-i18next';
 
 export const ListDashboardOffersCompany: React.FC<
   ListDashboardOffersCompanyProps
@@ -13,6 +14,7 @@ export const ListDashboardOffersCompany: React.FC<
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const offersPerPage = 5; // NUEVO: Número de ofertas por página
+  const { t } = useTranslation();
 
   useEffect(() => {
     setTotalPages(Math.ceil(publishedOffers.length / offersPerPage));
@@ -50,26 +52,26 @@ export const ListDashboardOffersCompany: React.FC<
                   <h2>{offer.position}</h2>
                 </Link>
               </header>
-              <div>
-                <h3>
+              <h3 className={styles.h3}>
+                {offer.status ? (
+                  <span className={`material-symbols-outlined`}> group </span>
+                ) : (
+                  <span
+                    className={`material-symbols-outlined ${styles.disabled}`}
+                  >
+                    group{' '}
+                  </span>
+                )}
+                <span className={styles.activeOffer}>
                   {offer.status ? (
-                    <span className={`material-symbols-outlined`}> group </span>
+                    t('titles.active_offer')
                   ) : (
-                    <span
-                      className={`material-symbols-outlined ${styles.disabled}`}
-                    >
-                      group{' '}
+                    <span className={styles.disabled}>
+                      {t('titles.closed_offer')}
                     </span>
                   )}
-                  <span>
-                    {offer.status ? (
-                      'Oferta Activa'
-                    ) : (
-                      <span className={styles.disabled}>Oferta Cerrada</span>
-                    )}
-                  </span>
-                </h3>
-              </div>
+                </span>
+              </h3>
               <footer>
                 <p className={stylesDetail.date}>
                   <span

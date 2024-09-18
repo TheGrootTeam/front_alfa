@@ -1,7 +1,207 @@
-@import '../../components/forms/form.module.css';
+/* @import '../../components/forms/form.module.css'; */
 
 .readonly {
   background-color: color-mix(in srgb, var(--accent-light) 15%, transparent);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
+}
+
+:root {
+  accent-color: var(--accent);
+}
+
+.form {
+  width: 96%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form ul {
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+.form li {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  font-weight: 500;
+  min-width: 25%;
+  text-align: left;
+}
+
+.form input[type='text'],
+.form input[type='password'],
+.form input[type='email'] {
+  font-size: 1.5rem;
+  line-height: 3rem;
+  font-weight: 500;
+  background-color: var(--neutral-min);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
+  color: var(--neutral-text);
+  outline: 1px solid var(--neutral-min);
+}
+
+.form input[type='file'] {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+
+label:has(input[type='file']) span {
+  margin-right: 1rem;
+}
+
+.form input[type='file']::file-selector-button {
+  padding: 0.5rem 1rem;
+  background-color: var(--accent-light);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 1.2rem;
+}
+
+.form input[type='file']::file-selector-button:hover {
+  background-color: var(--accent-dark);
+  cursor: pointer;
+}
+
+input[type='checkbox'] + span {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.form select {
+  font-size: 1.5rem;
+  line-height: 3rem;
+  font-weight: 500;
+  color: var(--neutral-text);
+  background-color: var(--neutral-min);
+  border-radius: 0.5rem;
+  outline: none;
+  border: 1px solid var(--neutral-min);
+  padding: 0 0.5rem;
+
+  &:focus {
+    border: 1px solid var(--accent);
+  }
+}
+
+.form select {
+  height: 3rem;
+}
+
+.form select[multiple] {
+  height: 10rem;
+}
+
+.form select[multiple] option:checked,
+.form select[multiple] option[selected] {
+  background-color: var(--accent-light);
+  color: var(--light);
+}
+
+.form textarea {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  font-weight: 500;
+  width: 100%;
+  height: 100px;
+  background-color: var(--neutral-min);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  color: var(--neutral-text);
+  outline: 1px solid var(--neutral-min);
+}
+
+.form button {
+  border: 2px solid var(--accent-light);
+  border-radius: 1rem;
+  line-height: 3.5rem;
+  background-color: var(--accent-light);
+  color: var(--light);
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s ease-in;
+  padding: 0 1.5rem;
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--accent-dark);
+    border: 2px solid var(--accent-dark);
+    transform: scale(1.02);
+  }
+
+  &:disabled {
+    background-color: var(--neutral-min);
+    cursor: not-allowed;
+    box-shadow: none;
+    border: 2px solid var(--neutral);
+    color: var(--neutral-dark);
+  }
+}
+
+.accordionSection h3 {
+  font-size: 1.8rem;
+  line-height: 3rem;
+  text-align: left;
+  cursor: pointer;
+  background-color: color-mix(in srgb, var(--accent-light) 20%, transparent);
+  color: var(--accent);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.iconSmall {
+  font-size: 1.8rem;
+  line-height: 3rem;
+}
+
+.accordionContent {
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 480px) {
+  .form p {
+    flex-direction: row;
+  }
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.checkboxGroup label {
+  font-size: 1.4rem;
+  line-height: 3rem;
+}
+
+/* Correcciones para evitar que las notificaciones de error muestren el boton de cerrar */
+.accordionContent ul li div span,
+.form > div:last-child span {
+  display: none !important;
+}
+
+.formErrorMessage {
+  padding: 0;
 }

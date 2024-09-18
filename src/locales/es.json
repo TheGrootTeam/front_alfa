@@ -35,6 +35,8 @@
     "dashboardCompany": "Compañía",
     "add_offer": "Publicar Nueva Oferta",
     "edit_offer": "Editar Oferta",
+    "active_offer": "Oferta Activa",
+    "closed_offer": "Oferta Cerrada",
     "company_public_profile": "Datos de la empresa",
     "company_public_offers": "Ofertas disponibles",
     "main_skills": "Competencias principales",
@@ -156,7 +158,8 @@
     "no_user_email": "Ningún usuario con este email",
     "expired_token": "Token expirado, reinicie el proceso de renovación de contraseña",
     "invalid_token": "Token no válido",
-    "user_not_found": "Usuario no encontrado"
+    "user_not_found": "Usuario no encontrado",
+    "date_not_available": "Fecha no disponible"
   },
   "notifications": {
     "register_success": "Usuario registrado correctamente",
