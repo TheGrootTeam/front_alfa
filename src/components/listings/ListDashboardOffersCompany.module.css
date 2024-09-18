@@ -9,3 +9,12 @@
     gap: 2rem;
   }
 }
+
+.emptyMessage {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--error-text);
+  text-align: center;
+  margin: 4rem auto;
+}
