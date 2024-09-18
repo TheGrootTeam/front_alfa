@@ -167,7 +167,8 @@
     "password_change_success": "Password changed successfully",
     "data_updated": "Information updated successfully",
     "mail_sending_success": "Mail sent successfully",
-    "email_sended": "Email sent successfully"
+    "email_sended": "Email sent successfully",
+    "empty_message": "There aren't any offers at the moment"
   },
   "dialogs": {
     "logout_message": "Are you sure you want to log out?",
