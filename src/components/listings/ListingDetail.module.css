@@ -37,6 +37,7 @@
   padding: 0.2rem 0 0 0;
   font-size: 1.6rem;
   color: var(--neutral-light);
+  text-align: left;
 }
 
 .listingDetail .description {
@@ -47,6 +48,7 @@
   -webkit-line-clamp: 2; /* Limit the text to 2 lines */
   white-space: normal; /* Allows text to wrap */
   text-overflow: ellipsis; /* Adds the ellipsis at the end */
+  text-align: left;
 }
 
 .listingDetail h3 {
