@@ -45,7 +45,7 @@
 
 ## Descripción del Proyecto
 
-Este es el frontend de la aplicación **InternIT**, una plataforma que conecta empresas con aplicantes de empleo. La aplicación permite a las empresas publicar ofertas de trabajo y a los candidatos postularse y comunicarse con ellas de forma directa. Este frontend está desarrollado utilizando tecnologías modernas como React, Redux y TypeScript, proporcionando una experiencia de usuario rápida y escalable.
+Este es el frontend de la aplicación **InternIT**, una plataforma que conecta empresas con aplicantes para puestos de prácticas. La aplicación permite a las empresas publicar ofertas de prácticas y a los candidatos postularse y comunicarse con dichas empresas de forma directa. Este frontend está desarrollado utilizando tecnologías modernas como React, Redux y TypeScript, proporcionando una experiencia de usuario rápida y escalable.
 
 ## Tecnologías utilizadas
 
@@ -265,7 +265,7 @@ ____
 
 ## Project Description
 
-This is the frontend of the **InternIT** application, a platform that connects companies with job applicants. The application allows companies to post job offers, and candidates can apply and communicate directly with them. This frontend is developed using modern technologies such as React, Redux, and TypeScript, providing a fast and scalable user experience.
+This is the border of the application ** internit **, a platform that connects companies with applying for practical positions.The application allows companies to publish practices and candidates apply and communicate with these companies directly.This border is developed using modern technologies such as React, Redux and TypeScript, providing a fast and scalable user experience.
 
 ## Technologies Used
 
