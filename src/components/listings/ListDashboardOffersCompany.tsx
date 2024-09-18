@@ -31,7 +31,7 @@ export const ListDashboardOffersCompany: React.FC<
         {/* Si no hay ofertas publicadas, mostrar el mensaje */}
         {publishedOffers.length === 0 ? (
           <p className={styles.emptyMessage}>
-            {t('notificacions.empty_message')}
+            {t('notifications.empty_message')}
           </p>
         ) : (
           [...publishedOffers]
