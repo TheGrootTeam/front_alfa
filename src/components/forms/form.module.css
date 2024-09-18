@@ -74,12 +74,32 @@ input[type='checkbox'] + span {
   margin-left: 1rem;
 }
 
-select[multiple] {
+.form select {
+  font-size: 1.5rem;
+  line-height: 3rem;
+  font-weight: 500;
+  color: var(--neutral-text);
+  background-color: var(--neutral-min);
+  border-radius: 0.5rem;
+  outline: none;
+  border: 1px solid var(--neutral-min);
+  padding: 0 0.5rem;
+
+  &:focus {
+    border: 1px solid var(--accent);
+  }
+}
+
+.form select {
+  height: 3rem;
+}
+
+.form select[multiple] {
   height: 10rem;
 }
 
-select[multiple] option:checked,
-select[multiple] option[selected] {
+.form select[multiple] option:checked,
+.form select[multiple] option[selected] {
   background-color: var(--accent-light);
   color: var(--light);
 }
@@ -133,7 +153,7 @@ select[multiple] option[selected] {
   line-height: 3rem;
   text-align: left;
   cursor: pointer;
-  background-color: color-mix(in srgb, var(--accent-light) 25%, transparent);
+  background-color: color-mix(in srgb, var(--accent-light) 20%, transparent);
   color: var(--accent);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;

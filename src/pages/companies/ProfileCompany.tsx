@@ -56,8 +56,7 @@ export function CompanyProfilePage() {
   const resetError = () => {
     dispatch(uiSlice.actions.resetError());
   };
-  const logoSRC =
-      `${import.meta.env.VITE_FILE_PATH}/logo/${logo}`
+  const logoSRC = `${import.meta.env.VITE_FILE_PATH}/logo/${logo}`;
 
   return (
     <>
@@ -66,41 +65,89 @@ export function CompanyProfilePage() {
         {error && (
           <Notification type="error" message={error} onClick={resetError} />
         )}
-        <div>
-          <img src={logoSRC} alt={`Logo ${company}`} />
-        </div>
-        <h2>{t('titles.company_public_profile')}</h2>
-        <p>{`${t('forms.company')}: ${company}`}</p>
-        <p>{`${t('forms.email')}: ${email}`}</p>
-        <p>{`${t('forms.phone')}: ${phone}`}</p>
-        <p>{`${t('forms.industry')}: ${sector.sector}`}</p>
-        <p>{`${t('forms.location')}: ${ubication}`}</p>
-        <p>{`${t('forms.description')}: ${description}`}</p>
-        <h2>{t('titles.company_public_offers')}</h2>
+        <div className={styles.container}>
+          <header className={styles.header}>
+            <div className={styles.profile__photo}>
+              <img src={logoSRC} alt={`Logo ${company}`} />
+            </div>
 
-        {offers && offers.length > 0 ? (
-          <div className={styles.offersList}>
-            {offers.map((offer) => (
-              <div key={offer._id}>
-                <ListingDetail
-                  id={offer._id}
-                  companyOwner={offer.companyOwner}
-                  description={offer.description}
-                  internJob={offer.internJob}
-                  location={offer.location}
-                  numberApplicants={offer.numberApplicants}
-                  numberVacancies={offer.numberVacancies}
-                  publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
-                  position={offer.position}
-                  status={offer.status}
-                  typeJob={offer.typeJob}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>{t('No offers available')}</p>
-        )}
+            <div className={styles.profile__data}>
+              <h2>{company}</h2>
+              <ul>
+                <li>
+                  <span
+                    className={`material-symbols-outlined ${styles.iconSmall}`}
+                  >
+                    alternate_email
+                  </span>
+                  {email}
+                </li>
+                <li>
+                  <span
+                    className={`material-symbols-outlined ${styles.iconSmall}`}
+                  >
+                    call
+                  </span>
+                  {phone}
+                </li>
+                <li>
+                  <span
+                    className={`material-symbols-outlined ${styles.iconSmall}`}
+                  >
+                    domain
+                  </span>
+                  {sector.sector}
+                </li>
+                <li>
+                  <span
+                    className={`material-symbols-outlined ${styles.iconSmall}`}
+                  >
+                    location_on
+                  </span>
+                  {ubication}
+                </li>
+              </ul>
+            </div>
+          </header>
+
+          <section className={styles.profile__details}>
+            <div className={styles.profile__description}>{description}</div>
+            <div className={styles.profile__offers}>
+              <h3 className={styles.h3}>
+                <span
+                  className={`material-symbols-outlined ${styles.iconSmall}`}
+                >
+                  checklist
+                </span>
+                {t('titles.company_public_offers')}
+              </h3>
+
+              {offers && offers.length > 0 ? (
+                <div className={styles.offersList}>
+                  {offers.map((offer) => (
+                    <div key={offer._id}>
+                      <ListingDetail
+                        id={offer._id}
+                        companyOwner={offer.companyOwner}
+                        description={offer.description}
+                        internJob={offer.internJob}
+                        location={offer.location}
+                        numberApplicants={offer.numberApplicants}
+                        numberVacancies={offer.numberVacancies}
+                        publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
+                        position={offer.position}
+                        status={offer.status}
+                        typeJob={offer.typeJob}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p>{t('No offers available')}</p>
+              )}
+            </div>
+          </section>
+        </div>
       </Layout>
     </>
   );
