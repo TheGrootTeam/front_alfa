@@ -1,7 +1,7 @@
 .container {
   position: relative;
   border-radius: 1.5rem;
-  background-color: var(--neutral-bg);
+  background-color: var(--neutral-min);
   display: flex;
 
   & > * {
@@ -16,6 +16,27 @@
   img {
     border-radius: 50%;
     aspect-ratio: 1/1;
+  }
+}
+
+.profile__downloadCV {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-decoration: none;
+  text-align: center;
+  color: var(--light);
+  background-color: var(--accent-light);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  width: 100%;
+  margin: 2rem 0;
+
+  &:hover {
+    background-color: var(--accent);
   }
 }
 

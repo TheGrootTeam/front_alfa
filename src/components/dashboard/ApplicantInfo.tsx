@@ -58,15 +58,15 @@ export default function ApplicantInfo() {
   };
 
   function showInfo() {
+    const photoSRC = `${import.meta.env.VITE_FILE_PATH}/photo/${applicant.photo}`;
+    const cvSRC = `${import.meta.env.VITE_FILE_PATH}/cv/${applicant.cv}`;
+
     return (
       <>
         <div className={styles.container}>
           <header className={styles.info__header}>
             <div className={styles.profile__photo}>
-              <img
-                src="https://previews.123rf.com/images/yupiramos/yupiramos1609/yupiramos160911129/62789324-avatar-cara-hombre-dibujos-animados-hombre-persona-ilustraci%C3%B3n-vectorial.jpg"
-                alt={applicant.photo}
-              />
+              <img src={photoSRC} alt={applicant.photo} />
             </div>
             <h2>{`${applicant.name} ${applicant.lastName}`}</h2>
           </header>
@@ -105,7 +105,19 @@ export default function ApplicantInfo() {
                 </ul>
               </div>
               <p>
-                <span>{t('forms.cv')}:</span> {applicant.cv}
+                <span>{t('titles.cv')}:</span>{' '}
+                <a
+                  className={styles.profile__downloadCV}
+                  target="_blank"
+                  href={cvSRC}
+                >
+                  <span
+                    className={`material-symbols-outlined ${styles.iconSmall}`}
+                  >
+                    download
+                  </span>
+                  {t('forms.cv_dl_button')}
+                </a>
               </p>
               <p>
                 <span>{t('forms.willing_to_relocate')}:</span>{' '}

@@ -271,6 +271,7 @@ export function AboutPage() {
                 estático.
               </div>
             </li>
+
             <li>
               <INext className={styles.icon} />
               <div>
@@ -296,7 +297,8 @@ export function AboutPage() {
           <h3 className={styles.h3}>Backend</h3>
           <ul className={styles.technologies__list}>
             <li>
-              <i className="devicon-nodejs-plain colored"></i>
+              <i className="devicon-nodejs-plain-wordmark colored"></i>
+
               <div>
                 <strong>NODEJS (con TypeScript)</strong> El backend está
                 construido con Node.js utilizando TypeScript para asegurar un
@@ -319,6 +321,14 @@ export function AboutPage() {
               </div>
             </li>
             <li>
+              <i className="devicon-amazonwebservices-plain-wordmark colored"></i>
+              <div>
+                <strong>AMAZON WEB SREVICES</strong> Hemos seleccionado AWS como
+                nuestra plataforma en la nube para garantizar un despliegue
+                escalable, seguro y altamente disponible de nuestra aplicación.
+              </div>
+            </li>
+            <li>
               <span
                 className={`material-symbols-outlined ${styles.materialIcon}`}
               >
@@ -336,6 +346,19 @@ export function AboutPage() {
                 <strong>Base de datos MONGODB</strong> La aplicación se conecta
                 a una base de datos segura y optimizada, garantizando la
                 integridad y disponibilidad de la información.
+              </div>
+            </li>
+            <li>
+              <span
+                className={`material-symbols-outlined ${styles.materialIcon}`}
+              >
+                mail
+              </span>
+              <div>
+                <strong>RESEND</strong> Gracias a Resend, garantizamos una
+                entrega rápida y fiable de nuestros correos electrónicos,
+                mejorando así la experiencia de usuario y fortaleciendo nuestra
+                comunicación.
               </div>
             </li>
           </ul>

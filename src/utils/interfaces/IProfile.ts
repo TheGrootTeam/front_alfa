@@ -77,6 +77,7 @@ export interface IApplicantPublicProfile {
 
 export interface IApplicantPublicProfileMapped {
   id?: string;
+  photo?: string;
   name: string;
   lastName: string;
   ubication: string;
