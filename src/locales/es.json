@@ -167,7 +167,8 @@
     "password_change_success": "Contraseña modificada correctamente",
     "data_updated": "Información actualizada correctamente",
     "mail_sending_success": "Correo enviado con éxito",
-    "email_sended": "Email enviado correctamente"
+    "email_sended": "Email enviado correctamente",
+    "empty_message": "No hay ofertas por el momento"
   },
   "dialogs": {
     "logout_message": "¿Seguro que quieres salir?",

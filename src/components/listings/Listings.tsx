@@ -11,6 +11,7 @@ import Notification from '../common/Notification';
 import { uiSlice } from '../../store/reducers/uiSlice';
 import { useLocation } from 'react-router-dom';
 import Pagination from '../common/Pagination';
+import { t } from 'i18next';
 
 export function Listings() {
   const offers = useSelector(getOffersState);
@@ -48,31 +49,37 @@ export function Listings() {
   function showOffers() {
     return (
       <div className={containerClass}>
-        <div className={styles.listingsContainer}>
-          {offers.map((offer, index) => {
-            const min = currentPage * 10 - 10;
-            const max = currentPage * 10 - 1;
-            if (min <= index && index <= max) {
-              return (
-                <div key={offer.id}>
-                  <ListingDetail
-                    id={offer.id}
-                    companyOwner={offer.companyOwner}
-                    description={offer.description}
-                    internJob={offer.internJob}
-                    location={offer.location}
-                    numberApplicants={offer.numberApplicants}
-                    numberVacancies={offer.numberVacancies}
-                    publicationDate={offer.publicationDate} // Convertir de vuelta a Date si es necesario
-                    position={offer.position}
-                    status={offer.status}
-                    typeJob={offer.typeJob}
-                  />
-                </div>
-              );
-            }
-          })}
-        </div>
+        {offers.length === 0 ? (
+          <p className={styles.emptyMessage}>
+            {t('notifications.empty_message')}
+          </p>
+        ) : (
+          <div className={styles.listingsContainer}>
+            {offers.map((offer, index) => {
+              const min = currentPage * 10 - 10;
+              const max = currentPage * 10 - 1;
+              if (min <= index && index <= max) {
+                return (
+                  <div key={offer.id}>
+                    <ListingDetail
+                      id={offer.id}
+                      companyOwner={offer.companyOwner}
+                      description={offer.description}
+                      internJob={offer.internJob}
+                      location={offer.location}
+                      numberApplicants={offer.numberApplicants}
+                      numberVacancies={offer.numberVacancies}
+                      publicationDate={offer.publicationDate} // Convert back to Date if needed
+                      position={offer.position}
+                      status={offer.status}
+                      typeJob={offer.typeJob}
+                    />
+                  </div>
+                );
+              }
+            })}
+          </div>
+        )}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

@@ -49,6 +49,8 @@
 
 Este es el frontend de la aplicación **InternIT**, una plataforma que conecta empresas con aplicantes para puestos de prácticas. La aplicación permite a las empresas publicar ofertas de prácticas y a los candidatos postularse y comunicarse con dichas empresas de forma directa. Este frontend está desarrollado utilizando tecnologías modernas como React, Redux y TypeScript, proporcionando una experiencia de usuario rápida y escalable.
 
+Podras acceder al repositorio de la parte de backend en este enlace https://github.com/TheGrootTeam/back_alfa ( indispesable para ejecutar la aplicacion)
+
 ## Tecnologías utilizadas
 
 Claro, aquí tienes la sección de tecnologías utilizadas en el **frontend** con los badges y las versiones correspondientes:
@@ -274,6 +276,8 @@ ____
 ## Project Description
 
 This is the border of the application ** internit **, a platform that connects companies with applying for practical positions.The application allows companies to publish practices and candidates apply and communicate with these companies directly.This border is developed using modern technologies such as React, Redux and TypeScript, providing a fast and scalable user experience.
+
+You can access the repository of the backend part in this link https://github.com/thegrootteam/back_alfa (indispensable to execute the application)
 
 ## Technologies Used
 
