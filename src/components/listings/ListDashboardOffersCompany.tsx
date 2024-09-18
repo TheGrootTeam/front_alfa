@@ -28,7 +28,7 @@ export const ListDashboardOffersCompany: React.FC<
   return (
     <div className={styles.listings}>
       <div className={styles.listingsContainer}>
-        {/* Si no hay ofertas publicadas, mostrar el mensaje */}
+        {/*If there are no offers published, display the message*/}
         {publishedOffers.length === 0 ? (
           <p className={styles.emptyMessage}>
             {t('notifications.empty_message')}
@@ -106,11 +106,10 @@ export const ListDashboardOffersCompany: React.FC<
             ))
         )}
       </div>
-      {/* Solo mostrar la paginación si hay ofertas */}
       <Pagination
-        currentPage={currentPage} // La página actual
-        totalPages={totalPages} // El número total de páginas
-        onPageChange={handlePagination} // Función para cambiar de página
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePagination}
       />
     </div>
   );
