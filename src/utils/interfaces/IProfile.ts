@@ -65,6 +65,7 @@ export interface IApplicantPublicProfile {
   lastName: string;
   ubication: string;
   cv: string;
+  photo: string;
   email: string;
   typeJob: string;
   internType: string;
@@ -104,7 +105,7 @@ export interface IEditCompanyInfo {
 }
 
 export interface IEditApplicantInfo {
-  id: string,
+  id: string;
   dniCif: string;
   name: string;
   lastName: string;
