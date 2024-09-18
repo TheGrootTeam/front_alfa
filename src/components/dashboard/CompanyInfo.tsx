@@ -68,18 +68,14 @@ export default function CompanyInfo() {
   };
 
   function showInfo() {
-    const logoSRC =
-      `${import.meta.env.VITE_FILE_PATH}/logo/${company.logo}` 
+    const logoSRC = `${import.meta.env.VITE_FILE_PATH}/logo/${company.logo}`;
     return (
       <>
         {/* COMPANY PROFILE */}
         <div className={styles.container}>
           <header className={styles.info__header}>
             <div className={styles.profile__photo}>
-              <img
-                src={logoSRC}
-                alt={company.logo}
-              />
+              <img src={logoSRC} alt={company.logo} />
             </div>
             <h2>{company.name}</h2>
           </header>
