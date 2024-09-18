@@ -11,6 +11,7 @@
   - [Tecnologías Utilizadas en el Frontend](#tecnologías-utilizadas-en-el-frontend)
   - [Documentación Técnica](#documentación-técnica)
   - [Requisitos Previos](#requisitos-previos)
+    - [Variables de Entorno](#variables-de-entorno)
   - [Instalación y Configuración](#instalación-y-configuración)
   - [Comandos Disponibles](#comandos-disponibles)
   - [Estructura del Proyecto](#estructura-del-proyecto)
@@ -30,6 +31,7 @@
   - [Technologies Used in the Frontend](#technologies-used-in-the-frontend)
   - [Technical Documentation](#technical-documentation)
   - [Prerequisites](#prerequisites)
+    - [Environment variables](#environment-variables)
   - [Installation and Setup](#installation-and-setup)
   - [Available Commands](#available-commands)
   - [Project Structure](#project-structure)
@@ -84,7 +86,11 @@ Antes de comenzar, asegúrate de tener instalados los siguientes software en tu 
 - [Node.js](https://nodejs.org/) (v14.0.0 o superior)
 - [npm](https://www.npmjs.com/) (v6.0.0 o superior)
 
+### Variables de Entorno
 
+VITE_API_URL=http://localhost:3000
+VITE_API_VERSION=v1
+VITE_BASE_URL=http://localhost:3000
 
 ## Instalación y Configuración
 
@@ -231,6 +237,7 @@ ____
   - [Tecnologías Utilizadas en el Frontend](#tecnologías-utilizadas-en-el-frontend)
   - [Documentación Técnica](#documentación-técnica)
   - [Requisitos Previos](#requisitos-previos)
+    - [Variables de Entorno](#variables-de-entorno)
   - [Instalación y Configuración](#instalación-y-configuración)
   - [Comandos Disponibles](#comandos-disponibles)
   - [Estructura del Proyecto](#estructura-del-proyecto)
@@ -250,6 +257,7 @@ ____
   - [Technologies Used in the Frontend](#technologies-used-in-the-frontend)
   - [Technical Documentation](#technical-documentation)
   - [Prerequisites](#prerequisites)
+    - [Environment variables](#environment-variables)
   - [Installation and Setup](#installation-and-setup)
   - [Available Commands](#available-commands)
   - [Project Structure](#project-structure)
@@ -295,12 +303,19 @@ You can find more details about the technologies and modules used in this projec
 - [Redux Toolkit](https://redux-toolkit.js.org/introduction/getting-started)
 - [Vite Documentation](https://vitejs.dev/guide/)
 
+
 ## Prerequisites
 
 Before starting, make sure you have the following software installed on your development environment:
 
 - [Node.js](https://nodejs.org/) (v14.0.0 or higher)
 - [npm](https://www.npmjs.com/) (v6.0.0 or higher)
+
+### Environment variables
+
+VITE_API_URL=http://localhost:3000
+VITE_API_VERSION=v1
+VITE_BASE_URL=http://localhost:3000
 
 ## Installation and Setup
 
